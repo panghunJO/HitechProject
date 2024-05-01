@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.hitechautoworks.auth.dao.UserMapper">
+    <select id="overlappedID" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT user_id
+        FROM tbl_user1
+        WHERE user_id = #{id}
+    </select>
+
+    <insert id="regist" parameterType="com.ohgiraffers.hitechautoworks.auth.dto.UserRegistDTO">
+        INSERT INTO tbl_user1
+        ( user_id, user_pw, user_name, user_email, user_phone, user_role )
+        VALUES
+        ( #{ userid }, #{ pass }, #{ username }, #{ email }, #{ phone }, '일반회원' )
+    </insert>
+
+    <resultMap id="login" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
+        <id property="userCode" column="user_code"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="password" column="user_pw"/>
+        <result property="userRole" column="USER_ROLE"/>
+    </resultMap>
+    <select id="findByUsername" resultMap="login">
+        SELECT *
+        FROM tbl_user1
+        WHERE USER_ID = #{ username }
+    </select>
+</mapper>
