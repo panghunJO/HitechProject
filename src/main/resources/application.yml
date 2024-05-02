@@ -4,6 +4,20 @@ spring:
     url :  jdbc:mysql://localhost:3306/login
     username: ohgiraffers
     password: ohgiraffers
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: realyoon77@gmail.com
+    password: qmrboharwfjphgzb
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 25000
+          starttls:
+            enable: true
+        protocol: smtp
 mybatis:
   mapper-locations: mapper/**/*.xml
+
+

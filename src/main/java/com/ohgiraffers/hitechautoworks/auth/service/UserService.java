@@ -6,6 +6,8 @@ import com.ohgiraffers.hitechautoworks.auth.dao.UserMapper;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserRegistDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ public class UserService  {
         return result;
     }
 
+    @Async
     public int regist(UserRegistDTO registDTO) {
         registDTO.setPass(passwordEncoder.encode(registDTO.getPass()));
         System.out.println("registDTO = " + registDTO);
@@ -47,5 +50,11 @@ public class UserService  {
         } else {
             return null;
         }
+    }
+
+    public int findcheck(int checknumber, int userCode) {
+        int result = userMapper.findcheck(checknumber,userCode);
+
+        return result;
     }
 }

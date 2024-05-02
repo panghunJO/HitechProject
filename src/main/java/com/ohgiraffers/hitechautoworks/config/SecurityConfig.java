@@ -40,9 +40,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( auth -> {
-            auth.requestMatchers("/main","/","/auth/idCheck","/member/login","/member/regist").permitAll();
+            auth.requestMatchers("/main","/","/auth/idCheck","/member/login","/member/regist","/certified/loading").permitAll();
             auth.requestMatchers("/*").hasAnyAuthority(UserRole.ADMIN.getRole());
-            auth.requestMatchers("/employee/*","/customer/*").hasAnyAuthority(UserRole.EMPLOYEE.getRole());
+            auth.requestMatchers("/employee/*").hasAnyAuthority(UserRole.EMPLOYEE.getRole());
             auth.requestMatchers("/customer/*").hasAnyAuthority(UserRole.CUSTOMER.getRole());
             auth.requestMatchers("/certified/*").hasAnyAuthority(UserRole.CERTIFIED.getRole());
             auth.anyRequest().authenticated();
@@ -50,9 +50,9 @@ public class SecurityConfig {
             login.loginPage("/member/login");
             login.usernameParameter("user12");
             login.passwordParameter("pass12");
-//            login.successHandler(new SuccessHandler());
+            login.successHandler(new SuccessHandler());
             login.failureHandler(authFailHandler);
-            login.defaultSuccessUrl("/user/dashboard",true);
+//            login.defaultSuccessUrl("/user/dashboard",true);
         }).logout( logout -> {
             logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
             logout.deleteCookies("JSESSIONID");

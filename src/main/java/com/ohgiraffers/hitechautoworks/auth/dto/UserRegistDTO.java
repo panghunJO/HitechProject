@@ -13,17 +13,19 @@ public class UserRegistDTO {
     private String email;
     @Pattern(regexp = "(01[016789])(\\d{3,4})(\\d{4})", message = "올바른 휴대폰 번호를 입력해주세요")
     private String phone;
+    private int userCheck;
 
     public UserRegistDTO() {
     }
 
-    public UserRegistDTO(String userid, String pass, String cpass, String username, String email, String phone) {
+    public UserRegistDTO(String userid, String pass, String cpass, String username, String email, String phone, int userCheck) {
         this.userid = userid;
         this.pass = pass;
         this.cpass = cpass;
         this.username = username;
         this.email = email;
         this.phone = phone;
+        this.userCheck = userCheck;
     }
 
     public String getUserid() {
@@ -74,6 +76,14 @@ public class UserRegistDTO {
         this.phone = phone;
     }
 
+    public int getUserCheck() {
+        return userCheck;
+    }
+
+    public void setUserCheck(int userCheck) {
+        this.userCheck = userCheck;
+    }
+
     @Override
     public String toString() {
         return "UserRegistDTO{" +
@@ -83,6 +93,7 @@ public class UserRegistDTO {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", userCheck=" + userCheck +
                 '}';
     }
 }

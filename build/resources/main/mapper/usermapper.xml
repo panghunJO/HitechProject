@@ -11,9 +11,9 @@
 
     <insert id="regist" parameterType="com.ohgiraffers.hitechautoworks.auth.dto.UserRegistDTO">
         INSERT INTO tbl_user1
-        ( user_id, user_pw, user_name, user_email, user_phone, user_role )
+        ( user_id, user_pw, user_name, user_email, user_phone, user_role, user_check )
         VALUES
-        ( #{ userid }, #{ pass }, #{ username }, #{ email }, #{ phone }, '일반회원' )
+        ( #{ userid }, #{ pass }, #{ username }, #{ email }, #{ phone }, 'CERTIFIED', #{ userCheck } )
     </insert>
 
     <resultMap id="login" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
@@ -28,4 +28,16 @@
         FROM tbl_user1
         WHERE USER_ID = #{ username }
     </select>
+<!--    <update id="findcheck" parameterType="java.util.Map">-->
+<!--        UPDATE tbl_user1-->
+<!--        SET user_role = 'CUSTOMER'-->
+<!--        WHERE user_code = #{userCode} AND user_check = #{checknumber}-->
+<!--    </update>-->
+
+    <update id="findcheck" parameterType="map">
+        UPDATE tbl_user1
+        SET user_role = 'CUSTOMER'
+        WHERE user_code = #{userCode} AND user_check = #{checknumber}
+    </update>
+
 </mapper>

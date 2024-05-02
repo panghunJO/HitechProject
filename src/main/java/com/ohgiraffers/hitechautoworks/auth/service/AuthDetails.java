@@ -1,8 +1,10 @@
 package com.ohgiraffers.hitechautoworks.auth.service;
 
 import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,12 +13,16 @@ public class AuthDetails implements UserDetails{
 
     private UserDTO loginUserDTO;
 
-    public AuthDetails(UserDTO login) {
-        this.loginUserDTO = login;
+    public AuthDetails(UserDTO loginUserDTO) {
+        this.loginUserDTO = loginUserDTO;
     }
 
     public void setLoginUserDTO(UserDTO loginUserDTO) {
         this.loginUserDTO = loginUserDTO;
+    }
+
+    public UserDTO getLoginUserDTO() {
+        return loginUserDTO;
     }
 
 

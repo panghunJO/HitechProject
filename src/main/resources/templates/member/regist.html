@@ -65,7 +65,7 @@
                 console.log(id);
                 jQuery.ajax({
                     type: "get",
-                    url: "http://localhost:8080/auth/idCheck",
+                    url: "http://192.168.0.51:8080/auth/idCheck",
                     data: { id: id },
                     success: function(data) {
                         if (data == 1) {
@@ -83,23 +83,6 @@
                         }
                     }
                 });
-            });
-            // 비밀번호 확인 필드의 입력 이벤트를 감지하여 비밀번호 일치 여부를 확인합니다.
-            document.getElementById("cpass").addEventListener("input", function() {
-                var password = document.getElementById("signup_password").value;
-                var confirmPassword = document.getElementById("cpass").value;
-                var passwordErrorMessage = document.getElementById("password_error_message");
-                var noCorrectMessage = document.getElementById("nocorrect");
-
-                // 비밀번호와 비밀번호 확인 필드의 값이 같을 때
-                if (password === confirmPassword && password !== "" && confirmPassword !== "") {
-                    passwordErrorMessage.style.display = "none"; // 비밀번호 일치 오류 메시지를 숨깁니다.
-                    noCorrectMessage.style.display = "none"; // 비밀번호가 일치하지 않음 메시지를 숨깁니다.
-                } else {
-                    // 비밀번호와 비밀번호 확인 필드의 값이 다를 때 또는 입력되지 않은 경우
-                    passwordErrorMessage.style.display = "block"; // 비밀번호 일치 오류 메시지를 보여줍니다.
-                    noCorrectMessage.style.display = "block"; // 비밀번호가 일치하지 않음 메시지를 보여줍니다.
-                }
             });
 
             // 첫 번째 비밀번호 필드의 입력 이벤트를 감지하여 비밀번호 일치 여부를 확인합니다.

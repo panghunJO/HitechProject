@@ -1,6 +1,8 @@
 package com.ohgiraffers.hitechautoworks.auth.dto;
 
 import com.ohgiraffers.hitechautoworks.common.UserRole;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
