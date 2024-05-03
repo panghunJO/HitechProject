@@ -6,6 +6,5 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @Configuration
 @ComponentScan("com.ohgiraffers.hitechautoworks")
-@EnableAsync
 public class ContextConfiguration {
 }

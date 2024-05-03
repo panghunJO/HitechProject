@@ -24,19 +24,10 @@ public class AuthController {
         model.addAttribute("message", message);
     }
 
-    //    @GetMapping("/idCheck")
-//    public String overlappedID(@RequestParam String id, Model model) {
-//        System.out.println("id = " + id);
-//        String result = userService.overlappedID(id);
-//        System.out.println("result = " + result);
-//        model.addAttribute("result", result);
-//        return "checkResult"; // 결과를 보여줄 View 이름을 반환
-//    }
     @GetMapping("/idCheck")
     @ResponseBody // 컨트롤러에서 직접 응답을 반환하도록 설정
     public int overlappedID(@RequestParam String id) {
         String result = userService.overlappedID(id);
-        System.out.println(result);
         int result1 = 0;
         if (result != null) {
             result1 = 1;
