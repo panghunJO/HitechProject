@@ -6,22 +6,26 @@ import com.ohgiraffers.hitechautoworks.auth.service.MailService;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @Controller
 public class MainController {
 
+    @Value("${kakao.client_id}")
+    private String client_id;
+
+    @Value("${kakao.redirect_uri}")
+    private String redirect_uri;
+
     private final UserService userService;
     private final MailService mailService;
-
     @Autowired
     public MainController(UserService userService, MailService mailService) {
         this.userService = userService;
@@ -29,7 +33,9 @@ public class MainController {
     }
 
     @GetMapping(value = {"/main", "/", "/login", "member/login"})
-    public String main() {
+    public String main(Model model) {
+        String location = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id="+client_id+"&redirect_uri="+redirect_uri;
+        model.addAttribute("location", location);
         return "/member/login";
     }
 
@@ -84,6 +90,7 @@ public class MainController {
 
         return "redirect:/certified/loading";
     }
+
 
     @GetMapping("/member/regist")
     public String regist() {
