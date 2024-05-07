@@ -2,10 +2,13 @@
 
 package com.ohgiraffers.hitechautoworks.auth.dao;
 
+import com.ohgiraffers.hitechautoworks.auth.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserRegistDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface UserMapper {
@@ -19,4 +22,7 @@ public interface UserMapper {
 //    Integer findcheck(int checknumber, int userCode);
 
     void findcheck(@Param("checknumber") int checknumber, @Param("userId") String userId);
+
+    List<PartDTO> partSearchBtPartName(String partName);
+
 }

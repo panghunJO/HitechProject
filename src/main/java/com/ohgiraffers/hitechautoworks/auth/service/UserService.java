@@ -3,6 +3,7 @@
 package com.ohgiraffers.hitechautoworks.auth.service;
 
 import com.ohgiraffers.hitechautoworks.auth.dao.UserMapper;
+import com.ohgiraffers.hitechautoworks.auth.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserRegistDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -56,5 +58,12 @@ public class UserService  {
         userMapper.findcheck(checknumber,userId);
 
         return 1;
+    }
+
+    public List<PartDTO> partSearchBtPartName(String partName) {
+
+        List<PartDTO> partList = userMapper.partSearchBtPartName(partName);
+
+        return partList;
     }
 }
