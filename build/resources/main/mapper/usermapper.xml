@@ -40,4 +40,17 @@
         WHERE user_id = #{userId} AND user_check = #{checknumber}
     </update>
 
+    <resultMap id="user" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
+        <id property="userCode" column="user_code"/>
+        <id property="userId" column="user_id"/>
+        <id property="password" column="password"/>
+        <id property="userName" column="user_name"/>
+        <id property="userRole" column="user_role"/>
+    </resultMap>
+    <select id="findAllUser" resultMap="user">
+    SELECT
+        *
+        FROM TBL_USER
+    </select>
+
 </mapper>

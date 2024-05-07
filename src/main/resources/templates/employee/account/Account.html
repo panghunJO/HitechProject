@@ -134,24 +134,25 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <table class="table table-bordered">
-                                        <thead>
                                         <tr>
                                             <th scope="col">사원이름</th>
                                             <th scope="col">사원번호</th>
-                                            <th scope="col">소속</th>
-                                            <th scope="col">이메일</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>홍길동</td>
-                                            <td>12345</td>
-                                            <td>S전자</td>
-                                            <td>hong@gmail.com</td>
+                                            <th scope="col">Role</th>
 
                                         </tr>
+
+                                        <tr th:each="user : ${userList}">
+                                            <td th:text="${user.userName}"></td>
+                                            <td th:text="${user.userCode}"></td>
+                                            <td th:text="${user.userRole}"></td>
+                                            <td>
+
+                                                <button id="viewBtn" class="btn btn-light" type="submit" >상세보기</button>
+                                                <!-- 진행 상황 표시 바 코드 생략 -->
+                                            </td>
+                                        </tr>
                                         <!-- 나머지 표의 내용 생략 -->
-                                        </tbody>
+
                                     </table>
                                 </div>
                             </div>
