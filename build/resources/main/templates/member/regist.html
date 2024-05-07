@@ -65,7 +65,7 @@
                 console.log(id);
                 jQuery.ajax({
                     type: "get",
-                    url: "http://192.168.0.51:8080/auth/idCheck",
+                    url: "http://localhost:8080/auth/idCheck",
                     data: { id: id },
                     success: function(data) {
                         if (data == 1) {
