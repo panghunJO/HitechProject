@@ -4,6 +4,8 @@ import com.ohgiraffers.hitechautoworks.auth.service.KakaoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +17,7 @@ import java.util.HashMap;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@PropertySource("application-private.properties")
 public class KakaoLoginController {
 
     @Value("${kakao.client_id}")
