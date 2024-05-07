@@ -17,5 +17,11 @@ public class UserController {
     @GetMapping("/employee/dashboard")
     public void employee() {}
 
+    @GetMapping("/employee/part/part")
+    public void part(){}
+
+    @GetMapping("/employee/part/partAdd")
+    public void partAdd(){}
+
 
 }
