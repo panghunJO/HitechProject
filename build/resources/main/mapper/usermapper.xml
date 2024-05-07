@@ -5,12 +5,12 @@
 <mapper namespace="com.ohgiraffers.hitechautoworks.auth.dao.UserMapper">
     <select id="overlappedID" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT user_id
-        FROM tbl_user1
+        FROM tbl_user
         WHERE user_id = #{id}
     </select>
 
     <insert id="regist" parameterType="com.ohgiraffers.hitechautoworks.auth.dto.UserRegistDTO">
-        INSERT INTO tbl_user1
+        INSERT INTO tbl_user
         ( user_id, user_pw, user_name, user_email, user_phone, user_role, user_check )
         VALUES
         ( #{ userid }, #{ pass }, #{ username }, #{ email }, #{ phone }, 'CERTIFIED', #{ userCheck } )
@@ -25,7 +25,7 @@
     </resultMap>
     <select id="findByUsername" resultMap="login">
         SELECT *
-        FROM tbl_user1
+        FROM tbl_user
         WHERE USER_ID = #{ username }
     </select>
 <!--    <update id="findcheck" parameterType="java.util.Map">-->
@@ -35,9 +35,9 @@
 <!--    </update>-->
 
     <update id="findcheck" parameterType="map">
-        UPDATE tbl_user1
+        UPDATE tbl_user
         SET user_role = 'CUSTOMER'
-        WHERE user_code = #{userCode} AND user_check = #{checknumber}
+        WHERE user_id = #{userId} AND user_check = #{checknumber}
     </update>
 
 </mapper>

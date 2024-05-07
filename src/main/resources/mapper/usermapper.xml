@@ -37,7 +37,7 @@
     <update id="findcheck" parameterType="map">
         UPDATE tbl_user
         SET user_role = 'CUSTOMER'
-        WHERE user_code = #{userCode} AND user_check = #{checknumber}
+        WHERE user_id = #{userId} AND user_check = #{checknumber}
     </update>
 
 </mapper>

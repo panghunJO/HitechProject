@@ -4,6 +4,7 @@ import com.ohgiraffers.hitechautoworks.auth.dto.MailDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserRegistDTO;
 import com.ohgiraffers.hitechautoworks.auth.service.MailService;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -61,20 +63,29 @@ public class MainController {
 //    }
 
     @PostMapping("/member/regist")
-    public String login(@ModelAttribute UserRegistDTO registDTO, Model model, @RequestParam String email, HttpServletResponse response) throws IOException {
+    public String login(@ModelAttribute UserRegistDTO registDTO, Model model, @RequestParam String email, HttpServletResponse response, HttpServletRequest request) throws IOException {
 
         MailDTO mailDTO = new MailDTO();
         mailDTO.setAddress(email);
-        mailDTO.setTitle("회원 인증 코드입니다!!");
+        mailDTO.setTitle("Hitech Autoworks 인증메일입니다.");
         int randomNumber = (int) (Math.random() * 1000000);
         while (randomNumber < 100000) {
             randomNumber = (int) (Math.random() * 1000000);
         }
-        mailDTO.setMessage("인증코드는 " + randomNumber + "입니다!");
+        String content =
+                "나의 APP을 방문해주셔서 감사합니다." + 	//html 형식으로 작성 !
+                        "<br><br>" +
+                        "<a href=\"http://localhost:8080/certified/checkinfo?checknumber=" + randomNumber + "&userId=" + registDTO.getUserid() + "\">인증하기</a>" +
+                        "<br>";
+        mailDTO.setMessage(content);
 
         // 메일 전송을 CompletableFuture로 감싸기
         CompletableFuture<Void> mailSending = CompletableFuture.runAsync(() -> {
-            mailService.check(mailDTO);
+            try {
+                mailService.check(mailDTO);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
         // 메일 전송이 완료된 후에 후속 작업 실행

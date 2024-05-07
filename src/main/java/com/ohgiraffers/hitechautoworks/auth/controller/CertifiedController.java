@@ -26,16 +26,15 @@ public class CertifiedController {
         return "certified/loading";
     }
 
-    @GetMapping("/certified/checkinfo")
-    public void certifiedCheckInfo() {
-    }
 
-    @PostMapping("/certified/checkinfo")
-    public String check(@RequestParam int checknumber) {
-        authUserInfo = new AuthUserInfo();
-        UserDTO userDTO = authUserInfo.getUserDTO();
-        int userCode = userDTO.getUserCode();
-        int result = userService.findcheck(checknumber,userCode);
+
+    @GetMapping("/certified/checkinfo")
+    public String check(@RequestParam int checknumber, @RequestParam String userId) {
+        System.out.println("checknumber = " + checknumber);
+        System.out.println("userId = " + userId);
+//        authUserInfo = new AuthUserInfo();
+//        UserDTO userDTO = authUserInfo.getUserDTO();
+        int result = userService.findcheck(checknumber,userId);
         return "/member/login";
     }
 }

@@ -36,7 +36,7 @@ public class UserService  {
         try {
             result = userMapper.regist(registDTO);
         } catch (Exception e) {
-            e.printStackTrace();        // 예외가 발생 했을 떄, 발생한 위치와 상태를 반환하는 메소드
+            e.printStackTrace();
         }
         return result;
     }
@@ -52,9 +52,9 @@ public class UserService  {
         }
     }
 
-    public int findcheck(int checknumber, int userCode) {
-        int result = userMapper.findcheck(checknumber,userCode);
+    public int findcheck(int checknumber, String userId) {
+        userMapper.findcheck(checknumber,userId);
 
-        return result;
+        return 1;
     }
 }

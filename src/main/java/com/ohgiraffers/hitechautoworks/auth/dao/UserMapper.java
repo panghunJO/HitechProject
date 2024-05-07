@@ -18,5 +18,5 @@ public interface UserMapper {
 
 //    Integer findcheck(int checknumber, int userCode);
 
-    Integer findcheck(@Param("checknumber") int checknumber, @Param("userCode") int userCode);
+    void findcheck(@Param("checknumber") int checknumber, @Param("userId") String userId);
 }

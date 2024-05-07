@@ -25,7 +25,7 @@ public class AuthController {
     }
 
     @GetMapping("/idCheck")
-    @ResponseBody // 컨트롤러에서 직접 응답을 반환하도록 설정
+    @ResponseBody
     public int overlappedID(@RequestParam String id) {
         String result = userService.overlappedID(id);
         int result1 = 0;
