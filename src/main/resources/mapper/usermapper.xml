@@ -40,4 +40,17 @@
         WHERE user_id = #{userId} AND user_check = #{checknumber}
     </update>
 
+    <resultMap id="partReusltMap" type="com.ohgiraffers.hitechautoworks.auth.dto.PartDTO">
+        <id property="partCode" column="part_code"/>
+        <result property="partName" column="part_name"/>
+        <result property="partstock" column="part_stock"/>
+        <result property="partPrice" column="part_price"/>
+    </resultMap>
+
+    <select id="selectPartByCode" resultMap="partReusltMap">
+        SELECT *
+        FROM tbl_part
+        WHERE part_code = #{partCode}
+    </select>
+
 </mapper>
