@@ -120,14 +120,16 @@
     <div class="col-md-12">
       <div class="container" id="content-container">
         <div class="container" id="content">
+            <form action="/employee/part/part" method="post">
           <div class="search">
             <label>부품 이름</label>&nbsp;&nbsp;
-            <input type="text" placeholder="부품이름 입력" class="form-control">
+            <input type="text" name="partName" placeholder="부품이름 입력" class="form-control">
             <label>부품 번호</label>&nbsp;&nbsp;
-            <input type="text" placeholder="부품번호 입력" class="form-control">
+            <input type="text" name="partCode" placeholder="부품번호 입력" class="form-control">
             <img id="img2" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="search icon">
-            <button id="btn" class="btn btn-light" >검색</button>
+            <button  class="btn btn-light" id="btn" type="submit">조회</button>
             <button id="partAdd" class="btn btn-light" onclick="location.href='/employee/part/partAdd'">부품등록</button>
+            </form>
           </div>
           <div class="inner-box">
             <div class="container">
