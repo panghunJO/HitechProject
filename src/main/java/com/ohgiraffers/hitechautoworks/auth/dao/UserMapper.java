@@ -36,5 +36,7 @@ public interface UserMapper {
 
     void modifyPart(String partCode, int partstock, String partName, int partPrice);
 
+    void addPart(int partstock, String partName, int partPrice);
+
 //    List<RepairDTO> findRepairInfo();
 }

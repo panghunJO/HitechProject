@@ -101,4 +101,8 @@ public class UserService  {
     public void modifyPart(String partCode, int partstock, int partPrice, String partName) {
         userMapper.modifyPart(partCode, partstock, partName, partPrice);
     }
+
+    public void addPart(int partstock, int partPrice, String partName) {
+        userMapper.addPart(partstock, partName, partPrice);
+    }
 }

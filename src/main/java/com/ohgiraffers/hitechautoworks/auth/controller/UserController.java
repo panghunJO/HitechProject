@@ -121,8 +121,11 @@ public class UserController {
         return "admin/account/account";
     }
 
-//    @GetMapping("/employee/part/partAdd")
-//    public void pardAdd(){}
+   @PostMapping("/employee/part/partAdd")
+    public String partAdd(@RequestParam String partName, @RequestParam int partstock, @RequestParam int partPrice){
+        userService.addPart(partstock, partPrice, partName);
+       return "/employee/part/part";
+   }
 
 
 

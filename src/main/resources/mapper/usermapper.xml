@@ -101,6 +101,15 @@
         WHERE
             PART_CODE = #{ partCode }
     </update>
+    <insert id="addPart">
+    INSERT INTO tbl_part(part_name, part_stock, part_price)
+    VALUES(
+        #{ partName },
+        #{ partstock },
+        #{ partPrice }
+        )
+
+    </insert>
 
 
 </mapper>
