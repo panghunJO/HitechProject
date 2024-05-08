@@ -116,7 +116,7 @@
     <select id="findUserRes" resultMap="res">
         SELECT *
         FROM tbl_res
-        where res_code = #{resCode}
+        WHERE res_code = #{resCode}
     </select>
 
 </mapper>

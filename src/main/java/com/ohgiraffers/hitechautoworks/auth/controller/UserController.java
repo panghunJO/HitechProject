@@ -95,7 +95,7 @@ public class UserController {
         moder.addAttribute("resList", resList);
         return "customer/res/res";
     }
-    @GetMapping("customer/res/resdetail")
+    @GetMapping("/customer/res/resDetail")
     public void resdetail(@RequestParam int resCode, Model model){
         System.out.println("resCode = "+resCode);
         ResDTO res = userService.findUserRes(resCode);
