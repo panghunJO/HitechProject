@@ -71,4 +71,21 @@ public class UserService  {
         return userMapper.findAllUser();
 
     }
+    public List<PartDTO> selectPartByCode(int partCode) {
+        List<PartDTO> partList = userMapper.selectPartByCode(partCode);
+
+        return partList;
+    }
+
+    public List<PartDTO> selectAllPart() {
+        List<PartDTO> partList = userMapper.selectAllPart();
+
+        return partList;
+    }
+
+    public PartDTO selectpart(int partCode) {
+        PartDTO partDTO = userMapper.selectpart(partCode);
+
+        return partDTO;
+    }
 }
