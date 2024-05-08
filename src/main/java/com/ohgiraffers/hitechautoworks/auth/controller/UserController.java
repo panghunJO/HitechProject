@@ -32,7 +32,10 @@ public class UserController {
     public void employee() {}
 
     @GetMapping("/employee/part/part")
-    public void part(){}
+    public void part(Model model){
+        List<PartDTO> partList = userService.selectAllPart();
+        model.addAttribute("partList", partList);
+    }
 
     @PostMapping("/employee/part/part")
     public void part2(@RequestParam String partName, @RequestParam String partCode,
