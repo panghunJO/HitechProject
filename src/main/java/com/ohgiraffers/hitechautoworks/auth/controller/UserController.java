@@ -1,5 +1,6 @@
 package com.ohgiraffers.hitechautoworks.auth.controller;
 
+import com.ohgiraffers.hitechautoworks.auth.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.RepairDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
