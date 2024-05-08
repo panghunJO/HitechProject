@@ -98,7 +98,25 @@ public class UserService  {
         return partList;
     }
 
+
+    public List<UserDTO> selectPartName(String partName) {
+        return userMapper.selectPart(partName);
+    }
+
+    public List<UserDTO> findUserId(String userId) {
+        List<UserDTO> userList = userMapper.findUserId(userId);
+        return userList;
+    }
+
+
+    public List<UserDTO> findUserCode(String userCode) {
+        List<UserDTO> userList2 = userMapper.findUserCode(userCode);
+        return userList2;
+    }
+
+
     public void modifyPart(String partCode, int partstock, int partPrice, String partName) {
         userMapper.modifyPart(partCode, partstock, partName, partPrice);
     }
+
 }

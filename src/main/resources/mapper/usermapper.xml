@@ -49,6 +49,26 @@
         FROM TBL_USER
     </select>
 
+
+    <update id="findUser" parameterType="map">
+        UPDATE tbl_user
+        SET user_role = 'CUSTOMER'
+        WHERE user_id = #{userId} AND user_check = #{checknumber}
+    </update>
+    <resultMap id="finduser" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
+        <id property="userNo" column="user_no"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="userRole" column="user_role"/>
+    </resultMap>
+    <select id="findOneUser" resultMap="finduser">
+        SELECT
+        *
+        FROM TBL_USER
+        WHERE user_id = #{user_name} AND user_code = #{user_number}
+    </select>
+
         <resultMap id="partReusltMap" type="com.ohgiraffers.hitechautoworks.auth.dto.PartDTO">
         <id property="partCode" column="part_code"/>
         <result property="partName" column="part_name"/>
@@ -88,7 +108,6 @@
         WHERE
              part_name = #{ partName }
     </select>
-    
 
 
     <update id="modifyPart">
@@ -101,6 +120,5 @@
         WHERE
             PART_CODE = #{ partCode }
     </update>
-
 
 </mapper>
