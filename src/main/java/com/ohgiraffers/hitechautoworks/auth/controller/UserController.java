@@ -195,6 +195,18 @@ public class UserController {
         System.out.println("res = " + res);
         model.addAttribute("res", res);
     }
+//    @GetMapping("/employee/part/delete")
+//    public String delete(){
+//
+//        return "/employee/part/partdetail";
+//    }
+    @PostMapping("/employee/part/delete")
+    public String delete(@RequestParam String partCode){
+       userService.deletePart(partCode);
+
+       return "/employee/part/part";
+    }
+
     
 }
 
