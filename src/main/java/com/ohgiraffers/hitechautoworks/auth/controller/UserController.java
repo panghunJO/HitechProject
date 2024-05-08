@@ -175,6 +175,21 @@ public class UserController {
 //    public void pardAdd(){}
 
 
+    @GetMapping("/customer/res/res")
+    public String res(Model moder){
+        List<ResDTO> resList = userService.findAllres();
+        System.out.println("resList = " + resList);
+        moder.addAttribute("resList", resList);
+        return "customer/res/res";
+    }
+    @GetMapping("/customer/res/resDetail")
+    public void resdetail(@RequestParam int resCode, Model model){
+        System.out.println("resCode = "+resCode);
+        ResDTO res = userService.findUserRes(resCode);
+        System.out.println("res = " + res);
+        model.addAttribute("res", res);
+    }
+    
 }
 
 
