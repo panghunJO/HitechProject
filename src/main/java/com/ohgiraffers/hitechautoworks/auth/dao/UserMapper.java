@@ -49,6 +49,8 @@ public interface UserMapper {
 
     void deletePart(String partCode);
 
+    List<ResDTO> findCodeRes(int resCode);
+
 
 //    List<RepairDTO> findRepairInfo();
 }

@@ -132,4 +132,7 @@ public class UserService  {
     public void deletePart(String partCode) {
         userMapper.deletePart(partCode);
     }
+
+    public List<ResDTO> findCodeRes(int resCode) { return userMapper.findCodeRes(resCode);
+    }
 }
