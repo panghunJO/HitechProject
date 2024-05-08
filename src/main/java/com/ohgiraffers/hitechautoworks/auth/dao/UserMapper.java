@@ -31,5 +31,7 @@ public interface UserMapper {
 
     PartDTO selectpart(int partCode);
 
+    List<PartDTO> partSearchBtPartName(String partName);
+
 //    List<RepairDTO> findRepairInfo();
 }
