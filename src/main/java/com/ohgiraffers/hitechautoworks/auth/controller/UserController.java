@@ -88,9 +88,18 @@ public class UserController {
 
     }
 
-
-
-
+    @GetMapping("/admin/account/account")
+    public String accountAd(Model model) {
+        List<UserDTO> userList = userService.findAllUser();
+        System.out.println("userList = " + userList);
+        model.addAttribute("userList", userList);
+        return "admin/account/account";
     }
+
+
+
+
+
+}
 
 
