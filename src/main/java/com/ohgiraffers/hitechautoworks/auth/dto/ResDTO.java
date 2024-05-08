@@ -1,20 +1,22 @@
 package com.ohgiraffers.hitechautoworks.auth.dto;
 
+import java.util.Date;
+
 public class ResDTO {
 
     private int code;
     private String title;
-    private UserDTO userCode;
-    private int option;
-    private int date;
-    private int extra;
+    private UserDTO userDTO;
+    private String option;
+    private Date date;
+    private String extra;
 
     public ResDTO() { }
 
-    public ResDTO(int code, String title, UserDTO userCode, int option, int date, int extra) {
+    public ResDTO(int code, String title, UserDTO userDTO, String option, Date date, String extra) {
         this.code = code;
         this.title = title;
-        this.userCode = userCode;
+        this.userDTO = userDTO;
         this.option = option;
         this.date = date;
         this.extra = extra;
@@ -36,35 +38,35 @@ public class ResDTO {
         this.title = title;
     }
 
-    public UserDTO getUserCode() {
-        return userCode;
+    public UserDTO getUserDTO() {
+        return userDTO;
     }
 
-    public void setUserCode(UserDTO userCode) {
-        this.userCode = userCode;
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 
-    public int getOption() {
+    public String getOption() {
         return option;
     }
 
-    public void setOption(int option) {
+    public void setOption(String option) {
         this.option = option;
     }
 
-    public int getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public int getExtra() {
+    public String getExtra() {
         return extra;
     }
 
-    public void setExtra(int extra) {
+    public void setExtra(String extra) {
         this.extra = extra;
     }
 
@@ -73,7 +75,7 @@ public class ResDTO {
         return "ResDTO{" +
                 "code=" + code +
                 ", title='" + title + '\'' +
-                ", userCode=" + userCode +
+                ", userDTO=" + userDTO +
                 ", option=" + option +
                 ", date=" + date +
                 ", extra=" + extra +

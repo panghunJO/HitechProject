@@ -34,7 +34,23 @@ public interface UserMapper {
 
     List<PartDTO> partSearchBtPartName(String partName);
 
+
+    List<UserDTO> selectPart(String UserName);
+
+    List<UserDTO> findUserId(String userId);
+
+    List<UserDTO> findUserCode(String userCode);
+
     void modifyPart(String partCode, int partstock, String partName, int partPrice);
+
+
+    void addPart(int partstock, String partName, int partPrice);
+
+    List<ResDTO> findAllres();
+
+    ResDTO findUserRes(int resCode);
+
+
 
 //    List<RepairDTO> findRepairInfo();
 }
