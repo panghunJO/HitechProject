@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account</title>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>res_list</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -72,28 +72,6 @@
             white-space: nowrap;
         }
 
-        .table-wrapper {
-            max-height: 300px; /* 스크롤의 최대 높이 설정 */
-            overflow-y: auto; /* 수직 스크롤바 표시 여부 자동 설정 */
-        }
-
-        /* 그 외 테이블 스타일 */
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .table th, .table td {
-            padding: 8px;
-            text-align: center;
-            vertical-align: middle;
-        }
-
-        .table th {
-            background-color: #f2f2f2; /* 헤더 배경색 */
-            font-weight: bold;
-        }
-
     </style>
 </head>
 <body>
@@ -101,7 +79,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="" alt="Logo" ></a>
+            <a class="navbar-brand" href="#"><img src="logo/logo.png" alt="Logo" ></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -120,13 +98,13 @@
                         <a class="nav-link" href="#">계정관리</a>
                     </li>
                 </ul>
-                <p id="username" class="nav-link" th:text="${userName}"></p>
+                <p id="username" class="nav-link" >사용자이름</p>
                 <ul class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="#">마이페이지</a></li>
-                        <li><a class="dropdown-item" href="localhost:8080/logout">로그아웃</a></li>
+                        <li><a class="dropdown-item" href="#">로그아웃</a></li>
                     </ul>
                 </ul>
             </div>
@@ -134,9 +112,9 @@
     </nav>
 
     <div class="container mt-5">
-        <label class="form-label" style="font-size: 20px;">계정관리</label><br><br>
-        <a class="nav-link" href="#">내 정보 조회</a><br>
-        <a class="nav-link" href="#">직원조회</a><br>
+        <label class="form-label" style="font-size: 20px;">수리예약</label><br><br>
+        <a class="nav-link" href="#" style="font-weight: bold;">수리조회</a><br>
+        <a class="nav-link" href="#">수리예약</a><br>
     </div>
 
     <div class="row">
@@ -144,51 +122,50 @@
             <div class="container" id="content-container">
                 <div class="container" id="content">
                     <div class="search">
-                        <label>사원 이름</label>&nbsp;&nbsp;
-                        <input type="text" placeholder="사원이름 입력" class="form-control">
-                        <label>사원 번호</label>&nbsp;&nbsp;
-                        <input type="text" placeholder="사원번호 입력" class="form-control">
+                        <label>에약 번호</label>&nbsp;&nbsp;
+                        <input type="text" placeholder="예약번호 입력" class="form-control">
                         <img id="img2" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="search icon">
                         <button id="btn" class="btn btn-light" >검색</button>
+                        <button id="btn1" class="btn btn-light" >작업등록</button>
                     </div>
                     <div class="inner-box">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="table-wrapper">
-                                        <table class="table table-bordered">
+                                    <table class="table table-bordered">
+                                        <thead>
                                         <tr>
-                                            <th scope="col">사원이름</th>
-                                            <th scope="col">사원번호</th>
-                                            <th scope="col">Role</th>
-
+                                            <th scope="col">예약번호</th>
+                                            <th scope="col">고객이름</th>
+                                            <th scope="col">수리내용</th>
+                                            <th scope="col">진행상황</th>
                                         </tr>
-
-                                        <tr th:each="user : ${userList}">
-                                            <td th:text="${user.userName}"></td>
-                                            <td th:text="${user.userCode}"></td>
-                                            <td th:text="${user.userRole}"></td>
-<!--                                            <td>-->
-
-<!--                                                <button id="viewBtn" class="btn btn-light" type="submit" >상세보기</button>-->
-<!--                                                &lt;!&ndash; 진행 상황 표시 바 코드 생략 &ndash;&gt;-->
-<!--                                            </td>-->
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <button id="viewBtn" class="btn btn-light" type="submit" >상세보기</button>
+                                                <!-- 진행 상황 표시 바 코드 생략 -->
+                                            </td>
                                         </tr>
                                         <!-- 나머지 표의 내용 생략 -->
-
+                                        </tbody>
                                     </table>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-<!--                    <div class="container">-->
-<!--                        <div class="row justify-content-center">-->
-<!--                            <div class="col-md-12 text-center">-->
-<!--                                <button id="nextbtn" class="btn btn-light" type="submit">다음</button>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 text-center">
+                                <button id="nextbtn" class="btn btn-light" type="submit">다음</button>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -224,5 +201,11 @@
         link.classList.add('active');
     }
 </script>
+</body>
+</html>
+</title>
+</head>
+<body>
+
 </body>
 </html>

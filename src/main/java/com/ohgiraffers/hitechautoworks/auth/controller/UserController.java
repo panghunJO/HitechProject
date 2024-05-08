@@ -3,6 +3,7 @@ package com.ohgiraffers.hitechautoworks.auth.controller;
 import com.ohgiraffers.hitechautoworks.auth.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.RepairDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
+import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    private AuthUserInfo authUserInfo;
+
     @GetMapping("/user/dashboard")
     public void dashboard(Model model) {
     }
@@ -32,6 +35,10 @@ public class UserController {
     public void part(Model model){
         List<PartDTO> partList = userService.selectAllPart();
         model.addAttribute("partList", partList);
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
     }
 
     @PostMapping("/employee/part/part")
@@ -60,11 +67,19 @@ public class UserController {
         PartDTO partDTO = userService.selectpart(partCode);
         System.out.println("partDTO = " + partDTO);
         model.addAttribute("partDTO", partDTO);
-
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
     }
 
     @GetMapping("/employee/part/partAdd")
-    public void partAdd(){}
+    public void partAdd(Model model){
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
+    }
 
 //    @GetMapping("/employee/repair/repair")
 //    public void repair(){}
@@ -84,8 +99,11 @@ public class UserController {
         List<UserDTO> userList = userService.findAllUser();
         System.out.println("userList = " + userList);
         model.addAttribute("userList", userList);
-        return "/employee/part/partdetail";
-
+      authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
+        return "employee/account/account";
     }
 
 
@@ -93,13 +111,20 @@ public class UserController {
     public String part(@RequestParam String partName, @RequestParam int partstock, @RequestParam int partPrice, @RequestParam String partCode ){
        userService.modifyPart(partCode, partstock, partPrice, partName);
         return "/employee/part/part";
+    }
 
-
+    @GetMapping("/admin/account/account")
+    public String accountAd(Model model) {
+        List<UserDTO> userList = userService.findAllUser();
+        System.out.println("userList = " + userList);
+        model.addAttribute("userList", userList);
+        return "admin/account/account";
     }
 
 
 
 
-    }
+
+}
 
 
