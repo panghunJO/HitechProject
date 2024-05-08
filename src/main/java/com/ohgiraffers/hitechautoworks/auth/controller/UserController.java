@@ -46,9 +46,11 @@ public class UserController {
             List<PartDTO> partList = userService.selectPartByCode(Integer.parseInt(partCode));
             System.out.println("partList = " + partList);
             model.addAttribute("partList", partList);
-        } else 
-
-
+        } else  {
+            List<PartDTO> partList = userService.partSearchBtPartName(partName);
+            System.out.println("partList = " + partList);
+             model.addAttribute("partList", partList);
+        }
     }
 
     @GetMapping("/employee/part/partdetail")
