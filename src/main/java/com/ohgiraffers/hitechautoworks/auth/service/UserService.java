@@ -3,10 +3,7 @@
 package com.ohgiraffers.hitechautoworks.auth.service;
 
 import com.ohgiraffers.hitechautoworks.auth.dao.UserMapper;
-import com.ohgiraffers.hitechautoworks.auth.dto.PartDTO;
-import com.ohgiraffers.hitechautoworks.auth.dto.RepairDTO;
-import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
-import com.ohgiraffers.hitechautoworks.auth.dto.UserRegistDTO;
+import com.ohgiraffers.hitechautoworks.auth.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -103,14 +100,14 @@ public class UserService  {
         return userMapper.selectPart(partName);
     }
 
-    public List<UserDTO> findUserId(String userId) {
-        List<UserDTO> userList = userMapper.findUserId(userId);
+    public List<UserDTO> findUserCode(String userCode) {
+        List<UserDTO> userList = userMapper.findUserCode(userCode);
         return userList;
     }
 
 
-    public List<UserDTO> findUserCode(String userCode) {
-        List<UserDTO> userList2 = userMapper.findUserCode(userCode);
+    public List<UserDTO> findUserName(String userName) {
+        List<UserDTO> userList2 = userMapper.findUserName(userName);
         return userList2;
     }
 

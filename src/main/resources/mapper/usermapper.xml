@@ -50,11 +50,11 @@
     </select>
 
 
-    <update id="findUser" parameterType="map">
-        UPDATE tbl_user
-        SET user_role = 'CUSTOMER'
-        WHERE user_id = #{userId} AND user_check = #{checknumber}
-    </update>
+    <select id="findUserCode" resultMap="user">
+        SELECT * from tbl_user
+        where user_code = #{userCode}
+    </select>
+
     <resultMap id="finduser" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
         <id property="userNo" column="user_no"/>
         <result property="userId" column="user_id"/>
@@ -62,11 +62,11 @@
         <result property="password" column="password"/>
         <result property="userRole" column="user_role"/>
     </resultMap>
-    <select id="findOneUser" resultMap="finduser">
+    <select id="findUserName" resultMap="user">
         SELECT
         *
         FROM TBL_USER
-        WHERE user_id = #{user_name} AND user_code = #{user_number}
+        WHERE user_name = #{userName}
     </select>
 
         <resultMap id="partReusltMap" type="com.ohgiraffers.hitechautoworks.auth.dto.PartDTO">
