@@ -106,7 +106,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9">
-                                <form action="/employee/part/partdetail" method="post">
+                                <form id="actionForm" method="post">
                                     <div class="row mb-3">
                                         <label for="partNumber" class="col-sm-4 col-form-label text-end">부품 번호</label>
                                         <div class="col-sm-8">
@@ -134,8 +134,8 @@
                                     <div class="row">
                                         <div class="col text-end">
 
-                                            <button type="submit" class="btn btn-modify ">수정</button>
-                                            <button type="button" class="btn btn-modify ">삭제</button>
+                                            <button type="submit" class="btn btn-modify" onclick="modifypart()">수정</button>
+                                            <button type="button" class="btn btn-modify" onclick="deletepart()">삭제</button>
 
                                         </div>
                                     </div>
@@ -175,6 +175,16 @@
 
         // 클릭한 링크에 'active' 클래스 추가
         link.classList.add('active');
+    }
+
+    function modifypart() {
+        document.getElementById("actionForm").action = "/employee/part/partdetail";
+        document.getElementById("actionForm").submit();
+    }
+
+    function deletepart(){
+        document.getElementById("actionForm").action = "/employee/part/delete";
+        document.getElementById("actionForm").submit();
     }
 </script>
 </body>
