@@ -35,18 +35,20 @@ public class UserController {
 
     @PostMapping("/employee/part/part")
     public void part2(@RequestParam String partName, @RequestParam String partCode,
-                      Model model){
+                      Model model) {
         System.out.println("partName = " + partName);
         System.out.println("partCode = " + partCode);
-        if (partName == "" && partCode == ""){
+        if (partName == "" && partCode == "") {
             List<PartDTO> partList = userService.selectAllPart();
             model.addAttribute("partList", partList);
             System.out.println("partList = " + partList);
-        } else {
+        } else if (partName == "") {
             List<PartDTO> partList = userService.selectPartByCode(Integer.parseInt(partCode));
-        System.out.println("partList = " + partList);
-        model.addAttribute("partList", partList);
-        }
+            System.out.println("partList = " + partList);
+            model.addAttribute("partList", partList);
+        } else 
+
+
     }
 
     @GetMapping("/employee/part/partdetail")
