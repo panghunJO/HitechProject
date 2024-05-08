@@ -101,7 +101,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="logo/logo.png" alt="Logo" ></a>
+            <a class="navbar-brand" href="#"><img src="" alt="Logo" ></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -120,13 +120,13 @@
                         <a class="nav-link" href="#">계정관리</a>
                     </li>
                 </ul>
-                <p id="username" class="nav-link" >사용자이름</p>
+                <p id="username" class="nav-link" th:text="${userName}"></p>
                 <ul class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="#">마이페이지</a></li>
-                        <li><a class="dropdown-item" href="#">로그아웃</a></li>
+                        <li><a class="dropdown-item" href="localhost:8080/logout">로그아웃</a></li>
                     </ul>
                 </ul>
             </div>
