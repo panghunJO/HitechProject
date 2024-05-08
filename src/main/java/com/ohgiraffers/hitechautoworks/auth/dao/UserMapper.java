@@ -25,5 +25,11 @@ public interface UserMapper {
 
     List<UserDTO> findAllUser();
 
+    List<PartDTO> selectPartByCode(int partCode);
+
+    List<PartDTO> selectAllPart();
+
+    PartDTO selectpart(int partCode);
+
 //    List<RepairDTO> findRepairInfo();
 }
