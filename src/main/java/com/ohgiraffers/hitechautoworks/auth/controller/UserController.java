@@ -1,5 +1,6 @@
 package com.ohgiraffers.hitechautoworks.auth.controller;
 
+import com.ohgiraffers.hitechautoworks.auth.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.RepairDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
@@ -87,9 +88,18 @@ public class UserController {
 
     }
 
-
-
-
+    @GetMapping("/admin/account/account")
+    public String accountAd(Model model) {
+        List<UserDTO> userList = userService.findAllUser();
+        System.out.println("userList = " + userList);
+        model.addAttribute("userList", userList);
+        return "admin/account/account";
     }
+
+
+
+
+
+}
 
 

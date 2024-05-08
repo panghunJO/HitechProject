@@ -38,18 +38,26 @@
     </update>
     <resultMap id="user" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
         <id property="userCode" column="user_code"/>
-        <id property="userId" column="user_id"/>
-        <id property="password" column="password"/>
-        <id property="userName" column="user_name"/>
-        <id property="userRole" column="user_role"/>
+        <result property="userId" column="user_id"/>
+        <result property="password" column="password"/>
+        <result property="userName" column="user_name"/>
+        <result property="userRole" column="user_role"/>
     </resultMap>
     <select id="findAllUser" resultMap="user">
-    SELECT
+        SELECT
         *
         FROM TBL_USER
     </select>
 
+    <!-- 일부 검색 진행중 -->
+    <resultMap id="userone" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
+    <id property="userCode" column="user_code"/>
+
 </mapper>
+
+
+
+
         <resultMap id="partReusltMap" type="com.ohgiraffers.hitechautoworks.auth.dto.PartDTO">
         <id property="partCode" column="part_code"/>
         <result property="partName" column="part_name"/>

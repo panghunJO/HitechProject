@@ -2,6 +2,7 @@
 
 package com.ohgiraffers.hitechautoworks.auth.dao;
 
+import com.ohgiraffers.hitechautoworks.auth.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.RepairDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserRegistDTO;
