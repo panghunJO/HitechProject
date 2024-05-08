@@ -84,7 +84,16 @@ public class UserController {
         List<UserDTO> userList = userService.findAllUser();
         System.out.println("userList = " + userList);
         model.addAttribute("userList", userList);
-        return "employee/account/account";
+        return "/employee/part/partdetail";
+
+    }
+
+
+    @PostMapping("/employee/part/partdetail")
+    public String part(@RequestParam String partName, @RequestParam int partstock, @RequestParam int partPrice, @RequestParam String partCode ){
+       userService.modifyPart(partCode, partstock, partPrice, partName);
+        return "/employee/part/part";
+
 
     }
 

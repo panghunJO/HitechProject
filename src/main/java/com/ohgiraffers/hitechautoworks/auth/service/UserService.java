@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
 import java.util.Objects;
@@ -95,5 +96,9 @@ public class UserService  {
         List<PartDTO> partList = userMapper.partSearchBtPartName(partName);
 
         return partList;
+    }
+
+    public void modifyPart(String partCode, int partstock, int partPrice, String partName) {
+        userMapper.modifyPart(partCode, partstock, partName, partPrice);
     }
 }
