@@ -43,6 +43,10 @@ public interface UserMapper {
 
     void modifyPart(String partCode, int partstock, String partName, int partPrice);
 
+    List<ResDTO> findAllres();
+
+    ResDTO findUserRes(int resCode);
+
 
 //    List<RepairDTO> findRepairInfo();
 }
