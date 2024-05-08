@@ -8,14 +8,12 @@
         FROM tbl_user
         WHERE user_id = #{id}
     </select>
-
     <insert id="regist" parameterType="com.ohgiraffers.hitechautoworks.auth.dto.UserRegistDTO">
         INSERT INTO tbl_user
         ( user_id, user_pw, user_name, user_email, user_phone, user_role, user_check )
         VALUES
         ( #{ userid }, #{ pass }, #{ username }, #{ email }, #{ phone }, 'CERTIFIED', #{ userCheck } )
     </insert>
-
     <resultMap id="login" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
         <id property="userCode" column="user_code"/>
         <result property="userId" column="USER_ID"/>
@@ -33,13 +31,11 @@
 <!--        SET user_role = 'CUSTOMER'-->
 <!--        WHERE user_code = #{userCode} AND user_check = #{checknumber}-->
 <!--    </update>-->
-
     <update id="findcheck" parameterType="map">
         UPDATE tbl_user
         SET user_role = 'CUSTOMER'
         WHERE user_id = #{userId} AND user_check = #{checknumber}
     </update>
-
     <resultMap id="user" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
         <id property="userCode" column="user_code"/>
         <id property="userId" column="user_id"/>
@@ -52,5 +48,58 @@
         *
         FROM TBL_USER
     </select>
+        <resultMap id="partReusltMap" type="com.ohgiraffers.hitechautoworks.auth.dto.PartDTO">
+        <id property="partCode" column="part_code"/>
+        <result property="partName" column="part_name"/>
+        <result property="partstock" column="part_stock"/>
+        <result property="partPrice" column="part_price"/>
+    </resultMap>
+
+    <select id="selectPartByCode" resultMap="partReusltMap">
+        SELECT *
+        FROM tbl_part
+        WHERE part_code = #{partCode}
+    </select>
+
+    <select id="selectAllPart" resultMap="partReusltMap">
+        SELECT *
+        FROM tbl_part
+    </select>
+
+    <select id="selectpart" resultMap="partReusltMap">
+        SELECT *
+        FROM tbl_part
+        where part_code = #{partCode}
+    </select>
+
+<resultMap id="partResult" type="com.ohgiraffers.hitechautoworks.auth.dto.PartDTO">
+        <id property="partCode" column="PART_CODE"/>
+        <result property="partName" column="PART_NAME"/>
+        <result property="partstock" column="PART_STOCK"/>
+        <result property="partPrice" column="PART_PRICE"/>
+
+    </resultMap>
+    <select id="partSearchBtPartName" resultMap="partResult">
+        SELECT
+              *
+        FROM
+            tbl_part
+        WHERE
+             part_name = #{ partName }
+    </select>
+    
+
+
+    <update id="modifyPart">
+        UPDATE
+            tbl_part
+        SET
+            PART_NAME = #{  partName },
+            PART_STOCK= #{ partstock },
+            PART_PRICE = #{ partPrice }
+        WHERE
+            PART_CODE = #{ partCode }
+    </update>
+
 
 </mapper>

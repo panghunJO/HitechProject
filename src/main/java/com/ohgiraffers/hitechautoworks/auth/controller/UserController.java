@@ -99,12 +99,18 @@ public class UserController {
         List<UserDTO> userList = userService.findAllUser();
         System.out.println("userList = " + userList);
         model.addAttribute("userList", userList);
-        authUserInfo = new AuthUserInfo();
+      authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         String userName = userDTO.getUserName();
         model.addAttribute("userName",userName);
         return "employee/account/account";
+    }
 
+
+    @PostMapping("/employee/part/partdetail")
+    public String part(@RequestParam String partName, @RequestParam int partstock, @RequestParam int partPrice, @RequestParam String partCode ){
+       userService.modifyPart(partCode, partstock, partPrice, partName);
+        return "/employee/part/part";
     }
 
     @GetMapping("/admin/account/account")
