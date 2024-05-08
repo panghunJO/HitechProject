@@ -163,6 +163,12 @@
         FROM tbl_res
         WHERE res_code = #{resCode}
     </select>
+    <delete id="deletePart">
+        DELETE FROM
+                    tbl_part
+        WHERE
+             part_code = #{ partCode }
+    </delete>
 
 
 </mapper>
