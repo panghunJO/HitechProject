@@ -49,15 +49,6 @@
         FROM TBL_USER
     </select>
 
-    <!-- 일부 검색 진행중 -->
-    <resultMap id="userone" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
-    <id property="userCode" column="user_code"/>
-
-</mapper>
-
-
-
-
         <resultMap id="partReusltMap" type="com.ohgiraffers.hitechautoworks.auth.dto.PartDTO">
         <id property="partCode" column="part_code"/>
         <result property="partName" column="part_name"/>
