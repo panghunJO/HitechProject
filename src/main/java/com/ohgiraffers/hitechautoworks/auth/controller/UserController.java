@@ -131,52 +131,31 @@ public class UserController {
    }
 
 
-//    @PostMapping("/employee/account/account")
-//    public void account2(@RequestParam String userId, @RequestParam String user_code, Model model) {
-//        System.out.println("userId = " + userId);
-//        System.out.println("user_code = " + user_code);
-//
-//        if(userId == "" && user_code == "") {
-//            List<UserDTO> userList = userService.findAllUser();
-//            model.addAttribute("userList", userList);
-//            System.out.println("userList = " + userList);
-//
-//        } else if (userId == "") {
-//            List<UserDTO> userList = userService.findUserId(String.valueOf(Integer.parseInt(user_code));
-//            System.out.println("userList = " + userList);
-//            model.addAttribute("userList", userList);
-//
-//        } else {
-//            List<UserDTO> userList = userService.findUserCode(userName);
-//            System.out.println("userList = " + userList);
-//            model.addAttribute("userList", userList);
-//        }
-//
-//    }
-//
-//}
     @PostMapping("/employee/account/account")
-    public void account2(@RequestParam String userId, @RequestParam String user_code, Model model) {
-        System.out.println("userId = " + userId);
-        System.out.println("user_code = " + user_code);
+    public void account2(@RequestParam String userName, @RequestParam String userCode, Model model) {
+        System.out.println("userName = " + userName);
+        System.out.println("user_code = " + userCode);
 
-        if (userId.equals("") && user_code.equals("")) {
+        if(userName == "" && userCode == "") {
             List<UserDTO> userList = userService.findAllUser();
             model.addAttribute("userList", userList);
             System.out.println("userList = " + userList);
 
-        } else if (userId.equals("")) {
-            if (!user_code.equals("")) {
-                List<UserDTO> userList = userService.findUserId(user_code);
-                System.out.println("userList = " + userList);
-                model.addAttribute("userList", userList);
-            } else {
-                // handle the case where user_code is empty
-            }
+        } else if (userName == "") {
+            List<UserDTO> userList = userService.findUserCode(userCode);
+            System.out.println("userList = " + userList);
+            model.addAttribute("userList", userList);
+
         } else {
-            // handle the case where userId is not empty
+            List<UserDTO> userList = userService.findUserName(userName);
+            System.out.println("userList = " + userList);
+            model.addAttribute("userList", userList);
         }
+
     }
+
+
+
 
 //    @GetMapping("/employee/part/partAdd")
 //    public void pardAdd(){}
