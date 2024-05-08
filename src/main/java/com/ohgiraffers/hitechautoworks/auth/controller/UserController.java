@@ -174,7 +174,15 @@ public class UserController {
         System.out.println("res = " + res);
         model.addAttribute("res", res);
     }
-//    @GetMapping("/employee/part/delete")
+    @PostMapping("/customer/res/res")
+    public void res1(@RequestParam int resCode, Model model){
+        System.out.println("resCode = " + resCode);
+        List<ResDTO> resList = userService.findCodeRes(resCode);
+        System.out.println("resList = " + resList);
+        model.addAttribute("resList", resList);
+
+    }
+    //    @GetMapping("/employee/part/delete")
 //    public String delete(){
 //
 //        return "/employee/part/partdetail";

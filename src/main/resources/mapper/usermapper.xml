@@ -163,6 +163,21 @@
         FROM tbl_res
         WHERE res_code = #{resCode}
     </select>
+
+    <select id="findCodeRes" resultMap="res">
+        SELECT
+            a.res_code,
+            a.res_title,
+            a.res_option,
+            a.res_date,
+            a.res_extra,
+            b.user_name
+        FROM tbl_res a
+        JOIN tbl_user b ON (a.user_code = b.user_code)
+        WHERE a.res_code = #{code}
+    </select>
+
+
     <delete id="deletePart">
         DELETE FROM
                     tbl_part

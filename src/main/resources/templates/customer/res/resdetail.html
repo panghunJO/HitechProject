@@ -105,7 +105,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9">
-                                <form>
+                                <form id="actionForm" method="POST" >
                                     <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label text-end">예약번호</label>
                                         <div class="col-sm-8">
@@ -127,8 +127,8 @@
                                     <div class="row">
                                         <div class="col text-end">
 
-                                            <button type="button" class="btn btn-modify ">수정</button>
-                                            <button type="button" class="btn btn-modify ">삭제</button>
+                                            <button type="button" class="btn btn-modify " onclick="updateItem()">수정</button>
+                                            <button type="button" class="btn btn-modify " onclick="deleteItem()">삭제</button>
 
                                         </div>
                                     </div>
@@ -216,6 +216,22 @@
         // 클릭한 링크에 'active' 클래스 추가
         link.classList.add('active');
     }
+    // 수정하기 버튼을 클릭했을 때 실행되는 함수
+    function updateItem() {
+        // 폼 요소의 action 속성 변경
+        document.getElementById("actionForm").action = "/update";
+        // 폼을 서버로 전송
+        document.getElementById("actionForm").submit();
+    }
+
+    // 삭제하기 버튼을 클릭했을 때 실행되는 함수
+    function deleteItem() {
+        // 폼 요소의 action 속성 변경
+        document.getElementById("actionForm").action = "/delete";
+        // 폼을 서버로 전송
+        document.getElementById("actionForm").submit();
+    }
+
 </script>
 </body>
 </html>
