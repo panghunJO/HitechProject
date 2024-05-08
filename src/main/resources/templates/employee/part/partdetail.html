@@ -110,25 +110,25 @@
                                     <div class="row mb-3">
                                         <label for="partNumber" class="col-sm-4 col-form-label text-end">부품 번호</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="partNumber" value="10203011">
+                                            <input type="text" class="form-control" id="partNumber" th:value="${partDTO.partCode}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label for="partName" class="col-sm-4 col-form-label text-end">부품 이름</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="partName" value="엔진오일">
+                                            <input type="text" class="form-control" id="partName" th:value="${partDTO.partName}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label for="partQuantity" class="col-sm-4 col-form-label text-end">부품 수량</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="partQuantity" value="152">
+                                            <input type="text" class="form-control" id="partQuantity" th:value="${partDTO.partstock}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label for="partPrice" class="col-sm-4 col-form-label text-end">부품 가격</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="partPrice" value="100,000원">
+                                            <input type="text" class="form-control" id="partPrice" th:value="${partDTO.partPrice}">
                                         </div>
                                     </div>
                                     <div class="row">
