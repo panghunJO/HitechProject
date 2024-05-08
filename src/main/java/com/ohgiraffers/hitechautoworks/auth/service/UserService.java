@@ -88,4 +88,11 @@ public class UserService  {
 
         return partDTO;
     }
+
+    public List<PartDTO> partSearchBtPartName(String partName) {
+
+        List<PartDTO> partList = userMapper.partSearchBtPartName(partName);
+
+        return partList;
+    }
 }
