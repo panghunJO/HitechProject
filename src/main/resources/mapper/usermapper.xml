@@ -49,6 +49,26 @@
         FROM TBL_USER
     </select>
 
+
+    <update id="findUser" parameterType="map">
+        UPDATE tbl_user
+        SET user_role = 'CUSTOMER'
+        WHERE user_id = #{userId} AND user_check = #{checknumber}
+    </update>
+    <resultMap id="finduser" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
+        <id property="userNo" column="user_no"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="userRole" column="user_role"/>
+    </resultMap>
+    <select id="findOneUser" resultMap="finduser">
+        SELECT
+        *
+        FROM TBL_USER
+        WHERE user_id = #{user_name} AND user_code = #{user_number}
+    </select>
+
         <resultMap id="partReusltMap" type="com.ohgiraffers.hitechautoworks.auth.dto.PartDTO">
         <id property="partCode" column="part_code"/>
         <result property="partName" column="part_name"/>
@@ -88,7 +108,6 @@
         WHERE
              part_name = #{ partName }
     </select>
-    
 
 
     <update id="modifyPart">
@@ -101,6 +120,7 @@
         WHERE
             PART_CODE = #{ partCode }
     </update>
+
     <insert id="addPart">
     INSERT INTO tbl_part(part_name, part_stock, part_price)
     VALUES(
@@ -110,6 +130,39 @@
         )
 
     </insert>
+
+
+        <resultMap id="res" type="com.ohgiraffers.hitechautoworks.auth.dto.ResDTO">
+        <id property="code" column="res_code"/>
+        <result property="title" column="res_title"/>
+        <result property="option" column="res_option"/>
+        <result property="date" column="res_date"/>
+        <result property="extra" column="res_extra"/>
+        <association property="userDTO" javaType="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
+            <id property="userCode" column="user_code"/>
+            <result property="userId" column="user_id"/>
+            <result property="password" column="password"/>
+            <result property="userName" column="user_name"/>
+            <result property="userRole" column="user_role"/>
+        </association>
+    </resultMap>
+    <select id="findAllres" resultMap="res">
+        select
+            a.res_code,
+            a.res_title,
+            a.res_option,
+            a.res_date,
+            a.res_extra,
+            b.user_name
+        from
+            tbl_res a
+        join tbl_user b on (a.user_code = b.user_code)
+    </select>
+    <select id="findUserRes" resultMap="res">
+        SELECT *
+        FROM tbl_res
+        WHERE res_code = #{resCode}
+    </select>
 
 
 </mapper>
