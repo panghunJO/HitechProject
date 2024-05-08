@@ -72,6 +72,26 @@
             white-space: nowrap;
         }
 
+        /* 그 외 테이블 스타일 */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .table th {
+            background-color: #f2f2f2; /* 헤더 배경색 */
+            font-weight: bold;
+        }
+        .table-wrapper {
+            max-height: 300px; /* 스크롤의 최대 높이 설정 */
+            overflow-y: auto; /* 수직 스크롤바 표시 여부 자동 설정 */
+        }
     </style>
 </head>
 <body>
@@ -132,29 +152,27 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
+                                    <div class="table-wrapper">
                                     <table class="table table-bordered">
-                                        <thead>
                                         <tr>
                                             <th scope="col">예약번호</th>
                                             <th scope="col">고객이름</th>
                                             <th scope="col">수리내용</th>
-                                            <th scope="col">진행상황</th>
+                                            <th scope="col">날짜</th>
                                         </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                        <tr th:each="res : ${resList}">
+                                            <td th:text="${res.code}"></td>
+                                            <td th:text="${res.UserDTO.userName}"></td>
+                                            <td th:text="${res.option}"></td>
+                                            <td th:text="${res.date}"></td>
                                             <td>
-                                                <button id="viewBtn" class="btn btn-light" type="submit" >상세보기</button>
-                                                <!-- 진행 상황 표시 바 코드 생략 -->
+                                                <button class="btn btn-light" th:attr="onclick='resDetail(\'' + ${res.code} + '\')'">상세보기</button>
                                             </td>
                                         </tr>
-                                        <!-- 나머지 표의 내용 생략 -->
-                                        </tbody>
+
+
                                     </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -199,6 +217,9 @@
 
         // 클릭한 링크에 'active' 클래스 추가
         link.classList.add('active');
+    }
+    function resDetail(resCode) {
+        location.href = '/customer/res/resDetail?resCode=' + resCode;
     }
 </script>
 </body>

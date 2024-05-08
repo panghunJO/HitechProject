@@ -77,7 +77,7 @@ public class UserDTO {
 
     @Override
     public String toString() {
-        return "UserLoginDTO{" +
+        return "UserDTO{" +
                 "userCode=" + userCode +
                 ", userId='" + userId + '\'' +
                 ", password='" + password + '\'' +

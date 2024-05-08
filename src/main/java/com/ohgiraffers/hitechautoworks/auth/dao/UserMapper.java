@@ -2,10 +2,7 @@
 
 package com.ohgiraffers.hitechautoworks.auth.dao;
 
-import com.ohgiraffers.hitechautoworks.auth.dto.PartDTO;
-import com.ohgiraffers.hitechautoworks.auth.dto.RepairDTO;
-import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
-import com.ohgiraffers.hitechautoworks.auth.dto.UserRegistDTO;
+import com.ohgiraffers.hitechautoworks.auth.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -33,6 +30,10 @@ public interface UserMapper {
     PartDTO selectpart(int partCode);
 
     List<PartDTO> partSearchBtPartName(String partName);
+
+    List<ResDTO> findAllres();
+
+    ResDTO findUserRes(int resCode);
 
 //    List<RepairDTO> findRepairInfo();
 }

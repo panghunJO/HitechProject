@@ -2,6 +2,7 @@ package com.ohgiraffers.hitechautoworks.auth.controller;
 
 import com.ohgiraffers.hitechautoworks.auth.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.RepairDTO;
+import com.ohgiraffers.hitechautoworks.auth.dto.ResDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +88,20 @@ public class UserController {
         return "employee/account/account";
 
     }
-
+    @GetMapping("/customer/res/res")
+    public String res(Model moder){
+        List<ResDTO> resList = userService.findAllres();
+        System.out.println("resList = " + resList);
+        moder.addAttribute("resList", resList);
+        return "customer/res/res";
+    }
+    @GetMapping("customer/res/resdetail")
+    public void resdetail(@RequestParam int resCode, Model model){
+        System.out.println("resCode = "+resCode);
+        ResDTO res = userService.findUserRes(resCode);
+        System.out.println("res = " + res);
+        model.addAttribute("res", res);
+    }
 
 
 
