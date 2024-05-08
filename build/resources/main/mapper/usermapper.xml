@@ -53,4 +53,15 @@
         WHERE part_code = #{partCode}
     </select>
 
+    <select id="selectAllPart" resultMap="partReusltMap">
+        SELECT *
+        FROM tbl_part
+    </select>
+
+    <select id="selectpart" resultMap="partReusltMap">
+        SELECT *
+        FROM tbl_part
+        where part_code = #{partCode}
+    </select>
+
 </mapper>

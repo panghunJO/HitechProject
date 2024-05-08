@@ -24,4 +24,8 @@ public interface UserMapper {
     void findcheck(@Param("checknumber") int checknumber, @Param("userId") String userId);
 
     List<PartDTO> selectPartByCode(int partCode);
+
+    List<PartDTO> selectAllPart();
+
+    PartDTO selectpart(int partCode);
 }

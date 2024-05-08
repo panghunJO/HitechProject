@@ -1,7 +1,7 @@
 spring:
   datasource:
     dirver-class-name: com.mysql.cj.jdbc.Driver
-    url :  jdbc:mysql://192.168.0.30:3306/hitechautoworks
+    url :  jdbc:mysql://localhost:3306/menudb
     username: ohgiraffers
     password: ohgiraffers
   mail:

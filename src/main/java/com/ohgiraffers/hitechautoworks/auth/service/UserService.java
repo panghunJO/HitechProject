@@ -65,4 +65,16 @@ public class UserService  {
 
         return partList;
     }
+
+    public List<PartDTO> selectAllPart() {
+        List<PartDTO> partList = userMapper.selectAllPart();
+
+        return partList;
+    }
+
+    public PartDTO selectpart(int partCode) {
+        PartDTO partDTO = userMapper.selectpart(partCode);
+
+        return partDTO;
+    }
 }
