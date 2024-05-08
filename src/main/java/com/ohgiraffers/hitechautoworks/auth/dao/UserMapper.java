@@ -34,5 +34,11 @@ public interface UserMapper {
 
     List<PartDTO> partSearchBtPartName(String partName);
 
+    List<UserDTO> selectPart(String UserName);
+
+    List<UserDTO> findUserId(String userId);
+
+    List<UserDTO> findUserCode(String userCode);
+
 //    List<RepairDTO> findRepairInfo();
 }
