@@ -49,6 +49,7 @@
         FROM TBL_USER
     </select>
 
+
     <update id="findUser" parameterType="map">
         UPDATE tbl_user
         SET user_role = 'CUSTOMER'
@@ -107,4 +108,17 @@
         WHERE
              part_name = #{ partName }
     </select>
+
+
+    <update id="modifyPart">
+        UPDATE
+            tbl_part
+        SET
+            PART_NAME = #{  partName },
+            PART_STOCK= #{ partstock },
+            PART_PRICE = #{ partPrice }
+        WHERE
+            PART_CODE = #{ partCode }
+    </update>
+
 </mapper>
