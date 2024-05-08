@@ -28,12 +28,34 @@ public class UserController {
     public void employee() {}
 
     @GetMapping("/employee/part/part")
-    public void part(){}
+    public void part(Model model){
+        List<PartDTO> partList = userService.selectAllPart();
+        model.addAttribute("partList", partList);
+    }
 
     @PostMapping("/employee/part/part")
-    public void part2(@RequestParam String partName, @RequestParam int partCode){
+    public void part2(@RequestParam String partName, @RequestParam String partCode,
+                      Model model){
         System.out.println("partName = " + partName);
         System.out.println("partCode = " + partCode);
+        if (partName == "" && partCode == ""){
+            List<PartDTO> partList = userService.selectAllPart();
+            model.addAttribute("partList", partList);
+            System.out.println("partList = " + partList);
+        } else {
+            List<PartDTO> partList = userService.selectPartByCode(Integer.parseInt(partCode));
+        System.out.println("partList = " + partList);
+        model.addAttribute("partList", partList);
+        }
+    }
+
+    @GetMapping("/employee/part/partdetail")
+    public void partdetail(@RequestParam int partCode,
+                           Model model){
+        PartDTO partDTO = userService.selectpart(partCode);
+        System.out.println("partDTO = " + partDTO);
+        model.addAttribute("partDTO", partDTO);
+
     }
 
     @GetMapping("/employee/part/partAdd")
