@@ -118,5 +118,12 @@ public class UserService  {
     public void modifyPart(String partCode, int partstock, int partPrice, String partName) {
         userMapper.modifyPart(partCode, partstock, partName, partPrice);
     }
+    public ResDTO findUserRes(int resCode) {
+        return userMapper.findUserRes(resCode);
+    }
+
+    public List<ResDTO> findAllres() {
+        return userMapper.findAllres();
+    }
 
 }
