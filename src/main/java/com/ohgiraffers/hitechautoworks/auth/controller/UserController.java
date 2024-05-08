@@ -124,6 +124,12 @@ public class UserController {
         return "admin/account/account";
     }
 
+   @PostMapping("/employee/part/partAdd")
+    public String partAdd(@RequestParam String partName, @RequestParam int partstock, @RequestParam int partPrice){
+        userService.addPart(partstock, partPrice, partName);
+       return "/employee/part/part";
+   }
+
 
 //    @PostMapping("/employee/account/account")
 //    public void account2(@RequestParam String userId, @RequestParam String user_code, Model model) {
@@ -174,7 +180,6 @@ public class UserController {
 
 //    @GetMapping("/employee/part/partAdd")
 //    public void pardAdd(){}
-
 
     @GetMapping("/customer/res/res")
     public String res(Model moder){
