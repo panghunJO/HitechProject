@@ -139,4 +139,7 @@ public class UserService  {
     public List<RepairDTO> findAllRepair() {
         return userMapper.findAllRepair();
     }
+
+    public List<RepairPartDTO> findRepairPart() { return userMapper.findRepairPart();
+    }
 }
