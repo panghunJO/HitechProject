@@ -141,13 +141,15 @@
         <div class="col-md-12">
             <div class="container" id="content-container">
                 <div class="container" id="content">
+                    <form action="/customer/res/res" method="post">
                     <div class="search">
                         <label>에약 번호</label>&nbsp;&nbsp;
-                        <input type="text" placeholder="예약번호 입력" class="form-control">
+                        <input type="text" placeholder="예약번호 입력" class="form-control" name="resCode">
                         <img id="img2" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="search icon">
                         <button id="btn" class="btn btn-light" >검색</button>
                         <button id="btn1" class="btn btn-light" >작업등록</button>
                     </div>
+                    </form>
                     <div class="inner-box">
                         <div class="container">
                             <div class="row">
