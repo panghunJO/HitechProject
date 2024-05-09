@@ -185,6 +185,8 @@ public class UserController {
 
        return "/employee/part/part";
     }
+    @GetMapping("/employee/repair/repair")
+    public void repair(){}
 
     
 }
