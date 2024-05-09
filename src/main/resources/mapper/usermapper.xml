@@ -146,6 +146,7 @@
             <result property="userRole" column="user_role"/>
         </association>
     </resultMap>
+
     <select id="findAllres" resultMap="res">
         select
             a.res_code,
@@ -184,6 +185,29 @@
         WHERE
              part_code = #{ partCode }
     </delete>
+
+    <resultMap id="repair" type="com.ohgiraffers.hitechautoworks.auth.dto.RepairDTO">
+        <result property="content" column="repair_content"/>
+        <result property="date" column="repair_date"/>
+        <result property="status" column="repair_status"/>
+        <association property="resDTO" resultMap="res" />
+    </resultMap>
+
+    <select id="findAllRepair" resultMap="repair">
+        SELECT
+        a.res_code,
+        a.repair_date,
+        a.repair_content,
+        c.user_name
+
+        FROM
+            tbl_repair a
+        JOIN
+            tbl_res b ON a.res_code = b.res_code
+        JOIN
+            tbl_repair_workers c ON b.user_code = c.user_code
+
+    </select>
 
 
 </mapper>

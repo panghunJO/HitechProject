@@ -51,6 +51,6 @@ public interface UserMapper {
 
     List<ResDTO> findCodeRes(int resCode);
 
+    List<RepairDTO> findAllRepair();
 
-//    List<RepairDTO> findRepairInfo();
 }

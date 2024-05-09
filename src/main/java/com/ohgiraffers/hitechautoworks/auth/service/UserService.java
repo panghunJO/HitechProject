@@ -135,4 +135,8 @@ public class UserService  {
 
     public List<ResDTO> findCodeRes(int resCode) { return userMapper.findCodeRes(resCode);
     }
+
+    public List<RepairDTO> findAllRepair() {
+        return userMapper.findAllRepair();
+    }
 }
