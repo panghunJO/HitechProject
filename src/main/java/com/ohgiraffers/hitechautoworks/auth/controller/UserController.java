@@ -1,8 +1,6 @@
 package com.ohgiraffers.hitechautoworks.auth.controller;
 
-import com.ohgiraffers.hitechautoworks.auth.dto.PartDTO;
-import com.ohgiraffers.hitechautoworks.auth.dto.RepairDTO;
-import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
+import com.ohgiraffers.hitechautoworks.auth.dto.*;
 import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.ohgiraffers.hitechautoworks.auth.dto.ResDTO;
 
 import java.util.List;
 
@@ -24,14 +21,26 @@ public class UserController {
 
     @GetMapping("/user/dashboard")
     public void dashboard(Model model) {
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
     }
 
     @GetMapping("/customer/dashboard")
     public void dashboard2(Model model) {
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
     }
 
     @GetMapping("/employee/dashboard")
-    public void employee() {
+    public void employee(Model model) {
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
     }
 
     @GetMapping("/employee/part/part")
@@ -121,6 +130,10 @@ public class UserController {
         List<UserDTO> userList = userService.findAllUser();
         System.out.println("userList = " + userList);
         model.addAttribute("userList", userList);
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
         return "admin/account/account";
     }
 
@@ -161,10 +174,14 @@ public class UserController {
 //    public void pardAdd(){}
 
     @GetMapping("/customer/res/res")
-    public String res(Model moder){
+    public String res(Model model){
         List<ResDTO> resList = userService.findAllres();
         System.out.println("resList = " + resList);
-        moder.addAttribute("resList", resList);
+        model.addAttribute("resList", resList);
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
         return "customer/res/res";
     }
     @GetMapping("/customer/res/resDetail")
@@ -173,6 +190,10 @@ public class UserController {
         ResDTO res = userService.findUserRes(resCode);
         System.out.println("res = " + res);
         model.addAttribute("res", res);
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
     }
     @PostMapping("/customer/res/res")
     public void res1(@RequestParam int resCode, Model model){
@@ -198,6 +219,14 @@ public class UserController {
         List<RepairDTO> repairList = userService.findAllRepair();
         System.out.println("repairList = " + repairList);
         model.addAttribute("repairList", repairList);
+
+        List<RepairPartDTO> partList = userService.findRepairPart();
+        System.out.println("partList = " + partList);
+        model.addAttribute("partList", partList);
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
 
 
     }
