@@ -194,9 +194,17 @@ public class UserController {
        return "/employee/part/part";
     }
     @GetMapping("/employee/repair/repair")
-    public void repair(){}
+    public void repair(Model model){
+        List<RepairDTO> repairList = userService.findAllRepair();
+        System.out.println("repairList = " + repairList);
+        model.addAttribute("repairList", repairList);
 
-    
+
+    }
+
+
+
+
 }
 
 

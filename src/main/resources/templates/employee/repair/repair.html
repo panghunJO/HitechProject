@@ -121,6 +121,7 @@
         <div class="col-md-12">
             <div class="container" id="content-container">
                 <div class="container" id="content">
+                    <form>
                     <div class="search">
                         <label>성명</label>&nbsp;&nbsp;
                         <input type="text" placeholder="성명 입력" class="form-control">
@@ -130,6 +131,7 @@
                         <button id="btn" class="btn btn-light" >검색</button>
                         <button id="btn1" class="btn btn-light" >작업등록</button>
                     </div>
+                    </form>
                     <div class="inner-box">
                         <div class="container">
                             <div class="row">
@@ -145,12 +147,12 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>홍길동</td>
-                                            <td>엔진오일 교체</td>
-                                            <td>엔진오일</td>
-                                            <td>진행중</td>
-                                            <td>2024.03.01 ~ 2024.03.04</td>
+                                        <tr th:each ="repair :${ repairList }">
+                                            <td th:text="${ repair.content}"></td>
+                                            <td th:text="${ repair.date}"></td>
+                                            <td th:text="${ repair.status}"></td>
+                                            <td th:text="${ repair.ResDTO.title}"></td>
+                                            <td></td>
                                             <td>
                                                 <button id="viewBtn" class="btn btn-light" type="submit" >상세보기</button>
                                             </td>
