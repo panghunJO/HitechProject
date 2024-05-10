@@ -139,7 +139,7 @@
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
-                                            <th scope="col">성명</th>
+                                            <th scope="col">작업자</th>
                                             <th scope="col">작업내용</th>
                                             <th scope="col">필요부품</th>
                                             <th scope="col">진행상황</th>
@@ -148,10 +148,11 @@
                                         </thead>
                                         <tbody>
                                         <tr th:each ="repair :${ repairList }">
-                                            <td th:text="${ repair.content}"></td>
-                                            <td th:text="${ repair.date}"></td>
-                                            <td th:text="${ repair.status}"></td>
-<!--                                            <td th:text="${ repair.ResDTO.title}"></td>-->
+                                            <td th:text="${repair.workerDTO.userDTO.userName}"></td>
+                                            <td th:text="${ repair.repairDTO.content}"></td>
+                                            <td th:text="${repair.repairPartDTO.partDTO.partName}"></td>
+                                            <td th:text="${ repair.repairDTO.status}"></td>
+                                            <td th:text="${ repair.repairDTO.date}"></td>
                                             <td></td>
                                             <td>
                                                 <button id="viewBtn" class="btn btn-light" type="submit" >상세보기</button>

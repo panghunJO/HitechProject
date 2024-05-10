@@ -27,7 +27,7 @@ public interface UserMapper {
 
 
 
-    List<RepairPartDTO> findRepairPart();
+
 
 
     UserRegistDTO getAll(int userCode);
