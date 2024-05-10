@@ -4,23 +4,23 @@ import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 
 public class WorkerDTO {
-    private ResDTO rssDTO;
+    private ResDTO resDTO;
     private UserDTO userDTO;
 
-    public WorkerDTO(ResDTO rssDTO, UserDTO userDTO) {
-        this.rssDTO = rssDTO;
+    public WorkerDTO(ResDTO resDTO, UserDTO userDTO) {
+        this.resDTO = resDTO;
         this.userDTO = userDTO;
     }
 
     public WorkerDTO() {
     }
 
-    public ResDTO getRssDTO() {
-        return rssDTO;
+    public ResDTO getResDTO() {
+        return resDTO;
     }
 
-    public void setRssDTO(ResDTO rssDTO) {
-        this.rssDTO = rssDTO;
+    public void setResDTO(ResDTO resDTO) {
+        this.resDTO = resDTO;
     }
 
     public UserDTO getUserDTO() {
@@ -34,7 +34,7 @@ public class WorkerDTO {
     @Override
     public String toString() {
         return "WorkerDTO{" +
-                "rssDTO=" + rssDTO +
+                "resDTO=" + resDTO +
                 ", userDTO=" + userDTO +
                 '}';
     }

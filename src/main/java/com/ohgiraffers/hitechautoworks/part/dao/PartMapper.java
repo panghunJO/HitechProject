@@ -21,4 +21,5 @@ public interface PartMapper {
     void addPart(int partstock, String partName, int partPrice);
 
     void deletePart(String partCode);
+
 }
