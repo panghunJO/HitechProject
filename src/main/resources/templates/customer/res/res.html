@@ -209,7 +209,7 @@
                                                 <td th:text="${res.code}" style="width: 100px"></td>
                                                 <td th:text="${res.UserDTO.userName}" style="width: 100px"></td>
                                                 <td th:text="${res.option}" style="max-width: 300px; min-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></td>
-                                                <td th:text="${res.date}"></td>
+                                                <td th:text="${res.date}" style="min-width: 300px"></td>
                                                 <td>
                                                     <button class="btn btn-light"
                                                             th:attr="onclick='resDetail(\'' + ${res.code} + '\')'">상세보기
