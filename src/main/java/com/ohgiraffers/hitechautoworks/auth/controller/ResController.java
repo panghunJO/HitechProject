@@ -110,7 +110,19 @@ public class ResController {
     }
 
     @GetMapping("/customer/res/res_07")
-    public void res07() {
+    public void res07(Model model) {
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
+    }
+
+    @PostMapping("/customer/res/res_07")
+    public void res071(@RequestBody String date){
+        System.out.println("date = " + date);
+        //"date":"2024-05-13"
+
+
     }
 
     @GetMapping("/customer/res/res_08")
