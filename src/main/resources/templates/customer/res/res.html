@@ -94,7 +94,7 @@
         }
     </style>
 </head>
-<body>
+<body >
 <div class="container-fluid">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -106,19 +106,23 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
                     <li class="nav-item">
-                        <a class="nav-link" href="#"></a>
+                        <a class="nav-link" href="/employee/repair/repair" name="employeeSearchButton">작업관리</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"></a>
+                        <a class="nav-link" href="/employee/part/part" name="employeeSearchButton">부품관리</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"></a>
+                        <a class="nav-link" href="#" name="employeeSearchButton">메일/채팅</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"></a>
+                        <a class="nav-link" href="employee/account/account" name="employeeSearchButton">계정관리</a>
                     </li>
                 </ul>
+
+               
+
                 <p id="username" class="nav-link" th:text="|${userName}님|"></p>
+
                 <ul class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     </a>
@@ -223,6 +227,22 @@
     function resDetail(resCode) {
         location.href = '/customer/res/resDetail?resCode=' + resCode;
     }
+    // 사용자의 역할에 따라 버튼을 조건부로 표시하거나 숨기는 JavaScript 코드
+    document.addEventListener("DOMContentLoaded", function() {
+        var userRole = "[[${userRole}]]"; // 사용자의 역할을 가져오는 함수
+
+        console.log("userRole=" +userRole);
+
+        if (userRole === "employee" || userRole === "admin") {
+            // 사용자가 직원 또는 관리자인 경우 버튼을 표시합니다.
+            document.getElementsByName("employeeSearchButton").style.display = "block";
+        } else {
+            // 다른 역할의 경우 버튼을 숨깁니다.
+            document.getElementsByName("employeeSearchButton").style.display = "none";
+        }
+    });
+
+
 </script>
 </body>
 </html>

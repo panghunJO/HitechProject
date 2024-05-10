@@ -139,7 +139,7 @@
                                  alt="search icon">
                             <button class="btn btn-light" id="btn" type="submit">조회</button>
                     </form>
-                    <button id="partAdd" class="btn btn-light" onclick="partadd()">부품등록</button>
+                    <button id="partAdd" class="btn btn-light" onclick="partadd()" >부품등록</button>
                 </div>
                 <div class="inner-box">
                     <div class="container">
@@ -224,6 +224,23 @@
         // 클릭한 링크에 'active' 클래스 추가
         link.classList.add('active');
     }
+    // // 사용자의 역할에 따라 버튼을 조건부로 표시하거나 숨기는 JavaScript 코드
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     var userRole = "[[${userRole}]]" ; // 사용자의 역할을 가져오는 함수
+    //
+    //     console.log("userRole=" +userRole);
+    //
+    //     // if (userRole === "employee" || userRole === "admin") {
+    //         if (userRole == "admin"){
+    //         // 사용자가 직원 또는 관리자인 경우 버튼을 표시합니다.
+    //         document.getElementById("partAdd").style.display = "block";
+    //     } else {
+    //         // 다른 역할의 경우 버튼을 숨깁니다.
+    //         document.getElementById("partAdd").style.display = "none";
+    //     }
+    // });
+
+
 </script>
 
 </body>

@@ -3,6 +3,9 @@
 package com.ohgiraffers.hitechautoworks.auth.dao;
 
 import com.ohgiraffers.hitechautoworks.auth.dto.*;
+import com.ohgiraffers.hitechautoworks.part.dto.PartDTO;
+import com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO;
+import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,37 +24,7 @@ public interface UserMapper {
 
     void findcheck(@Param("checknumber") int checknumber, @Param("userId") String userId);
 
-    List<UserDTO> findAllUser();
 
-    List<PartDTO> selectPartByCode(int partCode);
-
-    List<PartDTO> selectAllPart();
-
-    PartDTO selectpart(int partCode);
-
-    List<PartDTO> partSearchBtPartName(String partName);
-
-
-    List<UserDTO> selectPart(String UserName);
-
-    List<UserDTO> findUserCode(String userCode);
-
-    List<UserDTO> findUserName(String userName);
-
-    void modifyPart(String partCode, int partstock, String partName, int partPrice);
-
-
-    void addPart(int partstock, String partName, int partPrice);
-
-    List<ResDTO> findAllres();
-
-    ResDTO findUserRes(int resCode);
-
-    void deletePart(String partCode);
-
-    List<ResDTO> findCodeRes(int resCode);
-
-    List<RepairDTO> findAllRepair();
 
     List<RepairPartDTO> findRepairPart();
 }

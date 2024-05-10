@@ -1,4 +1,4 @@
-package com.ohgiraffers.hitechautoworks.auth.dto;
+package com.ohgiraffers.hitechautoworks.part.dto;
 
 public class PartDTO {
     private int partCode;

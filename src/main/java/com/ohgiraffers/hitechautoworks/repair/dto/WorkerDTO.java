@@ -1,4 +1,7 @@
-package com.ohgiraffers.hitechautoworks.auth.dto;
+package com.ohgiraffers.hitechautoworks.repair.dto;
+
+import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
+import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 
 public class WorkerDTO {
     private ResDTO rssDTO;
