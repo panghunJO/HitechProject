@@ -149,7 +149,7 @@
                     fetch("/customer/res/res_07", {
                         method: "POST",
                         body: JSON.stringify({
-                            date: info.date
+                            date: info.dateStr
                         }),
                     })
                         .then((response) => response.json())

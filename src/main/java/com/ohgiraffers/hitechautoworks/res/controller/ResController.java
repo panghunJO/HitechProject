@@ -1,5 +1,7 @@
 package com.ohgiraffers.hitechautoworks.res.controller;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.EtcCarDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.ImportantDTO;
@@ -16,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,10 +122,13 @@ public class ResController {
     }
 
     @PostMapping("/customer/res/res_07")
-    public void res071(@RequestBody String date){
+    public void res071(@RequestBody String date, HttpSession httpSession){
         System.out.println("date = " + date);
         //"date":"2024-05-13"
-
+        JsonObject jsonObject = JsonParser.parseString(date).getAsJsonObject();
+        String dateValue = jsonObject.get("date").getAsString();
+        System.out.println("dateValue = " + dateValue);
+        Date date1 = Date.valueOf(dateValue);
 
     }
 
