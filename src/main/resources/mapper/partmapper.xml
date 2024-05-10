@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.hitechautoworks.part.dao.PartMapper">
+
+    <resultMap id="partReusltMap" type="com.ohgiraffers.hitechautoworks.part.dto.PartDTO">
+        <id property="partCode" column="part_code"/>
+        <result property="partName" column="part_name"/>
+        <result property="partstock" column="part_stock"/>
+        <result property="partPrice" column="part_price"/>
+    </resultMap>
+
+
+    <select id="selectPartByCode" resultMap="partReusltMap">
+        SELECT *
+        FROM tbl_part
+        WHERE part_code = #{partCode}
+    </select>
+
+    <select id="selectAllPart" resultMap="partReusltMap">
+        SELECT *
+        FROM tbl_part
+    </select>
+
+    <select id="selectpart" resultMap="partReusltMap">
+        SELECT *
+        FROM tbl_part
+        where part_code = #{partCode}
+    </select>
+
+    <select id="partSearchBtPartName" resultMap="partReusltMap">
+        SELECT
+        *
+        FROM
+        tbl_part
+        WHERE
+        part_name = #{ partName }
+    </select>
+
+    <update id="modifyPart">
+        UPDATE
+        tbl_part
+        SET
+        PART_NAME = #{  partName },
+        PART_STOCK= #{ partstock },
+        PART_PRICE = #{ partPrice }
+        WHERE
+        PART_CODE = #{ partCode }
+    </update>
+
+    <insert id="addPart">
+        INSERT INTO tbl_part(part_name, part_stock, part_price)
+        VALUES(
+        #{ partName },
+        #{ partstock },
+        #{ partPrice }
+        )
+    </insert>
+
+    <delete id="deletePart">
+        DELETE FROM
+        tbl_part
+        WHERE
+        part_code = #{ partCode }
+    </delete>
+
+</mapper>
