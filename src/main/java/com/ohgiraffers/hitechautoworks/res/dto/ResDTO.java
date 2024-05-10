@@ -4,6 +4,7 @@ import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 
 import java.util.Date;
 
+
 public class ResDTO {
 
     private int code;

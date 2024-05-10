@@ -2,6 +2,7 @@ package com.ohgiraffers.hitechautoworks.res.service;
 
 import com.ohgiraffers.hitechautoworks.res.dao.ResMapper;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
+import com.ohgiraffers.hitechautoworks.res.dto.ResRegistDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,9 @@ public class ResService {
     }
 
     public List<ResDTO> findCodeRes(int resCode) { return resMapper.findCodeRes(resCode);
+    }
+
+    public void registres(ResRegistDTO resRegistDTO) {
+        resMapper.registres(resRegistDTO);
     }
 }
