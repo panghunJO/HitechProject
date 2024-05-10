@@ -97,7 +97,7 @@
                         <a class="nav-link" href="#"></a>
                     </li>
                 </ul>
-                <p id="username" class="nav-link" >사용자이름</p>
+                <p id="username" class="nav-link"  th:text="|${userName}님|"></p>
                 <ul class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     </a>
@@ -120,46 +120,65 @@
         <div class="col-md-12">
             <div class="container" id="content-container">
                 <div class="container" id="content">
-
                     <div class="inner-box">
+                        <form action="res_06">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="gray-box" style="height: 190px;">
-                                    <a href="#" style="text-decoration: none;">경고등 및 점등</a>
+<!--                                    <a href="#" style="text-decoration: none;">경고등 및 점등</a>-->
+                                    <label for="meteor">
+                                        <input type="checkbox" id="meteor" name="meteor" value="경고등 및 점등"> 경고등 및 점등
+                                    </label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="gray-box" style="height: 190px;">
-                                    <a href="#" style="text-decoration: none;">냉/난방 장치</a>
+<!--                                    <a href="#" style="text-decoration: none;">냉/난방 장치</a>-->
+                                    <label for="cold">
+                                        <input type="checkbox" id="cold" name="cold" value="냉/난방 장치"> 냉/난방 장치
+                                    </label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="gray-box" style="height: 190px;">
-                                    <a href="#" style="text-decoration: none;">휠/타이어 불량</a>
+<!--                                    <a href="#" style="text-decoration: none;">휠/타이어 불량</a>-->
+                                    <label for="wheel">
+                                        <input type="checkbox" id="wheel" name="wheel" value="휠/타이어 불량"> 휠/타이어 불량
+                                    </label>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="gray-box" style="height: 190px;">
-                                    <a href="#" style="text-decoration: none;">램프류</a>
+<!--                                    <a href="#" style="text-decoration: none;">램프류</a>-->
+                                    <label for="lamp">
+                                        <input type="checkbox" id="lamp" name="lamp" value="램프류"> 램프류
+                                    </label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="gray-box" style="height: 190px;">
-                                    <a href="#" style="text-decoration: none;">개폐불량</a>
+<!--                                    <a href="#" style="text-decoration: none;">개폐불량</a>-->
+                                    <label for="dooropen">
+                                        <input type="checkbox" id="dooropen" name="dooropen" value="개폐불량"> 개폐불량
+                                    </label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="gray-box" style="height: 190px;">
-                                    <a href="#" style="text-decoration: none;">스위치 작동</a>
+<!--                                    <a href="#" style="text-decoration: none;">스위치 작동</a>-->
+                                    <label for="switch1">
+                                        <input type="checkbox" id="switch1" name="switch1" value="스위치 작동"> 스위치 작동
+                                    </label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <button id="nextbtn" class="btn btn-light" type="submit"><a href="/01-01.reservation/res_03.html" style="text-decoration: none;">이전</a></button>
-
+                        <a href="res_01" style="text-decoration: none;">이전</a>
+                        <button id="nextbtn" class="btn btn-light" type="submit">다음</button>
+                        </form>
                     </div>
                 </div>
             </div>

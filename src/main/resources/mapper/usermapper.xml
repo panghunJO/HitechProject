@@ -38,23 +38,6 @@
     </update>
 
 
-    <resultMap id="user" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
-        <id property="userCode" column="user_code"/>
-        <result property="userId" column="user_id"/>
-        <result property="password" column="password"/>
-        <result property="userName" column="user_name"/>
-        <result property="userRole" column="user_role"/>
-    </resultMap>
-
-    <resultMap id="finduser" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
-        <id property="userNo" column="user_no"/>
-        <result property="userId" column="user_id"/>
-        <result property="userName" column="user_name"/>
-        <result property="password" column="password"/>
-        <result property="userRole" column="user_role"/>
-    </resultMap>
-
-
 
 
 </mapper>

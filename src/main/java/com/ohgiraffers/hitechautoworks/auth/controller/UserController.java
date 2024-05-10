@@ -1,5 +1,8 @@
 package com.ohgiraffers.hitechautoworks.auth.controller;
 
+
+import com.ohgiraffers.hitechautoworks.auth.dto.*;
+
 import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +16,28 @@ public class UserController {
 
     @GetMapping("/user/dashboard")
     public void dashboard(Model model) {
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
     }
 
     @GetMapping("/customer/dashboard")
     public void dashboard2(Model model) {
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
     }
 
     @GetMapping("/employee/dashboard")
-    public void employee() {
+    public void employee(Model model) {
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
     }
+
 
 
 }

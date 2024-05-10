@@ -100,7 +100,7 @@
                         <a class="nav-link" href="/employee/account/account">계정관리</a>
                     </li>
                 </ul>
-                <p id="username" class="nav-link" >사용자이름</p>
+                <p id="username" class="nav-link"  th:text=|${userName}님|></p>
                 <ul class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     </a>
@@ -151,7 +151,7 @@
                                             <td th:text="${ repair.content}"></td>
                                             <td th:text="${ repair.date}"></td>
                                             <td th:text="${ repair.status}"></td>
-                                            <td th:text="${ repair.ResDTO.title}"></td>
+<!--                                            <td th:text="${ repair.ResDTO.title}"></td>-->
                                             <td></td>
                                             <td>
                                                 <button id="viewBtn" class="btn btn-light" type="submit" >상세보기</button>
