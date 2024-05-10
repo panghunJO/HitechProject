@@ -10,6 +10,7 @@ import com.ohgiraffers.hitechautoworks.auth.dto.resdto.SomoDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
+import com.ohgiraffers.hitechautoworks.res.dto.ResRegistDTO;
 import com.ohgiraffers.hitechautoworks.res.service.ResService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ResController {
@@ -102,15 +104,15 @@ public class ResController {
         if (partAllList == null) {
             partAllList = new ArrayList<>();
         }
-
         partAllList.addAll(partList);
         partAllList.addAll(partList2);
         partAllList.addAll(partList3);
         partAllList.addAll(partList4);
 
-        httpSession.setAttribute("partAllList", partAllList);
 
-        model.addAttribute("partlist", partAllList);
+        List<String> partNewList = partAllList.stream().distinct().collect(Collectors.toList());
+        httpSession.setAttribute("partAllList", partAllList);
+        model.addAttribute("partlist", partNewList);
     }
 
     @GetMapping("/customer/res/res_07")
@@ -129,10 +131,37 @@ public class ResController {
         String dateValue = jsonObject.get("date").getAsString();
         System.out.println("dateValue = " + dateValue);
         Date date1 = Date.valueOf(dateValue);
+        System.out.println("date1 = " + date1);
+        httpSession.setAttribute("date",date1);
 
     }
 
     @GetMapping("/customer/res/res_08")
     public void res08() {
+
+    }
+
+    @PostMapping("/customer/res/res_08")
+    public void res081(@RequestParam String title,
+                       @RequestParam String detailinfo,
+                       HttpSession httpSession) {
+        ResRegistDTO resRegistDTO = new ResRegistDTO();
+        resRegistDTO.setTitle(title);
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int usercode = userDTO.getUserCode();
+        resRegistDTO.setUserCode(usercode);
+        List<String> partAllList = (List<String>) httpSession.getAttribute("partAllList");
+        StringBuilder sb = new StringBuilder();
+        for(String list : partAllList){
+            sb.append(list);
+            sb.append(",");
+        }
+        String partlist = sb.toString();
+        resRegistDTO.setResoption(partlist);
+        Date date = (Date) httpSession.getAttribute("date");
+        resRegistDTO.setDate(date);
+        resRegistDTO.setDetailinfo(detailinfo);
+        resService.registres(resRegistDTO);
     }
 }
