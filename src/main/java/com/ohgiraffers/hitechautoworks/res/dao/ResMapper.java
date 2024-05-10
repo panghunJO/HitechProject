@@ -14,5 +14,5 @@ public interface ResMapper {
 
     List<ResDTO> findCodeRes(int resCode);
 
-    void registres(ResRegistDTO resRegistDTO);
+    int registres(ResRegistDTO resRegistDTO);
 }

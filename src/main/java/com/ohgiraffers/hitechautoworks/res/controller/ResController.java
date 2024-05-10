@@ -38,7 +38,7 @@ public class ResController {
     private AuthUserInfo authUserInfo;
 
     @GetMapping("/customer/res/res")
-    public String res(Model model){
+    public String res(Model model, HttpSession session){
         List<ResDTO> resList = resService.findAllres();
         System.out.println("resList = " + resList);
         model.addAttribute("resList", resList);
@@ -46,7 +46,16 @@ public class ResController {
         UserDTO userDTO = authUserInfo.getUserDTO();
         String userName = userDTO.getUserName();
         model.addAttribute("userName",userName);
+        String message = (String) session.getAttribute("success");
+        model.addAttribute("message",message);
         return "customer/res/res";
+    }
+
+    @PostMapping("/customer/res/resgo")
+    public String resgo(Model model){
+        List<ResDTO> resList = resService.findAllres();
+        model.addAttribute("resList", resList);
+        return "redirect:/customer/res/res";
     }
     @GetMapping("/customer/res/resDetail")
     public void resdetail(@RequestParam int resCode, Model model){
@@ -61,7 +70,7 @@ public class ResController {
     }
     @PostMapping("/customer/res/res")
     public void res1(@RequestParam int resCode, Model model){
-        System.out.println("resCode = " + resCode);
+        System.out.println("resCode3322 = " + resCode);
         List<ResDTO> resList = resService.findCodeRes(resCode);
         System.out.println("resList = " + resList);
         model.addAttribute("resList", resList);
@@ -70,6 +79,10 @@ public class ResController {
 
     @GetMapping("/customer/res/res_01")
     public void res01() {
+    }
+
+    @PostMapping("/customer/res/res_01")
+    public void res011() {
     }
 
     @GetMapping("/customer/res/res_02")
@@ -142,7 +155,7 @@ public class ResController {
     }
 
     @PostMapping("/customer/res/res_08")
-    public void res081(@RequestParam String title,
+    public String res081(@RequestParam String title,
                        @RequestParam String detailinfo,
                        HttpSession httpSession) {
         ResRegistDTO resRegistDTO = new ResRegistDTO();
@@ -162,6 +175,10 @@ public class ResController {
         Date date = (Date) httpSession.getAttribute("date");
         resRegistDTO.setDate(date);
         resRegistDTO.setDetailinfo(detailinfo);
-        resService.registres(resRegistDTO);
+        int result = resService.registres(resRegistDTO);
+        if (result == 1){
+            httpSession.setAttribute("success","예약 등록에 성공하였습니다.");
+        }
+        return "/customer/res/res";
     }
 }

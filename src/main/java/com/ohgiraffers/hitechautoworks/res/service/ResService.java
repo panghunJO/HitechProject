@@ -25,7 +25,7 @@ public class ResService {
     public List<ResDTO> findCodeRes(int resCode) { return resMapper.findCodeRes(resCode);
     }
 
-    public void registres(ResRegistDTO resRegistDTO) {
-        resMapper.registres(resRegistDTO);
+    public int registres(ResRegistDTO resRegistDTO) {
+        return resMapper.registres(resRegistDTO);
     }
 }
