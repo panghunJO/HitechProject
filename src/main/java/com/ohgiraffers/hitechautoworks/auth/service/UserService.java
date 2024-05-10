@@ -100,14 +100,14 @@ public class UserService  {
         return userMapper.selectPart(partName);
     }
 
-    public List<UserDTO> findUserId(String userId) {
-        List<UserDTO> userList = userMapper.findUserId(userId);
+    public List<UserDTO> findUserCode(String userCode) {
+        List<UserDTO> userList = userMapper.findUserCode(userCode);
         return userList;
     }
 
 
-    public List<UserDTO> findUserCode(String userCode) {
-        List<UserDTO> userList2 = userMapper.findUserCode(userCode);
+    public List<UserDTO> findUserName(String userName) {
+        List<UserDTO> userList2 = userMapper.findUserName(userName);
         return userList2;
     }
 
@@ -131,5 +131,15 @@ public class UserService  {
 
     public void deletePart(String partCode) {
         userMapper.deletePart(partCode);
+    }
+
+    public List<ResDTO> findCodeRes(int resCode) { return userMapper.findCodeRes(resCode);
+    }
+
+    public List<RepairDTO> findAllRepair() {
+        return userMapper.findAllRepair();
+    }
+
+    public List<RepairPartDTO> findRepairPart() { return userMapper.findRepairPart();
     }
 }

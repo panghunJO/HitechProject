@@ -34,9 +34,9 @@ public interface UserMapper {
 
     List<UserDTO> selectPart(String UserName);
 
-    List<UserDTO> findUserId(String userId);
-
     List<UserDTO> findUserCode(String userCode);
+
+    List<UserDTO> findUserName(String userName);
 
     void modifyPart(String partCode, int partstock, String partName, int partPrice);
 
@@ -49,6 +49,9 @@ public interface UserMapper {
 
     void deletePart(String partCode);
 
+    List<ResDTO> findCodeRes(int resCode);
 
-//    List<RepairDTO> findRepairInfo();
+    List<RepairDTO> findAllRepair();
+
+    List<RepairPartDTO> findRepairPart();
 }

@@ -1,62 +1,63 @@
 package com.ohgiraffers.hitechautoworks.auth.dto;
 
+import java.util.Date;
+
 public class RepairDTO {
 
-    private int content;
-    private int date;
-    private int status;
-    private ResDTO resCode;
+    private String content;
+    private Date date;
+    private String status;
+    private ResDTO resDTO;
 
     public RepairDTO() {}
 
-    public RepairDTO(int content, int date, int status, ResDTO resCode) {
+    public RepairDTO(String content, Date date, String status, ResDTO resDTO) {
         this.content = content;
         this.date = date;
         this.status = status;
-        this.resCode = resCode;
+        this.resDTO = resDTO;
     }
 
-    public int getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(int content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
-    public int getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public ResDTO getResCode() {
-        return resCode;
+    public ResDTO getResDTO() {
+        return resDTO;
     }
 
-    public void setResCode(ResDTO resCode) {
-        this.resCode = resCode;
+    public void setResDTO(ResDTO resDTO) {
+        this.resDTO = resDTO;
     }
 
     @Override
     public String toString() {
         return "RepairDTO{" +
-                "content=" + content +
+                "content='" + content + '\'' +
                 ", date=" + date +
-                ", status=" + status +
-                ", resCode=" + resCode +
+                ", status='" + status + '\'' +
+                ", resDTO=" + resDTO +
                 '}';
     }
-
 }
 

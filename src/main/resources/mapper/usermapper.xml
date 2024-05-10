@@ -50,11 +50,11 @@
     </select>
 
 
-    <update id="findUser" parameterType="map">
-        UPDATE tbl_user
-        SET user_role = 'CUSTOMER'
-        WHERE user_id = #{userId} AND user_check = #{checknumber}
-    </update>
+    <select id="findUserCode" resultMap="user">
+        SELECT * from tbl_user
+        where user_code = #{userCode}
+    </select>
+
     <resultMap id="finduser" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
         <id property="userNo" column="user_no"/>
         <result property="userId" column="user_id"/>
@@ -62,11 +62,11 @@
         <result property="password" column="password"/>
         <result property="userRole" column="user_role"/>
     </resultMap>
-    <select id="findOneUser" resultMap="finduser">
+    <select id="findUserName" resultMap="user">
         SELECT
         *
         FROM TBL_USER
-        WHERE user_id = #{user_name} AND user_code = #{user_number}
+        WHERE user_name = #{userName}
     </select>
 
         <resultMap id="partReusltMap" type="com.ohgiraffers.hitechautoworks.auth.dto.PartDTO">
@@ -146,6 +146,7 @@
             <result property="userRole" column="user_role"/>
         </association>
     </resultMap>
+
     <select id="findAllres" resultMap="res">
         select
             a.res_code,
@@ -163,12 +164,47 @@
         FROM tbl_res
         WHERE res_code = #{resCode}
     </select>
+
+    <select id="findCodeRes" resultMap="res">
+        SELECT
+            a.res_code,
+            a.res_title,
+            a.res_option,
+            a.res_date,
+            a.res_extra,
+            b.user_name
+        FROM tbl_res a
+        JOIN tbl_user b ON (a.user_code = b.user_code)
+        WHERE a.res_code = #{code}
+    </select>
+
+
     <delete id="deletePart">
         DELETE FROM
                     tbl_part
         WHERE
              part_code = #{ partCode }
     </delete>
+
+    <resultMap id="repair" type="com.ohgiraffers.hitechautoworks.auth.dto.RepairDTO">
+        <result property="content" column="repair_content"/>
+        <result property="date" column="repair_date"/>
+        <result property="status" column="repair_status"/>
+        <association property="resDTO" resultMap="res" />
+    </resultMap>
+
+    <select id="findAllRepair" resultMap="repair">
+        SELECT
+        a.res_code,
+        a.repair_date,
+        a.repair_content
+        FROM
+            tbl_repair a
+<!--        JOIN-->
+<!--            tbl_res b ON a.res_code = b.res_code-->
+
+    </select>
+
 
 
 </mapper>

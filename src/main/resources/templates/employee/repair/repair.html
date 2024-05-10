@@ -81,26 +81,26 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="/logo/logo.png" alt="Logo" ></a>
+            <a class="navbar-brand" href="#"><img src="https://github.com/panghunJO/HitechProject1/assets/157236060/ade911fb-5b0b-409d-b99a-4b4d23ecff64" alt="Logo" ></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
                     <li class="nav-item">
-                        <a class="nav-link" href="#">작업관리</a>
+                        <a class="nav-link" href="/employee/repair/repair">작업관리</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">재고관리</a>
+                        <a class="nav-link" href="/employee/part/part">재고관리</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">메일/채팅</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">계정관리</a>
+                        <a class="nav-link" href="/employee/account/account">계정관리</a>
                     </li>
                 </ul>
-                <p id="username" class="nav-link" >사용자이름</p>
+                <p id="username" class="nav-link"  th:text=|${userName}님|></p>
                 <ul class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     </a>
@@ -121,6 +121,7 @@
         <div class="col-md-12">
             <div class="container" id="content-container">
                 <div class="container" id="content">
+                    <form>
                     <div class="search">
                         <label>성명</label>&nbsp;&nbsp;
                         <input type="text" placeholder="성명 입력" class="form-control">
@@ -130,6 +131,7 @@
                         <button id="btn" class="btn btn-light" >검색</button>
                         <button id="btn1" class="btn btn-light" >작업등록</button>
                     </div>
+                    </form>
                     <div class="inner-box">
                         <div class="container">
                             <div class="row">
@@ -145,12 +147,12 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>홍길동</td>
-                                            <td>엔진오일 교체</td>
-                                            <td>엔진오일</td>
-                                            <td>진행중</td>
-                                            <td>2024.03.01 ~ 2024.03.04</td>
+                                        <tr th:each ="repair :${ repairList }">
+                                            <td th:text="${ repair.content}"></td>
+                                            <td th:text="${ repair.date}"></td>
+                                            <td th:text="${ repair.status}"></td>
+<!--                                            <td th:text="${ repair.ResDTO.title}"></td>-->
+                                            <td></td>
                                             <td>
                                                 <button id="viewBtn" class="btn btn-light" type="submit" >상세보기</button>
                                             </td>

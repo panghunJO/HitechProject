@@ -59,26 +59,26 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="logo/logo.png" alt="Logo" ></a>
+            <a class="navbar-brand" href="#"><img src="https://github.com/panghunJO/HitechProject1/assets/157236060/ade911fb-5b0b-409d-b99a-4b4d23ecff64" alt="Logo" ></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
                     <li class="nav-item">
-                        <a class="nav-link" href="#">작업관리</a>
+                        <a class="nav-link" href="#"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">재고관리</a>
+                        <a class="nav-link" href="#"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">메일/채팅</a>
+                        <a class="nav-link" href="#"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">계정관리</a>
+                        <a class="nav-link" href="#"></a>
                     </li>
                 </ul>
-                <p id="username" class="nav-link" >사용자이름</p>
+                <p id="username" class="nav-link"  th:text="|${userName}님|"></p>
                 <ul class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     </a>
@@ -105,7 +105,10 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9">
-                                <form>
+
+
+                                <form id="actionForm" method="POST" >
+
                                     <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label text-end">예약번호</label>
                                         <div class="col-sm-8">
@@ -127,8 +130,12 @@
                                     <div class="row">
                                         <div class="col text-end">
 
-                                            <button type="button" class="btn btn-modify ">수정</button>
-                                            <button type="button" class="btn btn-modify ">삭제</button>
+
+
+
+                                            <button type="button" class="btn btn-modify " onclick="updateItem()">수정</button>
+
+                                            <button type="button" class="btn btn-modify " onclick="deleteItem()">삭제</button>
 
                                         </div>
                                     </div>
@@ -216,6 +223,22 @@
         // 클릭한 링크에 'active' 클래스 추가
         link.classList.add('active');
     }
+    // 수정하기 버튼을 클릭했을 때 실행되는 함수
+    function updateItem() {
+        // 폼 요소의 action 속성 변경
+        document.getElementById("actionForm").action = "/update";
+        // 폼을 서버로 전송
+        document.getElementById("actionForm").submit();
+    }
+
+    // 삭제하기 버튼을 클릭했을 때 실행되는 함수
+    function deleteItem() {
+        // 폼 요소의 action 속성 변경
+        document.getElementById("actionForm").action = "/delete";
+        // 폼을 서버로 전송
+        document.getElementById("actionForm").submit();
+    }
+
 </script>
 </body>
 </html>

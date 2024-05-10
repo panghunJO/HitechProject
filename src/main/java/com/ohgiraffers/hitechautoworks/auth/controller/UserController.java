@@ -1,8 +1,6 @@
 package com.ohgiraffers.hitechautoworks.auth.controller;
 
-import com.ohgiraffers.hitechautoworks.auth.dto.PartDTO;
-import com.ohgiraffers.hitechautoworks.auth.dto.RepairDTO;
-import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
+import com.ohgiraffers.hitechautoworks.auth.dto.*;
 import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.ohgiraffers.hitechautoworks.auth.dto.ResDTO;
 
 import java.util.List;
 
@@ -24,14 +21,26 @@ public class UserController {
 
     @GetMapping("/user/dashboard")
     public void dashboard(Model model) {
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
     }
 
     @GetMapping("/customer/dashboard")
     public void dashboard2(Model model) {
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
     }
 
     @GetMapping("/employee/dashboard")
-    public void employee() {
+    public void employee(Model model) {
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
     }
 
     @GetMapping("/employee/part/part")
@@ -121,6 +130,10 @@ public class UserController {
         List<UserDTO> userList = userService.findAllUser();
         System.out.println("userList = " + userList);
         model.addAttribute("userList", userList);
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
         return "admin/account/account";
     }
 
@@ -131,70 +144,103 @@ public class UserController {
    }
 
 
-//    @PostMapping("/employee/account/account")
-//    public void account2(@RequestParam String userId, @RequestParam String user_code, Model model) {
-//        System.out.println("userId = " + userId);
-//        System.out.println("user_code = " + user_code);
-//
-//        if(userId == "" && user_code == "") {
-//            List<UserDTO> userList = userService.findAllUser();
-//            model.addAttribute("userList", userList);
-//            System.out.println("userList = " + userList);
-//
-//        } else if (userId == "") {
-//            List<UserDTO> userList = userService.findUserId(String.valueOf(Integer.parseInt(user_code));
-//            System.out.println("userList = " + userList);
-//            model.addAttribute("userList", userList);
-//
-//        } else {
-//            List<UserDTO> userList = userService.findUserCode(userName);
-//            System.out.println("userList = " + userList);
-//            model.addAttribute("userList", userList);
-//        }
-//
-//    }
-//
-//}
     @PostMapping("/employee/account/account")
-    public void account2(@RequestParam String userId, @RequestParam String user_code, Model model) {
-        System.out.println("userId = " + userId);
-        System.out.println("user_code = " + user_code);
+    public void account2(@RequestParam String userName, @RequestParam String userCode, Model model) {
+        System.out.println("userName = " + userName);
+        System.out.println("user_code = " + userCode);
 
-        if (userId.equals("") && user_code.equals("")) {
+        if(userName == "" && userCode == "") {
             List<UserDTO> userList = userService.findAllUser();
             model.addAttribute("userList", userList);
             System.out.println("userList = " + userList);
 
-        } else if (userId.equals("")) {
-            if (!user_code.equals("")) {
-                List<UserDTO> userList = userService.findUserId(user_code);
-                System.out.println("userList = " + userList);
-                model.addAttribute("userList", userList);
-            } else {
-                // handle the case where user_code is empty
-            }
+        } else if (userName == "") {
+            List<UserDTO> userList = userService.findUserCode(userCode);
+            System.out.println("userList = " + userList);
+            model.addAttribute("userList", userList);
+
         } else {
-            // handle the case where userId is not empty
+            List<UserDTO> userList = userService.findUserName(userName);
+            System.out.println("userList = " + userList);
+            model.addAttribute("userList", userList);
         }
+
     }
+
 
 //    @GetMapping("/employee/part/partAdd")
 //    public void pardAdd(){}
 
 
+
 //    @GetMapping("/employee/part/delete")
+
+    @GetMapping("/customer/res/res")
+    public String res(Model model){
+        List<ResDTO> resList = userService.findAllres();
+        System.out.println("resList = " + resList);
+        model.addAttribute("resList", resList);
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
+        return "customer/res/res";
+    }
+  
+    @GetMapping("/customer/res/resDetail")
+    public void resdetail(@RequestParam int resCode, Model model){
+        System.out.println("resCode = "+resCode);
+        ResDTO res = userService.findUserRes(resCode);
+        System.out.println("res = " + res);
+        model.addAttribute("res", res);
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
+    }
+  
+    @PostMapping("/customer/res/res")
+    public void res1(@RequestParam int resCode, Model model){
+        System.out.println("resCode = " + resCode);
+        List<ResDTO> resList = userService.findCodeRes(resCode);
+        System.out.println("resList = " + resList);
+        model.addAttribute("resList", resList);
+
+    }
+    //    @GetMapping("/employee/part/delete")
+
 //    public String delete(){
 //
 //        return "/employee/part/partdetail";
 //    }
+  
+  
     @PostMapping("/employee/part/delete")
     public String delete(@RequestParam String partCode){
        userService.deletePart(partCode);
 
        return "/employee/part/part";
     }
+    @GetMapping("/employee/repair/repair")
+    public void repair(Model model){
+        List<RepairDTO> repairList = userService.findAllRepair();
+        System.out.println("repairList = " + repairList);
+        model.addAttribute("repairList", repairList);
 
-    
+        List<RepairPartDTO> partList = userService.findRepairPart();
+        System.out.println("partList = " + partList);
+        model.addAttribute("partList", partList);
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
+
+
+    }
+
+
+
+
 }
 
 
