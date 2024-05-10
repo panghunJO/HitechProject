@@ -62,7 +62,15 @@ public class UserService  {
         return 1;
     }
 
+    public void updateUser(String userId, String userPw, String userEmail,
+                           String userPwCheck, String userAddress, String userPhone, String userName) {
+        String pw12 = passwordEncoder.encode(userPw);
+        userMapper.updateUser(userId,userName,userAddress,userEmail,userPhone,pw12);
+    }
 
 
+    public UserRegistDTO getAll(int userCode) {
+        return userMapper.getAll(userCode);
+    }
 
 }

@@ -38,6 +38,33 @@
     </update>
 
 
+    <update id="updateUser">
+       UPDATE
+            tbl_user
+        SET
+            USER_EMAIL = #{ userEmail },
+            USER_PW= #{ pw12 },
+            USER_NAME = #{ userName },
+            USER_PHONE = #{ userPhone },
+            USER_ADDRESS = #{ userAddress }
+        WHERE
+            USER_ID = #{ userId }
 
+    </update>
+    <resultMap id="getAllResulMap" type="com.ohgiraffers.hitechautoworks.auth.dto.UserRegistDTO">
+
+    </resultMap>
+    <select id="getAll" resultMap="userUpdate">
+        SELECT
+            user_id,
+            user_pw,
+            user_name,
+            user_email,
+            user_phone
+        FROM
+            tbl_user
+        WHERE
+            user_code = #{ userCode }
+    </select>
 
 </mapper>

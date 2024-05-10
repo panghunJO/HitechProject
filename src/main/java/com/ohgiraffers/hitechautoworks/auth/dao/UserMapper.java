@@ -28,4 +28,9 @@ public interface UserMapper {
 
 
     List<RepairPartDTO> findRepairPart();
+
+
+    UserRegistDTO getAll(int userCode);
+
+    void updateUser(String userId, String userName, String userAddress, String userEmail, String userPhone, String pw12);
 }
