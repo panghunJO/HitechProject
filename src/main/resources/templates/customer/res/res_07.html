@@ -113,7 +113,6 @@
                     <label class="">날짜 선택</label>
                     <div class="inner-box">
                         <div id='calendar'></div>
-
                     </div>
                     <div>
                         <button id="nextbtn" class="btn btn-light" type="submit"><a href="#" style="text-decoration: none;">다음</a></button>
@@ -139,7 +138,26 @@
 
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth'
+            initialView: 'dayGridMonth',
+            height : 490,
+            aspectRatio : 1.35,
+            local : 'ko',
+            dayMaxEvents: true,
+            dateClick : function (info) {
+                var confirmDialog = confirm( info.dateStr + ' 날짜를 선택하시겠습니까?');
+                if (confirmDialog) {
+                    fetch("/customer/res/res_07", {
+                        method: "POST",
+                        body: JSON.stringify({
+                            date: info.dateStr
+                        }),
+                    })
+                        .then((response) => response.json())
+                    location.href='/customer/res/res_08';
+                } else {
+                    return;
+                }
+            }
         });
         calendar.render();
     });
