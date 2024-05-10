@@ -94,6 +94,34 @@
             font-weight: bold;
         }
 
+        .flex {
+            display: flex;
+            justify-content: center;
+        }
+
+        .s_button {
+            /* 현재 스타일 유지 */
+            text-align: center;
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px;
+            /* 추가 스타일 */
+            border-radius: 40%; /* 라운드 처리 */
+            border-width: 1px; /* 얇은 테두리 설정 */
+            cursor: pointer; /* 마우스 포인터를 손가락 모양으로 변경 */
+            user-select: none; /* 텍스트 선택 금지 */
+        }
+
+        /* 호버 효과 */
+        .s_button:hover {
+            background-color: darkgray;
+            color: white;
+        }
+
     </style>
 </head>
 <body>
@@ -158,14 +186,13 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="table-wrapper">
                                         <table class="table table-bordered">
                                         <tr>
                                             <th scope="col">사원이름</th>
                                             <th scope="col">사원번호</th>
                                             <th scope="col">Role</th>
                                         </tr>
-                                        <tr th:each="user : ${userList}">
+                                        <tr th:each="user, iterStat : ${userList}" id="row_${iterStat.index}">
                                             <td th:text="${user.userName}"></td>
                                             <td th:text="${user.userCode}"></td>
                                             <td th:text="${user.userRole}"></td>
@@ -176,18 +203,17 @@
                                         </tr>
                                         <!-- 나머지 표의 내용 생략 -->
                                     </table>
-                                    </div>
                                 </div>
                             </div>
+                    <div class="page_number">
+                        <div class="flex">
+                            <div class="s_button" onclick="changePage(1)">1</div>
+                            <div class="s_button" onclick="changePage(2)">2</div>
+                            <div class="s_button" onclick="changePage(3)">3</div>
                         </div>
                     </div>
-<!--                    <div class="container">-->
-<!--                        <div class="row justify-content-center">-->
-<!--                            <div class="col-md-12 text-center">-->
-<!--                                <button id="nextbtn" class="btn btn-light" type="submit">다음</button>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -212,6 +238,44 @@
     //     xhr.open("POST", "/employee/account/account");
     //     xhr.send(formData);
     // });
+
+    // 현재 페이지를 저장할 변수
+    var currentPage = 1;
+    // 페이지당 행 수
+    var rowsPerPage = 10;
+
+    // 페이지를 변경하는 함수
+    function changePage(pageNumber) {
+        // 현재 페이지를 설정
+        currentPage = pageNumber;
+        // 모든 행을 숨김
+        hideAllRows();
+        // 현재 페이지에 해당하는 행들을 보여줌
+        showRowsForCurrentPage();
+    }
+
+    // 모든 행을 숨기는 함수
+    function hideAllRows() {
+        var rows = document.querySelectorAll('[id^="row_"]');
+        rows.forEach(function(row) {
+            row.style.display = 'none';
+        });
+    }
+
+    // 현재 페이지에 해당하는 행들을 보여주는 함수
+    function showRowsForCurrentPage() {
+        var startIndex = (currentPage - 1) * rowsPerPage;
+        var endIndex = startIndex + rowsPerPage;
+        var rows = document.querySelectorAll('[id^="row_"]');
+        for (var i = startIndex; i < endIndex && i < rows.length; i++) {
+            rows[i].style.display = 'table-row';
+        }
+    }
+
+    // 초기 페이지 로드 시 첫 번째 페이지 행들을 보여줌
+    window.onload = function() {
+        changePage(1);
+    };
 
 
     // 사용자 이름 클릭 시 서브메뉴 토글
