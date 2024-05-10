@@ -168,10 +168,12 @@ public class UserController {
     }
 
 
-
-
 //    @GetMapping("/employee/part/partAdd")
 //    public void pardAdd(){}
+
+
+
+//    @GetMapping("/employee/part/delete")
 
     @GetMapping("/customer/res/res")
     public String res(Model model){
@@ -184,6 +186,7 @@ public class UserController {
         model.addAttribute("userName",userName);
         return "customer/res/res";
     }
+  
     @GetMapping("/customer/res/resDetail")
     public void resdetail(@RequestParam int resCode, Model model){
         System.out.println("resCode = "+resCode);
@@ -195,6 +198,7 @@ public class UserController {
         String userName = userDTO.getUserName();
         model.addAttribute("userName",userName);
     }
+  
     @PostMapping("/customer/res/res")
     public void res1(@RequestParam int resCode, Model model){
         System.out.println("resCode = " + resCode);
@@ -204,10 +208,13 @@ public class UserController {
 
     }
     //    @GetMapping("/employee/part/delete")
+
 //    public String delete(){
 //
 //        return "/employee/part/partdetail";
 //    }
+  
+  
     @PostMapping("/employee/part/delete")
     public String delete(@RequestParam String partCode){
        userService.deletePart(partCode);

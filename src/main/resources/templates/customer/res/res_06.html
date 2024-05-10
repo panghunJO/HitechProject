@@ -116,20 +116,9 @@
                                     <label id="title" style="text-align: left; margin-right: 10px;">요청목록</label> <!-- 왼쪽 정렬 및 오른쪽 여백 추가 -->
                                     <div class="rounded-div">
                                         <table style="width: 400px; height: 250px">
-                                            <tr>
-                                                <td>1</td>
+                                            <tr th:each="list : ${partlist}">
+                                                <td th:text="${list}"></td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                            </tr>
-
-
                                         </table>
                                     </div>
                                 </div>
