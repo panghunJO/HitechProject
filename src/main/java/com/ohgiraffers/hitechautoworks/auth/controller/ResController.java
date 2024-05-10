@@ -1,6 +1,7 @@
 package com.ohgiraffers.hitechautoworks.auth.controller;
 
 import com.ohgiraffers.hitechautoworks.auth.dto.ResDTO;
+import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.EtcCarDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.ImportantDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.NormalDTO;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -30,19 +32,34 @@ public class ResController {
     private AuthUserInfo authUserInfo;
 
     @GetMapping("/customer/res/res")
-    public String res(Model moder) {
+    public String res(Model model){
         List<ResDTO> resList = userService.findAllres();
         System.out.println("resList = " + resList);
-        moder.addAttribute("resList", resList);
+        model.addAttribute("resList", resList);
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
         return "customer/res/res";
     }
-
     @GetMapping("/customer/res/resDetail")
-    public void resdetail(@RequestParam int resCode, Model model) {
-        System.out.println("resCode = " + resCode);
+    public void resdetail(@RequestParam int resCode, Model model){
+        System.out.println("resCode = "+resCode);
         ResDTO res = userService.findUserRes(resCode);
         System.out.println("res = " + res);
         model.addAttribute("res", res);
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        model.addAttribute("userName",userName);
+    }
+    @PostMapping("/customer/res/res")
+    public void res1(@RequestParam int resCode, Model model){
+        System.out.println("resCode = " + resCode);
+        List<ResDTO> resList = userService.findCodeRes(resCode);
+        System.out.println("resList = " + resList);
+        model.addAttribute("resList", resList);
+
     }
 
     @GetMapping("/customer/res/res_01")

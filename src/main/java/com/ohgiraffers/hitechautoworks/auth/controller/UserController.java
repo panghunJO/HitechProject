@@ -175,38 +175,10 @@ public class UserController {
 
 //    @GetMapping("/employee/part/delete")
 
-    @GetMapping("/customer/res/res")
-    public String res(Model model){
-        List<ResDTO> resList = userService.findAllres();
-        System.out.println("resList = " + resList);
-        model.addAttribute("resList", resList);
-        authUserInfo = new AuthUserInfo();
-        UserDTO userDTO = authUserInfo.getUserDTO();
-        String userName = userDTO.getUserName();
-        model.addAttribute("userName",userName);
-        return "customer/res/res";
-    }
-  
-    @GetMapping("/customer/res/resDetail")
-    public void resdetail(@RequestParam int resCode, Model model){
-        System.out.println("resCode = "+resCode);
-        ResDTO res = userService.findUserRes(resCode);
-        System.out.println("res = " + res);
-        model.addAttribute("res", res);
-        authUserInfo = new AuthUserInfo();
-        UserDTO userDTO = authUserInfo.getUserDTO();
-        String userName = userDTO.getUserName();
-        model.addAttribute("userName",userName);
-    }
-  
-    @PostMapping("/customer/res/res")
-    public void res1(@RequestParam int resCode, Model model){
-        System.out.println("resCode = " + resCode);
-        List<ResDTO> resList = userService.findCodeRes(resCode);
-        System.out.println("resList = " + resList);
-        model.addAttribute("resList", resList);
 
-    }
+  
+
+
     //    @GetMapping("/employee/part/delete")
 
 //    public String delete(){
