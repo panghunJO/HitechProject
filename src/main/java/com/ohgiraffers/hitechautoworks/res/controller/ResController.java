@@ -50,6 +50,13 @@ public class ResController {
         model.addAttribute("message",message);
         return "customer/res/res";
     }
+
+    @PostMapping("/customer/res/resgo")
+    public String resgo(Model model){
+        List<ResDTO> resList = resService.findAllres();
+        model.addAttribute("resList", resList);
+        return "redirect:/customer/res/res";
+    }
     @GetMapping("/customer/res/resDetail")
     public void resdetail(@RequestParam int resCode, Model model){
         System.out.println("resCode = "+resCode);
@@ -63,7 +70,7 @@ public class ResController {
     }
     @PostMapping("/customer/res/res")
     public void res1(@RequestParam int resCode, Model model){
-        System.out.println("resCode = " + resCode);
+        System.out.println("resCode3322 = " + resCode);
         List<ResDTO> resList = resService.findCodeRes(resCode);
         System.out.println("resList = " + resList);
         model.addAttribute("resList", resList);
@@ -72,6 +79,10 @@ public class ResController {
 
     @GetMapping("/customer/res/res_01")
     public void res01() {
+    }
+
+    @PostMapping("/customer/res/res_01")
+    public void res011() {
     }
 
     @GetMapping("/customer/res/res_02")
