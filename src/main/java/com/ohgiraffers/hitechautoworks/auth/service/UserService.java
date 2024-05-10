@@ -4,12 +4,13 @@ package com.ohgiraffers.hitechautoworks.auth.service;
 
 import com.ohgiraffers.hitechautoworks.auth.dao.UserMapper;
 import com.ohgiraffers.hitechautoworks.auth.dto.*;
+import com.ohgiraffers.hitechautoworks.part.dto.PartDTO;
+import com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO;
+import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,11 +24,7 @@ public class UserService  {
     @Autowired
     private UserMapper userMapper;
 
-//    public List<RepairDTO> findRepairInfo() {
-//
-//
-//        return userMapper.findRepairInfo();
-//    }
+
 
     public String overlappedID(String id) {
         String result = userMapper.overlappedID(id);
@@ -65,78 +62,6 @@ public class UserService  {
         return 1;
     }
 
-    public List<UserDTO> findAllUser() {
-
-        return userMapper.findAllUser();
-
-    }
-    public List<PartDTO> selectPartByCode(int partCode) {
-        List<PartDTO> partList = userMapper.selectPartByCode(partCode);
-
-        return partList;
-    }
-
-    public List<PartDTO> selectAllPart() {
-        List<PartDTO> partList = userMapper.selectAllPart();
-
-        return partList;
-    }
-
-    public PartDTO selectpart(int partCode) {
-        PartDTO partDTO = userMapper.selectpart(partCode);
-
-        return partDTO;
-    }
-
-    public List<PartDTO> partSearchBtPartName(String partName) {
-
-        List<PartDTO> partList = userMapper.partSearchBtPartName(partName);
-
-        return partList;
-    }
 
 
-    public List<UserDTO> selectPartName(String partName) {
-        return userMapper.selectPart(partName);
-    }
-
-    public List<UserDTO> findUserCode(String userCode) {
-        List<UserDTO> userList = userMapper.findUserCode(userCode);
-        return userList;
-    }
-
-
-    public List<UserDTO> findUserName(String userName) {
-        List<UserDTO> userList2 = userMapper.findUserName(userName);
-        return userList2;
-    }
-
-
-    public void modifyPart(String partCode, int partstock, int partPrice, String partName) {
-        userMapper.modifyPart(partCode, partstock, partName, partPrice);
-    }
-
-
-    public void addPart(int partstock, int partPrice, String partName) {
-        userMapper.addPart(partstock, partName, partPrice);
-    }
-
-    public ResDTO findUserRes(int resCode) {
-        return userMapper.findUserRes(resCode);
-    }
-
-    public List<ResDTO> findAllres() {
-        return userMapper.findAllres();
-    }
-
-    public void deletePart(String partCode) {
-        userMapper.deletePart(partCode);
-    }
-
-    public List<ResDTO> findCodeRes(int resCode) { return userMapper.findCodeRes(resCode);
-    }
-
-    public List<RepairDTO> findAllRepair() {
-        return userMapper.findAllRepair();
-    }
 }

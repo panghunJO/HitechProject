@@ -1,7 +1,10 @@
-package com.ohgiraffers.hitechautoworks.auth.dto;
+package com.ohgiraffers.hitechautoworks.repair.dto;
+
+import com.ohgiraffers.hitechautoworks.part.dto.PartDTO;
+import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 
 public class RepairPartDTO {
-    private ResDTO  resDTO;
+    private ResDTO resDTO;
     private PartDTO partDTO;
 
     public RepairPartDTO() {

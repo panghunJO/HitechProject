@@ -1,4 +1,6 @@
-package com.ohgiraffers.hitechautoworks.auth.dto;
+package com.ohgiraffers.hitechautoworks.repair.dto;
+
+import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 
 import java.util.Date;
 
