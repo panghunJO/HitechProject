@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserController {
 
+    private AuthUserInfo authUserInfo;
 
     @GetMapping("/user/dashboard")
     public void dashboard(Model model) {
