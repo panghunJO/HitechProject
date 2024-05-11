@@ -138,11 +138,33 @@
 
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
+            local: 'kr',
+            initialView: 'timeGridWeek',
+            nowIndicator: true,
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,dayGridWeek'
+            },
             initialView: 'dayGridMonth',
             height : 490,
             aspectRatio : 1.35,
             local : 'ko',
             dayMaxEvents: true,
+            events: [
+                {
+                    title: 'Long Event',
+                    start: '2024-05-10',
+                    end: '2023-05-13'
+                },
+                {
+                    start: '2024-05-24',
+                    end: '2024-05-28',
+                    overlap: false,
+                    display: 'background',
+                    color: '#ff9f89'
+                }
+            ],
             dateClick : function (info) {
                 var confirmDialog = confirm( info.dateStr + ' 날짜를 선택하시겠습니까?');
                 if (confirmDialog) {
