@@ -59,7 +59,7 @@ public class ResController {
         return "redirect:/customer/res/res";
     }
     @GetMapping("/customer/res/resDetail")
-    public void resdetail(@RequestParam int rescode, Model model){
+    public void resdetail(@RequestParam("resCode") int rescode, Model model){
         ResDTO res = resService.findUserRes(rescode);
         model.addAttribute("res", res);
         authUserInfo = new AuthUserInfo();
@@ -187,7 +187,7 @@ public class ResController {
 
 
     @PostMapping("/customer/res/rescomment")
-    public String rescomment(@RequestParam String comment, @RequestParam int rescode){
+    public String rescomment(@RequestParam String comment, @RequestParam("resCode") int rescode){
         authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         String userName = userDTO.getUserName();

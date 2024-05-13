@@ -2,7 +2,8 @@ package com.ohgiraffers.hitechautoworks.res.dto;
 
 import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 
 public class ResDTO {
@@ -11,12 +12,12 @@ public class ResDTO {
     private String title;
     private UserDTO userDTO;
     private String option;
-    private Date date;
+    private Timestamp date;
     private String extra;
 
     public ResDTO() { }
 
-    public ResDTO(int code, String title, UserDTO userDTO, String option, Date date, String extra) {
+    public ResDTO(int code, String title, UserDTO userDTO, String option, Timestamp date, String extra) {
         this.code = code;
         this.title = title;
         this.userDTO = userDTO;
@@ -57,11 +58,11 @@ public class ResDTO {
         this.option = option;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
@@ -79,10 +80,11 @@ public class ResDTO {
                 "code=" + code +
                 ", title='" + title + '\'' +
                 ", userDTO=" + userDTO +
-                ", option=" + option +
+                ", option='" + option + '\'' +
                 ", date=" + date +
-                ", extra=" + extra +
+                ", extra='" + extra + '\'' +
                 '}';
     }
-
 }
+
+
