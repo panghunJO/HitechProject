@@ -36,8 +36,6 @@ public class AccountController {
 
     @PostMapping("/employee/account/account")
     public void account2(@RequestParam String userName, @RequestParam String userCode, Model model) {
-        System.out.println("userName = " + userName);
-        System.out.println("user_code = " + userCode);
 
         if(userName == "" && userCode == "") {
             List<UserDTO> userList = accountService.findAllUser();
