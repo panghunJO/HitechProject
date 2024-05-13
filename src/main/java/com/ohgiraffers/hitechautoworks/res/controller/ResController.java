@@ -59,14 +59,14 @@ public class ResController {
         return "redirect:/customer/res/res";
     }
     @GetMapping("/customer/res/resDetail")
-    public void resdetail(@RequestParam int resCode, Model model){
-        ResDTO res = resService.findUserRes(resCode);
+    public void resdetail(@RequestParam int rescode, Model model){
+        ResDTO res = resService.findUserRes(rescode);
         model.addAttribute("res", res);
         authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         String userName = userDTO.getUserName();
         model.addAttribute("userName",userName);
-        List<ResCommentDTO> resCommentDTO = resService.findComment(resCode);
+        List<ResCommentDTO> resCommentDTO = resService.findComment(rescode);
         model.addAttribute("resComment",resCommentDTO);
         System.out.println("resCommentDTO = " + resCommentDTO);
     }
