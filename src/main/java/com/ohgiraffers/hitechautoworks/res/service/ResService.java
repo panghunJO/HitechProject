@@ -28,4 +28,12 @@ public class ResService {
     public int registres(ResRegistDTO resRegistDTO) {
         return resMapper.registres(resRegistDTO);
     }
+
+    public void resModify(int resCode, String fixOption,String date, String extra) {
+        resMapper.resModify(resCode,fixOption,date,extra);
+    }
+
+    public void resDelete(int resCode) {
+        resMapper.resDelete(resCode);
+    }
 }

@@ -15,4 +15,8 @@ public interface ResMapper {
     List<ResDTO> findCodeRes(int resCode);
 
     int registres(ResRegistDTO resRegistDTO);
+
+    void resModify(int resCode, String fixOption,String date, String extra);
+
+    void resDelete(int resCode);
 }

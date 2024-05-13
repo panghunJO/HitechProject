@@ -55,4 +55,23 @@
         INSERT INTO tbl_res ( res_title, user_code, res_option, res_date, res_extra )
         VALUES ( #{ title }, #{ userCode }, #{ resoption }, #{ date }, #{ detailinfo } )
     </insert>
+
+    <update id="resModify">
+        UPDATE
+            tbl_res
+        SET
+            RES_OPTION = #{ fixOption },
+            RES_DATE = #{ date },
+            RES_EXTRA = #{ extra }
+        WHERE
+           RES_CODE = #{ resCode }
+    </update>
+
+    <delete id="resDelete">
+        DELETE FROM
+             tbl_res
+        WHERE
+            res_code = #{ resCode }
+    </delete>
+
 </mapper>
