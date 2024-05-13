@@ -112,25 +112,25 @@
                                     <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label text-end">예약번호</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" th:value="${res.code}" readonly>
+                                            <input type="text" name="resCode" class="form-control" th:value="${res.code}" readonly>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label text-end">수리옵션</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control"  th:value="${res.option}">
+                                            <input type="text" name="fixOption" class="form-control"  th:value="${res.option}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label text-end">날짜</label>
                                         <div class="col-sm-8">
-                                            <input type="date" class="form-control" th:value="${res.date}">
+                                            <input type="date" name="date" class="form-control" th:value="${res.date}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label text-end">옵션</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" th:value="${res.extra}">
+                                            <input type="text" name="extra" class="form-control" th:value="${res.extra}">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -232,7 +232,7 @@
     // 수정하기 버튼을 클릭했을 때 실행되는 함수
     function updateItem() {
         // 폼 요소의 action 속성 변경
-        document.getElementById("actionForm").action = "/update";
+        document.getElementById("actionForm").action = "/customer/res/resUpdate";
         // 폼을 서버로 전송
         document.getElementById("actionForm").submit();
     }

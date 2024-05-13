@@ -182,4 +182,13 @@ public class ResController {
         }
         return "/customer/res/res";
     }
+
+
+    @PostMapping("/customer/res/resUpdate")
+    public String resModify(@RequestParam int resCode ,@RequestParam String fixOption,@RequestParam String date,@RequestParam String extra ){
+        resService.resModify(resCode,fixOption,date,extra);
+
+    return "/customer/res/res";
+
+    }
 }
