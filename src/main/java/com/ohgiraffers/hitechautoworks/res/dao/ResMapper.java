@@ -19,8 +19,14 @@ public interface ResMapper {
 
     int registres(ResRegistDTO resRegistDTO);
 
+
     void registcomment(String comment, int rescode, Timestamp date, String username);
 
 
     List<ResCommentDTO> findComment(int resCode);
+
+    void resModify(int resCode, String fixOption,String date, String extra);
+
+    void resDelete(int resCode);
+
 }
