@@ -67,4 +67,11 @@
            RES_CODE = #{ resCode }
     </update>
 
+    <delete id="resDelete">
+        DELETE FROM
+             tbl_res
+        WHERE
+            res_code = #{ resCode }
+    </delete>
+
 </mapper>

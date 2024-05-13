@@ -32,4 +32,8 @@ public class ResService {
     public void resModify(int resCode, String fixOption,String date, String extra) {
         resMapper.resModify(resCode,fixOption,date,extra);
     }
+
+    public void resDelete(int resCode) {
+        resMapper.resDelete(resCode);
+    }
 }

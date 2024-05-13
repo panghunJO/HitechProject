@@ -191,4 +191,12 @@ public class ResController {
     return "/customer/res/res";
 
     }
+
+    @PostMapping("/customer/res/resDelete")
+    public String resDelete(@RequestParam int resCode ){
+     resService.resDelete(resCode);
+
+     return "/customer/res/res";
+    }
+
 }

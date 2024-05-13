@@ -240,7 +240,7 @@
     // 삭제하기 버튼을 클릭했을 때 실행되는 함수
     function deleteItem() {
         // 폼 요소의 action 속성 변경
-        document.getElementById("actionForm").action = "/delete";
+        document.getElementById("actionForm").action = "/customer/res/resDelete";
         // 폼을 서버로 전송
         document.getElementById("actionForm").submit();
     }
