@@ -73,4 +73,7 @@ public class UserService  {
         return userMapper.getAll(userCode);
     }
 
+    public void deletePeople(int userCode) {
+        userMapper.deletePeople(userCode);
+    }
 }
