@@ -73,6 +73,18 @@ public class UserController {
         }
 
     }
+
+    @PostMapping("/customer/account/deleteUser")
+    public String deleteUser() {
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode= userDTO.getUserCode();
+        userService.deletePeople(userCode);
+
+        return "customer/res/res";
+
+    }
+
 }
 
 

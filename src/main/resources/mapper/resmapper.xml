@@ -74,4 +74,23 @@
         ORDER BY res_time desc
     </select>
 
+    <update id="resModify">
+        UPDATE
+            tbl_res
+        SET
+            RES_OPTION = #{ fixOption },
+            RES_DATE = #{ date },
+            RES_EXTRA = #{ extra }
+        WHERE
+           RES_CODE = #{ resCode }
+    </update>
+
+    <delete id="resDelete">
+        DELETE FROM
+             tbl_res
+        WHERE
+            res_code = #{ resCode }
+    </delete>
+
+
 </mapper>

@@ -186,27 +186,6 @@ public class ResController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @PostMapping("/customer/res/rescomment")
     public String rescomment(@RequestParam String comment, @RequestParam int rescode){
         authUserInfo = new AuthUserInfo();
@@ -215,4 +194,20 @@ public class ResController {
         resService.registcomment(comment,rescode,userName);
         return "/customer/res/res";
     }
+
+    @PostMapping("/customer/res/resUpdate")
+    public String resModify(@RequestParam int resCode ,@RequestParam String fixOption,@RequestParam String date,@RequestParam String extra ){
+        resService.resModify(resCode,fixOption,date,extra);
+
+    return "/customer/res/res";
+
+    }
+
+    @PostMapping("/customer/res/resDelete")
+    public String resDelete(@RequestParam int resCode ){
+     resService.resDelete(resCode);
+
+     return "/customer/res/res";
+    }
+
 }

@@ -108,7 +108,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9">
-                                    <form action="AccountModify" method="post">
+                                    <form action="AccountModify" id="actionForm" method="post">
                                     <div class="row mb-3">
                                         <label  class="col-sm-4 col-form-label text-end">이름:</label>
                                         <div class="col-sm-8">
@@ -199,11 +199,12 @@
                                     </div>
                                     <div class="row">
                                         <div class="col text-end">
-                                            <button type="submit" class="btn btn-regist">수정</button>
-                                            <button type="button" class="btn btn-regist">회원탈퇴</button>
+                                            <button type="submit" class="btn btn-regist" onclick="modifyUser()">수정</button>
+                                            <button type="button" class="btn btn-regist" onclick="deleteUser()">회원탈퇴</button>
                                         </div>
                                     </div>
-                                </form>
+                                    </form>
+
                             </div>
                         </div>
                     </div>
@@ -245,6 +246,15 @@
 
         // 클릭한 링크에 'active' 클래스 추가
         link.classList.add('active');
+    }
+    function modifyUser() {
+        document.getElementById("actionForm").action = "/customer/account/AccountModify";
+        document.getElementById("actionForm").submit();
+    }
+
+    function deleteUser(){
+        document.getElementById("actionForm").action = "/customer/account/deleteUser";
+        document.getElementById("actionForm").submit();
     }
 
     // 사용자의 역할에 따라 버튼을 조건부로 표시하거나 숨기는 JavaScript 코드

@@ -60,9 +60,9 @@
 
     <delete id="deletePart">
         DELETE FROM
-        tbl_part
+                    tbl_part
         WHERE
-        part_code = #{ partCode }
+                    part_code = #{ partCode }
     </delete>
 
 </mapper>
