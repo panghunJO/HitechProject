@@ -7,6 +7,7 @@ import com.ohgiraffers.hitechautoworks.auth.dto.resdto.EtcCarDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.ImportantDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.NormalDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.SomoDTO;
+import com.ohgiraffers.hitechautoworks.res.dto.ResCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
@@ -59,14 +60,15 @@ public class ResController {
     }
     @GetMapping("/customer/res/resDetail")
     public void resdetail(@RequestParam int resCode, Model model){
-        System.out.println("resCode = "+resCode);
         ResDTO res = resService.findUserRes(resCode);
-        System.out.println("res = " + res);
         model.addAttribute("res", res);
         authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         String userName = userDTO.getUserName();
         model.addAttribute("userName",userName);
+        List<ResCommentDTO> resCommentDTO = resService.findComment(resCode);
+        model.addAttribute("resComment",resCommentDTO);
+        System.out.println("resCommentDTO = " + resCommentDTO);
     }
     @PostMapping("/customer/res/res")
     public void res1(@RequestParam int resCode, Model model){
@@ -183,6 +185,15 @@ public class ResController {
         return "/customer/res/res";
     }
 
+
+    @PostMapping("/customer/res/rescomment")
+    public String rescomment(@RequestParam String comment, @RequestParam int rescode){
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        String userName = userDTO.getUserName();
+        resService.registcomment(comment,rescode,userName);
+        return "/customer/res/res";
+    }
 
     @PostMapping("/customer/res/resUpdate")
     public String resModify(@RequestParam int resCode ,@RequestParam String fixOption,@RequestParam String date,@RequestParam String extra ){

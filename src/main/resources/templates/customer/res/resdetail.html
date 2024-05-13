@@ -48,7 +48,7 @@
             margin-right: 100px;
         }
 
-        nav{
+        nav {
             white-space: nowrap;
         }
 
@@ -59,12 +59,15 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="https://github.com/panghunJO/HitechProject1/assets/157236060/ade911fb-5b0b-409d-b99a-4b4d23ecff64" alt="Logo" ></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#"><img
+                    src="https://github.com/panghunJO/HitechProject1/assets/157236060/ade911fb-5b0b-409d-b99a-4b4d23ecff64"
+                    alt="Logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="#"></a>
                     </li>
@@ -78,9 +81,10 @@
                         <a class="nav-link" href="#"></a>
                     </li>
                 </ul>
-                <p id="username" class="nav-link"  th:text="|${userName}님|"></p>
+                <p id="username" class="nav-link" th:text="|${userName}님|"></p>
                 <ul class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="#">마이페이지</a></li>
@@ -97,7 +101,7 @@
         <a class="nav-link" href="#">수리예약</a><br>
     </div>
 
-     <div class="row">
+    <div class="row">
         <div class="col-md-12">
             <div class="container" id="content-container">
                 <div class="container" id="content">
@@ -107,7 +111,7 @@
                             <div class="col-md-9">
 
 
-                                <form id="actionForm" method="POST" >
+                                <form id="actionForm" method="POST">
 
                                     <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label text-end">예약번호</label>
@@ -137,11 +141,11 @@
                                         <div class="col text-end">
 
 
+                                            <button type="button" class="btn btn-modify " onclick="updateItem()">수정
+                                            </button>
 
-
-                                            <button type="button" class="btn btn-modify " onclick="updateItem()">수정</button>
-
-                                            <button type="button" class="btn btn-modify " onclick="deleteItem()">삭제</button>
+                                            <button type="button" class="btn btn-modify " onclick="deleteItem()">삭제
+                                            </button>
 
                                         </div>
                                     </div>
@@ -149,57 +153,48 @@
                                         <hr> <!-- 수평선을 추가해서 양식과 댓글을 구분할 거야 -->
                                         <div class="card">
                                             <div class="card-body">
-                                                <form>
-                                                    <div class="mb-1 row">
-                                                        <label for="comment" class="col-sm-2 col-form-label">댓글</label>
-                                                        <div class="col-sm-8">
-                                                            <textarea class="form-control" id="comment"
-                                                                      rows="1"></textarea>
-                                                        </div>
-                                                        <div class="col text-end">
-                                                            <button type="submit" class="btn btn-modify">등록</button>
-                                                        </div>
+                                                <div class="mb-1 row">
+                                                    <label for="comment" class="col-sm-2 col-form-label">댓글</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" id="comment"
+                                                               rows="1" name="comment">
                                                     </div>
-                                                </form>
-                                            </div>
-                                        </div>
-
-                                        <!-- 샘플 댓글들 -->
-                                        <div class="card mt-3">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <p class="card-title">작업자1</p>
-                                                        <!-- 작업자1의 댓글 내용 -->
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <p class="card-text">부품 교체 작업에 대한 댓글 내용...</p>
+                                                    <div class="col text-end">
+                                                        <button type="button" class="btn btn-modify"
+                                                                onclick="commentsubmit()">등록
+                                                        </button>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="card mt-3">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <p class="card-title">고객1</p>
-                                                        <!-- 작업자2의 댓글 내용 -->
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <p class="card-text">작업 내용에 관한 추가 댓글...</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </form>
                             </div>
                         </div>
+                        <!-- 샘플 댓글들 -->
+                        <div th:each="comment : ${resComment}">
+                            <div class="card mt-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <p class="card-title" th:text="${comment.commentName}"></p>
+                                            <!-- 작업자1의 댓글 내용 -->
+                                        </div>
+                                        <div class="col-md-9">
+                                            <p class="card-text" th:text="${comment.resReplyContent}"></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="card-text" th:text="${comment.resTime}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 
 <!-- Bootstrap JS -->
@@ -229,6 +224,7 @@
         // 클릭한 링크에 'active' 클래스 추가
         link.classList.add('active');
     }
+
     // 수정하기 버튼을 클릭했을 때 실행되는 함수
     function updateItem() {
         // 폼 요소의 action 속성 변경
@@ -245,6 +241,10 @@
         document.getElementById("actionForm").submit();
     }
 
+    function commentsubmit() {
+        document.getElementById("actionForm").action = "/customer/res/rescomment";
+        document.getElementById("actionForm").submit();
+    }
 </script>
 </body>
 </html>

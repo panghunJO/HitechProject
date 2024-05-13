@@ -56,6 +56,24 @@
         VALUES ( #{ title }, #{ userCode }, #{ resoption }, #{ date }, #{ detailinfo } )
     </insert>
 
+    <insert id="registcomment">
+        INSERT INTO tbl_res_reply (res_code, res_reply_content, res_time, res_commentname)
+        VALUES ( #{ rescode }, #{ comment }, #{ date }, #{ username } )
+    </insert>
+
+    <resultMap id="commentResultMap" type="com.ohgiraffers.hitechautoworks.res.dto.ResCommentDTO">
+        <result property="resReplyContent" column="res_reply_content"/>
+        <result property="resTime" column="res_time"/>
+        <result property="commentName" column="res_commentname"/>
+    </resultMap>
+
+    <select id="findComment" parameterType="int" resultMap="commentResultMap">
+        SELECT res_reply_content, res_time, res_commentname
+        FROM tbl_res_reply
+        WHERE res_code = #{ resCode }
+        ORDER BY res_time desc
+    </select>
+
     <update id="resModify">
         UPDATE
             tbl_res
@@ -73,5 +91,6 @@
         WHERE
             res_code = #{ resCode }
     </delete>
+
 
 </mapper>
