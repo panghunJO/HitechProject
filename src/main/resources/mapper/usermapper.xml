@@ -72,4 +72,12 @@
             user_code = #{ userCode }
     </select>
 
+    <update id="deletePeople">
+        UPDATE tbl_user
+        SET user_role= 'N'
+        WHERE user_code= #{ userCode }
+
+    </update>
+
 </mapper>
+
