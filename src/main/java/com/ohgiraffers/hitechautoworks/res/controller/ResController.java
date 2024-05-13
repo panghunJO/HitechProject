@@ -174,6 +174,7 @@ public class ResController {
         resRegistDTO.setResoption(partlist);
         Date date = (Date) httpSession.getAttribute("date");
         resRegistDTO.setDate(date);
+        System.out.println("date = " + date);
         resRegistDTO.setDetailinfo(detailinfo);
         int result = resService.registres(resRegistDTO);
         if (result == 1){
