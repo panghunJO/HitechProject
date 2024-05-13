@@ -25,7 +25,8 @@ public class ResService {
         return resMapper.findAllres();
     }
 
-    public List<ResDTO> findCodeRes(int resCode) { return resMapper.findCodeRes(resCode);
+    public List<ResDTO> findCodeRes(int resCode) {
+        return resMapper.findCodeRes(resCode);
     }
 
     public int registres(ResRegistDTO resRegistDTO) {
@@ -34,14 +35,15 @@ public class ResService {
 
     public void registcomment(String comment, int rescode, String username) {
         Timestamp date = new Timestamp(System.currentTimeMillis());
-        resMapper.registcomment(comment,rescode,date,username);
+        resMapper.registcomment(comment, rescode, date, username);
     }
 
     public List<ResCommentDTO> findComment(int resCode) {
         return resMapper.findComment(resCode);
+    }
 
-    public void resModify(int resCode, String fixOption,String date, String extra) {
-        resMapper.resModify(resCode,fixOption,date,extra);
+    public void resModify(int resCode, String fixOption, String date, String extra) {
+        resMapper.resModify(resCode, fixOption, date, extra);
     }
 
     public void resDelete(int resCode) {
@@ -49,3 +51,4 @@ public class ResService {
 
     }
 }
+
