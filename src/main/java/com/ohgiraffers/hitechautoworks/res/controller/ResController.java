@@ -199,7 +199,7 @@ public class ResController {
         UserDTO userDTO = authUserInfo.getUserDTO();
         int userCode = userDTO.getUserCode();
         resService.registcomment(comment,rescode,userCode);
-        return "/customer/res/res";
+        return "redirect:/customer/res/resDetail?resCode=" + rescode;
     }
 
     @PostMapping("/customer/res/resUpdate")
