@@ -34,14 +34,13 @@
             padding-right: 10px; /* 오른쪽 여백 추가 */
         }
 
-        #photo-size {
-        width: 200px;
-        height: 250px;
-        background-color: white;
-        float: left;
-            /* 왼쪽으로 배치 */
-
-        }
+        /*#photo-size {*/
+        /*width: 200px;*/
+        /*height: 250px;*/
+        /*background-color: white;*/
+        /*float: left;*/
+        /*    !* 왼쪽으로 배치 *!*
+        /*}*/
         .form-control {
             margin-bottom: 10px;
         }
@@ -108,32 +107,34 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9">
-                                <form>
-                                    <div id="photo-size" >
-                                        <form action="/upload" method="post" enctype="multipart/form-data">
-                                            <input type="file" name="fileUpload" id="fileUpload">
-                                        </form>
-                                    </div>
+                                <form id="actionForm" method="post">
+                                    <!--                                    <div id="photo-size" >-->
+                                    <!--&lt;!&ndash;                                        <form action="AccountModify" method="post" enctype="multipart/form-data">&ndash;&gt;-->
+                                    <!--                                            <input type="file" name="fileUpload" id="fileUpload">-->
+                                    <!--&lt;!&ndash;                                        </form>&ndash;&gt;-->
+                                    <!--                                    </div>-->
                                     <div class="row mb-3">
-                                        <label  class="col-sm-4 col-form-label text-end">사원 이름:</label>
+                                        <label class="col-sm-4 col-form-label text-end">사원 이름:</label>
                                         <div class="col-sm-8">
-                                            <input type="text"
-                                                   placeholder="ex) 홍길동"
+                                            <input name="userName" type="text"
                                                    maxlength="4"
                                                    minlength="2"
                                                    required
-                                                   class="form-control" >
+                                                   class="form-control"
+                                                   th:value="${userDTO.userName}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label  class="col-sm-4 col-form-label text-end">사원 번호:</label>
                                         <div class="col-sm-8">
-                                            <input type="text"
-                                                   placeholder="ex) 505000"
-                                                   maxlength="16"
-                                                   minlength="2"
-                                                   required
-                                                   class="form-control">
+                                            <input  name="userCode" type="text"
+                                                    placeholder="ex) 505000"
+                                                    maxlength="16"
+                                                    minlength="2"
+                                                    required
+                                                    class="form-control"
+                                                    th:value="${ userDTO.userCode }"
+                                                    READONLY>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -144,103 +145,144 @@
                                                     maxlength="8"
                                                     minlength="2"
                                                     required
-                                                    class="form-control" >
+                                                    class="form-control"
+                                                    name="userDepartment"
+                                                    th:value="${ userDTO.userDepartment}">
                                         </div>
                                     </div>
                                     <div class="row mb-3" >
                                         <label class="col-sm-4 col-form-label text-end">휴대폰 번호</label>
                                         <div class="col-sm-8">
-                                            <input type="text"
-                                                   placeholder="ex) 010-1234-1234"
-                                                   maxlength="8"
-                                                   minlength="2"
-                                                   required
-                                                   class="form-control" >
+                                            <input  name="userPhone" type="text"
+                                                    placeholder="ex) 010-1234-1234"
+                                                    maxlength="8"
+                                                    minlength="2"
+                                                    required
+                                                    class="form-control"
+                                                    th:value="${ userDTO.userPhone}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label text-end">이메일:</label>
                                         <div class="col-sm-8" >
-                                            <input type="email"
-                                                   placeholder="ex) abc@def.com"
-                                                   maxlength="8"
-                                                   minlength="2"
-                                                   required
-                                                   class="form-control" >
+                                            <input  name="userEmail" type="email"
+                                                    placeholder="ex) abc@def.com"
+                                                    maxlength="8"
+                                                    minlength="2"
+                                                    required
+                                                    class="form-control"
+                                                    th:value="${ userDTO.userEmail}">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label text-end">주소:</label>
                                         <div class="col-sm-8">
-                                            <input type="text"
-                                                   placeholder="ex) OO시 OO구 OO동"
+                                            <input  name="userAddress" type="text"
+                                                    placeholder="ex) OO시 OO구 OO동"
+                                                    maxlength="8"
+                                                    minlength="2"
+                                                    required
+                                                    class="form-control"
+                                                    th:value="${ userDTO.userAddress}">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-sm-4 col-form-label text-end">아이디:</label>
+                                        <div class="col-sm-8">
+                                            <input name="userId"
+                                                   type="text"
                                                    maxlength="8"
                                                    minlength="2"
                                                    required
-                                                   class="form-control" >
+                                                   class="form-control"
+                                                   th:value="${ userDTO.userId}">
                                         </div>
                                     </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-4 col-form-label text-end">비밀번호:</label>
+                                        <div class="col-sm-8">
+                                            <input name="userPw"
+                                                   type="text"
+                                                   maxlength="8"
+                                                   minlength="2"
+                                                   required
+                                                   class="form-control"
+                                                   placeholder="변경할 비밀번호를 입력해주세요 "
+                                                   th:value="${userDTO.password}">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-4 col-form-label text-end">비밀번호 확인:</label>
+                                        <div class="col-sm-8">
+                                            <input name="userPwCheck"
+                                                   type="text"
+                                                   maxlength="100"
+                                                   minlength="2"
+                                                   required
+                                                   class="form-control"
+                                                   placeholder="비밀번호를 한 번 더 입력해주세요 ">
+                                        </div>
+                                    </div>
+
                                     <div class="row">
                                         <div class="col text-end">
-                                            <button type="button" class="btn btn-regist">등록</button>
+                                            <button type="submit" class="btn btn-regist" onclick="modifypart()">수정</button>
+                                            <button type="button" class="btn btn-modify" onclick="deletepart()">삭제</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // 사용자 이름 클릭 시 서브메뉴 토글
-        document.addEventListener("DOMContentLoaded", function() {
-            var usernameDiv = document.getElementById('username');
-            var submenu = document.querySelector('.submenu');
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // 수정
+    function modifypart() {
+        document.getElementById("actionForm").action = "/admin/account/AccountModify";
+        document.getElementById("actionForm").submit();
+    }
+    // 삭제
+    function deletepart() {
+        document.getElementById("actionForm").action = "/admin/account/AccountDelete";
+        document.getElementById("actionForm").submit();
+    }
 
-            usernameDiv.addEventListener('click', function(event) {
-                event.preventDefault();
-                submenu.classList.toggle('active');
-            });
+    // 사용자 이름 클릭 시 서브메뉴 토글
+    document.addEventListener("DOMContentLoaded", function() {
+        var usernameDiv = document.getElementById('username');
+        var submenu = document.querySelector('.submenu');
+
+        usernameDiv.addEventListener('click', function(event) {
+            event.preventDefault();
+            submenu.classList.toggle('active');
+        });
+        var message = '[[${errorMessage}]]';
+        console.log(message)
+        if (message){
+            alert(message);
+        }
+    });
+
+    // 네비게이션 링크 클릭 시 'active' 클래스 토글
+    function toggleActive(event) {
+        var link = event.target; // 클릭한 링크 요소 가져오기
+        var links = document.querySelectorAll('#menu a'); // 모든 링크 요소 가져오기
+
+        // 모든 링크에서 'active' 클래스 제거
+        links.forEach(function(item) {
+            item.classList.remove('active');
         });
 
-        // 네비게이션 링크 클릭 시 'active' 클래스 토글
-        function toggleActive(event) {
-            var link = event.target; // 클릭한 링크 요소 가져오기
-            var links = document.querySelectorAll('#menu a'); // 모든 링크 요소 가져오기
-
-            // 모든 링크에서 'active' 클래스 제거
-            links.forEach(function(item) {
-                item.classList.remove('active');
-            });
-
-            // 클릭한 링크에 'active' 클래스 추가
-            link.classList.add('active');
-        }
-
-        // 사용자의 역할에 따라 버튼을 조건부로 표시하거나 숨기는 JavaScript 코드
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     var userRole = getUserRole(); // 사용자의 역할을 가져오는 함수
-        //
-        //     if (userRole === "employee" || userRole === "admin") {
-        //         // 사용자가 직원 또는 관리자인 경우 버튼을 표시합니다.
-        //         document.getElementById("employeeSearchButton").style.display = "block";
-        //     } else {
-        //         // 다른 역할의 경우 버튼을 숨깁니다.
-        //         document.getElementById("employeeSearchButton").style.display = "none";
-        //     }
-        // });
-        //
-        // // 사용자의 역할을 가져오는 함수입니다 (실제 사용자 역할을 가져오는 로직으로 대체해야 합니다).
-        // function getUserRole() {
-        //     // 여기에 사용자 역할을 가져오는 로직을 구현합니다.
-        //     // 예를 들어, 쿠키를 사용하여 사용자 역할을 확인할 수 있습니다.
-        // }
-    </script>
+        // 클릭한 링크에 'active' 클래스 추가
+        link.classList.add('active');
+    }
+</script>
 </body>
 </html>
