@@ -1,8 +1,11 @@
 package com.ohgiraffers.hitechautoworks.res.dto;
 
+import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
+
 import java.sql.Timestamp;
 
 public class ResCommentDTO {
+    private UserDTO userDTO;
     private String resReplyContent;
     private Timestamp resTime;
     private String commentName;
@@ -10,10 +13,19 @@ public class ResCommentDTO {
     public ResCommentDTO() {
     }
 
-    public ResCommentDTO(String resReplyContent, Timestamp resTime, String commentName) {
+    public ResCommentDTO(UserDTO userDTO, String resReplyContent, Timestamp resTime, String commentName) {
+        this.userDTO = userDTO;
         this.resReplyContent = resReplyContent;
         this.resTime = resTime;
         this.commentName = commentName;
+    }
+
+    public UserDTO getUserDTO() {
+        return userDTO;
+    }
+
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 
     public String getResReplyContent() {
@@ -43,7 +55,8 @@ public class ResCommentDTO {
     @Override
     public String toString() {
         return "ResCommentDTO{" +
-                "resReplyContent='" + resReplyContent + '\'' +
+                "userDTO=" + userDTO +
+                ", resReplyContent='" + resReplyContent + '\'' +
                 ", resTime=" + resTime +
                 ", commentName='" + commentName + '\'' +
                 '}';

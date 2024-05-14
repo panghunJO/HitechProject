@@ -70,6 +70,8 @@ public class ResController {
         List<ResCommentDTO> resCommentDTO = resService.findComment(rescode);
         model.addAttribute("resComment",resCommentDTO);
         System.out.println("resCommentDTO = " + resCommentDTO);
+//        String username = userService.getcommentusername();
+        System.out.println("resCommentDTO = " + resCommentDTO);
     }
     @PostMapping("/customer/res/res")
     public void res1(@RequestParam int resCode, Model model){
@@ -191,8 +193,8 @@ public class ResController {
     public String rescomment(@RequestParam String comment, @RequestParam("resCode") int rescode){
         authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
-        String userName = userDTO.getUserName();
-        resService.registcomment(comment,rescode,userName);
+        int userCode = userDTO.getUserCode();
+        resService.registcomment(comment,rescode,userCode);
         return "/customer/res/res";
     }
 
@@ -211,9 +213,14 @@ public class ResController {
      return "/customer/res/res";
     }
     @PostMapping("/customer/res/editComment")
-    public void editComment(@RequestBody EditCommentDTO editCommentDTO){
-        System.out.println("editCommentDTO = " + editCommentDTO);
-//    return "/customer/res/res";
+    public String editComment(@RequestBody EditCommentDTO editCommentDTO){
+
+        int usercode = editCommentDTO.getUsercode();
+        String editcomment = editCommentDTO.getStr();
+
+        System.out.println("username = " + usercode);
+        System.out.println("editcomment = " + editcomment);
+    return "/customer/res/res";
     }
 
 }

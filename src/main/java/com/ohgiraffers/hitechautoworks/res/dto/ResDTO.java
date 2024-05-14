@@ -2,7 +2,6 @@ package com.ohgiraffers.hitechautoworks.res.dto;
 
 import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 
