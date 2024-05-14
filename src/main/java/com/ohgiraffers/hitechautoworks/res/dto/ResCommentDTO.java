@@ -11,17 +11,19 @@ public class ResCommentDTO {
     private String resReplyContent;
     private Timestamp resTime;
     private String commentName;
+    private String resCommentAble;
 
     public ResCommentDTO() {
     }
 
-    public ResCommentDTO(UserDTO userDTO, int resReplyCode, int resCode, String resReplyContent, Timestamp resTime, String commentName) {
+    public ResCommentDTO(UserDTO userDTO, int resReplyCode, int resCode, String resReplyContent, Timestamp resTime, String commentName, String resCommentAble) {
         this.userDTO = userDTO;
         this.resReplyCode = resReplyCode;
         this.resCode = resCode;
         this.resReplyContent = resReplyContent;
         this.resTime = resTime;
         this.commentName = commentName;
+        this.resCommentAble = resCommentAble;
     }
 
     public UserDTO getUserDTO() {
@@ -72,6 +74,14 @@ public class ResCommentDTO {
         this.commentName = commentName;
     }
 
+    public String getResCommentAble() {
+        return resCommentAble;
+    }
+
+    public void setResCommentAble(String resCommentAble) {
+        this.resCommentAble = resCommentAble;
+    }
+
     @Override
     public String toString() {
         return "ResCommentDTO{" +
@@ -81,6 +91,7 @@ public class ResCommentDTO {
                 ", resReplyContent='" + resReplyContent + '\'' +
                 ", resTime=" + resTime +
                 ", commentName='" + commentName + '\'' +
+                ", resCommentAble='" + resCommentAble + '\'' +
                 '}';
     }
 }

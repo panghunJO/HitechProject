@@ -75,6 +75,7 @@
         <result property="resReplyContent" column="res_reply_content"/>
         <result property="resTime" column="res_time"/>
         <result property="commentName" column="res_commentname"/>
+        <result property="resCommentAble" column="res_comment_able"/>
         <association property="userDTO" resultMap="user"/>
     </resultMap>
 
@@ -82,7 +83,7 @@
         select a.res_reply_content, a.res_time, a.res_code, b.user_name, b.user_code, a.res_reply_code
         from tbl_res_reply a
         join tbl_user b on a.user_code = b.user_code
-        WHERE a.res_code = #{ resCode }
+        WHERE a.res_code = #{ resCode } AND a.res_comment_able = 'Y'
         ORDER BY res_time desc
     </select>
 
@@ -115,11 +116,11 @@
         WHERE res_reply_code = #{ resReplyCode }
     </update>
 
-    <update id="deletePeople">
+    <update id="deleteComment">
         UPDATE
             tbl_res_reply
         SET
-            user_role= 'N'
+            res_comment_able = 'N'
         WHERE
             res_reply_code= #{ resReplyCode }
 
