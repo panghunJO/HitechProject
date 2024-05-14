@@ -189,7 +189,7 @@
                                                     th:attr="onclick='editComment(\'' + ${comment.resReplyCode} + '\', \'' + ${comment.resCode}+ '\')'">수정
                                             </button>
                                             <button class="btn btn-modify" type="button"
-                                                    th:attr="onclick='deleteComment(' + ${comment.commentName} + ')'">삭제
+                                                    th:attr="onclick='deleteComment(\'' + ${comment.resReplyCode} + '\', \'' + ${comment.resCode}+ '\')'">삭제
                                             </button>
                                         </div>
                                     </div>
@@ -267,6 +267,41 @@
                 });
         }
     }
+    function deleteComment(resReplyCode,resCode) {
+        var userInput = confirm("삭제하시겠습니까?");
+        var resReplyCode = resReplyCode; // 변수명 수정
+        var resCode = resCode;
+        if (userInput) {
+            fetch("/customer/res/deleteComment", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    resReplyCode: resReplyCode,
+                    resCode : resCode
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(userInput + " 수정이 완료되었습니다.");
+                        // location.href='/customer/res/res';
+                    } else {
+                        // alert("수정에 실패했습니다. 다시 시도해주세요.");
+                        alert("삭제가 완료되었습니다.");
+                        // location.href='/customer/res/resDetail';
+                        location.reload(true);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
+                    // location.href='/customer/res/res';
+                });
+        }
+    }
+
 
     // 수정하기 버튼을 클릭했을 때 실행되는 함수
     function updateItem() {

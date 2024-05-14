@@ -75,7 +75,8 @@
     <update id="deletePeople">
         UPDATE tbl_user
         SET user_role= 'N'
-        WHERE user_code= #{ userCode }
+        WHERE
+            user_code= #{ userCode }
 
     </update>
 

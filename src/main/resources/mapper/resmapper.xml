@@ -115,4 +115,14 @@
         WHERE res_reply_code = #{ resReplyCode }
     </update>
 
+    <update id="deletePeople">
+        UPDATE
+            tbl_res_reply
+        SET
+            user_role= 'N'
+        WHERE
+            res_reply_code= #{ resReplyCode }
+
+    </update>
+
 </mapper>
