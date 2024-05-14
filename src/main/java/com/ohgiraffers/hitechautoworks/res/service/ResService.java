@@ -6,7 +6,9 @@ import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResRegistDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -33,9 +35,9 @@ public class ResService {
         return resMapper.registres(resRegistDTO);
     }
 
-    public void registcomment(String comment, int rescode, String username) {
+    public void registcomment(String comment, int rescode, int usercode) {
         Timestamp date = new Timestamp(System.currentTimeMillis());
-        resMapper.registcomment(comment, rescode, date, username);
+        resMapper.registcomment(comment, rescode, date, usercode);
     }
 
     public List<ResCommentDTO> findComment(int resCode) {
@@ -49,6 +51,10 @@ public class ResService {
     public void resDelete(int resCode) {
         resMapper.resDelete(resCode);
 
+    }
+
+    public void gofile(MultipartFile file) {
+        resMapper.gofile(file);
     }
 }
 

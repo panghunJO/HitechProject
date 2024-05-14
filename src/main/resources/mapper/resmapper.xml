@@ -57,20 +57,30 @@
     </insert>
 
     <insert id="registcomment">
-        INSERT INTO tbl_res_reply (res_code, res_reply_content, res_time, res_commentname)
-        VALUES ( #{ rescode }, #{ comment }, #{ date }, #{ username } )
+        INSERT INTO tbl_res_reply (res_code, res_reply_content, res_time, user_code)
+        VALUES ( #{ rescode }, #{ comment }, #{ date }, #{ usercode } )
     </insert>
+
+    <resultMap id="user" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
+        <id property="userCode" column="user_code"/>
+        <result property="userId" column="user_id"/>
+        <result property="password" column="password"/>
+        <result property="userName" column="user_name"/>
+        <result property="userRole" column="user_role"/>
+    </resultMap>
 
     <resultMap id="commentResultMap" type="com.ohgiraffers.hitechautoworks.res.dto.ResCommentDTO">
         <result property="resReplyContent" column="res_reply_content"/>
         <result property="resTime" column="res_time"/>
         <result property="commentName" column="res_commentname"/>
+        <association property="userDTO" resultMap="user"/>
     </resultMap>
 
     <select id="findComment" parameterType="int" resultMap="commentResultMap">
-        SELECT res_reply_content, res_time, res_commentname
-        FROM tbl_res_reply
-        WHERE res_code = #{ resCode }
+        select a.res_reply_content, a.res_time, b.user_name, b.user_code
+        from tbl_res_reply a
+        join tbl_user b on a.user_code = b.user_code
+        WHERE a.res_code = #{ resCode }
         ORDER BY res_time desc
     </select>
 
@@ -91,6 +101,11 @@
         WHERE
             res_code = #{ resCode }
     </delete>
+
+    <insert id="gofile">
+        INSERT INTO tb3 ( tbl_file )
+        VALUES ( #{ file }  )
+    </insert>
 
 
 </mapper>

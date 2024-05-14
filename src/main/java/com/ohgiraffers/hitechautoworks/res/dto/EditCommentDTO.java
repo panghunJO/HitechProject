@@ -2,9 +2,8 @@ package com.ohgiraffers.hitechautoworks.res.dto;
 
 public class EditCommentDTO {
     private String str;
-    private String username;
+    private int usercode;
 
-    // getters and setters
     public String getStr() {
         return str;
     }
@@ -13,19 +12,19 @@ public class EditCommentDTO {
         this.str = str;
     }
 
-    public String getUsername() {
-        return username;
+    public int getUsercode() {
+        return usercode;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsercode(int usercode) {
+        this.usercode = usercode;
     }
 
     @Override
     public String toString() {
         return "EditCommentDTO{" +
                 "str='" + str + '\'' +
-                ", username='" + username + '\'' +
+                ", usercode=" + usercode +
                 '}';
     }
 }
