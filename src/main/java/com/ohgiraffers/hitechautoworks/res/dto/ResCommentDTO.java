@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 
 public class ResCommentDTO {
     private UserDTO userDTO;
+    private int resReplyCode;
     private int resCode;
     private String resReplyContent;
     private Timestamp resTime;
@@ -14,8 +15,9 @@ public class ResCommentDTO {
     public ResCommentDTO() {
     }
 
-    public ResCommentDTO(UserDTO userDTO, int resCode, String resReplyContent, Timestamp resTime, String commentName) {
+    public ResCommentDTO(UserDTO userDTO, int resReplyCode, int resCode, String resReplyContent, Timestamp resTime, String commentName) {
         this.userDTO = userDTO;
+        this.resReplyCode = resReplyCode;
         this.resCode = resCode;
         this.resReplyContent = resReplyContent;
         this.resTime = resTime;
@@ -28,6 +30,14 @@ public class ResCommentDTO {
 
     public void setUserDTO(UserDTO userDTO) {
         this.userDTO = userDTO;
+    }
+
+    public int getResReplyCode() {
+        return resReplyCode;
+    }
+
+    public void setResReplyCode(int resReplyCode) {
+        this.resReplyCode = resReplyCode;
     }
 
     public int getResCode() {
@@ -66,6 +76,7 @@ public class ResCommentDTO {
     public String toString() {
         return "ResCommentDTO{" +
                 "userDTO=" + userDTO +
+                ", resReplyCode=" + resReplyCode +
                 ", resCode=" + resCode +
                 ", resReplyContent='" + resReplyContent + '\'' +
                 ", resTime=" + resTime +

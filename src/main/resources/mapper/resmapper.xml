@@ -70,6 +70,7 @@
     </resultMap>
 
     <resultMap id="commentResultMap" type="com.ohgiraffers.hitechautoworks.res.dto.ResCommentDTO">
+        <result property="resReplyCode" column="res_reply_code"/>
         <result property="resCode" column="res_code"/>
         <result property="resReplyContent" column="res_reply_content"/>
         <result property="resTime" column="res_time"/>
@@ -78,7 +79,7 @@
     </resultMap>
 
     <select id="findComment" parameterType="int" resultMap="commentResultMap">
-        select a.res_reply_content, a.res_time, a.res_code, b.user_name, b.user_code
+        select a.res_reply_content, a.res_time, a.res_code, b.user_name, b.user_code, a.res_reply_code
         from tbl_res_reply a
         join tbl_user b on a.user_code = b.user_code
         WHERE a.res_code = #{ resCode }
@@ -111,7 +112,7 @@
     <update id="updateComment">
         UPDATE tbl_res_reply
         SET res_reply_content = #{ editcomment }
-        WHERE user_code = #{ usercode }
+        WHERE res_reply_code = #{ resReplyCode }
     </update>
 
 </mapper>

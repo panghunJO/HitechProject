@@ -57,8 +57,8 @@ public class ResService {
         resMapper.gofile(file);
     }
 
-    public int updateComment(int usercode, String editcomment) {
-       return resMapper.updateComment(usercode,editcomment);
+    public int updateComment(int resReplyCode, String editcomment) {
+       return resMapper.updateComment(resReplyCode,editcomment);
     }
 }
 
