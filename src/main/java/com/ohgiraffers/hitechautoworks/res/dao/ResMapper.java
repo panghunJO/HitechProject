@@ -35,5 +35,5 @@ public interface ResMapper {
 
     int updateComment(int resReplyCode, String editcomment);
 
-    void deleteComment(int resReplyCode);
+    int deleteComment(int resReplyCode);
 }
