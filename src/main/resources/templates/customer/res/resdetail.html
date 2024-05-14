@@ -183,6 +183,14 @@
                                         <div class="col-md-4">
                                             <p class="card-text" th:text="${comment.resTime}"></p>
                                         </div>
+                                        <div class="col-md-12 text-end">
+                                            <button class="btn btn-modify"
+                                                    th:attr="onclick='editComment(\'' + ${comment.commentName} + '\')'">수정
+                                            </button>
+                                            <button class="btn btn-modify"
+                                                    th:attr="onclick='deleteComment(' + ${comment.commentName} + ')'">삭제
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -223,6 +231,35 @@
 
         // 클릭한 링크에 'active' 클래스 추가
         link.classList.add('active');
+    }
+    function editComment(commentName) {
+        var userInput = prompt("수정할 내용을 입력해주세요");
+        var username = commentName; // 변수명 수정
+        if (userInput) {
+            fetch("/customer/res/editComment", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    str: userInput,
+                    username: username
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(userInput + " 수정이 완료되었습니다.");
+                    } else {
+                        alert("수정에 실패했습니다. 다시 시도해주세요.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
+                });
+            location.href='/customer/res/res';
+        }
     }
 
     // 수정하기 버튼을 클릭했을 때 실행되는 함수
