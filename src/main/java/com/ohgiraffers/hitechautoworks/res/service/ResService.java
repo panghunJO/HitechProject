@@ -60,5 +60,9 @@ public class ResService {
     public int updateComment(int resReplyCode, String editcomment) {
        return resMapper.updateComment(resReplyCode,editcomment);
     }
+
+    public void deleteComment(int resReplyCode) {
+        resMapper.deleteComment(resReplyCode);
+    }
 }
 

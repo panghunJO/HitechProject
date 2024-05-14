@@ -7,12 +7,9 @@ import com.ohgiraffers.hitechautoworks.auth.dto.resdto.EtcCarDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.ImportantDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.NormalDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.SomoDTO;
-import com.ohgiraffers.hitechautoworks.res.dto.EditCommentDTO;
-import com.ohgiraffers.hitechautoworks.res.dto.ResCommentDTO;
-import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
+import com.ohgiraffers.hitechautoworks.res.dto.*;
 import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
-import com.ohgiraffers.hitechautoworks.res.dto.ResRegistDTO;
 import com.ohgiraffers.hitechautoworks.res.service.ResService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -224,6 +221,16 @@ public class ResController {
         int rescode = editCommentDTO.getRescode();
         System.out.println("editcomment = " + editcomment);
         resService.updateComment(resReplyCode, editcomment);
+
+        return "/customer/res/resDetail?resCode=" + rescode;
+    }
+    @PostMapping("/customer/res/deleteComment")
+    public String deleteComment(@RequestBody DeleteCommentDTO deleteCommentDTO){
+        int resReplyCode = deleteCommentDTO.getResReplyCode();
+        int rescode = deleteCommentDTO.getRescode();
+        System.out.println("rescode = " + rescode);
+        System.out.println("resReplyCode = " + resReplyCode);
+        resService.deleteComment(resReplyCode);
 
         return "/customer/res/resDetail?resCode=" + rescode;
     }
