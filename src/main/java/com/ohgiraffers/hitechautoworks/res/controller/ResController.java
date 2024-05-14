@@ -7,6 +7,7 @@ import com.ohgiraffers.hitechautoworks.auth.dto.resdto.EtcCarDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.ImportantDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.NormalDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.SomoDTO;
+import com.ohgiraffers.hitechautoworks.res.dto.EditCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
@@ -208,6 +209,11 @@ public class ResController {
      resService.resDelete(resCode);
 
      return "/customer/res/res";
+    }
+    @PostMapping("/customer/res/editComment")
+    public void editComment(@RequestBody EditCommentDTO editCommentDTO){
+        System.out.println("editCommentDTO = " + editCommentDTO);
+//    return "/customer/res/res";
     }
 
 }
