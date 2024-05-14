@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
 import java.text.ParseException;
@@ -61,16 +62,18 @@ public class ResController {
     }
     @GetMapping("/customer/res/resDetail")
     public void resdetail(@RequestParam("resCode") int rescode, Model model){
+
+        System.out.println("rescode = " + rescode);
         ResDTO res = resService.findUserRes(rescode);
         model.addAttribute("res", res);
         authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
+        System.out.println("userDTO = " + userDTO);
         String userName = userDTO.getUserName();
+        System.out.println("userName = " + userName);
         model.addAttribute("userName",userName);
         List<ResCommentDTO> resCommentDTO = resService.findComment(rescode);
         model.addAttribute("resComment",resCommentDTO);
-        System.out.println("resCommentDTO = " + resCommentDTO);
-//        String username = userService.getcommentusername();
         System.out.println("resCommentDTO = " + resCommentDTO);
     }
     @PostMapping("/customer/res/res")
@@ -159,6 +162,8 @@ public class ResController {
 
     }
 
+
+
     @PostMapping("/customer/res/res_08")
     public String res081(@RequestParam String title,
                        @RequestParam String detailinfo,
@@ -212,15 +217,19 @@ public class ResController {
 
      return "/customer/res/res";
     }
+
     @PostMapping("/customer/res/editComment")
     public String editComment(@RequestBody EditCommentDTO editCommentDTO){
-
         int usercode = editCommentDTO.getUsercode();
         String editcomment = editCommentDTO.getStr();
-
+        int rescode = editCommentDTO.getRescode();
         System.out.println("username = " + usercode);
         System.out.println("editcomment = " + editcomment);
-    return "/customer/res/res";
+        resService.updateComment(usercode, editcomment);
+
+        return "/customer/res/resDetail?resCode=" + rescode;
     }
+
+
 
 }

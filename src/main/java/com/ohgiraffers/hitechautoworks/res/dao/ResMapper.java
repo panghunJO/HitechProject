@@ -32,4 +32,6 @@ public interface ResMapper {
     void resDelete(int resCode);
 
     void gofile(MultipartFile file);
+
+    int updateComment(int usercode, String editcomment);
 }
