@@ -224,12 +224,13 @@ public class ResController {
 
         return "/customer/res/resDetail?resCode=" + rescode;
     }
+
     @PostMapping("/customer/res/deleteComment")
     public String deleteComment(@RequestBody DeleteCommentDTO deleteCommentDTO){
         int resReplyCode = deleteCommentDTO.getResReplyCode();
         int rescode = deleteCommentDTO.getRescode();
-        System.out.println("rescode = " + rescode);
-        System.out.println("resReplyCode = " + resReplyCode);
+        System.out.println("rescode32131231 = " + rescode);
+        System.out.println("resReplyCode 312321321 = " + resReplyCode);
         resService.deleteComment(resReplyCode);
 
         return "/customer/res/resDetail?resCode=" + rescode;
