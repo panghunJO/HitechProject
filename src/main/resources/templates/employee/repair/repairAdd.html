@@ -106,40 +106,50 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9">
-                                <form>
+                                <form action="/employee/repair/repairAdd" method="post">
                                     <div class="row mb-3">
-                                        <label class="col-sm-4 col-form-label text-end">성명</label>
+                                        <label class="col-sm-4 col-form-label text-end">예약번호</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" >
+                                            <select name="resCode" id="resCode" style="width: 100%;" class="form-control" ></select>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-4 col-form-label text-end">작업자</label>
+                                        <div class="col-sm-8">
+                                            <select name="userName" id="workerCode" style="width: 100%;" class="form-control" ></select>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label text-end">작업 내용</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" >
+                                            <input name="content" type="text" class="form-control" >
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label text-end">필요 부품</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" >
+                                            <select name="partName" id="partCode" style="width: 100%;" class="form-control" ></select>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label text-end">진행상황</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" >
+                                            <select name="status" style="width: 100%;"  class="form-control">
+                                                <option>대기</option>
+                                                <option>진행중</option>
+                                                <option>완료</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label text-end">날짜</label>
                                         <div class="col-sm-8">
-                                            <input type="date" class="form-control" >
+                                            <input name="date" type="date" class="form-control" >
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col text-end">
-                                            <button type="button" class="btn btn-modify ">등록</button>
+                                            <button type="submit" class="btn btn-modify ">등록</button>
                                         </div>
                                     </div>
                                 </form>
@@ -179,6 +189,79 @@
         // 클릭한 링크에 'active' 클래스 추가
         link.classList.add('active');
     }
+
+    fetch("/employee/repair/part")
+        .then(res => res.json())
+        .then(data =>{
+            console.log(data);
+            const $partCode = document.getElementById('partCode');
+
+            for(let index in data){
+                const $option = document.createElement("option");
+                $option.value = data[index].code;
+                $option.textContent = data[index].partName;
+                $partCode.appendChild($option);
+            }
+        })
+    fetch("/employee/repair/worker")
+        .then(res => res.json())
+        .then(data =>{
+            console.log(data);
+            const $workerCode = document.getElementById('workerCode');
+
+            for(let index in data){
+                const $option = document.createElement("option");
+                $option.value = data[index].code;
+                $option.textContent = data[index].userName;
+                $workerCode.appendChild($option);
+            }
+        })
+    fetch("/employee/repair/res")
+        .then(res => res.json())
+        .then(data =>{
+            console.log(data);
+            const $resCode = document.getElementById('resCode');
+
+            for(let index in data){
+                const $option = document.createElement("option");
+                $option.value = data[index].code;
+                $option.textContent = data[index].code;
+                $resCode.appendChild($option);
+            }
+        })
+    // document.querySelector('form').addEventListener('submit', async function(event) {
+    //     event.preventDefault(); // 폼의 기본 동작 방지
+    //
+    //     const formData = new FormData(this); // 폼 데이터 가져오기
+    //     const jsonData = {}; // JSON 데이터를 담을 객체 생성
+    //
+    //     // FormData를 JSON 객체로 변환
+    //     for (const [key, value] of formData.entries()) {
+    //         jsonData[key] = value;
+    //     }
+    //
+    //     // 서버로 데이터 전송
+    //     try {
+    //         const response = await fetch("/employee/repair/repairAdd", {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify(jsonData)
+    //         });
+    //
+    //         if (!response.ok) {
+    //             throw new Error('서버 응답 실패');
+    //         }
+    //
+    //         // 성공적으로 전송된 경우 리다이렉트 또는 다른 작업 수행
+    //         // 예: window.location.href = "/success-page";
+    //     } catch (error) {
+    //         console.error('오류 발생:', error);
+    //         // 오류 처리 코드 추가
+    //     }
+    // });
+
 </script>
 </body>
 </html>

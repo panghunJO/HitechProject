@@ -75,4 +75,143 @@
         JOIN tbl_part f ON e.part_code = f.part_code;
     </select>
 
+    <select id="SearchByworkerCode" resultMap="repair2">
+        SELECT
+            a.res_code,
+            a.repair_content,
+            a.repair_date,
+            a.repair_status,
+            d.user_name ,
+            f.part_name ,
+            u.user_name
+        FROM
+            tbl_repair a
+        JOIN tbl_res b ON a.res_code = b.res_code
+        JOIN tbl_user u ON b.user_code = u.user_code
+        JOIN tbl_repair_workers c ON a.res_code = c.res_code
+        JOIN tbl_user d ON c.user_code = d.user_code
+        JOIN tbl_repair_part e ON a.res_code = e.res_code
+        JOIN tbl_part f ON e.part_code = f.part_code
+        WHERE
+            d.user_code = #{workerCode};
+    </select>
+    <select id="SearchByworkerName" resultMap="repair2">
+        SELECT
+            a.res_code,
+            a.repair_content,
+            a.repair_date,
+            a.repair_status,
+            d.user_name ,
+            f.part_name ,
+            u.user_name
+        FROM
+            tbl_repair a
+        JOIN tbl_res b ON a.res_code = b.res_code
+        JOIN tbl_user u ON b.user_code = u.user_code
+        JOIN tbl_repair_workers c ON a.res_code = c.res_code
+        JOIN tbl_user d ON c.user_code = d.user_code
+        JOIN tbl_repair_part e ON a.res_code = e.res_code
+        JOIN tbl_part f ON e.part_code = f.part_code
+        WHERE
+        d.user_name = #{worker};
+    </select>
+    <select id="selectRepair" resultMap="repair2">
+        SELECT
+        a.res_code,
+        d.user_name ,
+        a.repair_content,
+        f.part_name ,
+        a.repair_status,
+        a.repair_date
+        FROM
+        tbl_repair a
+        JOIN tbl_res b ON a.res_code = b.res_code
+        JOIN tbl_user u ON b.user_code = u.user_code
+        JOIN tbl_repair_workers c ON a.res_code = c.res_code
+        JOIN tbl_user d ON c.user_code = d.user_code
+        JOIN tbl_repair_part e ON a.res_code = e.res_code
+        JOIN tbl_part f ON e.part_code = f.part_code
+        WHERE
+            a.res_code = #{resCode};
+    </select>
+
+    <update id="modifyRepair">
+        UPDATE tbl_repair
+        SET repair_content = #{content},
+        repair_status = #{status},
+        repair_date = #{date}
+        WHERE res_code = #{resCode}
+    </update>
+    <select id="selectUserCodeByUserName" resultType="int">
+        SELECT user_code FROM tbl_user WHERE user_name = #{userName}
+    </select>
+    <select id="selectPartCodeByPartName" resultType="int">
+        SELECT part_code , part_name FROM tbl_part WHERE part_name = #{partName}
+    </select>
+    <update id="modifyRepairWorker">
+        UPDATE tbl_repair_workers
+        SET user_code = #{newUserCode}
+        WHERE res_code = #{resCode}
+    </update>
+    <update id="modifyRepairPart">
+        UPDATE tbl_repair_part
+        SET part_code = #{newPartCode}
+        WHERE res_code = #{resCode}
+    </update>
+    <delete id="deleteRepair">
+        DELETE FROM
+        tbl_repair
+        WHERE
+        res_code = #{ resCode }
+    </delete>
+    <select id="findPartList" resultMap="part">
+        SELECT
+            *
+        FROM
+            tbl_part
+    </select>
+    <select id="findWorkerList" resultMap="user">
+        SELECT
+            *
+        FROM
+            tbl_user
+        WHERE user_role = "ADMIN" OR user_role = "EMPLOYEE"
+    </select>
+    <select id="findResList" resultMap="res">
+        SELECT
+            a.res_code,
+            a.res_title,
+            a.res_option,
+            a.res_date,
+            a.res_extra,
+            b.user_role
+        FROM
+            tbl_res a
+        JOIN
+            tbl_user b ON (a.user_code = b.user_code)
+
+    </select>
+    <insert id="addRepair" >
+        INSERT INTO tbl_repair(res_code,repair_content, repair_status, repair_date)
+        VALUES(
+            #{ resCode },
+            #{ content },
+            #{ status },
+            #{ date }
+        )
+    </insert>
+    <insert id="addRepairPart">
+        INSERT INTO tbl_repair_part(part_code, res_code)
+        VALUES(
+            #{newPartCode},
+            #{resCode}
+        )
+    </insert>
+    <insert id="addRepairWorker">
+        INSERT INTO tbl_repair_workers(user_code,res_code)
+        VALUES(
+            #{newUserCode},
+            #{resCode}
+        )
+    </insert>
 </mapper>
