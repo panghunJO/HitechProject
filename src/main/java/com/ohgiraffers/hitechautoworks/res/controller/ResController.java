@@ -40,7 +40,7 @@ public class ResController {
 
     private AuthUserInfo authUserInfo;
 
-    @GetMapping("/customer/res/res")
+    @GetMapping("/employee/res/res")
     public String res(Model model, HttpSession session){
         List<ResDTO> resList = resService.findAllres();
         System.out.println("resList = " + resList);
@@ -51,14 +51,14 @@ public class ResController {
         model.addAttribute("userName",userName);
         String message = (String) session.getAttribute("success");
         model.addAttribute("message",message);
-        return "customer/res/res";
+        return "employee/res/res";
     }
 
-    @PostMapping("/customer/res/resgo")
+    @PostMapping("/employee/res/resgo")
     public String resgo(Model model){
         List<ResDTO> resList = resService.findAllres();
         model.addAttribute("resList", resList);
-        return "redirect:/customer/res/res";
+        return "redirect:/employee/res/res";
     }
     @GetMapping("/customer/res/resDetail")
     public void resdetail(@RequestParam("resCode") int rescode, Model model){
@@ -76,7 +76,7 @@ public class ResController {
         model.addAttribute("resComment",resCommentDTO);
         System.out.println("resCommentDTO = " + resCommentDTO);
     }
-    @PostMapping("/customer/res/res")
+    @PostMapping("/employee/res/res")
     public void res1(@RequestParam int resCode, Model model){
         System.out.println("resCode3322 = " + resCode);
         List<ResDTO> resList = resService.findCodeRes(resCode);
@@ -162,8 +162,6 @@ public class ResController {
 
     }
 
-
-
     @PostMapping("/customer/res/res_08")
     public String res081(@RequestParam String title,
                        @RequestParam String detailinfo,
@@ -230,6 +228,24 @@ public class ResController {
         return "/customer/res/resDetail?resCode=" + rescode;
     }
 
+    // 일반회원 수리예약을 자기것만 조회!!
+    @GetMapping("/customer/res/res")
+    public void res(Model model){
+        // 현재 로그인한 사용자의 정보 가져오기
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
 
+        // 해당 사용자의 리소스만 조회하기
+        List<ResDTO> resList = resService.findResByCusCode(userCode);
+        System.out.println("resList = " + resList);
+
+        // 모델에 데이터 추가
+        model.addAttribute("resList", resList);
+
+//        String message = (String) session.getAttribute("success");
+//        model.addAttribute("message", message);
+
+//        return "redirect:/customer/res/res";
+    }
 
 }

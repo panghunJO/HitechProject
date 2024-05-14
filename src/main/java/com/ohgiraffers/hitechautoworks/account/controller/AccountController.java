@@ -87,10 +87,10 @@ public class AccountController {
     public String account(@RequestParam String userId, @RequestParam int userCode,@RequestParam String userDepartment, @RequestParam String userPw, @RequestParam String userPwCheck, @RequestParam String userName,
                           @RequestParam String userEmail, @RequestParam String userAddress, @RequestParam String userPhone, Model model,
                           HttpSession session) {
-        System.out.println("userId = " + userId);
-        System.out.println("userPw = " + userPw);
-        System.out.println("userPwCheck = " + userPwCheck);
-        System.out.println("userDepartment = " + userDepartment);
+//        System.out.println("userId = " + userId);
+//        System.out.println("userPw = " + userPw);
+//        System.out.println("userPwCheck = " + userPwCheck);
+//        System.out.println("userDepartment = " + userDepartment);
         accountService.updateUser(userId, userCode, userDepartment, userPw, userEmail, userPwCheck, userAddress, userPhone, userName);
         if (!userPw.equals(userPwCheck)) {
             // 비밀번호 확인이 일치하지 않을 경우 에러 메시지 전달하고 리다이렉트

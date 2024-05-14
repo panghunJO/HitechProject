@@ -34,4 +34,6 @@ public interface ResMapper {
     void gofile(MultipartFile file);
 
     int updateComment(int usercode, String editcomment);
+
+    List<ResDTO> findResByCusCode(int userCode);
 }

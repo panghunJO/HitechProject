@@ -51,6 +51,13 @@
         WHERE a.res_code = #{code}
     </select>
 
+    <!--customer 본인 수리예약만 조회-->
+    <select id="findResByCusCode" resultMap="res">
+        SELECT * from tbl_res
+        where user_code = #{userCode}
+    </select>
+
+
     <insert id="registres" parameterType="com.ohgiraffers.hitechautoworks.res.dto.ResRegistDTO">
         INSERT INTO tbl_res ( res_title, user_code, res_option, res_date, res_extra )
         VALUES ( #{ title }, #{ userCode }, #{ resoption }, #{ date }, #{ detailinfo } )

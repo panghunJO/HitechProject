@@ -60,5 +60,9 @@ public class ResService {
     public int updateComment(int usercode, String editcomment) {
        return resMapper.updateComment(usercode,editcomment);
     }
+
+    public List<ResDTO> findResByCusCode(int userCode) {
+        return resMapper.findResByCusCode(userCode);
+    }
 }
 
