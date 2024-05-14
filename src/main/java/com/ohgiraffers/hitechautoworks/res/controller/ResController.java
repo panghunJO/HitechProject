@@ -62,7 +62,6 @@ public class ResController {
     }
     @GetMapping("/customer/res/resDetail")
     public void resdetail(@RequestParam("resCode") int rescode, Model model){
-
         System.out.println("rescode = " + rescode);
         ResDTO res = resService.findUserRes(rescode);
         model.addAttribute("res", res);
@@ -220,12 +219,11 @@ public class ResController {
 
     @PostMapping("/customer/res/editComment")
     public String editComment(@RequestBody EditCommentDTO editCommentDTO){
-        int usercode = editCommentDTO.getUsercode();
+        int resReplyCode = editCommentDTO.getResReplyCode();
         String editcomment = editCommentDTO.getStr();
         int rescode = editCommentDTO.getRescode();
-        System.out.println("username = " + usercode);
         System.out.println("editcomment = " + editcomment);
-        resService.updateComment(usercode, editcomment);
+        resService.updateComment(resReplyCode, editcomment);
 
         return "/customer/res/resDetail?resCode=" + rescode;
     }

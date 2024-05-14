@@ -149,7 +149,7 @@
 
                                         </div>
                                     </div>
-                                </form>
+
                                     <div class="container mt-5">
                                         <hr> <!-- 수평선을 추가해서 양식과 댓글을 구분할 거야 -->
                                         <div class="card">
@@ -166,7 +166,7 @@
                                                         </button>
                                                     </div>
                                                 </div>
-
+                                </form>
                             </div>
                         </div>
                         <!-- 샘플 댓글들 -->
@@ -186,7 +186,7 @@
                                         </div>
                                         <div class="col-md-12 text-end">
                                             <button class="btn btn-modify" type="button"
-                                                    th:attr="onclick='editComment(\'' + ${comment.userDTO.userCode} + '\', \'' + ${comment.resCode}+ '\')'">수정
+                                                    th:attr="onclick='editComment(\'' + ${comment.resReplyCode} + '\', \'' + ${comment.resCode}+ '\')'">수정
                                             </button>
                                             <button class="btn btn-modify" type="button"
                                                     th:attr="onclick='deleteComment(' + ${comment.commentName} + ')'">삭제
@@ -232,10 +232,10 @@
         // 클릭한 링크에 'active' 클래스 추가
         link.classList.add('active');
     }
-    function editComment(commentCode,resCode) {
+    function editComment(resReplyCode,resCode) {
         var userInput = prompt("수정할 내용을 입력해주세요");
-        var usercode = commentCode; // 변수명 수정
-        var rescode = resCode;
+        var resReplyCode = resReplyCode; // 변수명 수정
+        var resCode = resCode;
         if (userInput) {
             fetch("/customer/res/editComment", {
                 method: "POST",
@@ -244,8 +244,8 @@
                 },
                 body: JSON.stringify({
                     str: userInput,
-                    usercode: usercode,
-                    rescode : rescode
+                    resReplyCode: resReplyCode,
+                    resCode : resCode
                 })
             })
                 .then(response => response.json())

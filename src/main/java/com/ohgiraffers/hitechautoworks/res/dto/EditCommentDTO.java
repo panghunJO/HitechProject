@@ -2,7 +2,7 @@ package com.ohgiraffers.hitechautoworks.res.dto;
 
 public class EditCommentDTO {
     private String str;
-    private int usercode;
+    private int resReplyCode;
     private int rescode;
 
     public String getStr() {
@@ -13,12 +13,12 @@ public class EditCommentDTO {
         this.str = str;
     }
 
-    public int getUsercode() {
-        return usercode;
+    public int getResReplyCode() {
+        return resReplyCode;
     }
 
-    public void setUsercode(int usercode) {
-        this.usercode = usercode;
+    public void setResReplyCode(int resReplyCode) {
+        this.resReplyCode = resReplyCode;
     }
 
     public int getRescode() {
@@ -27,14 +27,5 @@ public class EditCommentDTO {
 
     public void setRescode(int rescode) {
         this.rescode = rescode;
-    }
-
-    @Override
-    public String toString() {
-        return "EditCommentDTO{" +
-                "str='" + str + '\'' +
-                ", usercode=" + usercode +
-                ", rescode=" + rescode +
-                '}';
     }
 }
