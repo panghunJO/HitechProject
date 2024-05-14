@@ -56,5 +56,9 @@ public class ResService {
     public void gofile(MultipartFile file) {
         resMapper.gofile(file);
     }
+
+    public int updateComment(int usercode, String editcomment) {
+       return resMapper.updateComment(usercode,editcomment);
+    }
 }
 

@@ -149,6 +149,7 @@
 
                                         </div>
                                     </div>
+                                </form>
                                     <div class="container mt-5">
                                         <hr> <!-- 수평선을 추가해서 양식과 댓글을 구분할 거야 -->
                                         <div class="card">
@@ -165,7 +166,7 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                </form>
+
                             </div>
                         </div>
                         <!-- 샘플 댓글들 -->
@@ -184,10 +185,10 @@
                                             <p class="card-text" th:text="${comment.resTime}"></p>
                                         </div>
                                         <div class="col-md-12 text-end">
-                                            <button class="btn btn-modify"
-                                                    th:attr="onclick='editComment(\'' + ${comment.userDTO.userCode} + '\')'">수정
+                                            <button class="btn btn-modify" type="button"
+                                                    th:attr="onclick='editComment(\'' + ${comment.userDTO.userCode} + '\', \'' + ${comment.resCode}+ '\')'">수정
                                             </button>
-                                            <button class="btn btn-modify"
+                                            <button class="btn btn-modify" type="button"
                                                     th:attr="onclick='deleteComment(' + ${comment.commentName} + ')'">삭제
                                             </button>
                                         </div>
@@ -195,7 +196,6 @@
                                 </div>
                             </div>
                         </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -232,9 +232,10 @@
         // 클릭한 링크에 'active' 클래스 추가
         link.classList.add('active');
     }
-    function editComment(commentCode) {
+    function editComment(commentCode,resCode) {
         var userInput = prompt("수정할 내용을 입력해주세요");
         var usercode = commentCode; // 변수명 수정
+        var rescode = resCode;
         if (userInput) {
             fetch("/customer/res/editComment", {
                 method: "POST",
@@ -243,20 +244,26 @@
                 },
                 body: JSON.stringify({
                     str: userInput,
-                    usercode: usercode
+                    usercode: usercode,
+                    rescode : rescode
                 })
             })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         alert(userInput + " 수정이 완료되었습니다.");
+                        // location.href='/customer/res/res';
                     } else {
-                        alert("수정에 실패했습니다. 다시 시도해주세요.");
+                        // alert("수정에 실패했습니다. 다시 시도해주세요.");
+                        alert("수정이 완료되었습니다.");
+                        // location.href='/customer/res/resDetail';
+                        location.reload(true);
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
+                    // alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
+                    // location.href='/customer/res/res';
                 });
         }
     }
