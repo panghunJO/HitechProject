@@ -28,7 +28,6 @@ public class UserService  {
 
     public String overlappedID(String id) {
         String result = userMapper.overlappedID(id);
-        System.out.println("result = " + result);
         return result;
     }
 
