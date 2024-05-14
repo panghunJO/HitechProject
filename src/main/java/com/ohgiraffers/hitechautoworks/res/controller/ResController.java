@@ -215,24 +215,27 @@ public class ResController {
 
     @PostMapping("/customer/res/editComment")
     @ResponseBody
-    public void editComment(@RequestBody EditCommentDTO editCommentDTO){
+    public int editComment(@RequestBody EditCommentDTO editCommentDTO){
         int resReplyCode = editCommentDTO.getResReplyCode();
         String editcomment = editCommentDTO.getStr();
         int rescode = editCommentDTO.getRescode();
-        System.out.println("editcomment = " + editcomment);
-        resService.updateComment(resReplyCode, editcomment);
 
-//        return "/customer/res/resDetail?resCode=" + rescode;
+        int result = resService.updateComment(resReplyCode, editcomment);
+
+//        return "redirect:/customer/res/resDetail?resCode=" + rescode;
+
+        return result;
     }
 
     @PostMapping("/customer/res/deleteComment")
     @ResponseBody
-    public void deleteComment(@RequestBody DeleteCommentDTO deleteCommentDTO){
+    public int deleteComment(@RequestBody DeleteCommentDTO deleteCommentDTO){
         int resReplyCode = deleteCommentDTO.getResReplyCode();
         int rescode = deleteCommentDTO.getRescode();
         System.out.println("deleteCommentDTO111 = " + deleteCommentDTO);
-        resService.deleteComment(resReplyCode);
+        int result = resService.deleteComment(resReplyCode);
 
+        return result;
 //        return "/customer/res/resDetail?resCode=" + rescode;
     }
 
