@@ -64,7 +64,6 @@ public class ResController {
         model.addAttribute("res", res);
         authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
-        System.out.println("userDTO = " + userDTO);
         String userName = userDTO.getUserName();
         System.out.println("userName = " + userName);
         model.addAttribute("userName",userName);
@@ -215,25 +214,26 @@ public class ResController {
     }
 
     @PostMapping("/customer/res/editComment")
-    public String editComment(@RequestBody EditCommentDTO editCommentDTO){
+    @ResponseBody
+    public void editComment(@RequestBody EditCommentDTO editCommentDTO){
         int resReplyCode = editCommentDTO.getResReplyCode();
         String editcomment = editCommentDTO.getStr();
         int rescode = editCommentDTO.getRescode();
         System.out.println("editcomment = " + editcomment);
         resService.updateComment(resReplyCode, editcomment);
 
-        return "/customer/res/resDetail?resCode=" + rescode;
+//        return "/customer/res/resDetail?resCode=" + rescode;
     }
 
     @PostMapping("/customer/res/deleteComment")
-    public String deleteComment(@RequestBody DeleteCommentDTO deleteCommentDTO){
+    @ResponseBody
+    public void deleteComment(@RequestBody DeleteCommentDTO deleteCommentDTO){
         int resReplyCode = deleteCommentDTO.getResReplyCode();
         int rescode = deleteCommentDTO.getRescode();
-        System.out.println("rescode32131231 = " + rescode);
-        System.out.println("resReplyCode 312321321 = " + resReplyCode);
+        System.out.println("deleteCommentDTO111 = " + deleteCommentDTO);
         resService.deleteComment(resReplyCode);
 
-        return "/customer/res/resDetail?resCode=" + rescode;
+//        return "/customer/res/resDetail?resCode=" + rescode;
     }
 
 

@@ -270,7 +270,7 @@
     function deleteComment(resReplyCode,resCode) {
         var userInput = confirm("삭제하시겠습니까?");
         var resReplyCode = resReplyCode; // 변수명 수정
-        var resCode = resCode;
+        var rescode = resCode;
         if (userInput) {
             fetch("/customer/res/deleteComment", {
                 method: "POST",
@@ -279,7 +279,7 @@
                 },
                 body: JSON.stringify({
                     resReplyCode: resReplyCode,
-                    resCode : resCode
+                    rescode : rescode
                 })
             })
                 .then(response => response.json())
