@@ -77,7 +77,30 @@
         SET user_role= 'N'
         WHERE
             user_code= #{ userCode }
+    </update>
 
+    <resultMap id="user" type="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
+        <id property="userCode" column="user_code"/>
+        <result property="userId" column="user_id"/>
+        <result property="password" column="user_pw"/>
+        <result property="userName" column="user_name"/>
+        <result property="userRole" column="user_role"/>
+        <result property="userEmail" column="user_email"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="userAddress" column="user_address"/>
+        <result property="userDepartment" column="user_department"/>
+    </resultMap>
+
+    <select id="findUserCode" resultMap="user">
+        SELECT user_code, user_id, user_pw, user_name, user_role, user_email, user_phone, user_address, user_department
+        from tbl_user
+        where user_code = #{userCode}
+    </select>
+
+    <update id="changepass">
+        UPDATE tbl_user
+        SET user_pw = #{ encodepw }
+        WHERE user_code = #{ userCode }
     </update>
 
 </mapper>

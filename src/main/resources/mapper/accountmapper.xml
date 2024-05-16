@@ -14,8 +14,6 @@
         <result property="userPhone" column="user_phone"/>
         <result property="userAddress" column="user_address"/>
         <result property="userDepartment" column="user_department"/>
-        <result property="userCheck" column="user_check"/>
-
     </resultMap>
 
     <select id="findAllUser" resultMap="user">
@@ -26,7 +24,8 @@
     </select>
 
     <select id="findUserCode" resultMap="user">
-        SELECT * from tbl_user
+        SELECT user_code, user_id, user_pw, user_name, user_role, user_email, user_phone, user_address, user_department
+        from tbl_user
         where user_code = #{userCode}
     </select>
 

@@ -75,4 +75,20 @@ public class UserService  {
     public void deletePeople(int userCode) {
         userMapper.deletePeople(userCode);
     }
+
+    public UserDTO findUserCode(int userCode) {
+        return userMapper.findUserCode(userCode);
+    }
+
+    public int changepass(String currentPassword, String newPassword, String pw, int userCode) {
+        if(passwordEncoder.matches(currentPassword,pw)) {
+            String encodepw = passwordEncoder.encode(newPassword);
+            System.out.println("비밀번호 일치");
+            userMapper.changepass(encodepw,userCode);
+            return 1;
+        } else {
+            System.out.println("불일치");
+            return 0;
+        }
+    }
 }

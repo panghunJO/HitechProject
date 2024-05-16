@@ -34,7 +34,8 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
-        return web -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+        return web->web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+                .requestMatchers(new AntPathRequestMatcher("/assets/**"));
     }
 
     @Bean

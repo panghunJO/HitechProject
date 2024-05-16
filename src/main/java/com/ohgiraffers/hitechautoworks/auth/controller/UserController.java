@@ -7,11 +7,11 @@ import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
@@ -44,6 +44,7 @@ public class UserController {
         String userName = userDTO.getUserName();
         model.addAttribute("userName", userName);
     }
+
 
     @GetMapping("/customer/account/AccountModify")
     public void AccountModify(Model model,HttpSession session) {
@@ -83,6 +84,64 @@ public class UserController {
 
         return "customer/res/res";
 
+    }
+
+    @GetMapping("/user/mainpage")
+    public void mainpage(Model model) {
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        model.addAttribute("userDTO", userDTO);
+    }
+
+    @GetMapping("/user/mypage")
+    public void mypage(Model model) {
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        System.out.println("userDTO1 = " + userDTO1);
+        model.addAttribute("userDTO", userDTO1);
+        System.out.println("userDTO = " + userDTO);
+    }
+
+    @PostMapping("/user/mypage/update")
+    public String updateUser(@RequestParam("fullName") String userName,
+                             @RequestParam("company") String userDepartment,
+                             @RequestParam("address") String userAddress,
+                             @RequestParam("phone") String userPhone,
+                             @RequestParam("email") String userEmail) {
+
+        System.out.println("userName = " + userName);
+        System.out.println("userDepartment = " + userDepartment);
+        System.out.println("userAddress = " + userAddress);
+        System.out.println("userPhone = " + userPhone);
+        System.out.println("userEmail = " + userEmail);
+
+        return "redirect:/user/mypage";
+    }
+
+    @PostMapping(value = "/user/mypage/changepass")
+    @ResponseBody
+    public int changepass(@RequestBody PasswordRequestDTO request) {
+        System.out.println("request = " + request);
+        String currentPassword = request.getCurrentPassword();
+        String newPassword = request.getNewPassword();
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        String pw = userDTO1.getPassword();
+        int result = userService.changepass(currentPassword,newPassword, pw, userCode);
+
+        return result;
+    }
+
+    @GetMapping("/user/testpage")
+    public String testPage(Model model) {
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        model.addAttribute("userDTO", userDTO);
+        return "/user/testPage";
     }
 
 }

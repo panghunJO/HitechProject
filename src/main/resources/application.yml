@@ -1,7 +1,7 @@
 spring:
   datasource:
     dirver-class-name: com.mysql.cj.jdbc.Driver
-    url :  jdbc:mysql://192.168.0.51:3306/menudb
+    url :  jdbc:mysql://localhost:3306/hitechautoworks
     username: ohgiraffers
     password: ohgiraffers
   mail:
@@ -19,5 +19,4 @@ spring:
         protocol: smtp
 mybatis:
   mapper-locations: mapper/**/*.xml
-
 
