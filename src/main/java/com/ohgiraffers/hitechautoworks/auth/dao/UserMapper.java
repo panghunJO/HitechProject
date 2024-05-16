@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface UserMapper {
@@ -29,11 +30,14 @@ public interface UserMapper {
 
     UserRegistDTO getAll(int userCode);
 
-    void updateUser(String userId, String userName, String userAddress, String userEmail, String userPhone, String pw12);
 
     void deletePeople(int userCode);
 
     UserDTO findUserCode(int userCode);
 
     void changepass(String encodepw, int userCode);
+
+    void updateUser(Map<String, String> myprofile);
+
+
 }
