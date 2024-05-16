@@ -116,7 +116,7 @@
                                     <div class="row mb-3">
                                         <label class="col-sm-4 col-form-label text-end">작업자</label>
                                         <div class="col-sm-8">
-                                            <select name="userName" id="workerCode" style="width: 100%;" class="form-control" ></select>
+                                            <select name="userName" id="workerCode" style="width: 100%;" class="form-control" multiple></select>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -126,9 +126,9 @@
                                         </div>
                                     </div>
                                     <div class="row mb-3">
-                                        <label class="col-sm-4 col-form-label text-end">필요 부품</label>
+                                        <label class="col-sm-4 col-form-label text-end" multiple>필요 부품</label>
                                         <div class="col-sm-8">
-                                            <select name="partName" id="partCode" style="width: 100%;" class="form-control" ></select>
+                                            <select name="partName" id="partName" style="width: 100%;" class="form-control" multiple></select>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -194,13 +194,13 @@
         .then(res => res.json())
         .then(data =>{
             console.log(data);
-            const $partCode = document.getElementById('partCode');
+            const $partName = document.getElementById('partName');
 
             for(let index in data){
                 const $option = document.createElement("option");
-                $option.value = data[index].code;
+                $option.value = data[index].partName;
                 $option.textContent = data[index].partName;
-                $partCode.appendChild($option);
+                $partName.appendChild($option);
             }
         })
     fetch("/employee/repair/worker")
@@ -211,7 +211,7 @@
 
             for(let index in data){
                 const $option = document.createElement("option");
-                $option.value = data[index].code;
+                $option.value = data[index].userName;
                 $option.textContent = data[index].userName;
                 $workerCode.appendChild($option);
             }

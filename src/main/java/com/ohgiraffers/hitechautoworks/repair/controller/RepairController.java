@@ -6,6 +6,7 @@ import com.ohgiraffers.hitechautoworks.repair.dto.Repair2DTO;
 import com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO;
 import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
+import com.ohgiraffers.hitechautoworks.repair.dto.RepairPartDTO;
 import com.ohgiraffers.hitechautoworks.repair.dto.WorkerDTO;
 import com.ohgiraffers.hitechautoworks.repair.service.RepairService;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -60,9 +62,14 @@ public class RepairController {
     public void repairdetail(@RequestParam int resCode,
                              Model model) {
         System.out.println("resCode = " + resCode);
-        Repair2DTO repairDTO = repairService.selectRepair(resCode);
+        List<Repair2DTO> repairDTO = repairService.selectRepair(resCode);
         System.out.println("repairDTO = " + repairDTO);
+        List<RepairPartDTO> parts = repairService.selectRepairPart(resCode);
+        System.out.println("parts = " + parts);
+        List<WorkerDTO> workers = repairService.selectWorker(resCode);
         model.addAttribute("repairDTO", repairDTO);
+        model.addAttribute("parts",parts);
+        model.addAttribute("workers",workers);
         authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         String userName = userDTO.getUserName();
@@ -72,14 +79,18 @@ public class RepairController {
     @PostMapping("/employee/repair/repairdetail")
     public String modifyRepair(
             @RequestParam int resCode,
-            @RequestParam String userName,
+            @RequestParam String[] userName,
             @RequestParam String content,
-            @RequestParam String partName,
+            @RequestParam String[] partName,
             @RequestParam String status,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+
+
+        List<String> userName1 = Arrays.asList(userName);
+        List<String> partName1 = Arrays.asList(partName);
         repairService.modifyRepair(resCode, content, status, date);
-        repairService.modifyRepairWorker(userName, resCode);
-        repairService.modifyRepairPart(partName, resCode);
+        repairService.modifyRepairWorker(userName1, resCode);
+        repairService.modifyRepairPart(partName1, resCode);
         return "redirect:/employee/repair/repair";
     }
 
@@ -94,6 +105,7 @@ public class RepairController {
     public void partAdd(Model model){
         authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
+        authUserInfo.getUserDTO().getUserCode();
         String userName = userDTO.getUserName();
         model.addAttribute("userName",userName);
     }
@@ -121,9 +133,9 @@ public class RepairController {
 
     @PostMapping("/employee/repair/repairAdd")
     public String addRepair(@RequestParam int resCode,
-                            @RequestParam String userName,
+                            @RequestParam String[] userName,
                             @RequestParam String content,
-                            @RequestParam String partName,
+                            @RequestParam String[] partName,
                             @RequestParam String status,
                             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
         System.out.println("resCode = " + resCode);
@@ -133,9 +145,13 @@ public class RepairController {
         System.out.println("status = " + status);
         System.out.println("status = " + status);
         System.out.println("date = " + date);
+        List<String> userName1 = Arrays.asList(userName);
+        List<String> partName1 = Arrays.asList(partName);
+        System.out.println("partName1 = " + partName1);
+        System.out.println("userName1 = " + userName1);
         repairService.addRepair(resCode,content,status,date);
-        repairService.addRepairPart(partName,resCode);
-        repairService.addRepairWorker(userName,resCode);
+        repairService.addRepairPart(partName1,resCode);
+        repairService.addRepairWorker(userName1,resCode);
         return "redirect:/employee/repair/repair";
     }
 
