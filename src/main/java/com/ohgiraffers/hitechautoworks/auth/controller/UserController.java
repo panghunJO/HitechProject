@@ -52,7 +52,7 @@ public class UserController {
 
 
     @GetMapping("/customer/account/AccountModify")
-    public void AccountModify(Model model,HttpSession session) {
+    public void AccountModify(Model model, HttpSession session) {
         authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         UserRegistDTO registDTO = userService.getAll(userDTO.getUserCode());
@@ -68,7 +68,7 @@ public class UserController {
     public String deleteUser() {
         authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
-        int userCode= userDTO.getUserCode();
+        int userCode = userDTO.getUserCode();
         userService.deletePeople(userCode);
 
         return "customer/res/res";
@@ -108,7 +108,7 @@ public class UserController {
         int userCode = userDTO.getUserCode();
         UserDTO userDTO1 = userService.findUserCode(userCode);
         String pw = userDTO1.getPassword();
-        String result = String.valueOf(userService.changepass(currentPassword,newPassword, pw, userCode));
+        String result = String.valueOf(userService.changepass(currentPassword, newPassword, pw, userCode));
 
 
         return result;
@@ -133,8 +133,9 @@ public class UserController {
     }
 
 
-    @GetMapping("/user/adminaccountedit")
-    public void adminAccountEdit(Model model) {
+    @GetMapping("/user/partAllCall")
+    public void partAllCall(Model model) {
+
         AuthUserInfo authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         int userCode = userDTO.getUserCode();
@@ -144,10 +145,8 @@ public class UserController {
     }
 
 
-
-
     @PostMapping("/user/mypage/update")
-    public String updateUser(@RequestParam Map<String,String> myprofile) {
+    public String updateUser(@RequestParam Map<String, String> myprofile) {
 
         AuthUserInfo authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
@@ -158,8 +157,9 @@ public class UserController {
 
         return "redirect:/user/mypage";
     }
+}
 
-    
+
 
 
 
