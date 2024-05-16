@@ -63,22 +63,6 @@ public class UserController {
         session.removeAttribute("errorMessage");
     }
 
-    @PostMapping("/customer/account/AccountModify")
-    public String account(@RequestParam String userId, @RequestParam String userPw, @RequestParam String userPwCheck, @RequestParam String userName,
-                          @RequestParam String userEmail, @RequestParam String userAddress, @RequestParam String userPhone, Model model,
-                          HttpSession session) {
-        userService.updateUser(userId, userPw, userEmail, userPwCheck, userAddress, userPhone, userName);
-        if (!userPw.equals(userPwCheck)) {
-            // 비밀번호 확인이 일치하지 않을 경우 에러 메시지 전달하고 리다이렉트
-            session.setAttribute("errorMessage","비밀번호가 일치하지 않습니다.");
-            return "redirect:/customer/account/AccountModify";
-
-        } else {
-            userService.updateUser(userId, userPw, userEmail, userPwCheck, userAddress, userPhone, userName);
-            return "customer/res/res";
-        }
-
-    }
 
     @PostMapping("/customer/account/deleteUser")
     public String deleteUser() {
@@ -109,15 +93,6 @@ public class UserController {
         System.out.println("userDTO = " + userDTO);
     }
 
-    @PostMapping("/user/mypage/update")
-    public String updateUser(@RequestParam Map<String,String> myprofile) {
-
-        for (Map.Entry<String, String> entry : myprofile.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-
-        return "redirect:/user/mypage";
-    }
 
     @PostMapping(value = "/user/mypage/changepass", produces = "application/json; charset=UTF-8")
     @ResponseBody
@@ -151,6 +126,19 @@ public class UserController {
         model.addAttribute("userDTO", userDTO);
     }
 
-}
+    @PostMapping("/user/mypage/update")
+    public String updateUser(@RequestParam Map<String,String> myprofile) {
+
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode(); // 기준으로
+
+        myprofile.put("userCode", String.valueOf(userCode));
+        userService.updateUser(myprofile);
+
+        return "redirect:/user/mypage";
+    }
+
+    }
 
 

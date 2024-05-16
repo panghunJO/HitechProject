@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Service
@@ -61,11 +62,6 @@ public class UserService  {
         return 1;
     }
 
-    public void updateUser(String userId, String userPw, String userEmail,
-                           String userPwCheck, String userAddress, String userPhone, String userName) {
-        String pw12 = passwordEncoder.encode(userPw);
-        userMapper.updateUser(userId,userName,userAddress,userEmail,userPhone,pw12);
-    }
 
 
     public UserRegistDTO getAll(int userCode) {
@@ -91,4 +87,9 @@ public class UserService  {
             return 0;
         }
     }
+
+    public void updateUser(Map<String, String> myprofile) {
+        userMapper.updateUser(myprofile);
+    }
+
 }
