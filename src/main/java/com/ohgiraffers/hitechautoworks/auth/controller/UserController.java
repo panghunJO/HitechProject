@@ -157,6 +157,17 @@ public class UserController {
 
         return "redirect:/user/mypage";
     }
+    @GetMapping("/user/partAdd")
+    public void partAdd(Model model) {
+
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        System.out.println("userDTO1 = " + userDTO1);
+        model.addAttribute("userDTO", userDTO1);
+    }
+
 }
 
 
