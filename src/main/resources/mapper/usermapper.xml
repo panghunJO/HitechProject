@@ -47,7 +47,8 @@
             USER_ADDRESS = #{ address },
             USER_DEPARTMENT =#{ company },
             USER_PHONE = #{ phone },
-            USER_EMAIL = #{ email }
+            USER_EMAIL = #{ email },
+            USER_IMG = #{ userImg }
         WHERE
             USER_CODE = #{ userCode }
 
@@ -91,10 +92,11 @@
         <result property="userAddress" column="user_address"/>
         <result property="userDepartment" column="user_department"/>
         <result property="userAbout" column="user_about"/>
+        <result property="userImg" column="user_img"/>
     </resultMap>
 
     <select id="findUserCode" resultMap="user">
-        SELECT user_code, user_id, user_pw, user_name, user_role, user_email, user_phone, user_address, user_department, user_about
+        SELECT user_code, user_id, user_pw, user_name, user_role, user_email, user_phone, user_address, user_department, user_about, user_img
         from tbl_user
         where user_code = #{userCode}
     </select>
