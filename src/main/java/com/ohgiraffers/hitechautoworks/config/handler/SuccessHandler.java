@@ -19,7 +19,7 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
         switch (role) {
             case "ADMIN":
                 System.out.println("로그인 시도......");
-                response.sendRedirect("/user/dashboard");
+                response.sendRedirect("/user/mainpage");
                 break;
             case "EMPLOYEE":
                 response.sendRedirect("/employee/dashboard");
