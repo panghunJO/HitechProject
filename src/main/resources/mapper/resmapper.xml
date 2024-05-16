@@ -75,6 +75,7 @@
         <result property="password" column="password"/>
         <result property="userName" column="user_name"/>
         <result property="userRole" column="user_role"/>
+        <result property="userImg" column="user_img"/>
     </resultMap>
 
     <resultMap id="commentResultMap" type="com.ohgiraffers.hitechautoworks.res.dto.ResCommentDTO">
@@ -88,7 +89,7 @@
     </resultMap>
 
     <select id="findComment" parameterType="int" resultMap="commentResultMap">
-        select a.res_reply_content, a.res_time, a.res_code, b.user_name, b.user_code, a.res_reply_code
+        select a.res_reply_content, a.res_time, a.res_code, b.user_name, b.user_code, a.res_reply_code, b.user_role, b.user_img
         from tbl_res_reply a
         join tbl_user b on a.user_code = b.user_code
         WHERE a.res_code = #{ resCode } AND a.res_comment_able = 'Y'

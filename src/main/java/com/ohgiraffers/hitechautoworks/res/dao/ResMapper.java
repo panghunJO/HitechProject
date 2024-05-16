@@ -27,7 +27,7 @@ public interface ResMapper {
 
     List<ResCommentDTO> findComment(int resCode);
 
-    void resModify(int resCode, String fixOption,String date, String extra);
+    int resModify(int resCode, String fixOption,String date, String extra);
 
     void resDelete(int resCode);
 

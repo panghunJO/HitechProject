@@ -2,6 +2,7 @@ package com.ohgiraffers.hitechautoworks.res.dto;
 
 import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 
@@ -23,6 +24,13 @@ public class ResDTO {
         this.option = option;
         this.date = date;
         this.extra = extra;
+    }
+
+    public Date getSqlDate() {
+        if (this.date != null) {
+            return new Date(this.date.getTime());
+        }
+        return null;
     }
 
     public int getCode() {

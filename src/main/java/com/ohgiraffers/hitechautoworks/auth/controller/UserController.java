@@ -9,6 +9,7 @@ import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
 import com.ohgiraffers.hitechautoworks.part.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.part.service.PartService;
+import com.ohgiraffers.hitechautoworks.res.dto.ResCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import com.ohgiraffers.hitechautoworks.res.service.ResService;
 import jakarta.servlet.http.HttpSession;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -245,14 +247,64 @@ public class UserController {
     }
     @GetMapping("/user/partAdd")
     public void partAdd(Model model) {
-
         AuthUserInfo authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         int userCode = userDTO.getUserCode();
         UserDTO userDTO1 = userService.findUserCode(userCode);
-        System.out.println("userDTO1 = " + userDTO1);
         model.addAttribute("userDTO", userDTO1);
     }
+
+    @GetMapping("/user/testPage")
+    public void testpage(Model model,@RequestParam int resCode,HttpSession session) {
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        model.addAttribute("userDTO", userDTO1);
+        ResDTO res = resService.findUserRes(resCode);
+        model.addAttribute("res", res);
+        model.addAttribute("sqldate",res.getSqlDate());
+        if(session.getAttribute("result") != null){
+            model.addAttribute("result", session.getAttribute("result"));
+            session.removeAttribute("result");
+        }
+        List<ResCommentDTO> resCommentDTO = resService.findComment(resCode);
+        model.addAttribute("resComment",resCommentDTO);
+    }
+
+    @PostMapping("/user/registcomment")
+    public String testPage2(@RequestParam String comment, @RequestParam int resCode) {
+        authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        resService.registcomment(comment,resCode,userCode);
+        return "redirect:/user/testPage?resCode=" + resCode;
+    }
+
+    @PostMapping("/user/resUpdate")
+    public String resModify(@RequestParam int resCode ,@RequestParam String fixOption,@RequestParam String date,@RequestParam String extra, Model model,
+                            HttpSession session){
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        model.addAttribute("userDTO", userDTO1);
+
+        int result = resService.resModify(resCode,fixOption,date,extra);
+        if (result == 1){
+            session.setAttribute("result",result);
+        }
+        return "redirect:/user/testPage?resCode=" + resCode;
+    }
+
+    @PostMapping("/user/resDelete")
+    public String resDelete(@RequestParam int resCode){
+        resService.resDelete(resCode);
+
+        return "/user/testPage";
+    }
+
+
 
 }
 

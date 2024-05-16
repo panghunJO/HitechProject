@@ -44,8 +44,8 @@ public class ResService {
         return resMapper.findComment(resCode);
     }
 
-    public void resModify(int resCode, String fixOption, String date, String extra) {
-        resMapper.resModify(resCode, fixOption, date, extra);
+    public int resModify(int resCode, String fixOption, String date, String extra) {
+        return resMapper.resModify(resCode, fixOption, date, extra);
     }
 
     public void resDelete(int resCode) {
