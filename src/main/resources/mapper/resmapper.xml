@@ -34,8 +34,16 @@
 
     <select id="findUserRes" resultMap="res">
         SELECT *
-        FROM tbl_res
-        WHERE res_code = #{resCode}
+        FROM tbl_user a
+        JOIN tbl_res b on a.user_code = b.user_code
+        WHERE res_code = #{ resCode }
+    </select>
+
+    <select id="findNameRes" resultMap="res">
+        SELECT *
+        FROM tbl_user a
+        JOIN tbl_res b on a.user_code = b.user_code
+        WHERE user_name = #{ resName }
     </select>
 
     <select id="findCodeRes" resultMap="res">
