@@ -7,6 +7,8 @@ import com.ohgiraffers.hitechautoworks.auth.dto.*;
 
 import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
+import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
+import com.ohgiraffers.hitechautoworks.res.service.ResService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -24,6 +27,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ResService resService;
 
 
     @GetMapping("/user/dashboard")
@@ -130,12 +136,39 @@ public class UserController {
         UserDTO userDTO1 = userService.findUserCode(userCode);
         System.out.println("userDTO1 = " + userDTO1);
         model.addAttribute("userDTO", userDTO1);
+        List<ResDTO> resList = resService.findAllres();
+        model.addAttribute("resList", resList);
     }
 
 
+    @PostMapping("/user/res/ressearch")
+    public String resgo(Model model,@RequestParam String resCode, @RequestParam String resName){
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        System.out.println("userDTO1 = " + userDTO1);
+        model.addAttribute("userDTO", userDTO1);
+
+        System.out.println("resCode = " + resCode);
+        System.out.println("resName = " + resName);
+        if(resCode != "" && resName == ""){
+            int resCodeInt = Integer.parseInt(resCode);
+            ResDTO resList = resService.findUserRes(resCodeInt);
+            model.addAttribute("resList", resList);
+        } else if (resCode == "" && resName != ""){
+            List<ResDTO> resList = resService.findNameRes(resName);
+            model.addAttribute("resList", resList);
+        } else {
+            List<ResDTO> resList = resService.findAllres();
+            model.addAttribute("resList", resList);
+        }
+
+        return "user/common";
+    }
+
     @GetMapping("/user/partAllCall")
     public void partAllCall(Model model) {
-
         AuthUserInfo authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         int userCode = userDTO.getUserCode();

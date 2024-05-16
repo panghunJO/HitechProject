@@ -36,4 +36,6 @@ public interface ResMapper {
     int updateComment(int resReplyCode, String editcomment);
 
     int deleteComment(int resReplyCode);
+
+    List<ResDTO> findNameRes(String resName);
 }

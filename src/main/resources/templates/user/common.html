@@ -30,11 +30,11 @@
 
     <!-- Template Main CSS File -->
     <link href="/assets/css/style.css" rel="stylesheet">
+
 </head>
 <body>
 <div th:replace="/common/header.html"></div>
 <div th:replace="/common/sidebar.html"></div>
-
 
 
 <!-- 입력 내용 -->
@@ -51,42 +51,50 @@
         </nav>
     </div><!-- End Page Title -->
 
+    <form id="actionForm" method="post">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="예약번호 입력" aria-label="Recipient's username"
+                   aria-describedby="button-addon2" name="resCode"> &nbsp; &nbsp; &nbsp; &nbsp;
+            <input type="text" class="form-control" placeholder="고객이름 입력" aria-label="Recipient's username"
+                   aria-describedby="button-addon2" name="resName"> &nbsp; &nbsp;
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="search()">검색</button>
+        </div>
 
-    <table class="table table-bordered">
-        <thead class="table-light">
-        <tr>
-            <th scope="col">예약번호</th>
-            <th scope="col">고객명</th>
-            <th scope="col">수리내용</th>
-            <th scope="col">날짜</th>
-            <th scope="col">상세보기</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>윤재</td>
-            <td>고장</td>
-            <td>24-04-03</td>
-            <td>
-            <button type="button" class="btn btn-outline-primary btn-sm">상세보기</button>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td colspan="2">Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-        </tr>
-        </tbody>
+        <script>
+            function search() {
+                document.getElementById("actionForm").action = "/user/res/ressearch";
+                document.getElementById("actionForm").submit();
+            }
+        </script>
+    </form>
+        <table class="table table-bordered">
+            <thead class="table-light">
+            <tr>
+                <th scope="col">예약번호</th>
+                <th scope="col">고객명</th>
+                <th scope="col">수리내용</th>
+                <th scope="col">날짜</th>
+                <th scope="col">상세보기</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="resList : ${resList}">
+                <th scope="row" th:text="${resList.code}"></th>
+                <td th:text="${resList.userDTO.userName}"></td>
+                <td class="w-25 p-3" th:text="${resList.option}"></td>
+                <td th:text="${resList.date}"></td>
+                <td>
+                    <button type="button" class="btn btn-outline-primary btn-sm" th:attr="onclick='resDetail(\'' + ${resList.code} + '\')'">상세보기</button>
+                </td>
+            </tr>
+    </tbody>
     </table>
 </main>
-
+<script>
+    function resDetail(resCode) {
+        location.href = '/customer/res/resDetail?resCode=' + resCode;
+    }
+</script>
 
 <div th:replace="/common/footer.html"></div>
 </body>

@@ -64,5 +64,9 @@ public class ResService {
     public int deleteComment(int resReplyCode) {
         return resMapper.deleteComment(resReplyCode);
     }
+
+    public List<ResDTO> findNameRes(String resName) {
+        return resMapper.findNameRes(resName);
+    }
 }
 
