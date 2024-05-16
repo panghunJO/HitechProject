@@ -20,11 +20,12 @@ public class UserDTO {
     private String userDepartment;
     private int userCheck;
     private String userAbout;
+    private String userImg;
 
     public UserDTO() {
     }
 
-    public UserDTO(int userCode, String userId, String password, String userName, UserRole userRole, String userEmail, String userPhone, String userAddress, String userDepartment, int userCheck, String userAbout) {
+    public UserDTO(int userCode, String userId, String password, String userName, UserRole userRole, String userEmail, String userPhone, String userAddress, String userDepartment, int userCheck, String userAbout, String userImg) {
         this.userCode = userCode;
         this.userId = userId;
         this.password = password;
@@ -36,6 +37,15 @@ public class UserDTO {
         this.userDepartment = userDepartment;
         this.userCheck = userCheck;
         this.userAbout = userAbout;
+        this.userImg = userImg;
+    }
+
+    public String getUserImg() {
+        return userImg;
+    }
+
+    public void setUserImg(String userImg) {
+        this.userImg = userImg;
     }
 
     public String getUserAbout() {
@@ -148,6 +158,8 @@ public class UserDTO {
                 ", userAddress='" + userAddress + '\'' +
                 ", userDepartment='" + userDepartment + '\'' +
                 ", userCheck=" + userCheck +
+                ", userAbout='" + userAbout + '\'' +
+                ", userImg='" + userImg + '\'' +
                 '}';
     }
 }
