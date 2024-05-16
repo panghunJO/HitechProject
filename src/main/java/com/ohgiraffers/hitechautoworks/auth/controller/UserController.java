@@ -7,6 +7,8 @@ import com.ohgiraffers.hitechautoworks.auth.dto.*;
 
 import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
+import com.ohgiraffers.hitechautoworks.part.dto.PartDTO;
+import com.ohgiraffers.hitechautoworks.part.service.PartService;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import com.ohgiraffers.hitechautoworks.res.service.ResService;
 import jakarta.servlet.http.HttpSession;
@@ -30,6 +32,9 @@ public class UserController {
 
     @Autowired
     private ResService resService;
+
+    @Autowired
+    private PartService partService;
 
 
     @GetMapping("/user/dashboard")
@@ -173,8 +178,56 @@ public class UserController {
         UserDTO userDTO = authUserInfo.getUserDTO();
         int userCode = userDTO.getUserCode();
         UserDTO userDTO1 = userService.findUserCode(userCode);
-        System.out.println("userDTO1 = " + userDTO1);
         model.addAttribute("userDTO", userDTO1);
+
+        List<PartDTO> partList = partService.selectAllPart();
+        model.addAttribute("partList", partList);
+
+    }
+
+    @PostMapping("/user/partAllCall")
+    public String partAllCall2(@RequestParam String partName, @RequestParam String partCode,
+                               Model model) {
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        model.addAttribute("userDTO", userDTO1);
+
+        if (partName == "" && partCode == "") {
+            List<PartDTO> partList = partService.selectAllPart();
+            model.addAttribute("partList", partList);
+            System.out.println("partList = " + partList);
+        } else if (partName == "") {
+            List<PartDTO> partList = partService.selectPartByCode(Integer.parseInt(partCode));
+            System.out.println("partList = " + partList);
+            model.addAttribute("partList", partList);
+        } else {
+            List<PartDTO> partList = partService.partSearchBtPartName(partName);
+            System.out.println("partList = " + partList);
+            model.addAttribute("partList", partList);
+        }
+
+        return "user/partAllCall";
+    }
+
+    @PostMapping("/user/registpart")
+    public String registpart(@RequestParam Map<String, String> parts, Model model){
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        model.addAttribute("userDTO", userDTO1);
+
+        int result = partService.addPart(parts);
+
+        if(result == 1) {
+            String partName = parts.get("partName");
+            model.addAttribute("result", result);
+            model.addAttribute("partName", partName);
+        }
+
+        return "user/partAllCall";
     }
 
 
