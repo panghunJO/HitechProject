@@ -1,6 +1,8 @@
 package com.ohgiraffers.hitechautoworks.auth.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ohgiraffers.hitechautoworks.auth.dto.*;
 
 import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Controller
 public class UserController {
 
@@ -20,6 +24,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
 
     @GetMapping("/user/dashboard")
     public void dashboard(Model model) {
@@ -105,24 +110,18 @@ public class UserController {
     }
 
     @PostMapping("/user/mypage/update")
-    public String updateUser(@RequestParam("fullName") String userName,
-                             @RequestParam("company") String userDepartment,
-                             @RequestParam("address") String userAddress,
-                             @RequestParam("phone") String userPhone,
-                             @RequestParam("email") String userEmail) {
+    public String updateUser(@RequestParam Map<String,String> myprofile) {
 
-        System.out.println("userName = " + userName);
-        System.out.println("userDepartment = " + userDepartment);
-        System.out.println("userAddress = " + userAddress);
-        System.out.println("userPhone = " + userPhone);
-        System.out.println("userEmail = " + userEmail);
+        for (Map.Entry<String, String> entry : myprofile.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
 
         return "redirect:/user/mypage";
     }
 
-    @PostMapping(value = "/user/mypage/changepass")
+    @PostMapping(value = "/user/mypage/changepass", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public int changepass(@RequestBody PasswordRequestDTO request) {
+    public String changepass(@RequestBody PasswordRequestDTO request) {
         System.out.println("request = " + request);
         String currentPassword = request.getCurrentPassword();
         String newPassword = request.getNewPassword();
@@ -131,7 +130,8 @@ public class UserController {
         int userCode = userDTO.getUserCode();
         UserDTO userDTO1 = userService.findUserCode(userCode);
         String pw = userDTO1.getPassword();
-        int result = userService.changepass(currentPassword,newPassword, pw, userCode);
+        String result = String.valueOf(userService.changepass(currentPassword,newPassword, pw, userCode));
+
 
         return result;
     }
@@ -142,6 +142,13 @@ public class UserController {
         UserDTO userDTO = authUserInfo.getUserDTO();
         model.addAttribute("userDTO", userDTO);
         return "/user/testPage";
+    }
+
+    @GetMapping("/user/common")
+    public void common(Model model) {
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        model.addAttribute("userDTO", userDTO);
     }
 
 }

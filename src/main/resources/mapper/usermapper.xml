@@ -89,10 +89,11 @@
         <result property="userPhone" column="user_phone"/>
         <result property="userAddress" column="user_address"/>
         <result property="userDepartment" column="user_department"/>
+        <result property="userAbout" column="user_about"/>
     </resultMap>
 
     <select id="findUserCode" resultMap="user">
-        SELECT user_code, user_id, user_pw, user_name, user_role, user_email, user_phone, user_address, user_department
+        SELECT user_code, user_id, user_pw, user_name, user_role, user_email, user_phone, user_address, user_department, user_about
         from tbl_user
         where user_code = #{userCode}
     </select>

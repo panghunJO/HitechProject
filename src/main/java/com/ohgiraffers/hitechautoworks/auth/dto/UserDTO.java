@@ -19,11 +19,12 @@ public class UserDTO {
     private String userAddress;
     private String userDepartment;
     private int userCheck;
+    private String userAbout;
 
     public UserDTO() {
     }
 
-    public UserDTO(int userCode, String userId, String password, String userName, UserRole userRole, String userEmail, String userPhone, String userAddress, String userDepartment, int userCheck) {
+    public UserDTO(int userCode, String userId, String password, String userName, UserRole userRole, String userEmail, String userPhone, String userAddress, String userDepartment, int userCheck, String userAbout) {
         this.userCode = userCode;
         this.userId = userId;
         this.password = password;
@@ -34,6 +35,15 @@ public class UserDTO {
         this.userAddress = userAddress;
         this.userDepartment = userDepartment;
         this.userCheck = userCheck;
+        this.userAbout = userAbout;
+    }
+
+    public String getUserAbout() {
+        return userAbout;
+    }
+
+    public void setUserAbout(String userAbout) {
+        this.userAbout = userAbout;
     }
 
     public int getUserCode() {
