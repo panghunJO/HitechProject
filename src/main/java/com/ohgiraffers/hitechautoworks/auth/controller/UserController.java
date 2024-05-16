@@ -58,7 +58,7 @@ public class UserController {
 
 
     @GetMapping("/customer/account/AccountModify")
-    public void AccountModify(Model model,HttpSession session) {
+    public void AccountModify(Model model, HttpSession session) {
         authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         UserRegistDTO registDTO = userService.getAll(userDTO.getUserCode());
@@ -69,28 +69,12 @@ public class UserController {
         session.removeAttribute("errorMessage");
     }
 
-    @PostMapping("/customer/account/AccountModify")
-    public String account(@RequestParam String userId, @RequestParam String userPw, @RequestParam String userPwCheck, @RequestParam String userName,
-                          @RequestParam String userEmail, @RequestParam String userAddress, @RequestParam String userPhone, Model model,
-                          HttpSession session) {
-        userService.updateUser(userId, userPw, userEmail, userPwCheck, userAddress, userPhone, userName);
-        if (!userPw.equals(userPwCheck)) {
-            // 비밀번호 확인이 일치하지 않을 경우 에러 메시지 전달하고 리다이렉트
-            session.setAttribute("errorMessage","비밀번호가 일치하지 않습니다.");
-            return "redirect:/customer/account/AccountModify";
-
-        } else {
-            userService.updateUser(userId, userPw, userEmail, userPwCheck, userAddress, userPhone, userName);
-            return "customer/res/res";
-        }
-
-    }
 
     @PostMapping("/customer/account/deleteUser")
     public String deleteUser() {
         authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
-        int userCode= userDTO.getUserCode();
+        int userCode = userDTO.getUserCode();
         userService.deletePeople(userCode);
 
         return "customer/res/res";
@@ -118,15 +102,6 @@ public class UserController {
         System.out.println("userDTO = " + userDTO);
     }
 
-    @PostMapping("/user/mypage/update")
-    public String updateUser(@RequestParam Map<String,String> myprofile) {
-
-        for (Map.Entry<String, String> entry : myprofile.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-
-        return "redirect:/user/mypage";
-    }
 
     @PostMapping(value = "/user/mypage/changepass", produces = "application/json; charset=UTF-8")
     @ResponseBody
@@ -139,7 +114,7 @@ public class UserController {
         int userCode = userDTO.getUserCode();
         UserDTO userDTO1 = userService.findUserCode(userCode);
         String pw = userDTO1.getPassword();
-        String result = String.valueOf(userService.changepass(currentPassword,newPassword, pw, userCode));
+        String result = String.valueOf(userService.changepass(currentPassword, newPassword, pw, userCode));
 
 
         return result;
@@ -164,6 +139,7 @@ public class UserController {
         List<ResDTO> resList = resService.findAllres();
         model.addAttribute("resList", resList);
     }
+
 
     @PostMapping("/user/res/ressearch")
     public String resgo(Model model,@RequestParam String resCode, @RequestParam String resName){
@@ -191,9 +167,8 @@ public class UserController {
         return "user/common";
     }
 
-
-    @GetMapping("/user/adminaccountedit")
-    public void adminAccountEdit(Model model) {
+    @GetMapping("/user/partAllCall")
+    public void partAllCall(Model model) {
         AuthUserInfo authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         int userCode = userDTO.getUserCode();
@@ -203,6 +178,32 @@ public class UserController {
     }
 
 
+    @PostMapping("/user/mypage/update")
+    public String updateUser(@RequestParam Map<String, String> myprofile) {
+
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode(); // 기준으로
+
+        myprofile.put("userCode", String.valueOf(userCode));
+        userService.updateUser(myprofile);
+
+        return "redirect:/user/mypage";
+    }
+    @GetMapping("/user/partAdd")
+    public void partAdd(Model model) {
+
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        System.out.println("userDTO1 = " + userDTO1);
+        model.addAttribute("userDTO", userDTO1);
+    }
+
 }
+
+
+
 
 

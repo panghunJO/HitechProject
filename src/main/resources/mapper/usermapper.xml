@@ -38,17 +38,18 @@
     </update>
 
 
-    <update id="updateUser">
+    <update id="updateUser" parameterType="hashmap">
        UPDATE
             tbl_user
         SET
-            USER_EMAIL = #{ userEmail },
-            USER_PW= #{ pw12 },
-            USER_NAME = #{ userName },
-            USER_PHONE = #{ userPhone },
-            USER_ADDRESS = #{ userAddress }
+            USER_NAME = #{ fullName },
+            USER_ABOUT = #{ about },
+            USER_ADDRESS = #{ address },
+            USER_DEPARTMENT =#{ company },
+            USER_PHONE = #{ phone },
+            USER_EMAIL = #{ email }
         WHERE
-            USER_ID = #{ userId }
+            USER_CODE = #{ userCode }
 
     </update>
     <resultMap id="userUpdate" type="com.ohgiraffers.hitechautoworks.auth.dto.UserRegistDTO">
