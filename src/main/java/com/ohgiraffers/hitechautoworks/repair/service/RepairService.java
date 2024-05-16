@@ -5,6 +5,8 @@ import com.ohgiraffers.hitechautoworks.part.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.repair.dao.RepairMapper;
 import com.ohgiraffers.hitechautoworks.repair.dto.Repair2DTO;
 import com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO;
+import com.ohgiraffers.hitechautoworks.repair.dto.RepairPartDTO;
+import com.ohgiraffers.hitechautoworks.repair.dto.WorkerDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +31,7 @@ public class RepairService {
         return repairMapper.SearchByworkerName(worker);
     }
 
-    public Repair2DTO selectRepair(int resCode) {
+    public List<Repair2DTO> selectRepair(int resCode) {
         return repairMapper.selectRepair(resCode);
     }
 
@@ -37,13 +39,13 @@ public class RepairService {
         repairMapper.modifyRepair(resCode, content, status, date);
     }
 
-    public void modifyRepairWorker(String userName, int resCode) {
-        int newUserCode = repairMapper.selectUserCodeByUserName(userName);
+    public void modifyRepairWorker(List<String> userName, int resCode) {
+        List<Integer>  newUserCode = repairMapper.selectUserCodeByUserName(userName);
         repairMapper.modifyRepairWorker(newUserCode, resCode);
     }
 
-    public void modifyRepairPart(String partName, int resCode) {
-        int newPartCode = repairMapper.selectPartCodeByPartName(partName);
+    public void modifyRepairPart(List<String> partName, int resCode) {
+        List<Integer>  newPartCode = repairMapper.selectPartCodeByPartName(partName);
         repairMapper.modifyRepairPart(newPartCode, resCode);
     }
 
@@ -63,19 +65,28 @@ public class RepairService {
         repairMapper.addRepair(resCode,content,status,date);
     }
 
-    public void addRepairPart(String partName, int resCode) {
+    public void addRepairPart(List<String> partName, int resCode) {
         System.out.println("partName = " + partName);
-        int newPartCode = repairMapper.selectPartCodeByPartName(partName);
+        List<Integer> newPartCode = repairMapper.selectPartCodeByPartName(partName);
+        System.out.println("newPartCode = " + newPartCode);
         repairMapper.addRepairPart(newPartCode,resCode);
     }
 
-    public void addRepairWorker(String userName, int resCode) {
+    public void addRepairWorker(List<String> userName, int resCode) {
         System.out.println("userName = " + userName);
-        int newUserCode = repairMapper.selectUserCodeByUserName(userName);
+        List<Integer> newUserCode = repairMapper.selectUserCodeByUserName(userName);
         repairMapper.addRepairWorker(newUserCode,resCode);
     }
 
     public List<ResDTO> findResList() {
         return repairMapper.findResList();
+    }
+
+    public List<RepairPartDTO> selectRepairPart(int resCode) {
+        return repairMapper.selectRepairPart(resCode);
+    }
+
+    public List<WorkerDTO> selectWorker(int resCode) {
+        return repairMapper.selectWorker(resCode);
     }
 }
