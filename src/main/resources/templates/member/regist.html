@@ -38,7 +38,7 @@
             document.getElementById("overlappedID").addEventListener("click", () => {
                 const id = document.getElementById("fname").value;
                 // console.log(id);
-                fetch("http://localhost:8080/auth/idCheck?id=" + id)
+                fetch("/auth/idCheck?id=" + id)
                     .then(response => response.json())
                     .then(data => {
                         if (data == 1) {

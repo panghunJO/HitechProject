@@ -32,4 +32,8 @@ public interface UserMapper {
     void updateUser(String userId, String userName, String userAddress, String userEmail, String userPhone, String pw12);
 
     void deletePeople(int userCode);
+
+    UserDTO findUserCode(int userCode);
+
+    void changepass(String encodepw, int userCode);
 }
