@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PartService {
@@ -42,10 +43,12 @@ public class PartService {
     }
 
 
-    public void addPart(int partstock, int partPrice, String partName) {
-        partMapper.addPart(partstock, partName, partPrice);
-    }
     public void deletePart(String partCode) {
         partMapper.deletePart(partCode);
+    }
+
+
+    public int addPart(Map<String, String> parts) {
+        return partMapper.addPart(parts);
     }
 }

@@ -36,7 +36,6 @@
 <div th:replace="/common/sidebar.html"></div>
 
 
-
 <!-- 입력 내용 -->
 <main id="main" class="main">
 
@@ -50,11 +49,18 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="부품이름 입력" aria-label="Recipient's username" aria-describedby="button-addon2"> &nbsp &nbsp&nbsp&nbsp
-        <input type="text" class="form-control" placeholder="부품번호 입력" aria-label="Recipient's username" aria-describedby="button-addon2">&nbsp&nbsp
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2">조회</button> &nbsp&nbsp
-        <button class="btn btn-outline-secondary" type="button" id="button-addon3" data-bs-toggle="modal" data-bs-target="#partRegisterModal">부픔등록</button>
+    <form action="/user/partAllCall" method="post">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="부품이름 입력" name="partName"
+                   aria-label="Recipient's username" aria-describedby="button-addon2"> &nbsp &nbsp&nbsp&nbsp
+            <input type="text" class="form-control" placeholder="부품번호 입력" name="partCode"
+                   aria-label="Recipient's username" aria-describedby="button-addon2">&nbsp&nbsp
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">조회</button>
+            &nbsp&nbsp
+    </form>
+    <button class="btn btn-outline-secondary" type="button" id="button-addon3" data-bs-toggle="modal"
+            data-bs-target="#partRegisterModal">부픔등록
+    </button>
     </div>
 
     <table class="table table-bordered">
@@ -64,65 +70,69 @@
             <th scope="col">부품이름</th>
             <th scope="col">부품수량</th>
             <th scope="col">부품가격</th>
+            <th scope="col">상세보기</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>김윤재</td>
-            <td>3</td>
-            <td>200</td>
+        <tr th:each="partList : ${partList}">
+            <th scope="row" th:text="${partList.partCode}"></th>
+            <td th:text="${partList.partName}"></td>
+            <td th:text="${partList.partstock}"></td>
+            <td th:text="${partList.partPrice}"></td>
+            <td>
+                <button type="button" class="btn btn-outline-primary btn-sm">상세보기</button>
+            </td>
 
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>이지은</td>
-            <td>1</td>
-            <td>250</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>전준규</td>
-            <td>2</td>
-            <td>180</td>
         </tr>
 
         </tbody>
     </table>
 
 </main>
-<!-- Modal -->
-<div class="modal fade" id="partRegisterModal" tabindex="-1" aria-labelledby="partRegisterModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="partRegisterModalLabel">부품 등록</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <label for="partName" class="form-label">부품 이름</label>
-                        <input type="text" class="form-control" id="partName" placeholder="부품 이름을 입력하세요">
-                    </div>
-                    <div class="mb-3">
-                        <label for="partQuantity" class="form-label">부품 수량</label>
-                        <input type="number" class="form-control" id="partQuantity" placeholder="부품 수량을 입력하세요">
-                    </div>
-                    <div class="mb-3">
-                        <label for="partPrice" class="form-label">부품 가격</label>
-                        <input type="number" class="form-control" id="partPrice" placeholder="부품 가격을 입력하세요">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-outline-secondary">저장</button>
+<form action="/user/registpart" method="post">
+    <!-- Modal -->
+    <div class="modal fade" id="partRegisterModal" tabindex="-1" aria-labelledby="partRegisterModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="partRegisterModalLabel">부품 등록</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="partName" class="form-label">부품 이름</label>
+                            <input type="text" class="form-control" name="partName" id="partName"
+                                   placeholder="부품 이름을 입력하세요">
+                        </div>
+                        <div class="mb-3">
+                            <label for="partQuantity" class="form-label">부품 수량</label>
+                            <input type="number" class="form-control" name="partstock" id="partQuantity"
+                                   placeholder="부품 수량을 입력하세요">
+                        </div>
+                        <div class="mb-3">
+                            <label for="partPrice" class="form-label">부품 가격</label>
+                            <input type="number" class="form-control" name="partPrice" id="partPrice"
+                                   placeholder="부품 가격을 입력하세요">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button type="submit" class="btn btn-outline-secondary">저장</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
+</form>
+    <script>
+        var result = `[[${result}]]`;
+        var partName = `[[${partName}]]`;
+        if (result){
+            alert(partName + "이/가 등록 성공하였습니다!")
+        };
+    </script>
 
 <div th:replace="/common/footer.html"></div>
 </body>

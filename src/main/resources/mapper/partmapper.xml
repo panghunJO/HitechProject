@@ -49,7 +49,7 @@
         PART_CODE = #{ partCode }
     </update>
 
-    <insert id="addPart">
+    <insert id="addPart" parameterType="hashmap">
         INSERT INTO tbl_part(part_name, part_stock, part_price)
         VALUES(
         #{ partName },
