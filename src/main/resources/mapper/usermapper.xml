@@ -107,5 +107,12 @@
         WHERE user_code = #{ userCode }
     </update>
 
+    <select id="getPartChart" resultType="map">
+        select part_name, part_stock
+        from tbl_part
+        ORDER BY part_code
+        LIMIT 10;
+    </select>
+
 </mapper>
 

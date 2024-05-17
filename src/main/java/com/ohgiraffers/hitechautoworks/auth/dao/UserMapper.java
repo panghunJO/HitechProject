@@ -40,4 +40,5 @@ public interface UserMapper {
     void updateUser(Map<String, String> myprofile);
 
 
+    List<Map<String, Object>> getPartChart();
 }

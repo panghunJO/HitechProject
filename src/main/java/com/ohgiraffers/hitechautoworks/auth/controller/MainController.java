@@ -41,26 +41,6 @@ public class MainController {
         return "member/login";
     }
 
-//    @PostMapping("/member/regist")
-//    public String login(@ModelAttribute UserRegistDTO registDTO, Model model, @RequestParam String email, HttpServletResponse response) throws IOException {
-//
-//        MailDTO mailDTO = new MailDTO();
-//        mailDTO.setAddress(email);
-//        mailDTO.setTitle("회원 인증 코드입니다!!");
-//        int randomNumber = (int) (Math.random() * 1000000);
-//        while (randomNumber < 100000) {
-//            randomNumber = (int) (Math.random() * 1000000);
-//        }
-//        mailDTO.setMessage("인증코드는 " + randomNumber + "입니다!");
-//        mailService.check(mailDTO);
-//        registDTO.setUserCheck(randomNumber);
-//
-//        int result = userService.regist(registDTO);
-//        if (result == 1) {
-//            model.addAttribute("successMessage", "회원가입이 성공적으로 완료되었습니다."); // 성공 메시지를 모델에 추가합니다
-//        }
-//        return "redirect:/certified/loading";
-//    }
 
     @PostMapping("/member/regist")
     public String login(@ModelAttribute UserRegistDTO registDTO, Model model, @RequestParam String email, HttpServletResponse response, HttpServletRequest request) throws IOException {
