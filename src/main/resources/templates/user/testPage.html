@@ -174,8 +174,8 @@
                             <h5 class="card-title">Comment </h5>
                             <div class="col-md-12 mt-4">
                             <div class="input-group input-group-lg">
-                                <input type="text" class="form-control" id="comment" name="comment" placeholder="댓글 입력">
-                                <button type="button" class="btn btn-success" onclick="registcommit()">등록</button>
+                                <input type="text" class="form-control" id="comment" name="comment" placeholder="댓글 입력" onkeydown="if(event.key === 'Enter') registcommit();">
+                                <button type="button"  class="btn btn-success" onclick="registcommit()">등록</button>
                             </div>
                         </div>
                         </div>
@@ -232,7 +232,8 @@
                                                         </a>
                                                     </li>
                                                     <li class="list-inline-item ml-auto">
-                                                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!"
+                                                           th:attr="onclick='deleteComment(\'' + ${comment.resReplyCode} + '\', \'' + ${comment.resCode}+ '\', \'' + ${comment.userDTO.userCode}+ '\')'">
                                                             <i class="bi bi-trash3-fill g-pos-rel g-top-1 g-mr-3"></i>
                                                             삭제
                                                         </a>
@@ -252,7 +253,7 @@
                                 var authuserCode = `[[${userDTO.userCode}]]`;
                                 var resuserCode = usercommentCode;
                                 if (authuserCode == resuserCode) {
-                                    // alert("일치!!!");
+
                                     var userInput = prompt("수정할 내용을 입력해주세요");
                                     var resReplyCode = resReplyCode; // 변수명 수정
                                     var resCode = resCode;
@@ -285,6 +286,43 @@
                                     }
                                 } else {
                                     alert("불일치!!!")
+                                }
+                            }
+                            function deleteComment(resReplyCode,resCode, usercommentCode) {
+                                var authuserCode = `[[${userDTO.userCode}]]`;
+                                var resuserCode = usercommentCode;
+                                if (authuserCode == resuserCode) {
+
+                                    var userInput = confirm("삭제하시겠습니까?");
+                                    var resReplyCode = resReplyCode; // 변수명 수정
+                                    var rescode = resCode;
+                                    if (userInput) {
+                                        fetch("/user/deleteComment", {
+                                            method: "POST",
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({
+                                                str: userInput,
+                                                resReplyCode: resReplyCode,
+                                                resCode : resCode
+                                            })
+                                        })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                if (data == 1) {
+                                                    alert(" 삭제가 완료되었습니다.");
+                                                    location.href='/user/testPage?resCode=' + resCode;
+                                                } else {
+                                                    alert("삭제에 실패했습니다. 다시 시도해주세요.");
+                                                    location.reload(true);
+                                                }
+                                            })
+                                            .catch(error => {
+                                                console.error('Error:', error);
+                                                alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
+                                            });
+                                    }
                                 }
                             }
 

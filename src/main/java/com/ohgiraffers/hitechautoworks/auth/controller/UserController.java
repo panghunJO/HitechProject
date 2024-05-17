@@ -9,6 +9,7 @@ import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
 import com.ohgiraffers.hitechautoworks.part.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.part.service.PartService;
+import com.ohgiraffers.hitechautoworks.res.dto.DeleteCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.EditCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
@@ -330,6 +331,17 @@ public class UserController {
         return result;
     }
 
+    @PostMapping("/user/deleteComment")
+    @ResponseBody
+    public int deleteComment(@RequestBody DeleteCommentDTO deleteCommentDTO){
+        int resReplyCode = deleteCommentDTO.getResReplyCode();
+        int rescode = deleteCommentDTO.getRescode();
+        System.out.println("deleteCommentDTO111 = " + deleteCommentDTO);
+        int result = resService.deleteComment(resReplyCode);
+
+        return result;
+
+    }
 
 
 
