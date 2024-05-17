@@ -27,14 +27,22 @@ public class RepairController {
     @Autowired
     private RepairService repairService;
 
+    @Autowired
+    private UserService userService;
+
     private AuthUserInfo authUserInfo;
 
-    @GetMapping("/employee/repair/repair")
+    @GetMapping("/user/repair")
     public void repair(Model model) {
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        System.out.println("userDTO1 = " + userDTO1);
+        model.addAttribute("userDTO", userDTO1);
         List<RepairDTO> repairList = repairService.findAllRepair();
         System.out.println("repairList = " + repairList);
         model.addAttribute("repairList", repairList);
-
 
     }
 

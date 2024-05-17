@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>HitechAutoworks</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/assets/img/favicon.png" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.bubble.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@14.0.1/simple-datatables.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+
+</head>
+<body>
+<div th:replace="/common/header.html"></div>
+<div th:replace="/common/sidebar.html"></div>
+
+
+<!-- 입력 내용 -->
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>작업 조회</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="user/mainpage">Home</a></li>
+                <li class="breadcrumb-item active"><a href="user/common"></a>작업 조회</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <form id="actionForm" method="post">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="사원이름 입력" aria-label="Recipient's username"
+                   aria-describedby="button-addon2" name="worker"> &nbsp; &nbsp; &nbsp; &nbsp;
+            <input type="text" class="form-control" placeholder="사원번호 입력" aria-label="Recipient's username"
+                   aria-describedby="button-addon2" name="workerCode"> &nbsp; &nbsp;
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="search()">검색</button>
+        </div>
+
+        <script>
+            function search() {
+                document.getElementById("actionForm").action = "/user/repair/repairSearch";
+                document.getElementById("actionForm").submit();
+            }
+        </script>
+    </form>
+    <table class="table table-bordered">
+        <thead class="table-light">
+        <tr>
+            <th scope="col">작업자</th>
+            <th scope="col">작업 내용</th>
+            <th scope="col">필요 부품</th>
+            <th scope="col">진행상황</th>
+            <th scope="col">날짜</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="repair : ${repairList}">
+            <td th:text="${repair.workerDTO.userDTO.userName}"></td>
+            <td th:text="${ repair.repairDTO.content}"></td>
+            <td th:text="${repair.repairPartDTO.partDTO.partName}"></td>
+            <td th:text="${ repair.repairDTO.status}"></td>
+            <td th:text="${ repair.repairDTO.date}"></td>
+            <td>
+                <button id="viewBtn" class="btn btn-light" th:attr="onclick='repairDetail(\'' + ${repair.resDTO.code} + '\')'">상세보기</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<script>
+
+    function repairDetail(resCode) {
+        location.href = '/user/repairdetail?resCode=' +123456 * resCode;
+    }
+</script>
+
+<div th:replace="/common/footer.html"></div>
+</body>
+</html>
