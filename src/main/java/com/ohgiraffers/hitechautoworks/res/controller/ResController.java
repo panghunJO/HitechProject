@@ -7,6 +7,7 @@ import com.ohgiraffers.hitechautoworks.auth.dto.resdto.EtcCarDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.ImportantDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.NormalDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.resdto.SomoDTO;
+import com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.*;
 import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
@@ -237,6 +238,13 @@ public class ResController {
 
         return result;
 //        return "/customer/res/resDetail?resCode=" + rescode;
+    }
+
+    @GetMapping("/customer/res/repair")
+    public void resRepair(@RequestParam("resCode") int resCode,Model model) {
+        ResDTO res = resService.resRepair(resCode);
+        System.out.println("res = " + res);
+        model.addAttribute("res", res);
     }
 
 

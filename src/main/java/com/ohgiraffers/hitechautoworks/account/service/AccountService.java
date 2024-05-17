@@ -45,4 +45,7 @@ public class AccountService {
     public void accountDeleteUser(int userCode) {
         accountMapper.deleteUser(userCode);
     }
+
+
+
 }
