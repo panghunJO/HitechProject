@@ -68,5 +68,9 @@ public class ResService {
     public List<ResDTO> findNameRes(String resName) {
         return resMapper.findNameRes(resName);
     }
+
+    public List<ResDTO> findCustomerRes(int userCode) {
+        return resMapper.findUserCodeRes(userCode);
+    }
 }
 

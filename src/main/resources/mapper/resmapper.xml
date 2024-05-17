@@ -19,6 +19,20 @@
         </association>
     </resultMap>
 
+    <select id="findUserCodeRes" resultMap="res">
+        SELECT
+        a.res_code,
+        a.res_title,
+        a.res_option,
+        a.res_date,
+        a.res_extra,
+        b.user_name
+        FROM
+        tbl_res a
+        join tbl_user b on (a.user_code = b.user_code)
+        WHERE b.user_code = #{ userCode }
+    </select>
+
     <select id="findAllres" resultMap="res">
         select
         a.res_code,
