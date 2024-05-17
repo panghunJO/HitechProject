@@ -9,6 +9,7 @@ import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
 import com.ohgiraffers.hitechautoworks.part.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.part.service.PartService;
+import com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.DeleteCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.EditCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResCommentDTO;
@@ -316,6 +317,7 @@ public class UserController {
         model.addAttribute("resList",resList);
 
     }
+
 
     @PostMapping("/user/reseditComment")
     @ResponseBody
