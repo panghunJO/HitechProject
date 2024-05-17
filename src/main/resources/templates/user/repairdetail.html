@@ -98,8 +98,9 @@
     </style>
 </head>
 <body>
-<div th:replace="common/header.html"></div>
-<div th:replace="common/sidebar.html"></div>
+<div th:replace="~{common/header.html}"></div>
+<div th:replace="~{common/sidebar.html}"></div>
+
 
 <main id="main" class="main">
 
@@ -471,6 +472,6 @@
 </main><!-- End #main -->
 
 
-<div th:replace="common/footer.html"></div>
+<div th:replace="~{common/footer.html}"></div>
 </body>
 </html>
