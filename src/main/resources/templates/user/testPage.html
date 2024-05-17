@@ -174,8 +174,8 @@
                             <h5 class="card-title">Comment </h5>
                             <div class="col-md-12 mt-4">
                             <div class="input-group input-group-lg">
-                                <input type="text" class="form-control" id="comment" name="comment" placeholder="댓글 입력">
-                                <button type="button" class="btn btn-success" onclick="registcommit()">등록</button>
+                                <input type="text" class="form-control" id="comment" name="comment" placeholder="댓글 입력" onkeydown="if(event.key === 'Enter') registcommit();">
+                                <button type="button"  class="btn btn-success" onclick="registcommit()">등록</button>
                             </div>
                         </div>
                         </div>
