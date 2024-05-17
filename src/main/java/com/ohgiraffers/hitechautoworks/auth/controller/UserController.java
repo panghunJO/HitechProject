@@ -127,13 +127,7 @@ public class UserController {
         return result;
     }
 
-    @GetMapping("/user/testpage")
-    public String testPage(Model model) {
-        AuthUserInfo authUserInfo = new AuthUserInfo();
-        UserDTO userDTO = authUserInfo.getUserDTO();
-        model.addAttribute("userDTO", userDTO);
-        return "/user/testPage";
-    }
+
 
     @GetMapping("/user/common")
     public void common(Model model) {
@@ -256,20 +250,24 @@ public class UserController {
 
     @GetMapping("/user/testPage")
     public void testpage(Model model,@RequestParam int resCode,HttpSession session) {
+
         AuthUserInfo authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         int userCode = userDTO.getUserCode();
         UserDTO userDTO1 = userService.findUserCode(userCode);
         model.addAttribute("userDTO", userDTO1);
-        ResDTO res = resService.findUserRes(resCode);
-        model.addAttribute("res", res);
-        model.addAttribute("sqldate",res.getSqlDate());
+
+            ResDTO res = resService.findUserRes(resCode/123456);        // 들어올때 resCode 123456 나눠줘야댐 (나중에 제대로 암호화 ㄱㄱ)
+            model.addAttribute("res", res);
+            model.addAttribute("sqldate",res.getSqlDate());
+            List<ResCommentDTO> resCommentDTO = resService.findComment(resCode/123456);
+            model.addAttribute("resComment",resCommentDTO);
+
         if(session.getAttribute("result") != null){
             model.addAttribute("result", session.getAttribute("result"));
             session.removeAttribute("result");
         }
-        List<ResCommentDTO> resCommentDTO = resService.findComment(resCode);
-        model.addAttribute("resComment",resCommentDTO);
+
     }
 
     @PostMapping("/user/registcomment")
@@ -278,7 +276,7 @@ public class UserController {
         UserDTO userDTO = authUserInfo.getUserDTO();
         int userCode = userDTO.getUserCode();
         resService.registcomment(comment,resCode,userCode);
-        return "redirect:/user/testPage?resCode=" + resCode;
+        return "redirect:/user/testPage?resCode=" + 123456 * resCode;
     }
 
     @PostMapping("/user/resUpdate")
@@ -301,9 +299,20 @@ public class UserController {
     public String resDelete(@RequestParam int resCode){
         resService.resDelete(resCode);
 
-        return "/user/testPage";
+        return "user/testPage";
     }
 
+    @GetMapping("/user/rescustomer")
+    public void resccustomer(Model model) {
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        model.addAttribute("userDTO", userDTO1);
+        List<ResDTO> resList = resService.findCustomerRes(userCode);
+        model.addAttribute("resList",resList);
+
+    }
 
 
 }

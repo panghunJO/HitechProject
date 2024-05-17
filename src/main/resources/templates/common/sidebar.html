@@ -141,7 +141,8 @@
             </a>
             <ul id="res-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="/user/common">
+<!--                    <a th:href="@{/user/rescustomer(userToken=${userDTO.password})}">-->
+                    <a href="/user/rescustomer">
                         <i class="bi bi-circle"></i><span>예약 조회</span>
                     </a>
                 </li>
@@ -157,6 +158,11 @@
                 <li>
                     <a href="/user/partAllCall">
                         <i class="bi bi-circle"></i><span>부품 정보 조회</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/common">
+                        <i class="bi bi-circle"></i><span>전체 예약 조회</span>
                     </a>
                 </li>
             </ul>
