@@ -246,6 +246,7 @@ public class UserController {
     @GetMapping("/user/rescustomer")
     public void resccustomer(Model model) {
 
+        int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
         List<ResDTO> resList = resService.findCustomerRes(userCode);
         model.addAttribute("resList",resList);
     }
