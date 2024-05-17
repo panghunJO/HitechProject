@@ -162,7 +162,8 @@
                                         <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                                         <div class="col-md-8 col-lg-9">
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="userImg" placeholder="이미지 url를 넣어주세요! ex. (https://~~~~.png )" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                <input type="text" class="form-control" name="userImg" placeholder="이미지 url를 넣어주세요! ex. (https://~~~~.png )" aria-label="Recipient's username" aria-describedby="basic-addon2"
+                                                th:value="${userDTO.userImg}">
                                                 <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                     사용방법
                                                 </button>

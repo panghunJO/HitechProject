@@ -214,7 +214,7 @@ public class ResController {
      return "/customer/res/res";
     }
 
-    @PostMapping("/customer/res/editComment")
+    @PostMapping("/user/res/editComment")
     @ResponseBody
     public int editComment(@RequestBody EditCommentDTO editCommentDTO){
         int resReplyCode = editCommentDTO.getResReplyCode();
