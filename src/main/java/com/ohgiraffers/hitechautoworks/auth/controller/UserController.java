@@ -9,6 +9,8 @@ import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
 import com.ohgiraffers.hitechautoworks.part.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.part.service.PartService;
+import com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO;
+import com.ohgiraffers.hitechautoworks.res.dto.DeleteCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.EditCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
@@ -316,6 +318,7 @@ public class UserController {
 
     }
 
+
     @PostMapping("/user/reseditComment")
     @ResponseBody
     public int editComment(@RequestBody EditCommentDTO editCommentDTO){
@@ -330,6 +333,7 @@ public class UserController {
         return result;
     }
 
+
     @GetMapping("/user/customermypage")
     public String customermypage(Model model, @RequestParam int customerUserCode){
 
@@ -340,8 +344,18 @@ public class UserController {
         UserDTO userDTO1 = userService.findUserCode(userCode);
         model.addAttribute("userDTO", userDTO1);
 
-
         return "user/mypage";
+    }
+
+    @PostMapping("/user/deleteComment")
+    @ResponseBody
+    public int deleteComment(@RequestBody DeleteCommentDTO deleteCommentDTO){
+        int resReplyCode = deleteCommentDTO.getResReplyCode();
+        int rescode = deleteCommentDTO.getRescode();
+        System.out.println("deleteCommentDTO111 = " + deleteCommentDTO);
+        int result = resService.deleteComment(resReplyCode);
+
+        return result;
     }
 
 

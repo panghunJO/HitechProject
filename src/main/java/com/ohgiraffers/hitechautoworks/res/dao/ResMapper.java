@@ -39,5 +39,9 @@ public interface ResMapper {
 
     List<ResDTO> findNameRes(String resName);
 
+
+    ResDTO resRepair(int resCode);
+
     List<ResDTO> findUserCodeRes(int userCode);
+
 }

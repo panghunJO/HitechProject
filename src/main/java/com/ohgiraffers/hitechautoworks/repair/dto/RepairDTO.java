@@ -29,7 +29,10 @@ public class RepairDTO {
     }
 
     public Date getDate() {
-        return date;
+        if (this.date != null) {
+            return new java.sql.Date(this.date.getTime());
+        }
+        return null;
     }
 
     public void setDate(Date date) {

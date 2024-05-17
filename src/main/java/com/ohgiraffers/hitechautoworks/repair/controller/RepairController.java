@@ -27,20 +27,34 @@ public class RepairController {
     @Autowired
     private RepairService repairService;
 
+    @Autowired
+    private UserService userService;
+
     private AuthUserInfo authUserInfo;
 
-    @GetMapping("/employee/repair/repair")
+    @GetMapping("/user/repair")
     public void repair(Model model) {
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        System.out.println("userDTO1 = " + userDTO1);
+        model.addAttribute("userDTO", userDTO1);
         List<RepairDTO> repairList = repairService.findAllRepair();
         System.out.println("repairList = " + repairList);
         model.addAttribute("repairList", repairList);
 
-
     }
 
-    @PostMapping("/employee/repair/repair")
-    public void repair2(@RequestParam String worker, @RequestParam String workerCode,
+    @PostMapping("/user/repair/repairSearch")
+    public String repair2(@RequestParam String worker, @RequestParam String workerCode,
                         Model model) {
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        model.addAttribute("userDTO", userDTO1);
+        System.out.println("userDTO1 = " + userDTO1);
         System.out.println("worker = " + worker);
         System.out.println("workerCode = " + workerCode);
         if (worker == "" && workerCode == "") {
@@ -56,11 +70,17 @@ public class RepairController {
             System.out.println("repairList = " + repairList);
             model.addAttribute("repairList", repairList);
         }
+        return "user/repair";
     }
 
-    @GetMapping("/employee/repair/repairdetail")
+    @GetMapping("/user/repairdetail")
     public void repairdetail(@RequestParam int resCode,
                              Model model) {
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        model.addAttribute("userDTO", userDTO1);
         System.out.println("resCode = " + resCode);
         List<Repair2DTO> repairDTO = repairService.selectRepair(resCode);
         System.out.println("repairDTO = " + repairDTO);
@@ -70,13 +90,10 @@ public class RepairController {
         model.addAttribute("repairDTO", repairDTO);
         model.addAttribute("parts",parts);
         model.addAttribute("workers",workers);
-        authUserInfo = new AuthUserInfo();
-        UserDTO userDTO = authUserInfo.getUserDTO();
-        String userName = userDTO.getUserName();
-        model.addAttribute("userName", userName);
+
     }
 
-    @PostMapping("/employee/repair/repairdetail")
+    @PostMapping("/user/repairModify")
     public String modifyRepair(
             @RequestParam int resCode,
             @RequestParam String[] userName,
@@ -94,7 +111,7 @@ public class RepairController {
         return "redirect:/employee/repair/repair";
     }
 
-    @PostMapping("/employee/repair/delete")
+    @PostMapping("/user/repairDelete")
     public String deleteRepair(@RequestParam int resCode) {
 
             repairService.deleteRepair(resCode);

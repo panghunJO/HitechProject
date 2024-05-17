@@ -78,14 +78,14 @@ public class PartController {
     @PostMapping("/employee/part/partdetail")
     public String part(@RequestParam String partName, @RequestParam int partstock, @RequestParam int partPrice, @RequestParam String partCode ){
         partService.modifyPart(partCode, partstock, partPrice, partName);
-        return "/employee/part/part";
+        return "redirect:/employee/part/part";
     }
 
     @PostMapping("/employee/part/delete")
     public String delete(@RequestParam String partCode){
         partService.deletePart(partCode);
 
-        return "/employee/part/part";
+        return "redirect:/employee/part/part";
     }
 
 
