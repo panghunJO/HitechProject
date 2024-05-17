@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>HitechAutoworks</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/assets/img/favicon.png" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.bubble.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@14.0.1/simple-datatables.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <style>
+        .clickable {
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+<body>
+<div th:replace="/common/header.html"></div>
+<div th:replace="/common/sidebar.html"></div>
+
+
+<!-- 입력 내용 -->
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>예약</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/user/mainpage">Home</a></li>
+                <li class="breadcrumb-item active"><a href="/user/res"></a>예약</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+
+    <section class="section">
+
+
+        <div class="row">
+
+            <div class="col-lg-6 clickable" onclick="blurScreen()">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://i.postimg.cc/Cx3JjNxs/2024-05-17-3-42-26.png" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title mt-1">소모품</h5>
+                                <p class="card-text me-4 mb-2">자동차 소모품은 차량의 성능과 안전을 유지하기 위해 정기적으로 교체해야 하는 부품들입니다. 엔진 오일, 브레이크 패드, 에어 필터 등의 소모품은 주기적인 점검과 교환이 필요합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End Card with an image on left -->
+            </div>
+
+            <div class="col-lg-6 clickable">
+
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://i.postimg.cc/FHhmZjC3/DALL-E-2024-05-17-16-20-19-Create-a-simple-clean-and-modern-icon-of-a-car-engine-The-icon-shoul.webp" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title mt-1">주요 정비</h5>
+                                <p class="card-text me-4 mb-2">자동차 정비는 차량의 성능과 안전을 유지하기 위해 필수적입니다. 주행/가속 관련, 변속 관련, 차량 쏠림, 제동 관련, 연비 관련, 전조등 관련 문제를 해결하는 정비입니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End Card with an image on left -->
+
+            </div>
+
+            <div class="col-lg-6 clickable">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://i.postimg.cc/15GVXrNq/DALL-E-2024-05-17-16-28-40-Create-a-simple-clean-and-modern-icon-of-a-car-tire-The-icon-should.webp" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">기본점검 및 경정비</h5>
+                                <p class="card-text">기본점검 및 경정비는 차량의 안전과 편의를 위해 정기적으로 수행해야 합니다. 경고등 점등, 냉/난방 장치, 휠/타이어 불량, 램프류, 개폐불량, 스위치 작동 상태 등을 점검합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End Card with an image on left -->
+            </div>
+
+            <div class="col-lg-6 clickable">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://i.postimg.cc/6qsSjXcT/DALL-E-2024-05-17-16-33-01-Create-a-simple-clean-and-modern-icon-that-combines-elements-of-a-car.webp" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">특화 정비</h5>
+                                <p class="card-text">특화정비는 차량의 고유 기능과 편의성을 유지하고 개선하는 작업입니다. 썬루프, 유리, 오디오, 시트 등의 내부 장치 수리 및 전기차/LPG 차량의 특수 정비를 포함합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End Card with an image on left -->
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+    <div th:replace="/common/footer.html"></div>
+</body>
+</html>

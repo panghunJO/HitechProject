@@ -330,6 +330,19 @@ public class UserController {
         return result;
     }
 
+    @GetMapping("/user/customermypage")
+    public String customermypage(Model model, @RequestParam int customerUserCode){
+
+        int customerCode = customerUserCode / 123456 ;
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        model.addAttribute("userDTO", userDTO1);
+
+
+        return "user/mypage";
+    }
 
 
 
