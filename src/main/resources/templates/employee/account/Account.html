@@ -192,7 +192,7 @@
                                             <th scope="col">사원번호</th>
                                             <th scope="col">Role</th>
                                         </tr>
-                                        <tr th:each="user, iterStat : ${userList}" id="row_${iterStat.index}">
+                                        <tr th:each="user : ${userList}">
                                             <td th:text="${user.userName}"></td>
                                             <td th:text="${user.userCode}"></td>
                                             <td th:text="${user.userRole}"></td>
