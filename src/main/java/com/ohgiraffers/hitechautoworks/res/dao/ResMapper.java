@@ -38,4 +38,6 @@ public interface ResMapper {
     int deleteComment(int resReplyCode);
 
     List<ResDTO> findNameRes(String resName);
+
+    ResDTO resRepair(int resCode);
 }

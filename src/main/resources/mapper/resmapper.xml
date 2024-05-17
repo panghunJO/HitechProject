@@ -134,5 +134,8 @@
             res_reply_code= #{ resReplyCode }
 
     </update>
+    <select id="resRepair" resultMap="res">
+        SELECT * FROM tbl_res WHERE res_code = #{resCode}
+    </select>
 
 </mapper>
