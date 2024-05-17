@@ -72,10 +72,9 @@ public class ResService {
 
     public ResDTO resRepair(int resCode) {
         return resMapper.resRepair(resCode);
-
+    }
     public List<ResDTO> findCustomerRes(int userCode) {
         return resMapper.findUserCodeRes(userCode);
-
     }
 }
 
