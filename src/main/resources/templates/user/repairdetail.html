@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>HitechAutoworks</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/assets/img/favicon.png" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.bubble.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@14.0.1/simple-datatables.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+
+    <style>
+        @media (min-width: 0) {
+            .g-mr-15 {
+                margin-right: 1.07143rem !important;
+            }
+        }
+        @media (min-width: 0){
+            .g-mt-3 {
+                margin-top: 0.21429rem !important;
+            }
+        }
+
+        .g-height-50 {
+            height: 50px;
+        }
+
+        .g-width-50 {
+            width: 50px !important;
+        }
+
+        @media (min-width: 0){
+            .g-pa-30 {
+                padding: 2.14286rem !important;
+            }
+        }
+
+        .g-bg-secondary {
+            background-color: #fafafa !important;
+        }
+
+        .u-shadow-v18 {
+            box-shadow: 0 5px 10px -6px rgba(0, 0, 0, 0.15);
+        }
+
+        .g-color-gray-dark-v4 {
+            color: #777 !important;
+        }
+
+        .g-font-size-12 {
+            font-size: 0.85714rem !important;
+        }
+
+        .media-body {
+            padding: 15px !important; /* 기존 g-pa-30에서 15px로 줄임 */
+        }
+        .media-comment {
+            margin-bottom: 20px !important; /* 기존 g-mb-30에서 20px로 줄임 */
+        }
+        .g-mb-15 {
+            margin-bottom: 10px !important; /* 기존 15px에서 10px로 줄임 */
+        }
+        .g-mt-3 {
+            margin-top: 2px !important; /* 기존 3px에서 2px로 줄임 */
+        }
+        .g-mr-15 {
+            margin-right: 10px !important; /* 기존 15px에서 10px로 줄임 */
+        }
+        .small-text {
+            font-size: 12px;
+            color: gray;
+        }
+
+    </style>
+</head>
+<body>
+<div th:replace="/common/header.html"></div>
+<div th:replace="/common/sidebar.html"></div>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>작업 상세</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/user/mainpage">Home</a></li>
+                <li class="breadcrumb-item"><a href="/user/common">작업 조회</a></li>
+                <li class="breadcrumb-item active">작업 상세</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+
+
+        <div class="row">
+
+            <div class="col-lg-5">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="actionForm" method="POST">
+                            <ul class="nav nav-tabs nav-tabs-bordered">
+                                <li class="nav-item mt-4">
+                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">수정/삭제</button>
+                                </li>
+                            </ul>
+                            <div class="row mb-3 mt-4">
+                                <label class="col-sm-3 col-form-label text-end">예약번호</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="resCode" class="form-control" th:value="${repairDTO[0].resDTO.code}" readonly>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label text-end">작업자</label>
+                                <div class="col-sm-6">
+                                    <!-- 작업자 선택 박스 -->
+                                    <select id="workerCode" style="width: 100%;" class="form-control" multiple></select>
+                                    <!-- 추가 및 삭제 버튼 -->
+                                    <input type="button" name="button" value="추가" onclick="addWorker()">
+                                    <input type="button" name="removeButton" value="삭제" onclick="removeWorker()"><br><br>
+                                    <!-- 선택된 작업자들을 보여주는 선택 박스 -->
+                                    <select name="userName" id="selectedWorkers" style="width:420px;" size="7" multiple>
+                                        <option th:each="worker : ${workers}" th:value="${worker.userDTO.userName}" th:text="${worker.userDTO.userName}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label text-end">작업내용</label>
+                                <div class="col-sm-6">
+                                    <input type="date" name="date" class="form-control" th:value="${repairDTO[0].repairDTO.content}">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label text-end">필요 부품</label>
+                                <div class="col-sm-6">
+                                    <select  id="partName" style="width: 100%;" class="form-control" multiple></select>
+                                    <!-- 추가 및 삭제 버튼 -->
+                                    <input type="button" name="button" value="추가" onclick="addPart()">
+                                    <input type="button" name="removeButton" value="삭제" onclick="removePart()"><br><br>
+                                    <!-- 선택된 작업자들을 보여주는 선택 박스 -->
+                                    <select name="partName" id="selectedParts" style="width:420px;" size="7" multiple>
+                                        <option th:each="part : ${parts}" th:value="${part.partDTO.partName}" th:text="${part.partDTO.partName}" ></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label text-end">진행상황</label>
+                                <div class="col-sm-6">
+                                    <input  name="extra" type="text" class="form-control" th:value="${repairDTO[0].repairDTO.status}" readonly>
+                                    <select name="status" style="width: 100%;"  class="form-control">
+                                        <option>대기</option>
+                                        <option>진행중</option>
+                                        <option>완료</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label text-end">날짜</label>
+                                <div class="col-sm-6">
+                                    <input type="date" name="extra" class="form-control" th:text ="${repairDTO[0].repairDTO.date}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-end">
+
+                                    <button type="button" class="btn btn-primary " onclick="updateItem()">수정
+                                    </button>
+
+                                    <button type="button" class="btn btn-danger " onclick="deleteItem()">삭제
+                                    </button>
+
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-7">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Comment </h5>
+                        <div class="col-md-12 mt-4">
+                            <div class="input-group input-group-lg">
+                                <input type="text" class="form-control" id="comment" name="comment" placeholder="댓글 입력" onkeydown="if(event.key === 'Enter') registcommit();">
+                                <button type="button"  class="btn btn-success" onclick="registcommit()">등록</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+
+                    <script>
+                        function updateItem() {
+                            document.getElementById("actionForm").action = "/user/resUpdate";
+                            document.getElementById("actionForm").submit();
+                        }
+
+                        function deleteItem() {
+                            document.getElementById("actionForm").action = "/user/resDelete";
+                            document.getElementById("actionForm").submit();
+                        }
+
+                        function registcommit(){
+                            document.getElementById("actionForm").action = "/user/registcomment";
+                            document.getElementById("actionForm").submit();
+                        }
+
+                        var result = `[[${result}]]`;
+                        if (result) {
+                            // alert("수정에 성공하였습니다 !")
+                        }
+                    </script>
+
+                    <form id="actionForm2" method="post">
+                        <div th:each="comment : ${resComment}">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12 mb-4">
+                                        <div class="media g-mb-30 media-comment">
+                                            <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                                <div class="g-mb-15">
+                                                    <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" th:src="@{${comment.UserDTO.userImg}}" alt="Image Description">
+                                                    <h5 class="h5 g-color-gray-dark-v1 mb-0" th:text="${comment.userDTO.userName}"></h5>
+                                                    <span class="small-text ml-3" th:text="${comment.userDTO.userRole}"></span> &nbsp;
+                                                    <span class="g-color-gray-dark-v4 g-font-size-12" th:text="${comment.resTime}"></span>
+                                                </div>
+                                                <p class="mt-1" th:text="${comment.resReplyContent}"></p>
+                                                <ul class="list-inline d-sm-flex my-0">
+                                                    <li class="list-inline-item g-mr-15">
+                                                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                            <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
+                                                            답글
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-inline-item g-mr-20">
+                                                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
+                                                           th:attr="onclick='editComment(\'' + ${comment.resReplyCode} + '\', \'' + ${comment.resCode}+ '\', \'' + ${comment.userDTO.userCode}+ '\')'">
+                                                            <i class="bi bi-pencil-fill g-pos-rel g-top-1 g-mr-3"></i>
+                                                            수정
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-inline-item ml-auto">
+                                                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!"
+                                                           th:attr="onclick='deleteComment(\'' + ${comment.resReplyCode} + '\', \'' + ${comment.resCode}+ '\', \'' + ${comment.userDTO.userCode}+ '\')'">
+                                                            <i class="bi bi-trash3-fill g-pos-rel g-top-1 g-mr-3"></i>
+                                                            삭제
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                    <script>
+                        function modifyrepair() {
+                            document.getElementById("actionForm").action = "/user/repairModify";
+                            document.getElementById("actionForm").submit();
+                        }
+
+                        function deleterepair(){
+                            document.getElementById("actionForm").action = "/user/repairDelete";
+                            document.getElementById("actionForm").submit();
+                        }
+                        function addPart(){
+                            var partSelect = document.getElementById('partName');
+                            var selectedPartSelect = document.getElementById('selectedParts');
+
+                            for (var i = 0; i < partSelect.options.length; i++) {
+                                if (partSelect.options[i].selected) {
+                                    var option = document.createElement("option");
+                                    option.text = partSelect.options[i].text;
+                                    option.value = partSelect.options[i].value;
+                                    selectedPartSelect.add(option);
+                                    // Optionally, remove the added option from the workerCode select box
+                                    partSelect.remove(i);
+                                    i--; // Adjust index due to removal
+                                }
+                            }
+                        }
+                        function removePart() {
+                            var partSelect = document.getElementById('partName');
+                            var selectedPartSelect = document.getElementById('selectedParts');
+
+                            // Loop through the selected options in selectedWorkers and add them back to workerCode
+                            for (var i = 0; i < selectedPartSelect.options.length; i++) {
+                                if (selectedPartSelect.options[i].selected) {
+                                    var option = document.createElement("option");
+                                    option.text = selectedPartSelect.options[i].text;
+                                    option.value = selectedPartSelect.options[i].value;
+                                    partSelect.add(option);
+                                    // Remove the added option from the selectedWorkers select box
+                                    selectedPartSelect.remove(i);
+                                    i--; // Adjust index due to removal
+                                }
+                            }
+                        }
+                        function addWorker() {
+                            var workerCodeSelect = document.getElementById('workerCode');
+                            var selectedWorkersSelect = document.getElementById('selectedWorkers');
+
+                            for (var i = 0; i < workerCodeSelect.options.length; i++) {
+                                if (workerCodeSelect.options[i].selected) {
+                                    var option = document.createElement("option");
+                                    option.text = workerCodeSelect.options[i].text;
+                                    option.value = workerCodeSelect.options[i].value;
+                                    selectedWorkersSelect.add(option);
+                                    // Optionally, remove the added option from the workerCode select box
+                                    workerCodeSelect.remove(i);
+                                    i--; // Adjust index due to removal
+                                }
+                            }
+                        }
+                        function removeWorker() {
+                            var workerCodeSelect = document.getElementById('workerCode');
+                            var selectedWorkersSelect = document.getElementById('selectedWorkers');
+
+                            // Loop through the selected options in selectedWorkers and add them back to workerCode
+                            for (var i = 0; i < selectedWorkersSelect.options.length; i++) {
+                                if (selectedWorkersSelect.options[i].selected) {
+                                    var option = document.createElement("option");
+                                    option.text = selectedWorkersSelect.options[i].text;
+                                    option.value = selectedWorkersSelect.options[i].value;
+                                    workerCodeSelect.add(option);
+                                    // Remove the added option from the selectedWorkers select box
+                                    selectedWorkersSelect.remove(i);
+                                    i--; // Adjust index due to removal
+                                }
+                            }
+                        }
+                        fetch("/employee/repair/part")
+                            .then(res => res.json())
+                            .then(data =>{
+                                console.log(data);
+                                const $partName = document.getElementById('partName');
+
+                                for(let index in data){
+                                    const $option = document.createElement("option");
+                                    $option.value = data[index].partName;
+                                    $option.textContent = data[index].partName;
+                                    $partName.appendChild($option);
+                                }
+                            })
+                        fetch("/employee/repair/worker")
+                            .then(res => res.json())
+                            .then(data =>{
+                                console.log(data);
+                                const $workerCode = document.getElementById('workerCode');
+
+                                for(let index in data){
+                                    const $option = document.createElement("option");
+                                    $option.value = data[index].userName;
+                                    $option.textContent = data[index].userName;
+                                    $workerCode.appendChild($option);
+                                }
+                            })
+                        function editComment(resReplyCode,resCode, usercommentCode) {
+                            var authuserCode = `[[${userDTO.userCode}]]`;
+                            var resuserCode = usercommentCode;
+                            if (authuserCode == resuserCode) {
+
+                                var userInput = prompt("수정할 내용을 입력해주세요");
+                                var resReplyCode = resReplyCode; // 변수명 수정
+                                var resCode = resCode;
+                                if (userInput) {
+                                    fetch("/user/reseditComment", {
+                                        method: "POST",
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            str: userInput,
+                                            resReplyCode: resReplyCode,
+                                            resCode : resCode
+                                        })
+                                    })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data == 1) {
+                                                alert(userInput + " 수정이 완료되었습니다.");
+                                                location.href='/user/testPage?resCode=' + resCode;
+                                            } else {
+                                                alert("수정에 실패했습니다. 다시 시도해주세요.");
+                                                location.reload(true);
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error('Error:', error);
+                                            alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
+                                        });
+                                }
+                            } else {
+                                alert("불일치!!!")
+                            }
+                        }
+                        function deleteComment(resReplyCode,resCode, usercommentCode) {
+                            var authuserCode = `[[${userDTO.userCode}]]`;
+                            var resuserCode = usercommentCode;
+                            if (authuserCode == resuserCode) {
+
+                                var userInput = confirm("삭제하시겠습니까?");
+                                var resReplyCode = resReplyCode; // 변수명 수정
+                                var rescode = resCode;
+                                if (userInput) {
+                                    fetch("/user/deleteComment", {
+                                        method: "POST",
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            str: userInput,
+                                            resReplyCode: resReplyCode,
+                                            resCode : resCode
+                                        })
+                                    })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data == 1) {
+                                                alert(" 삭제가 완료되었습니다.");
+                                                location.href='/user/testPage?resCode=' + resCode;
+                                            } else {
+                                                alert("삭제에 실패했습니다. 다시 시도해주세요.");
+                                                location.reload(true);
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error('Error:', error);
+                                            alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
+                                        });
+                                }
+                            }
+                        }
+
+                    </script>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+
+<div th:replace="/common/footer.html"></div>
+</body>
+</html>
