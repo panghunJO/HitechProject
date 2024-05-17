@@ -96,6 +96,15 @@ public class UserController {
 
     }
 
+    @PostMapping("/user/getpartchart")
+    @ResponseBody
+    public ChartResponseDTO getpartchart() {
+        System.out.println("작동되나??");
+        ChartResponseDTO chart = userService.getpartchart();
+
+        return chart;
+    }
+
     @GetMapping("/user/mypage")
     public void mypage(Model model) {
 
@@ -186,6 +195,7 @@ public class UserController {
     @PostMapping("/user/mypage/update")
     public String updateUser(@RequestParam Map<String, String> myprofile) {
 
+        System.out.println(myprofile);
         AuthUserInfo authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         int userCode = userDTO.getUserCode(); // 기준으로

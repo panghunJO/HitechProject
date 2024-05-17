@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -94,5 +95,17 @@ public class UserService  {
     }
 
 
+    public ChartResponseDTO getpartchart() {
 
+        List<Map<String, Object>> chart = userMapper.getPartChart();
+        List<Integer> partStock = new ArrayList<>();
+        List<String> partName = new ArrayList<>();
+
+        for (Map<String, Object> entry : chart) {
+            partStock.add((Integer) entry.get("part_stock"));
+            partName.add((String) entry.get("part_name"));
+        }
+
+        return new ChartResponseDTO(partStock, partName);
+    }
 }
