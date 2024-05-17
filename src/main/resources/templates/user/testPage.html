@@ -252,7 +252,37 @@
                                 var authuserCode = `[[${userDTO.userCode}]]`;
                                 var resuserCode = usercommentCode;
                                 if (authuserCode == resuserCode) {
-                                    alert("일치!!!");
+                                    // alert("일치!!!");
+                                    var userInput = prompt("수정할 내용을 입력해주세요");
+                                    var resReplyCode = resReplyCode; // 변수명 수정
+                                    var resCode = resCode;
+                                    if (userInput) {
+                                        fetch("/user/reseditComment", {
+                                            method: "POST",
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({
+                                                str: userInput,
+                                                resReplyCode: resReplyCode,
+                                                resCode : resCode
+                                            })
+                                        })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                if (data == 1) {
+                                                    alert(userInput + " 수정이 완료되었습니다.");
+                                                    location.href='/user/testPage?resCode=' + resCode;
+                                                } else {
+                                                    alert("수정에 실패했습니다. 다시 시도해주세요.");
+                                                    location.reload(true);
+                                                }
+                                            })
+                                            .catch(error => {
+                                                console.error('Error:', error);
+                                                alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
+                                            });
+                                    }
                                 } else {
                                     alert("불일치!!!")
                                 }

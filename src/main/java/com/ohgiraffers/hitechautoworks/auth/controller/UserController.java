@@ -9,6 +9,7 @@ import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
 import com.ohgiraffers.hitechautoworks.part.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.part.service.PartService;
+import com.ohgiraffers.hitechautoworks.res.dto.EditCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import com.ohgiraffers.hitechautoworks.res.service.ResService;
@@ -302,6 +303,20 @@ public class UserController {
         resService.resDelete(resCode);
 
         return "/user/testPage";
+    }
+
+    @PostMapping("/user/reseditComment")
+    @ResponseBody
+    public int editComment(@RequestBody EditCommentDTO editCommentDTO){
+        int resReplyCode = editCommentDTO.getResReplyCode();
+        String editcomment = editCommentDTO.getStr();
+        int rescode = editCommentDTO.getRescode();
+
+        int result = resService.updateComment(resReplyCode, editcomment);
+        System.out.println("result = " + result);
+
+//        return "redirect:/customer/res/resDetail?resCode=" + rescode;
+        return result;
     }
 
 
