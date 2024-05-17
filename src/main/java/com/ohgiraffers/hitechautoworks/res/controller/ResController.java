@@ -186,7 +186,7 @@ public class ResController {
         if (result == 1){
             httpSession.setAttribute("success","예약 등록에 성공하였습니다.");
         }
-        return "/customer/res/res";
+        return "customer/res/res";
     }
 
 
@@ -203,7 +203,7 @@ public class ResController {
     public String resModify(@RequestParam int resCode ,@RequestParam String fixOption,@RequestParam String date,@RequestParam String extra ){
         resService.resModify(resCode,fixOption,date,extra);
 
-    return "/customer/res/res";
+    return "customer/res/res";
 
     }
 
@@ -211,7 +211,7 @@ public class ResController {
     public String resDelete(@RequestParam int resCode ){
      resService.resDelete(resCode);
 
-     return "/customer/res/res";
+     return "customer/res/res";
     }
 
     @PostMapping("/user/res/editComment")

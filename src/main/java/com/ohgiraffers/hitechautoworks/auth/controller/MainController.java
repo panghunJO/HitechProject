@@ -106,7 +106,7 @@ public class MainController {
     @GetMapping("/member/regist")
     public String regist() {
 
-        return "/member/regist";
+        return "member/regist";
     }
 
 

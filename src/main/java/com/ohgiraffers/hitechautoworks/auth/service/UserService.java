@@ -81,7 +81,6 @@ public class UserService  {
     public int changepass(String currentPassword, String newPassword, String pw, int userCode) {
         if(passwordEncoder.matches(currentPassword,pw)) {
             String encodepw = passwordEncoder.encode(newPassword);
-            System.out.println("비밀번호 일치");
             userMapper.changepass(encodepw,userCode);
             return 1;
         } else {
