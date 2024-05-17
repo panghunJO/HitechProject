@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -199,7 +199,7 @@
 
                             var result = `[[${result}]]`;
                             if (result) {
-                                // alert("수정에 성공하였습니다 !")
+                                alert("수정에 성공하였습니다 !")
                             }
                         </script>
 
@@ -213,6 +213,8 @@
                                                 <div class="g-mb-15">
                                                     <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" th:src="@{${comment.UserDTO.userImg}}" alt="Image Description">
                                                     <h5 class="h5 g-color-gray-dark-v1 mb-0" th:text="${comment.userDTO.userName}"></h5>
+                                                    <a th:href="@{/user/rescustomer(userToken=${userDTO.password})}">
+                                                    <a th:href="@{/user/customermypage(customerUserCode=${comment.userDTO.userCode} * 123456 )}" sec:authorize="hasAnyAuthority('관리자','직원')" >정보 확인</a>
                                                     <span class="small-text ml-3" th:text="${comment.userDTO.userRole}"></span> &nbsp;
                                                     <span class="g-color-gray-dark-v4 g-font-size-12" th:text="${comment.resTime}"></span>
                                                 </div>
@@ -273,7 +275,7 @@
                                             .then(data => {
                                                 if (data == 1) {
                                                     alert(userInput + " 수정이 완료되었습니다.");
-                                                    location.href='/user/testPage?resCode=' + resCode;
+                                                    location.href='/user/testPage?resCode=' + 123456 * resCode;
                                                 } else {
                                                     alert("수정에 실패했습니다. 다시 시도해주세요.");
                                                     location.reload(true);
