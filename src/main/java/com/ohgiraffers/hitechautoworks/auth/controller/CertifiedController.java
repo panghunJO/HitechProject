@@ -33,7 +33,7 @@ public class CertifiedController {
 //        authUserInfo = new AuthUserInfo();
 //        UserDTO userDTO = authUserInfo.getUserDTO();
         int result = userService.findcheck(checknumber,userId);
-        return "/member/login";
+        return "member/login";
     }
 
 }

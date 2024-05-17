@@ -98,8 +98,8 @@
     </style>
 </head>
 <body>
-<div th:replace="/common/header.html"></div>
-<div th:replace="/common/sidebar.html"></div>
+<div th:replace="common/header.html"></div>
+<div th:replace="common/sidebar.html"></div>
 
 <main id="main" class="main">
 
@@ -143,7 +143,7 @@
                                     <input type="button" name="button" value="추가" onclick="addWorker()">
                                     <input type="button" name="removeButton" value="삭제" onclick="removeWorker()"><br><br>
                                     <!-- 선택된 작업자들을 보여주는 선택 박스 -->
-                                    <select name="userName" id="selectedWorkers" style="width:420px;" size="7" multiple>
+                                    <select name="userName" id="selectedWorkers" size="7" multiple>
                                         <option th:each="worker : ${workers}" th:value="${worker.userDTO.userName}" th:text="${worker.userDTO.userName}"></option>
                                     </select>
                                 </div>
@@ -162,15 +162,15 @@
                                     <input type="button" name="button" value="추가" onclick="addPart()">
                                     <input type="button" name="removeButton" value="삭제" onclick="removePart()"><br><br>
                                     <!-- 선택된 작업자들을 보여주는 선택 박스 -->
-                                    <select name="partName" id="selectedParts" style="width:420px;" size="7" multiple>
-                                        <option th:each="part : ${parts}" th:value="${part.partDTO.partName}" th:text="${part.partDTO.partName}" ></option>
+                                    <select name="partName" id="selectedParts" size="7" multiple>
+                                        <option class="w-100" th:each="part : ${parts}" th:value="${part.partDTO.partName}" th:text="${part.partDTO.partName}" ></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label text-end">진행상황</label>
                                 <div class="col-sm-6">
-                                    <input  name="extra" type="text" class="form-control" th:value="${repairDTO[0].repairDTO.status}" readonly>
+                                    <input  name="extra" type="text" class="form-control w-100" th:value="${repairDTO[0].repairDTO.status}" readonly>
                                     <select name="status" style="width: 100%;"  class="form-control">
                                         <option>대기</option>
                                         <option>진행중</option>
@@ -471,6 +471,6 @@
 </main><!-- End #main -->
 
 
-<div th:replace="/common/footer.html"></div>
+<div th:replace="common/footer.html"></div>
 </body>
 </html>

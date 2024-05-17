@@ -33,8 +33,8 @@
 <body>
 
 
-<div th:replace="/common/header.html"></div>
-<div th:replace="/common/sidebar.html"></div>
+<div th:replace="common/header.html"></div>
+<div th:replace="common/sidebar.html"></div>
 
 <main id="main" class="main">
 
@@ -236,7 +236,7 @@
 
                             <div class="tab-pane fade pt-3" id="profile-change-password">
                                 <!-- Change Password Form -->
-                                <form action="/user/mypage/changepass" method="post">
+                                <form id="changePasswordForm" onsubmit="return false;">
                                     <div class="row mb-3">
                                         <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">현재 비밀번호</label>
                                         <div class="col-md-8 col-lg-9">
@@ -260,64 +260,65 @@
                                     </div>
 
                                     <div class="text-center">
-                                        <button type="submit" id="changebutton" class="btn btn-primary" disabled>비밀번호 바꾸기</button>
+                                        <button type="button" id="changebutton" class="btn btn-primary" disabled>비밀번호 바꾸기</button>
                                     </div>
                                 </form>
 
+
                                 <script>
-                                    var changebutton = document.getElementById('changebutton');
-                                    var currentPasswordInput = document.getElementById('currentPassword');
-                                    var newPasswordInput = document.getElementById('newPassword');
-                                    var renewPasswordInput = document.getElementById('renewPassword');
-                                    var passwordMismatchMessage = document.getElementById('passwordMismatch');
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        var changebutton = document.getElementById('changebutton');
+                                        var currentPasswordInput = document.getElementById('currentPassword');
+                                        var newPasswordInput = document.getElementById('newPassword');
+                                        var renewPasswordInput = document.getElementById('renewPassword');
+                                        var passwordMismatchMessage = document.getElementById('passwordMismatch');
 
-                                    function comparePasswords() {
-                                        var newPassword = newPasswordInput.value;
-                                        var renewPassword = renewPasswordInput.value;
+                                        function comparePasswords() {
+                                            var newPassword = newPasswordInput.value;
+                                            var renewPassword = renewPasswordInput.value;
 
-                                        if (newPassword !== renewPassword) {
-                                            passwordMismatchMessage.classList.remove('d-none');
-                                            changebutton.disabled = true;
-                                        } else {
-                                            passwordMismatchMessage.classList.add('d-none');
-                                            changebutton.disabled = false;
+                                            if (newPassword !== renewPassword) {
+                                                passwordMismatchMessage.classList.remove('d-none');
+                                                changebutton.disabled = true;
+                                            } else {
+                                                passwordMismatchMessage.classList.add('d-none');
+                                                changebutton.disabled = false;
+                                            }
                                         }
-                                    }
 
-                                    // 입력값 비교 이벤트 리스너 등록
-                                    renewPasswordInput.addEventListener('input', comparePasswords);
+                                        renewPasswordInput.addEventListener('input', comparePasswords);
 
-                                    changebutton.addEventListener("click", () => {
-                                        var currentPassword = currentPasswordInput.value;
-                                        var newPassword = newPasswordInput.value;
+                                        changebutton.addEventListener("click", () => {
+                                            var currentPassword = currentPasswordInput.value;
+                                            var newPassword = newPasswordInput.value;
 
-                                        fetch("/user/mypage/changepass", {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/json'
-                                            },
-                                            body: JSON.stringify({
-                                                currentPassword: currentPasswordInput.value,
-                                                newPassword:newPasswordInput.value
+                                            fetch("/user/mypage/changepass", {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                },
+                                                body: JSON.stringify({
+                                                    currentPassword: currentPassword,
+                                                    newPassword: newPassword
+                                                })
                                             })
-                                        })
-                                            .then(response => response.json())
-                                            .then(data => {
-                                                if (data === 0) {
-                                                    alert("비밀번호가 일치하지 않습니다!!!");
-                                                    location.href = '/user/mypage';
-                                                } else if(data == 1) {
-                                                    alert("변경성공!! 다시 로그인해주세요");
-                                                    location.href = '/logout';
-                                                } else if(data.error) {
-                                                    alert("Error: " + data.error);
-                                                    return Promise.reject(new Error(data.error));
-                                                }
-
-                                            })
-                                            .catch(error => {
-                                                console.error('Error:', error);
-                                            });
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data == 0) {
+                                                        alert("비밀번호가 일치하지 않습니다!!!");
+                                                        location.href = '/user/mypage';
+                                                    } else if (data == 1) {
+                                                        alert("변경성공!! 다시 로그인해주세요");
+                                                        location.href = '/logout';
+                                                    } else if (data.error) {
+                                                        alert("Error: " + data.error);
+                                                        return Promise.reject(new Error(data.error));
+                                                    }
+                                                })
+                                                .catch(error => {
+                                                    console.error('Error:', error);
+                                                });
+                                        });
                                     });
 
                                 </script>
@@ -361,6 +362,6 @@
 
 </main><!-- End #main -->
 
-<div th:replace="/common/footer.html"></div>
+<div th:replace="common/footer.html"></div>
 </body>
 </html>
