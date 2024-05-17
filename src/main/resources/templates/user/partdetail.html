@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+        <title>HitechAutoworks</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/assets/img/favicon.png" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.bubble.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@14.0.1/simple-datatables.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+
+    <style>
+        @media (min-width: 0) {
+            .g-mr-15 {
+                margin-right: 1.07143rem !important;
+            }
+        }
+        @media (min-width: 0){
+            .g-mt-3 {
+                margin-top: 0.21429rem !important;
+            }
+        }
+
+        .g-height-50 {
+            height: 50px;
+        }
+
+        .g-width-50 {
+            width: 50px !important;
+        }
+
+        @media (min-width: 0){
+            .g-pa-30 {
+                padding: 2.14286rem !important;
+            }
+        }
+
+        .g-bg-secondary {
+            background-color: #fafafa !important;
+        }
+
+        .u-shadow-v18 {
+            box-shadow: 0 5px 10px -6px rgba(0, 0, 0, 0.15);
+        }
+
+        .g-color-gray-dark-v4 {
+            color: #777 !important;
+        }
+
+        .g-font-size-12 {
+            font-size: 0.85714rem !important;
+        }
+
+        .media-body {
+            padding: 15px !important; /* 기존 g-pa-30에서 15px로 줄임 */
+        }
+        .media-comment {
+            margin-bottom: 20px !important; /* 기존 g-mb-30에서 20px로 줄임 */
+        }
+        .g-mb-15 {
+            margin-bottom: 10px !important; /* 기존 15px에서 10px로 줄임 */
+        }
+        .g-mt-3 {
+            margin-top: 2px !important; /* 기존 3px에서 2px로 줄임 */
+        }
+        .g-mr-15 {
+            margin-right: 10px !important; /* 기존 15px에서 10px로 줄임 */
+        }
+        .small-text {
+            font-size: 12px;
+            color: gray;
+        }
+
+    </style>
+</head>
+<body>
+<div th:replace="/common/header.html"></div>
+<div th:replace="/common/sidebar.html"></div>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>작업 상세</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/user/mainpage">Home</a></li>
+                <li class="breadcrumb-item"><a href="/user/common">작업 조회</a></li>
+                <li class="breadcrumb-item active">작업 상세</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+
+
+        <div class="row">
+
+            <div class="col-lg-5">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="actionForm" method="POST">
+                            <ul class="nav nav-tabs nav-tabs-bordered">
+                                <li class="nav-item mt-4">
+                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">수정/삭제</button>
+                                </li>
+                            </ul>
+                            <div class="row mb-3 mt-4">
+                                <label class="col-sm-3 col-form-label text-end">부품번호</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="partCode" class="form-control" th:value="${partDTO.partCode}" readonly>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label text-end">부품 이름</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="partName" class="form-control" th:value="${partDTO.partName}">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label text-end">부품 수량</label>
+                                <div class="col-sm-6">
+                                    <input  name="partstock" type="text" class="form-control" th:value="${partDTO.partstock}" >
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label text-end">부품 가격</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="partPrice" class="form-control" th:value="${partDTO.partPrice}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-end">
+
+                                    <button type="button" class="btn btn-primary " onclick="updateItem()">수정
+                                    </button>
+
+                                    <button type="button" class="btn btn-danger " onclick="deleteItem()">삭제
+                                    </button>
+
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+                    </form>
+
+                    <script>
+                        function updateItem() {
+                            document.getElementById("actionForm").action = "/user/partModify";
+                            document.getElementById("actionForm").submit();
+                        }
+
+                        function deleteItem() {
+                            document.getElementById("actionForm").action = "/user/partDelete";
+                            document.getElementById("actionForm").submit();
+                        }
+
+                        function registcommit(){
+                            document.getElementById("actionForm").action = "/user/registcomment";
+                            document.getElementById("actionForm").submit();
+                        }
+
+                        var result = `[[${result}]]`;
+                        if (result) {
+                            // alert("수정에 성공하였습니다 !")
+                        }
+                    </script>
+
+                    
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+
+<div th:replace="/common/footer.html"></div>
+</body>
+</html>
