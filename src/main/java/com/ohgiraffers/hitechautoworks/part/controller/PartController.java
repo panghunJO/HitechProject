@@ -20,6 +20,9 @@ public class PartController {
     @Autowired
     private PartService partService;
 
+    @Autowired
+    private UserService userService;
+
     private AuthUserInfo authUserInfo;
 
     @GetMapping("/employee/part/part")
@@ -63,29 +66,31 @@ public class PartController {
     }
 
 
-    @GetMapping("/employee/part/partdetail")
+    @GetMapping("/user/partdetail")
     public void partdetail(@RequestParam int partCode,
                            Model model) {
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        model.addAttribute("userDTO", userDTO1);
         PartDTO partDTO = partService.selectpart(partCode);
         System.out.println("partDTO = " + partDTO);
         model.addAttribute("partDTO", partDTO);
-        authUserInfo = new AuthUserInfo();
-        UserDTO userDTO = authUserInfo.getUserDTO();
-        String userName = userDTO.getUserName();
-        model.addAttribute("userName",userName);
+
     }
 
-    @PostMapping("/employee/part/partdetail")
+    @PostMapping("/user/partModify")
     public String part(@RequestParam String partName, @RequestParam int partstock, @RequestParam int partPrice, @RequestParam String partCode ){
         partService.modifyPart(partCode, partstock, partPrice, partName);
-        return "redirect:/employee/part/part";
+        return "redirect:/user/partAllCall";
     }
 
-    @PostMapping("/employee/part/delete")
+    @PostMapping("/user/partDelete")
     public String delete(@RequestParam String partCode){
         partService.deletePart(partCode);
 
-        return "redirect:/employee/part/part";
+        return "redirect:/user/partAllCall";
     }
 
 
