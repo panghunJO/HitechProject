@@ -114,5 +114,10 @@
         LIMIT 10;
     </select>
 
+    <select id="getPersonChart" resultType="map">
+        SELECT user_role, COUNT(*) as role_count
+        FROM tbl_user
+        GROUP BY user_role;
+    </select>
 </mapper>
 

@@ -41,4 +41,6 @@ public interface UserMapper {
 
 
     List<Map<String, Object>> getPartChart();
+
+    List<Map<String, Integer>> getPersonChart();
 }
