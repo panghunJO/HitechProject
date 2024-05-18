@@ -73,7 +73,7 @@
                             </div>
 
                             <div class="card-body">
-                                <h5 class="card-title">Reports <span>/Today</span></h5>
+                                <h5 class="card-title">상위 10개 품목 <span>남은 갯수</span></h5>
 
                                 <!-- Line Chart -->
                                 <canvas id="reportsChart"></canvas>
@@ -95,7 +95,7 @@
                                                         labels: data.partName,
                                                         datasets: [
                                                             {
-                                                                label: "수량 (개)",
+                                                                label: "재고 수량",
                                                                 backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
                                                                 data : data.partStock
                                                             }
