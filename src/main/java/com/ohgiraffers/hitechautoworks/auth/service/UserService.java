@@ -14,10 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class UserService  {
@@ -107,5 +104,18 @@ public class UserService  {
         }
 
         return new ChartResponseDTO(partStock, partName);
+    }
+
+    public Map<String, Integer> getpersonchart() {
+        List<Map<String,Integer>> listPerson = userMapper.getPersonChart();
+        Map<String,Integer> map = new HashMap<>();
+
+        for(Map<String,Integer> result : listPerson ){
+            String role = String.valueOf(result.get("user_role"));
+            Integer count = ((Number) result.get("role_count")).intValue();
+            map.put(role, count);
+        }
+
+        return map;
     }
 }

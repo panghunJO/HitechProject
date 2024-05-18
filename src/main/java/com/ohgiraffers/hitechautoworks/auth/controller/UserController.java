@@ -96,13 +96,22 @@ public class UserController {
 
     }
 
+    // 메인페이지 부품 수량 Js
     @PostMapping("/user/getpartchart")
     @ResponseBody
     public ChartResponseDTO getpartchart() {
-        System.out.println("작동되나??");
         ChartResponseDTO chart = userService.getpartchart();
 
         return chart;
+    }
+
+    // 유저 통계
+    @PostMapping("/user/getPersonChart")
+    @ResponseBody
+    public Map<String,Integer> getPersonChart() {
+        Map<String,Integer> getPersonChart = userService.getpersonchart();
+
+        return getPersonChart;
     }
 
     @GetMapping("/user/mypage")
