@@ -1,6 +1,7 @@
 package com.ohgiraffers.hitechautoworks.res.dto;
 
 import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -12,6 +13,7 @@ public class ResDTO {
     private String title;
     private UserDTO userDTO;
     private String option;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp date;
     private String extra;
 
