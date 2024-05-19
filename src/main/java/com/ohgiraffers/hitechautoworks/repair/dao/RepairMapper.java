@@ -49,4 +49,9 @@ public interface RepairMapper {
     List<RepairPartDTO> selectRepairPart(int resCode);
 
     List<WorkerDTO> selectWorker(int resCode);
+
+
+    void deleteOldWorker( int resCode);
+
+    void deleteOldPart( int resCode);
 }

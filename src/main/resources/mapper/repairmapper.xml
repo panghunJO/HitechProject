@@ -146,23 +146,23 @@
         WHERE res_code = #{resCode}
     </update>
     <select id="selectUserCodeByUserName" resultType="int">
-        SELECT user_code FROM tbl_user WHERE user_name IN
+        SELECT DISTINCT user_code FROM tbl_user WHERE user_name IN
         <foreach item="userName" collection="list" open="(" separator="," close=")">
             <if test="userName != null"> #{userName} </if>
         </foreach>
     </select>
     <select id="selectPartCodeByPartName" resultType="int">
-        SELECT part_code  FROM tbl_part WHERE part_name IN
+        SELECT DISTINCT part_code  FROM tbl_part WHERE part_name IN
         <foreach item="partName" collection="list" open="(" separator="," close=")">
            <if test="partName != null">  #{partName} </if>
         </foreach>
     </select>
-    <insert id="modifyRepairWorker" parameterType="java.util.Map">
-        <selectKey keyProperty="isDuplicate" resultType="java.lang.Integer" order="BEFORE">
-            SELECT COUNT(*) FROM tbl_repair_workers
-            WHERE user_code = #{newUserCode} AND res_code = #{resCode}
-        </selectKey>
-        <if test="isDuplicate == 0">
+    <insert id="modifyRepairWorker" >
+<!--        <selectKey keyProperty="isDuplicate" resultType="java.lang.Integer" order="BEFORE">-->
+<!--            SELECT COUNT(*) FROM tbl_repair_workers-->
+<!--            WHERE user_code = #{newUserCode} AND res_code = #{resCode}-->
+<!--        </selectKey>-->
+<!--        <if test="isDuplicate == 0">-->
             INSERT INTO tbl_repair_workers (user_code, res_code)
             VALUES
             <foreach item="newUserCode" collection="newUserCode" separator=",">
@@ -171,14 +171,14 @@
                 #{resCode}
                 )
             </foreach>
-        </if>
+<!--        </if>-->
     </insert>
-    <insert id="modifyRepairPart" parameterType="java.util.Map">
-        <selectKey keyProperty="isDuplicate" resultType="java.lang.Integer" order="BEFORE">
-            SELECT COUNT(*) FROM tbl_repair_part
-            WHERE part_code = #{newPartCode} AND res_code = #{resCode}
-        </selectKey>
-        <if test="isDuplicate == 0">
+    <insert id="modifyRepairPart">
+<!--        <selectKey keyProperty="isDuplicate" resultType="java.lang.Integer" order="BEFORE">-->
+<!--            SELECT COUNT(*) FROM tbl_repair_part-->
+<!--            WHERE part_code = #{newPartCode} AND res_code = #{resCode}-->
+<!--        </selectKey>-->
+<!--        <if test="isDuplicate == 0">-->
             INSERT INTO tbl_repair_part (part_code, res_code)
             VALUES
             <foreach item="newPartCode" collection="newPartCode" separator=",">
@@ -187,7 +187,7 @@
                 #{resCode}
                 )
             </foreach>
-        </if>
+<!--        </if>-->
     </insert>
     <delete id="deleteRepair">
         DELETE FROM
@@ -242,6 +242,18 @@
         )
         </foreach>
     </insert>
+
+    <delete id="deleteOldWorker">
+        DELETE FROM tbl_repair_workers
+        WHERE
+        res_code = #{resCode}
+    </delete>
+
+    <delete id="deleteOldPart">
+        DELETE FROM tbl_repair_part
+        WHERE
+             res_code = #{resCode}
+    </delete>
     <insert id="addRepairWorker">
         INSERT INTO tbl_repair_workers(user_code, res_code)
         VALUES
