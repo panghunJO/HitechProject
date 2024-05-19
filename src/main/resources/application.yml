@@ -1,9 +1,9 @@
 spring:
   datasource:
     dirver-class-name: com.mysql.cj.jdbc.Driver
-    url :  jdbc:mysql://115.95.149.11:3306/hitechautoworks
-    username: tech
-    password: tech
+    url :  jdbc:mysql://localhost:3306/hitechautoworks
+    username: ohgiraffers
+    password: ohgiraffers
   mail:
     host: smtp.gmail.com
     port: 587

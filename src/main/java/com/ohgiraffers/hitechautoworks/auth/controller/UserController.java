@@ -204,7 +204,6 @@ public class UserController {
     @PostMapping("/user/mypage/update")
     public String updateUser(@RequestParam Map<String, String> myprofile) {
 
-        System.out.println(myprofile);
         AuthUserInfo authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         int userCode = userDTO.getUserCode(); // 기준으로
@@ -285,11 +284,26 @@ public class UserController {
 
 
     @GetMapping("/user/customermypage")
-    public String customermypage(Model model, @RequestParam int customerUserCode){
+    public String customermypage(Model model, @RequestParam int customerUserCode, HttpSession session){
 
         int customerCode = customerUserCode / 123456 ;
+        UserDTO userDTO = userService.findUserCode(customerCode);
+        model.addAttribute("customerDTO",userDTO);
+        session.setAttribute("customerUserCode",customerUserCode);
+        return "user/anotherProfile";
+    }
 
-        return "user/mypage";
+    @PostMapping("/user/customermypage/update")
+    public String updateAnotherUser(@RequestParam Map<String, String> myprofile, HttpSession session) {
+
+
+        int customerUserCode = (int) session.getAttribute("customerUserCode");
+        if (customerUserCode != 0) {
+            myprofile.put("userCode", String.valueOf(customerUserCode / 123456));
+            userService.updateUser(myprofile);
+            session.removeAttribute("customerUserCode");
+        }
+        return "redirect:/user/customermypage?customerUserCode=" + customerUserCode;
     }
 
     @PostMapping("/user/deleteComment")
