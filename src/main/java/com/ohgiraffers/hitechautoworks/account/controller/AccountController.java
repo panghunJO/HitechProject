@@ -19,24 +19,35 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private UserService userService;
+
     private AuthUserInfo authUserInfo;
 
 
 
-    @GetMapping("/employee/account/account")
+    @GetMapping("/user/employee")
     public String account(Model model) {
         List<UserDTO> userList = accountService.findAllUser();
         System.out.println("userList = " + userList);
         model.addAttribute("userList", userList);
-        authUserInfo = new AuthUserInfo();
+        AuthUserInfo authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
-        String userName = userDTO.getUserName();
-        model.addAttribute("userName",userName);
-        return "employee/account/account";
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        model.addAttribute("userDTO", userDTO1);
+        return "user/employeePage";
     }
 
-    @PostMapping("/employee/account/account")
-    public void account2(@RequestParam String userName, @RequestParam String userCode, Model model) {
+    @PostMapping("/user/empSearch")
+    public String account2(@RequestParam String userName, @RequestParam String userCode, Model model) {
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode1 = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode1);
+        model.addAttribute("userDTO", userDTO1);
+        System.out.println("userName = " + userName);
+        System.out.println("userCode = " + userCode);
 
         if(userName == "" && userCode == "") {
             List<UserDTO> userList = accountService.findAllUser();
@@ -53,7 +64,7 @@ public class AccountController {
             System.out.println("userList = " + userList);
             model.addAttribute("userList", userList);
         }
-
+            return "user/employeePage";
 
     }
 

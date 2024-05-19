@@ -80,7 +80,7 @@
             <td th:text="${partList.partstock}"></td>
             <td th:text="${partList.partPrice}"></td>
             <td>
-                <button type="button" class="btn btn-outline-primary btn-sm">상세보기</button>
+                <button type="button" class="btn btn-outline-primary btn-sm" th:attr="onclick='partDetail(\'' + ${partList.partCode} + '\')'">상세보기</button>
             </td>
 
         </tr>
@@ -127,11 +127,9 @@
     </div>
 </form>
     <script>
-        var result = `[[${result}]]`;
-        var partName = `[[${partName}]]`;
-        if (result){
-            alert(partName + "이/가 등록 성공하였습니다!")
-        };
+        function partDetail(partCode) {
+            location.href = '/user/partdetail?partCode=' + partCode;
+        }
     </script>
 
 <div th:replace="~{common/footer.html}"></div>
