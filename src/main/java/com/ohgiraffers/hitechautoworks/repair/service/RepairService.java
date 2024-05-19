@@ -40,12 +40,14 @@ public class RepairService {
     }
 
     public void modifyRepairWorker(List<String> userName, int resCode) {
-        List<Integer>  newUserCode = repairMapper.selectUserCodeByUserName(userName);
+        List<Integer> newUserCode = repairMapper.selectUserCodeByUserName(userName);
+        repairMapper.deleteOldWorker(resCode);
         repairMapper.modifyRepairWorker(newUserCode, resCode);
     }
 
     public void modifyRepairPart(List<String> partName, int resCode) {
         List<Integer>  newPartCode = repairMapper.selectPartCodeByPartName(partName);
+        repairMapper.deleteOldPart(resCode);
         repairMapper.modifyRepairPart(newPartCode, resCode);
     }
 

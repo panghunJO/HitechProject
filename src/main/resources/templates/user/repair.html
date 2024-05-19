@@ -30,7 +30,17 @@
 
     <!-- Template Main CSS File -->
     <link href="/assets/css/style.css" rel="stylesheet">
+<style>
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 50px;
+        border: 1px solid #888;
+        width: 80%;
+    }
 
+
+</style>
 </head>
 <body>
 <div th:replace="~{common/header.html}"></div>
@@ -56,6 +66,77 @@
             <input type="text" class="form-control" placeholder="사원번호 입력" aria-label="Recipient's username"
                    aria-describedby="button-addon2" name="workerCode"> &nbsp; &nbsp;
             <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="search()">검색</button>
+            <button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="openModal()" >작업등록</button>
+
+        </div>
+    </form>
+        <!-- 모달 구조 -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <h2 style="text-align: center">작업 등록</h2>
+                <form action="/user/repair/regist" method="post">
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label text-end">예약번호</label>
+                        <div class="col-sm-8">
+                            <select name="resCode" id="resCode" style="width: 100%;" class="form-control" ></select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label text-end">작업자</label>
+                        <div class="col-sm-8">
+                            <!-- 작업자 선택 박스 -->
+                            <select id="workerCode" style="width: 100%;" class="form-control" multiple></select>
+                            <!-- 추가 및 삭제 버튼 -->
+                            <input type="button" name="button" value="추가" onclick="addWorker()">
+                            <input type="button" name="removeButton" value="삭제" onclick="removeWorker()"><br><br>
+                            <!-- 선택된 작업자들을 보여주는 선택 박스 -->
+                            <select name="userName" id="selectedWorkers" style="width:420px;" size="7" multiple>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label text-end">작업 내용</label>
+                        <div class="col-sm-8">
+                            <input name="content" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label text-end" multiple>필요 부품</label>
+                        <div class="col-sm-8">
+                            <select id="partName" style="width: 100%;" class="form-control" multiple></select>
+                            <!-- 추가 및 삭제 버튼 -->
+                            <input type="button" name="button" value="추가" onclick="addPart()">
+                            <input type="button" name="removeButton" value="삭제" onclick="removePart()"><br><br>
+                            <!-- 선택된 작업자들을 보여주는 선택 박스 -->
+                            <select name="partName" id="selectedParts" style="width:420px;" size="7" multiple>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label text-end">진행상황</label>
+                        <div class="col-sm-8">
+                            <select name="status" style="width: 100%;"  class="form-control">
+                                <option>대기</option>
+                                <option>진행중</option>
+                                <option>완료</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label text-end">날짜</label>
+                        <div class="col-sm-8">
+                            <input name="date" type="date" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-end">
+                            <button type="submit" class="btn btn-modify " >등록</button>
+                            <button type="button" class="btn btn-modify"  onclick="closeModal()">취소</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
 
         <script>
@@ -63,8 +144,134 @@
                 document.getElementById("actionForm").action = "/user/repair/repairSearch";
                 document.getElementById("actionForm").submit();
             }
+
+            // 모달 열기 함수
+            function openModal() {
+                document.getElementById("myModal").style.display = "block";
+            }
+
+            // 모달 닫기 함수
+            function closeModal() {
+                document.getElementById("myModal").style.display = "none";
+            }
+
+            // 모달 외부 클릭시 닫기
+            window.onclick = function(event) {
+                if (event.target == document.getElementById("myModal")) {
+                    closeModal();
+                }
+            }
+            function addPart(){
+                var partSelect = document.getElementById('partName');
+                var selectedPartSelect = document.getElementById('selectedParts');
+
+                for (var i = 0; i < partSelect.options.length; i++) {
+                    if (partSelect.options[i].selected) {
+                        var option = document.createElement("option");
+                        option.text = partSelect.options[i].text;
+                        option.value = partSelect.options[i].value;
+                        option.selected = partSelect.options[i].selected;
+                        selectedPartSelect.appendChild(option);
+                        // Optionally, remove the added option from the workerCode select box
+                        partSelect.remove(i);
+                        i--; // Adjust index due to removal
+                    }
+                }
+            }
+            function removePart() {
+                var partSelect = document.getElementById('partName');
+                var selectedPartSelect = document.getElementById('selectedParts');
+
+                // Loop through the selected options in selectedWorkers and add them back to workerCode
+                for (var i = 0; i < selectedPartSelect.options.length; i++) {
+                    if (selectedPartSelect.options[i].selected) {
+                        var option = document.createElement("option");
+                        option.text = selectedPartSelect.options[i].text;
+                        option.value = selectedPartSelect.options[i].value;
+
+                        partSelect.appendChild(option);
+                        // Remove the added option from the selectedWorkers select box
+                        selectedPartSelect.remove(i);
+                        i--; // Adjust index due to removal
+                    }
+                }
+            }
+            function addWorker() {
+                var workerCodeSelect = document.getElementById('workerCode');
+                var selectedWorkersSelect = document.getElementById('selectedWorkers');
+
+                for (var i = 0; i < workerCodeSelect.options.length; i++) {
+                    if (workerCodeSelect.options[i].selected) {
+                        var option = document.createElement("option");
+                        option.text = workerCodeSelect.options[i].text;
+                        option.value = workerCodeSelect.options[i].value;
+                        option.selected = workerCodeSelect.options[i].selected;
+                        selectedWorkersSelect.appendChild(option);
+                        // Optionally, remove the added option from the workerCode select box
+                        workerCodeSelect.remove(i);
+                        i--; // Adjust index due to removal
+                    }
+                }
+            }
+            function removeWorker() {
+                var workerCodeSelect = document.getElementById('workerCode');
+                var selectedWorkersSelect = document.getElementById('selectedWorkers');
+
+                // Loop through the selected options in selectedWorkers and add them back to workerCode
+                for (var i = 0; i < selectedWorkersSelect.options.length; i++) {
+                    if (selectedWorkersSelect.options[i].selected) {
+                        var option = document.createElement("option");
+                        option.text = selectedWorkersSelect.options[i].text;
+                        option.value = selectedWorkersSelect.options[i].value;
+                        workerCodeSelect.appendChild(option);
+                        // Remove the added option from the selectedWorkers select box
+                        selectedWorkersSelect.remove(i);
+                        i--; // Adjust index due to removal
+                    }
+                }
+            }
+            fetch("/employee/repair/part")
+                .then(res => res.json())
+                .then(data =>{
+                    console.log(data);
+                    const $partName = document.getElementById('partName');
+
+                    for(let index in data){
+                        const $option = document.createElement("option");
+                        $option.value = data[index].partName;
+                        $option.textContent = data[index].partName;
+                        $partName.appendChild($option);
+                    }
+                })
+            fetch("/employee/repair/worker")
+                .then(res => res.json())
+                .then(data =>{
+                    console.log(data);
+                    const $workerCode = document.getElementById('workerCode');
+
+                    for(let index in data){
+                        const $option = document.createElement("option");
+                        $option.value = data[index].userName;
+                        $option.textContent = data[index].userName;
+                        $workerCode.appendChild($option);
+                    }
+                })
+            fetch("/employee/repair/res")
+                .then(res => res.json())
+                .then(data =>{
+                    console.log(data);
+                    const $resCode = document.getElementById('resCode');
+
+                    for(let index in data){
+                        const $option = document.createElement("option");
+                        $option.value = data[index].code;
+                        $option.textContent = data[index].code;
+                        $resCode.appendChild($option);
+                    }
+                })
+
         </script>
-    </form>
+
     <table class="table table-bordered">
         <thead class="table-light">
         <tr>

@@ -144,15 +144,15 @@
                                     <input type="button" name="button" value="추가" onclick="addWorker()">
                                     <input type="button" name="removeButton" value="삭제" onclick="removeWorker()"><br><br>
                                     <!-- 선택된 작업자들을 보여주는 선택 박스 -->
-                                    <select name="userName" id="selectedWorkers" size="7" multiple>
-                                        <option th:each="worker : ${workers}" th:value="${worker.userDTO.userName}" th:text="${worker.userDTO.userName}"></option>
+                                    <select name="userName" id="selectedWorkers" style="width: 100%;" size="7" multiple>
+                                        <option th:each="worker : ${workers}" th:value="${worker.userDTO.userName}" th:text="${worker.userDTO.userName}" selected></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label text-end">작업내용</label>
                                 <div class="col-sm-6">
-                                    <input type="date" name="date" class="form-control" th:value="${repairDTO[0].repairDTO.content}">
+                                    <input type="text" name="content" class="form-control" th:value="${repairDTO[0].repairDTO.content}">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -163,8 +163,8 @@
                                     <input type="button" name="button" value="추가" onclick="addPart()">
                                     <input type="button" name="removeButton" value="삭제" onclick="removePart()"><br><br>
                                     <!-- 선택된 작업자들을 보여주는 선택 박스 -->
-                                    <select name="partName" id="selectedParts" size="7" multiple>
-                                        <option class="w-100" th:each="part : ${parts}" th:value="${part.partDTO.partName}" th:text="${part.partDTO.partName}" ></option>
+                                    <select name="partName" id="selectedParts" style="width: 100%;" size="7" multiple>
+                                        <option class="w-100" th:each="part : ${parts}" th:value="${part.partDTO.partName}" th:text="${part.partDTO.partName}" selected ></option>
                                     </select>
                                 </div>
                             </div>
@@ -182,16 +182,17 @@
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label text-end">날짜</label>
                                 <div class="col-sm-6">
-                                    <input type="date" name="extra" class="form-control" th:text ="${repairDTO[0].repairDTO.date}">
+                                    <input type="text" th:value="${repairDTO[0].repairDTO.date}" readonly>
+                                    <input type="date" name="date" class="form-control" >
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col text-end">
 
-                                    <button type="button" class="btn btn-primary " onclick="updateItem()">수정
+                                    <button type="button" class="btn btn-primary " onclick="modifyrepair()">수정
                                     </button>
 
-                                    <button type="button" class="btn btn-danger " onclick="deleteItem()">삭제
+                                    <button type="button" class="btn btn-danger " onclick="deleterepair()">삭제
                                     </button>
 
                                 </div>
@@ -214,27 +215,7 @@
                     </div>
                     </form>
 
-                    <script>
-                        function updateItem() {
-                            document.getElementById("actionForm").action = "/user/resUpdate";
-                            document.getElementById("actionForm").submit();
-                        }
 
-                        function deleteItem() {
-                            document.getElementById("actionForm").action = "/user/resDelete";
-                            document.getElementById("actionForm").submit();
-                        }
-
-                        function registcommit(){
-                            document.getElementById("actionForm").action = "/user/registcomment";
-                            document.getElementById("actionForm").submit();
-                        }
-
-                        var result = `[[${result}]]`;
-                        if (result) {
-                            // alert("수정에 성공하였습니다 !")
-                        }
-                    </script>
 
                     <form id="actionForm2" method="post">
                         <div th:each="comment : ${resComment}">
@@ -300,7 +281,8 @@
                                     var option = document.createElement("option");
                                     option.text = partSelect.options[i].text;
                                     option.value = partSelect.options[i].value;
-                                    selectedPartSelect.add(option);
+                                    option.selected = partSelect.options[i].selected;
+                                    selectedPartSelect.appendChild(option);
                                     // Optionally, remove the added option from the workerCode select box
                                     partSelect.remove(i);
                                     i--; // Adjust index due to removal
@@ -317,7 +299,7 @@
                                     var option = document.createElement("option");
                                     option.text = selectedPartSelect.options[i].text;
                                     option.value = selectedPartSelect.options[i].value;
-                                    partSelect.add(option);
+                                    partSelect.appendChild(option);
                                     // Remove the added option from the selectedWorkers select box
                                     selectedPartSelect.remove(i);
                                     i--; // Adjust index due to removal
@@ -333,7 +315,8 @@
                                     var option = document.createElement("option");
                                     option.text = workerCodeSelect.options[i].text;
                                     option.value = workerCodeSelect.options[i].value;
-                                    selectedWorkersSelect.add(option);
+                                    option.selected = workerCodeSelect.options[i].selected;
+                                    selectedWorkersSelect.appendChild(option);
                                     // Optionally, remove the added option from the workerCode select box
                                     workerCodeSelect.remove(i);
                                     i--; // Adjust index due to removal
@@ -350,7 +333,7 @@
                                     var option = document.createElement("option");
                                     option.text = selectedWorkersSelect.options[i].text;
                                     option.value = selectedWorkersSelect.options[i].value;
-                                    workerCodeSelect.add(option);
+                                    workerCodeSelect.appendChild(option);
                                     // Remove the added option from the selectedWorkers select box
                                     selectedWorkersSelect.remove(i);
                                     i--; // Adjust index due to removal

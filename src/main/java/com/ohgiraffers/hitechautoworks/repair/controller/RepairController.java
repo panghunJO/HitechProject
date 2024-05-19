@@ -96,19 +96,18 @@ public class RepairController {
     @PostMapping("/user/repairModify")
     public String modifyRepair(
             @RequestParam int resCode,
-            @RequestParam String[] userName,
+            @RequestParam(name = "userName") String[] userNames,
             @RequestParam String content,
-            @RequestParam String[] partName,
+            @RequestParam(name = "partName") String[] partNames,
             @RequestParam String status,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
 
-
-        List<String> userName1 = Arrays.asList(userName);
-        List<String> partName1 = Arrays.asList(partName);
+        List<String> userNameList = Arrays.asList(userNames);
+        List<String> partNameList = Arrays.asList(partNames);
         repairService.modifyRepair(resCode, content, status, date);
-        repairService.modifyRepairWorker(userName1, resCode);
-        repairService.modifyRepairPart(partName1, resCode);
-        return "redirect:/employee/repair/repair";
+        repairService.modifyRepairWorker(userNameList, resCode);
+        repairService.modifyRepairPart(partNameList, resCode);
+        return "redirect:/user/repair";
     }
 
     @PostMapping("/user/repairDelete")
@@ -116,60 +115,48 @@ public class RepairController {
 
             repairService.deleteRepair(resCode);
 
-        return"redirect:/employee/repair/repair";
+        return "redirect:/user/repair";
     }
-    @GetMapping("/employee/repair/repairAdd")
-    public void partAdd(Model model){
-        authUserInfo = new AuthUserInfo();
-        UserDTO userDTO = authUserInfo.getUserDTO();
-        authUserInfo.getUserDTO().getUserCode();
-        String userName = userDTO.getUserName();
-        model.addAttribute("userName",userName);
-    }
+//    @GetMapping("/employee/repair/repairAdd")
+//    public void partAdd(Model model){
+//        authUserInfo = new AuthUserInfo();
+//        UserDTO userDTO = authUserInfo.getUserDTO();
+//        authUserInfo.getUserDTO().getUserCode();
+//        String userName = userDTO.getUserName();
+//        model.addAttribute("userName",userName);
+//    }
     @GetMapping(value = "/employee/repair/part", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<PartDTO> findPartList(){
         List<PartDTO> partList = repairService.findPartList();
-        System.out.println("partList = " + partList);
         return partList;
     }
     @GetMapping(value = "/employee/repair/worker",produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<UserDTO> findWorkerList(){
         List<UserDTO> workerList = repairService.findWorkerList();
-        System.out.println("workerList = " + workerList);
         return workerList;
     }
     @GetMapping(value ="/employee/repair/res" ,produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<ResDTO> findResList(){
         List<ResDTO> resList = repairService.findResList();
-        System.out.println("resList = " + resList);
         return resList;
     }
 
-    @PostMapping("/employee/repair/repairAdd")
+    @PostMapping("/user/repair/regist")
     public String addRepair(@RequestParam int resCode,
-                            @RequestParam String[] userName,
+                            @RequestParam(name = "userName") String[] userNames,
                             @RequestParam String content,
-                            @RequestParam String[] partName,
+                            @RequestParam(name = "partName") String[] partNames,
                             @RequestParam String status,
                             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
-        System.out.println("resCode = " + resCode);
-        System.out.println("userName = " + userName);
-        System.out.println("content = " + content);
-        System.out.println("partName = " + partName);
-        System.out.println("status = " + status);
-        System.out.println("status = " + status);
-        System.out.println("date = " + date);
-        List<String> userName1 = Arrays.asList(userName);
-        List<String> partName1 = Arrays.asList(partName);
-        System.out.println("partName1 = " + partName1);
-        System.out.println("userName1 = " + userName1);
+        List<String> userNameList = Arrays.asList(userNames);
+        List<String> partNameList = Arrays.asList(partNames);
         repairService.addRepair(resCode,content,status,date);
-        repairService.addRepairPart(partName1,resCode);
-        repairService.addRepairWorker(userName1,resCode);
-        return "redirect:/employee/repair/repair";
+        repairService.addRepairPart(partNameList,resCode);
+        repairService.addRepairWorker(userNameList,resCode);
+        return "redirect:/user/repair";
     }
 
 }
