@@ -112,7 +112,7 @@
             </ul>
         </li><!-- End Charts Nav -->
 
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="hasAnyAuthority('관리자','직원')">
             <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-gem"></i><span>작업</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
@@ -123,6 +123,15 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/user/partAllCall">
+                        <i class="bi bi-circle"></i><span>부품 정보 조회</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/common">
+                        <i class="bi bi-circle"></i><span>전체 예약 조회</span>
+                    </a>
+                </li>
                     <a href="/user/employee">
                         <i class="bi bi-circle"></i><span>직원 조회</span>
                     </a>
@@ -133,7 +142,7 @@
 <!--                    </a>-->
 <!--                </li>-->
             </ul>
-        </li><!-- End Icons Nav -->
+        </li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#res-nav" data-bs-toggle="collapse" href="#">

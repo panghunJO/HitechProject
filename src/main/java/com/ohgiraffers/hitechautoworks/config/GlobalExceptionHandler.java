@@ -11,20 +11,9 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(NullPointerException.class)
-    public String nullPointerExceptionHandler() {
-        return "/error/404";
-    }
-
-    @ExceptionHandler(NoHandlerFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleNoHandlerFoundException(NoHandlerFoundException exception, Model model) {
-        return "/error/404";
-    }
-
     @ExceptionHandler(NoResourceFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleNoResourceFoundException(NoResourceFoundException exception, Model model) {
+    public String handleNoResourceFoundException(NoResourceFoundException exception) {
+        System.out.println("exception = " + exception);
         return "/error/404";
     }
 }
