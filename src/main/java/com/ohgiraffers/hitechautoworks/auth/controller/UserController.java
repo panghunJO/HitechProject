@@ -316,6 +316,17 @@ public class UserController {
         return result;
     }
 
+    @GetMapping("/user/res")
+    public String res() {
+
+        return "user/res";
+    }
+
+    @GetMapping("/user/selectRes")
+    public String selectRes() {
+
+        return "user/selectRes";
+    }
 
 
 }

@@ -36,4 +36,11 @@ public class CertifiedController {
         return "member/login";
     }
 
+
+    @GetMapping("certified/certifiedError")
+    public String certified() {
+
+        return "error/certified";
+    }
+
 }

@@ -30,7 +30,23 @@
 
     <!-- Template Main CSS File -->
     <link href="/assets/css/style.css" rel="stylesheet">
-
+    <style>
+        .card-body p {
+            font-size: 1.5rem; /* 텍스트 크기 조정 */
+            font-family: "Poor Story", system-ui;
+        }
+        .full-height {
+            height: 100vh; /* 화면 전체 높이 */
+        }
+        .centered {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            cursor: pointer; /* 커서를 포인터로 변경 */
+        }
+    </style>
 </head>
 <body>
 <div th:replace="~{common/header.html}"></div>
@@ -40,43 +56,52 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>예약 조회</h1>
+        <h1>예약</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/user/selectRes">Home</a></li>
-                <li class="breadcrumb-item active"><a href="/user/rescustomer"></a>예약 조회</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
 
-    <table class="table table-bordered">
-        <thead class="table-light">
-        <tr>
-            <th scope="col">예약번호</th>
-            <th scope="col">고객명</th>
-            <th scope="col">수리내용</th>
-            <th scope="col">날짜</th>
-            <th scope="col">상세보기</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="resList : ${resList}">
-            <th scope="row" th:text="${resList.code}"></th>
-            <td th:text="${resList.userDTO.userName}"></td>
-            <td class="w-25 p-3" th:text="${resList.option}"></td>
-            <td th:text="${resList.date}"></td>
-            <td>
-                <button type="button" class="btn btn-outline-primary btn-sm" th:attr="onclick='resDetail(\'' + ${resList.code} + '\')'">상세보기</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+
+    <section class="section">
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <a href="/user/res" class="text-decoration-none text-dark">
+                        <div class="card m-5" style="width: 18rem;">
+                            <img src="https://i.postimg.cc/3JSG7SX7/DALL-E-2024-05-19-17-35-48-A-150x150-pixel-image-for-a-car-repair-booking-website-The-image-shoul.webp" class="card-img-top" alt="..." />
+                            <div class="card-body text-center">
+                                <p class="card-text">
+                                    예약 하러 가기
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-5">
+                    <a href="/user/rescustomer" class="text-decoration-none text-dark"> <!-- 링크 추가 -->
+                        <div class="card m-5" style="width: 18rem;">
+                            <img src="https://i.postimg.cc/sfKQ960S/DALL-E-2024-05-19-17-36-19-A-150x150-pixel-image-for-a-car-repair-booking-website-specifically-fo.webp" class="card-img-top" alt="..." />
+                            <div class="card-body text-center">
+                                <p class="card-text">
+                                    예약 내용 확인
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+
 </main>
-<script>
-    function resDetail(resCode) {
-        location.href = '/user/testPage?resCode=' + 123456 * resCode;
-    }
-</script>
 
 <div th:replace="~{common/footer.html}"></div>
 </body>
