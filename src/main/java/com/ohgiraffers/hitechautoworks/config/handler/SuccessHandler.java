@@ -22,14 +22,13 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
                 response.sendRedirect("/user/mainpage");
                 break;
             case "EMPLOYEE":
-                response.sendRedirect("/employee/dashboard");
+                response.sendRedirect("/user/mainpage");
                 break;
             case "CUSTOMER":
-                System.out.println("손님 로그인 시도.....");
-                response.sendRedirect("/customer/dashboard");
+                response.sendRedirect("/user/selectRes");
                 break;
             case "CERTIFIED":
-                response.sendRedirect("/certified/checkinfo");
+                response.sendRedirect("/certified/certifiedError");
                 break;
             default:
                 response.sendRedirect("/access-denied");

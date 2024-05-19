@@ -34,8 +34,10 @@
         .clickable {
             cursor: pointer;
         }
+        .hidden-content {
+            display: none;
+        }
     </style>
-
 </head>
 <body>
 <div th:replace="~{common/header.html}"></div>
@@ -48,7 +50,7 @@
         <h1>예약</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/user/mainpage">Home</a></li>
+                <li class="breadcrumb-item"><a href="/user/selectRes">Home</a></li>
                 <li class="breadcrumb-item active"><a href="/user/res"></a>예약</li>
             </ol>
         </nav>
@@ -56,77 +58,229 @@
 
 
     <section class="section">
-
-
-        <div class="row">
-
-            <div class="col-lg-6 clickable" onclick="blurScreen()">
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://i.postimg.cc/Cx3JjNxs/2024-05-17-3-42-26.png" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title mt-1">소모품</h5>
-                                <p class="card-text me-4 mb-2">자동차 소모품은 차량의 성능과 안전을 유지하기 위해 정기적으로 교체해야 하는 부품들입니다. 엔진 오일, 브레이크 패드, 에어 필터 등의 소모품은 주기적인 점검과 교환이 필요합니다.</p>
+        <div class="container mt-5">
+            <div class="row">
+                <!-- First Card -->
+                <div class="col-lg-4 clickable dropdown">
+                    <div class="card mb-3" onclick="toggleContent(this)">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://i.postimg.cc/Cx3JjNxs/2024-05-17-3-42-26.png" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title mt-1">소모품</h5>
+                                    <p class="card-text me-4 mb-2">자동차 소모품은 차량의 성능과 안전을 유지하기 위해 정기적으로 교체해야 하는 부품들입니다.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div><!-- End Card with an image on left -->
-            </div>
-
-            <div class="col-lg-6 clickable">
-
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://i.postimg.cc/FHhmZjC3/DALL-E-2024-05-17-16-20-19-Create-a-simple-clean-and-modern-icon-of-a-car-engine-The-icon-shoul.webp" class="img-fluid rounded-start" alt="...">
+                        <div class="hidden-content mt-3">
+                            <form class="p-3">
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="oilChange" value="엔진 오일">
+                                    <label class="form-check-label" for="oilChange">엔진 오일</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="noforzen" value="부동액">
+                                    <label class="form-check-label" for="noforzen">부동액</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="airFilter" value="에어 필터">
+                                    <label class="form-check-label" for="airFilter">에어 필터</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="fuelFilter" value="연료 필터">
+                                    <label class="form-check-label" for="fuelFilter">연료 필터</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="battery" value="배터리">
+                                    <label class="form-check-label" for="battery">배터리</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="brakePad" value="브레이크 패드">
+                                    <label class="form-check-label" for="brakePad">브레이크 패드</label>
+                                </div>
+                            </form>
                         </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title mt-1">주요 정비</h5>
-                                <p class="card-text me-4 mb-2">자동차 정비는 차량의 성능과 안전을 유지하기 위해 필수적입니다. 주행/가속 관련, 변속 관련, 차량 쏠림, 제동 관련, 연비 관련, 전조등 관련 문제를 해결하는 정비입니다.</p>
+                    </div>
+                </div>
+
+                <!-- Second Card -->
+                <div class="col-lg-4 clickable dropdown">
+                    <div class="card mb-3" onclick="toggleContent(this)">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://i.postimg.cc/FHhmZjC3/DALL-E-2024-05-17-16-20-19-Create-a-simple-clean-and-modern-icon-of-a-car-engine-The-icon-shoul.webp" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title mt-1">주요 정비</h5>
+                                    <p class="card-text me-4 mb-2">자동차 정비는 차량의 성능과 안전을 유지하기 위해 필수적입니다.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div><!-- End Card with an image on left -->
-
-            </div>
-
-            <div class="col-lg-6 clickable">
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://i.postimg.cc/15GVXrNq/DALL-E-2024-05-17-16-28-40-Create-a-simple-clean-and-modern-icon-of-a-car-tire-The-icon-should.webp" class="img-fluid rounded-start" alt="...">
+                        <div class="hidden-content mt-3">
+                            <form class="p-3">
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="start" value="행/가속 관련">
+                                    <label class="form-check-label" for="start">주행/가속 관련</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="geer" value="변속 관련">
+                                    <label class="form-check-label" for="geer">변속 관련</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="carsollim" value="차량 쏠림">
+                                    <label class="form-check-label" for="carsollim">차량 쏠림</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="brake" value="제동 관련">
+                                    <label class="form-check-label" for="brake">제동 관련</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="feul" value="연비 관련">
+                                    <label class="form-check-label" for="feul">연비 관련</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="light" value="전조등 관련">
+                                    <label class="form-check-label" for="light">전조등 관련</label>
+                                </div>
+                            </form>
                         </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">기본점검 및 경정비</h5>
-                                <p class="card-text">기본점검 및 경정비는 차량의 안전과 편의를 위해 정기적으로 수행해야 합니다. 경고등 점등, 냉/난방 장치, 휠/타이어 불량, 램프류, 개폐불량, 스위치 작동 상태 등을 점검합니다.</p>
+                    </div>
+                </div>
+
+                <!-- Third Card (Input Form) -->
+                <div class="col-lg-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title mt-1">다음 단계</h5>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="inputMessage" class="form-label">수리</label>
+                                    <textarea class="form-control" id="inputMessage" rows="3" placeholder="수리내용을 체크해주세요"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">다음 단계로</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End First Row -->
+
+            <div class="row">
+                <!-- Fourth Card -->
+                <div class="col-lg-4 clickable dropdown">
+                    <div class="card mb-3" onclick="toggleContent(this)">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://i.postimg.cc/15GVXrNq/DALL-E-2024-05-17-16-28-40-Create-a-simple-clean-and-modern-icon-of-a-car-tire-The-icon-should.webp" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">기본점검 및 경정비</h5>
+                                    <p class="card-text">기본점검 및 경정비는 차량의 안전과 편의를 위해 정기적으로 수행해야 합니다.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div><!-- End Card with an image on left -->
-            </div>
-
-            <div class="col-lg-6 clickable">
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://i.postimg.cc/6qsSjXcT/DALL-E-2024-05-17-16-33-01-Create-a-simple-clean-and-modern-icon-that-combines-elements-of-a-car.webp" class="img-fluid rounded-start" alt="...">
+                        <div class="hidden-content mt-3">
+                            <form class="p-3">
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="warning" value="경고등 점등">
+                                    <label class="form-check-label" for="warning">경고등 점등</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="warmAndCold" value="냉/난방 장치">
+                                    <label class="form-check-label" for="warmAndCold">냉/난방 장치</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="wheelTire" value="휠/타이어 불량">
+                                    <label class="form-check-label" for="wheelTire">휠/타이어 불량</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="lamp" value="램프류">
+                                    <label class="form-check-label" for="lamp">램프류</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="openwarning" value="개폐 불량">
+                                    <label class="form-check-label" for="openwarning">개폐 불량</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="switchProblem" value="스위치 작동">
+                                    <label class="form-check-label" for="switchProblem">스위치 작동</label>
+                                </div>
+                            </form>
                         </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">특화 정비</h5>
-                                <p class="card-text">특화정비는 차량의 고유 기능과 편의성을 유지하고 개선하는 작업입니다. 썬루프, 유리, 오디오, 시트 등의 내부 장치 수리 및 전기차/LPG 차량의 특수 정비를 포함합니다.</p>
+                    </div>
+                </div>
+
+                <!-- Fifth Card -->
+                <div class="col-lg-4 clickable dropdown">
+                    <div class="card mb-3" onclick="toggleContent(this)">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://i.postimg.cc/6qsSjXcT/DALL-E-2024-05-17-16-33-01-Create-a-simple-clean-and-modern-icon-that-combines-elements-of-a-car.webp" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">특화 정비</h5>
+                                    <p class="card-text">특화정비는 차량의 고유 기능과 편의성을 유지하고 개선하는 작업입니다.</p>
+                                </div>
                             </div>
                         </div>
+                        <div class="hidden-content mt-3">
+                            <form class="p-3">
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="sunloof" value="썬루프">
+                                    <label class="form-check-label" for="sunloof">썬루프</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="glass" value="유리">
+                                    <label class="form-check-label" for="glass">유리</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="audio" value="오디오">
+                                    <label class="form-check-label" for="audio">오디오</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="sheet" value="시트">
+                                    <label class="form-check-label" for="sheet">시트</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input repair-item" type="checkbox" id="etcCar" value="전기차/LPG">
+                                    <label class="form-check-label" for="etcCar">전기차/LPG</label>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div><!-- End Card with an image on left -->
-            </div>
-
+                </div>
+            </div><!-- End Second Row -->
         </div>
+
+        <script>
+            function toggleContent(card) {
+                var content = card.querySelector('.hidden-content');
+                if (content.style.display === "none" || content.style.display === "") {
+                    content.style.display = "block";
+                } else {
+                    content.style.display = "none";
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var repairItems = document.querySelectorAll('.repair-item');
+                repairItems.forEach(function(item) {
+                    item.addEventListener('change', function() {
+                        var selectedItems = [];
+                        repairItems.forEach(function(checkbox) {
+                            if (checkbox.checked) {
+                                selectedItems.push(checkbox.value);
+                            }
+                        });
+                        document.getElementById('inputMessage').value = selectedItems.join(', ');
+                    });
+                });
+            });
+        </script>
 
     </section>
 
