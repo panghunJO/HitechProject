@@ -286,6 +286,19 @@
                                     </div>
                                 </form>
 
+                                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                                    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                                        <div class="toast-header">
+                                            <strong class="me-auto">비밀번호 변경 오류</strong>
+<!--                                            <small>11 mins ago</small>-->
+                                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                        </div>
+                                        <div class="toast-body">
+                                            현재 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 <script>
                                     document.addEventListener('DOMContentLoaded', function() {
@@ -327,8 +340,10 @@
                                                 .then(response => response.json())
                                                 .then(data => {
                                                     if (data == 0) {
-                                                        alert("비밀번호가 일치하지 않습니다!!!");
-                                                        location.href = '/user/mypage';
+                                                        const toastLiveExample = document.getElementById('liveToast')
+                                                        const toast = new bootstrap.Toast(toastLiveExample)
+                                                        toast.show()
+
                                                     } else if (data == 1) {
                                                         alert("변경성공!! 다시 로그인해주세요");
                                                         location.href = '/logout';
