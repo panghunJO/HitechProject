@@ -209,41 +209,86 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12 mb-4">
+
                                         <div class="media g-mb-30 media-comment">
                                             <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
                                                 <div class="g-mb-15">
-                                                    <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" th:src="@{${comment.UserDTO.userImg}}" alt="Image Description">
+                                                    <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" th:src="@{${comment.userDTO.userImg}}" alt="Image Description">
                                                     <h5 class="h5 g-color-gray-dark-v1 mb-0" th:text="${comment.userDTO.userName}"></h5>
-                                                    <a th:href="@{/user/rescustomer(userToken=${userDTO.password})}">
-                                                    <a th:href="@{/user/customermypage(customerUserCode=${comment.userDTO.userCode} * 123456 )}" sec:authorize="hasAnyAuthority('관리자','직원')" >정보 확인</a>
+                                                    <a th:href="@{/user/rescustomer(userToken=${userDTO.password})}"></a>
+                                                    <a th:href="@{/user/customermypage(customerUserCode=${comment.userDTO.userCode} * 123456)}" sec:authorize="hasAnyAuthority('관리자','직원')">정보 확인</a>
                                                     <span class="small-text ml-3" th:text="${comment.userDTO.userRole}"></span> &nbsp;
-                                                    <span class="g-color-gray-dark-v4 g-font-size-12" th:text="${comment.resTime}"></span>
+                                                    <span class="g-color-gray-dark-v4 g-font-size-12" th:text="${#dates.format(comment.resTime, 'yyyy-MM-dd HH:mm')}"></span>
                                                 </div>
                                                 <p class="mt-1" th:text="${comment.resReplyContent}"></p>
                                                 <ul class="list-inline d-sm-flex my-0">
                                                     <li class="list-inline-item g-mr-15">
-                                                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
+                                                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!"
+                                                           th:onclick="'showReplyBox(' + ${comment.resReplyCode} + ')'">
                                                             <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
                                                             답글
                                                         </a>
                                                     </li>
-                                                    <li class="list-inline-item g-mr-20">
-                                                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                           th:attr="onclick='editComment(\'' + ${comment.resReplyCode} + '\', \'' + ${comment.resCode}+ '\', \'' + ${comment.userDTO.userCode}+ '\')'">
+                                                    <li class="list-inline-item g-mr-20" th:id="'edit-' + ${comment.resReplyCode}"
+                                                        th:data-user="${comment.userDTO.userCode}" th:data-role="${userDTO.userRole}" style="display: none">
+                                                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!"
+                                                           th:onclick="'editComment(\'' + ${comment.resReplyCode} + '\', \'' + ${comment.resCode} + '\', \'' + ${comment.userDTO.userCode} + '\')'">
                                                             <i class="bi bi-pencil-fill g-pos-rel g-top-1 g-mr-3"></i>
                                                             수정
                                                         </a>
                                                     </li>
-                                                    <li class="list-inline-item ml-auto">
+                                                    <li class="list-inline-item ml-auto" th:id="'delete-' + ${comment.resReplyCode}"
+                                                        th:data-user="${comment.userDTO.userCode}" style="display: none">
                                                         <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!"
-                                                           th:attr="onclick='deleteComment(\'' + ${comment.resReplyCode} + '\', \'' + ${comment.resCode}+ '\', \'' + ${comment.userDTO.userCode}+ '\')'">
+                                                           th:onclick="'deleteComment(\'' + ${comment.resReplyCode} + '\', \'' + ${comment.resCode} + '\', \'' + ${comment.userDTO.userCode} + '\')'">
                                                             <i class="bi bi-trash3-fill g-pos-rel g-top-1 g-mr-3"></i>
                                                             삭제
                                                         </a>
                                                     </li>
                                                 </ul>
+                                                <!-- 답글 창 ㅡㅡㅡㅡㅡㅡ -->
+                                                <div th:attr="id='replyBox-' + ${comment.resReplyCode}" class="reply-box" style="display: none;">
+                                                    <textarea class="form-control mt-2" rows="3" placeholder="답글을 입력하세요"></textarea>
+                                                    <button type="button" class="btn btn-primary btn-sm mt-2" th:attr="onclick='submitReply(' + ${comment.resReplyCode} + ')'">답글 작성</button>
+                                                    <button type="button" class="btn btn-secondary btn-sm mt-2" th:attr="onclick='hideReplyBox(' + ${comment.resReplyCode} + ')'">취소</button>
+                                                </div>
                                             </div>
                                         </div>
+
+
+                                        <script>
+
+
+                                            function showReplyBox(replyCode) {
+                                                var replyBox = document.getElementById('replyBox-' + replyCode);
+                                                if (replyBox) {
+                                                    replyBox.style.display = 'block';
+                                                }
+                                            }
+
+                                            function hideReplyBox(replyCode) {
+                                                var replyBox = document.getElementById('replyBox-' + replyCode);
+                                                if (replyBox) {
+                                                    replyBox.style.display = 'none';
+                                                }
+                                            }
+
+                                            function submitReply(replyCode) {
+                                                var replyBox = document.getElementById('replyBox-' + replyCode);
+                                                var textarea = replyBox.querySelector('textarea');
+                                                var replyContent = textarea.value;
+
+                                                // fetch 비동기 해놓기
+                                                // 답글 박스 만들기
+                                                console.log('Reply submitted for replyCode:', replyCode, 'Content:', replyContent);
+
+                                                // 성공 시
+                                                textarea.value = '';
+                                                replyBox.style.display = 'none';
+                                            }
+
+                                        </script>
+
                                     </div>
                                     <hr>
                                 </div>
@@ -252,13 +297,38 @@
 
                     </form>
                         <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                const authuserCode = `[[${userDTO.userCode}]]`;
+                                const userRole = `[[${userDTO.userRole}]]`;
+
+                                const editButtons = document.querySelectorAll('li[id^="edit-"]');
+
+                                editButtons.forEach(button => {
+                                    const resuserCode = button.getAttribute('data-user');
+                                    if (authuserCode == resuserCode || userRole == 'ADMIN') {
+                                        button.style.display = 'block';
+                                    }
+                                });
+
+                                const deleteButtons = document.querySelectorAll('li[id^="delete-"]');
+                                deleteButtons.forEach(button => {
+                                    const resuserCode = button.getAttribute('data-user');
+                                    if (authuserCode == resuserCode || userRole == 'ADMIN') {
+                                        button.style.display = 'block';
+                                    }
+                                });
+
+                            });
+
                             function editComment(resReplyCode,resCode, usercommentCode) {
                                 var authuserCode = `[[${userDTO.userCode}]]`;
                                 var resuserCode = usercommentCode;
-                                if (authuserCode == resuserCode) {
+                                var userRole = `[[${userDTO.userRole}]]`;
+
+                                if (authuserCode == resuserCode || userRole == 'ADMIN' ) {
 
                                     var userInput = prompt("수정할 내용을 입력해주세요");
-                                    var resReplyCode = resReplyCode; // 변수명 수정
+                                    var resReplyCode = resReplyCode;
                                     var resCode = resCode;
                                     if (userInput) {
                                         fetch("/user/reseditComment", {
@@ -288,7 +358,7 @@
                                             });
                                     }
                                 } else {
-                                    alert("불일치!!!")
+                                    alert("본인의 댓글만 수정할 수 있습니다!!!")
                                 }
                             }
                             function deleteComment(resReplyCode,resCode, usercommentCode) {
@@ -315,7 +385,7 @@
                                             .then(data => {
                                                 if (data == 1) {
                                                     alert(" 삭제가 완료되었습니다.");
-                                                    location.href='/user/testPage?resCode=' + resCode;
+                                                    location.href='/user/testPage?resCode=' + 123456 * resCode;
                                                 } else {
                                                     alert("삭제에 실패했습니다. 다시 시도해주세요.");
                                                     location.reload(true);
@@ -326,6 +396,8 @@
                                                 alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
                                             });
                                     }
+                                } else {
+                                    alert("본인 or 관리자만 삭제할 수 있습니다.")
                                 }
                             }
 

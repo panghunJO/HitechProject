@@ -81,7 +81,7 @@
                 <th scope="row" th:text="${resList.code}"></th>
                 <td th:text="${resList.userDTO.userName}"></td>
                 <td class="w-25 p-3" th:text="${resList.option}"></td>
-                <td th:text="${resList.date}"></td>
+                <td th:text="${#dates.format(resList.date, 'yyyy-MM-dd HH:mm')}"></td>
                 <td>
                     <button type="button" class="btn btn-outline-primary btn-sm" th:attr="onclick='resDetail(\'' + ${resList.code} + '\')'">상세보기</button>
                 </td>
