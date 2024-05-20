@@ -70,11 +70,11 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title mt-1">소모품</h5>
-                                    <p class="card-text me-4 mb-2">자동차 소모품은 차량의 성능과 안전을 유지하기 위해 정기적으로 교체해야 하는 부품들입니다.</p>
+                                    <p class="card-text me-4 mb-2">차량의 성능과 안전을 유지하기 위해 정기적으로 교체해야 하는 부품들입니다.</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="hidden-content mt-3">
+                        <div class="hidden-content mt-3" style="display: none;">
                             <form class="p-3">
                                 <div class="form-check">
                                     <input class="form-check-input repair-item" type="checkbox" id="oilChange" value="엔진 오일">
@@ -119,10 +119,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="hidden-content mt-3">
+                        <div class="hidden-content mt-3" style="display: none;">
                             <form class="p-3">
                                 <div class="form-check">
-                                    <input class="form-check-input repair-item" type="checkbox" id="start" value="행/가속 관련">
+                                    <input class="form-check-input repair-item" type="checkbox" id="start" value="주행/가속 관련">
                                     <label class="form-check-label" for="start">주행/가속 관련</label>
                                 </div>
                                 <div class="form-check">
@@ -150,24 +150,62 @@
                     </div>
                 </div>
 
-                <!-- Third Card (Input Form) -->
+                <!-- Third Card (Date Form) -->
                 <div class="col-lg-4">
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h5 class="card-title mt-1">다음 단계</h5>
-                            <form>
-                                <div class="mb-3">
-                                    <textarea class="form-control" id="inputMessage" rows="3" placeholder="수리내용을 체크해주세요"></textarea>
-                                    <label for="inputMessage" class="form-label mt-4">리스트에 없는 경우 직접 작성해주세요</label>
+                            <h5 class="card-title">Select Date and Time</h5>
+                            <!-- Date Picker -->
+                            <div class="form-group">
+                                <label for="datePicker">Select Date</label>
+                                <input type="date" class="form-control" id="datePicker">
+                            </div>
+                            <!-- Time Picker (Hidden Initially) -->
+                            <div class="form-group mt-3" id="timePickerDiv" style="display: none;">
+                                <label>Select Time</label>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <input type="checkbox" class="btn-check" id="btn-check-9" autocomplete="off">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-9" value="9">9 AM</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="checkbox" class="btn-check" id="btn-check-10" autocomplete="off">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-10" value="10">10 AM</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="checkbox" class="btn-check" id="btn-check-11" autocomplete="off">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-11" value="11">11 AM</label>
+                                    </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">다음 단계로</button>
-                            </form>
+                                <div class="row mt-2">
+                                    <div class="col-4">
+                                        <input type="checkbox" class="btn-check" id="btn-check-13" autocomplete="off">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-13" value="13">1 PM</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="checkbox" class="btn-check" id="btn-check-14" autocomplete="off">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-14" value="14">2 PM</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="checkbox" class="btn-check" id="btn-check-15" autocomplete="off">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-15" value="15">3 PM</label>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-4">
+                                        <input type="checkbox" class="btn-check" id="btn-check-16" autocomplete="off">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-16" value="16">4 PM</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="checkbox" class="btn-check" id="btn-check-17" autocomplete="off">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-17" value="17">5 PM</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div><!-- End First Row -->
 
-            <div class="row">
                 <!-- Fourth Card -->
                 <div class="col-lg-4 clickable dropdown">
                     <div class="card mb-3" onclick="toggleContent(this)">
@@ -182,7 +220,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="hidden-content mt-3">
+                        <div class="hidden-content mt-3" style="display: none;">
                             <form class="p-3">
                                 <div class="form-check">
                                     <input class="form-check-input repair-item" type="checkbox" id="warning" value="경고등 점등">
@@ -227,7 +265,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="hidden-content mt-3">
+                        <div class="hidden-content mt-3" style="display: none;">
                             <form class="p-3">
                                 <div class="form-check">
                                     <input class="form-check-input repair-item" type="checkbox" id="sunloof" value="썬루프">
@@ -253,36 +291,153 @@
                         </div>
                     </div>
                 </div>
-            </div><!-- End Second Row -->
+
+                <!-- Sixth Card (DateTime Picker Card) -->
+                <div class="col-lg-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title mt-1">다음 단계</h5>
+                            <div class="mb-3">
+                                <label for="inputMessage" class="form-label">수리</label>
+                                <textarea class="form-control" id="inputMessage" rows="3" placeholder="수리내용을 체크해주세요"></textarea>
+                            </div>
+                            <button type="button" id="submitBtn" class="btn btn-primary">전송하기</button> <!-- 버튼 타입 수정 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <script>
-            function toggleContent(card) {
-                var content = card.querySelector('.hidden-content');
-                if (content.style.display === "none" || content.style.display === "") {
-                    content.style.display = "block";
-                } else {
-                    content.style.display = "none";
-                }
+    <script>
+        function toggleContent(card) {
+            var content = card.querySelector('.hidden-content');
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
             }
+        }
 
-            document.addEventListener('DOMContentLoaded', function() {
-                var repairItems = document.querySelectorAll('.repair-item');
-                repairItems.forEach(function(item) {
-                    item.addEventListener('change', function() {
-                        var selectedItems = [];
-                        repairItems.forEach(function(checkbox) {
-                            if (checkbox.checked) {
-                                selectedItems.push(checkbox.value);
-                            }
-                        });
-                        document.getElementById('inputMessage').value = selectedItems.join(', ');
+        document.addEventListener('DOMContentLoaded', function() {
+            var repairItems = document.querySelectorAll('.repair-item');
+            repairItems.forEach(function(item) {
+                item.addEventListener('change', function() {
+                    var selectedItems = [];
+                    repairItems.forEach(function(checkbox) {
+                        if (checkbox.checked) {
+                            selectedItems.push(checkbox.value);
+                        }
                     });
+                    document.getElementById('inputMessage').value = selectedItems.join(', ');
                 });
             });
-        </script>
 
-    </section>
+            var datePicker = document.getElementById('datePicker');
+            datePicker.addEventListener('change', function() {
+                document.getElementById('timePickerDiv').style.display = 'block';
+                const selectedDate = datePicker.value;
+                fetchAndDisableTimes(selectedDate); // 바뀐 부분: change 이벤트에 fetchAndDisableTimes 함수 호출
+            });
+
+            const timeButtons = document.querySelectorAll('.time-btn');
+            let selectedTime = null; // 선택된 시간을 저장할 변수
+            timeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    timeButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    selectedTime = button.getAttribute('value'); // 선택된 시간 값 저장
+                    console.log('Selected time:', selectedTime);
+                });
+            });
+
+            const initialSelectedDate = datePicker.value;
+            if (initialSelectedDate) {
+                fetchAndDisableTimesOnLoad(initialSelectedDate); // 바뀐 부분: 초기 로드 시 fetchAndDisableTimesOnLoad 함수 호출
+            }
+
+            // Submit 버튼 클릭 시 데이터 전송
+            document.getElementById('submitBtn').addEventListener('click', function(event) {
+                event.preventDefault();
+                const date = datePicker.value;
+                const message = document.getElementById('inputMessage').value;
+
+                const data = {
+                    date: date,
+                    message: message,
+                    time: selectedTime // 선택된 시간 값 전송
+                };
+
+                fetch('/user/res/Submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log('Success:', result);
+                        // 성공 시 추가 작업을 여기에 작성
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+
+        // 서버에서 값을 받아와서 시간별 버튼 비활성화 (datePicker change 이벤트)
+        function fetchAndDisableTimes(selectedDate) {
+            fetch('/user/res/resTime', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ date: selectedDate })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const times = data.disabledTimes;
+                    times.forEach(time => {
+                        const timeButton = document.querySelector(`label[value="${time}"]`);
+                        if (timeButton) {
+                            const checkbox = timeButton.previousElementSibling;
+                            checkbox.disabled = true;
+                            timeButton.classList.add('disabled');
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // 서버에서 값을 받아와서 시간별 버튼 비활성화 (초기 로드 시)
+        function fetchAndDisableTimesOnLoad(selectedDate) {
+            fetch('/user/res/resTime', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ date: selectedDate })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const times = data.disabledTimes;
+                    times.forEach(time => {
+                        const timeButton = document.querySelector(`label[value="${time}"]`);
+                        if (timeButton) {
+                            const checkbox = timeButton.previousElementSibling;
+                            checkbox.disabled = true;
+                            timeButton.classList.add('disabled');
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
 
 
 </main>
