@@ -6,13 +6,23 @@ import com.ohgiraffers.hitechautoworks.auth.dto.UserDTO;
 public class WorkerDTO {
     private ResDTO resDTO;
     private UserDTO userDTO;
+    private String repairWorkers;
 
-    public WorkerDTO(ResDTO resDTO, UserDTO userDTO) {
+    public WorkerDTO(ResDTO resDTO, UserDTO userDTO,String repairWorkers) {
         this.resDTO = resDTO;
         this.userDTO = userDTO;
+        this.repairWorkers = repairWorkers;
     }
 
     public WorkerDTO() {
+    }
+
+    public String getRepairWorkers() {
+        return repairWorkers;
+    }
+
+    public void setRepairWorkers(String repairWorkers) {
+        this.repairWorkers = repairWorkers;
     }
 
     public ResDTO getResDTO() {

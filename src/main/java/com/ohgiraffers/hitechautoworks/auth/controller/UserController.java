@@ -197,7 +197,7 @@ public class UserController {
             model.addAttribute("partName", partName);
         }
 
-        return "user/partAllCall";
+        return "redirect:/user/partAllCall";
     }
 
 

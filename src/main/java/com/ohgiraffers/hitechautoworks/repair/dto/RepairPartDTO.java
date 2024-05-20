@@ -6,13 +6,23 @@ import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 public class RepairPartDTO {
     private ResDTO resDTO;
     private PartDTO partDTO;
+    private String partNames;
 
     public RepairPartDTO() {
     }
 
-    public RepairPartDTO(ResDTO resDTO, PartDTO partDTO) {
+    public RepairPartDTO(ResDTO resDTO, PartDTO partDTO,String partNames) {
         this.resDTO = resDTO;
         this.partDTO = partDTO;
+        this.partNames = partNames;
+    }
+
+    public String getPartNames() {
+        return partNames;
+    }
+
+    public void setPartNames(String partNames) {
+        this.partNames = partNames;
     }
 
     public ResDTO getResDTO() {

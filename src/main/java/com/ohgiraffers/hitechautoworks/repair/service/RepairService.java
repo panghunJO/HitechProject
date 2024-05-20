@@ -13,21 +13,23 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class RepairService {
 
     @Autowired
     private RepairMapper repairMapper;
 
-    public List<RepairDTO> findAllRepair() {
+    public List<Map<String,Object>>   findAllRepair() {
         return repairMapper.findAllRepair();
     }
 
-    public List<RepairDTO> SearchByworkerCode(int workerCode) {
+    public List<Map<String,Object>>SearchByworkerCode(int workerCode) {
         return repairMapper.SearchByworkerCode(workerCode);
     }
 
-    public List<RepairDTO> SearchByworkerName(String worker) {
+    public List<Map<String,Object>> SearchByworkerName(String worker) {
         return repairMapper.SearchByworkerName(worker);
     }
 
