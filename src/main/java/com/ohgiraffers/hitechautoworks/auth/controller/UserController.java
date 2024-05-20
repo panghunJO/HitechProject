@@ -19,8 +19,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @SessionAttributes("userDTO")
@@ -327,6 +329,32 @@ public class UserController {
 
         return "user/selectRes";
     }
+
+    @PostMapping("/user/res/resTime")
+    @ResponseBody
+    public Map<String, Object> checkResTime(@RequestBody Map<String,Date> date) {
+
+        System.out.println("fadsfasdfasdfas" + date.get("date"));
+        // "disabledTimes": ["9", "11", "14"] 이대로 받으면 이거 비활성화
+        Map<String,Object> disabledTimes = new HashMap();
+
+
+        return disabledTimes;
+    }
+
+    @PostMapping("/user/res/Submit")
+    @ResponseBody
+    public String resSubmit(@RequestBody Map<String,Object> info){
+
+        for(String key : info.keySet()) {
+            String value = (String) info.get(key);
+            System.out.println(key + " : " + value);
+        }
+
+        return "user/mainpage";
+    }
+
+
 
 
     // 작업중

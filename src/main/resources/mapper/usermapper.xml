@@ -110,7 +110,7 @@
     <select id="getPartChart" resultType="map">
         select part_name, part_stock
         from tbl_part
-        ORDER BY part_stock desc
+        ORDER BY part_stock
         LIMIT 10;
     </select>
 
