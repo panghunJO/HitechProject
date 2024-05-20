@@ -14,12 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class RepairController {
@@ -33,17 +31,15 @@ public class RepairController {
     private AuthUserInfo authUserInfo;
 
     @GetMapping("/user/repair")
-    public void repair(Model model) {
+    public String repair(Model model) {
         AuthUserInfo authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         int userCode = userDTO.getUserCode();
         UserDTO userDTO1 = userService.findUserCode(userCode);
-        System.out.println("userDTO1 = " + userDTO1);
         model.addAttribute("userDTO", userDTO1);
-        List<RepairDTO> repairList = repairService.findAllRepair();
-        System.out.println("repairList = " + repairList);
+        List<Map<String,Object>> repairList = repairService.findAllRepair();
         model.addAttribute("repairList", repairList);
-
+        return "/user/repair";
     }
 
     @PostMapping("/user/repair/repairSearch")
@@ -58,15 +54,15 @@ public class RepairController {
         System.out.println("worker = " + worker);
         System.out.println("workerCode = " + workerCode);
         if (worker == "" && workerCode == "") {
-            List<RepairDTO> repairList = repairService.findAllRepair();
+            List<Map<String,Object>>   repairList = repairService.findAllRepair();
             model.addAttribute("repairList", repairList);
             System.out.println("repairList = " + repairList);
         } else if (worker == "") {
-            List<RepairDTO> repairList = repairService.SearchByworkerCode(Integer.parseInt(workerCode));
+            List<Map<String,Object>> repairList = repairService.SearchByworkerCode(Integer.parseInt(workerCode));
             System.out.println("repairList = " + repairList);
             model.addAttribute("repairList", repairList);
         } else {
-            List<RepairDTO> repairList = repairService.SearchByworkerName(worker);
+            List<Map<String,Object>> repairList = repairService.SearchByworkerName(worker);
             System.out.println("repairList = " + repairList);
             model.addAttribute("repairList", repairList);
         }

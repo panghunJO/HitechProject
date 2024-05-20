@@ -275,22 +275,24 @@
     <table class="table table-bordered">
         <thead class="table-light">
         <tr>
+            <th scope="col">예약 번호</th>
+            <th scope="col">작업내용</th>
+            <th scope="col">작업 상태</th>
+            <th scope="col">작업 날짜</th>
             <th scope="col">작업자</th>
-            <th scope="col">작업 내용</th>
             <th scope="col">필요 부품</th>
-            <th scope="col">진행상황</th>
-            <th scope="col">날짜</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="repair : ${repairList}">
-            <td th:text="${repair.workerDTO.userDTO.userName}"></td>
-            <td th:text="${ repair.repairDTO.content}"></td>
-            <td th:text="${repair.repairPartDTO.partDTO.partName}"></td>
-            <td th:text="${ repair.repairDTO.status}"></td>
-            <td th:text="${ repair.repairDTO.date}"></td>
+            <td th:text="${repair['res_code']}"></td>
+            <td th:text="${repair['repair_content']}"></td>
+            <td th:text="${repair['repair_status']}"></td>
+            <td th:text="${repair['repair_date']}"></td>
+            <td th:text="${repair['repair_workers']}"></td>
+            <td th:text="${repair['part_names']}"></td>
             <td>
-                <button id="viewBtn" class="btn btn-light" th:attr="onclick='repairDetail(\'' + ${repair.resDTO.code} + '\')'">상세보기</button>
+                <button id="viewBtn" class="btn btn-light" th:onclick="'repairDetail(' + ${repair['res_code']} + ')'">상세보기</button>
             </td>
         </tr>
         </tbody>

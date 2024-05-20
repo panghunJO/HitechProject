@@ -11,14 +11,15 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface RepairMapper {
 
-    List<RepairDTO> findAllRepair();
-    List<RepairDTO> SearchByworkerCode(int workerCode);
+    List<Map<String,Object>> findAllRepair();
+    List<Map<String,Object>> SearchByworkerCode(int workerCode);
 
-    List<RepairDTO> SearchByworkerName(String worker);
+    List<Map<String,Object>> SearchByworkerName(String worker);
 
     List<Repair2DTO> selectRepair(int resCode);
 
