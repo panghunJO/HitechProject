@@ -329,6 +329,13 @@ public class UserController {
     }
 
 
+    // 작업중
+    @GetMapping("/user/resCar")
+    public String resCar() {
+
+        return "user/resCar";
+    }
+
 }
 
 

@@ -161,9 +161,14 @@
                         <i class="bi bi-circle"></i><span>예약 조회</span>
                     </a>
                 </li>
+                <li>
+                    <!--                    <a th:href="@{/user/rescustomer(userToken=${userDTO.password})}">-->
+                    <a href="/user/resCar">
+                        <i class="bi bi-circle"></i><span>차량 등록</span>
+                    </a>
+                </li>
             </ul>
         </li>
-
 
         <li class="nav-item" sec:authorize="hasAnyAuthority('관리자')">
             <a class="nav-link collapsed" data-bs-target="#admin-nav" data-bs-toggle="collapse" href="#">
