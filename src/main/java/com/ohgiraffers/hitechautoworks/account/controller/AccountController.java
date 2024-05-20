@@ -25,7 +25,6 @@ public class AccountController {
     private AuthUserInfo authUserInfo;
 
 
-
     @GetMapping("/user/employee")
     public String account(Model model) {
         List<UserDTO> userList = accountService.findAllUser();
@@ -49,7 +48,7 @@ public class AccountController {
         System.out.println("userName = " + userName);
         System.out.println("userCode = " + userCode);
 
-        if(userName == "" && userCode == "") {
+        if (userName == "" && userCode == "") {
             List<UserDTO> userList = accountService.findAllUser();
             model.addAttribute("userList", userList);
             System.out.println("userList = " + userList);
@@ -64,7 +63,7 @@ public class AccountController {
             System.out.println("userList = " + userList);
             model.addAttribute("userList", userList);
         }
-            return "user/employeePage";
+        return "user/employeePage";
 
     }
 
@@ -76,7 +75,7 @@ public class AccountController {
         authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         String userName = userDTO.getUserName();
-        model.addAttribute("userName",userName);
+        model.addAttribute("userName", userName);
         return "admin/account/account";
     }
 
@@ -91,11 +90,11 @@ public class AccountController {
         authUserInfo = new AuthUserInfo();
         UserDTO userDTO1 = authUserInfo.getUserDTO();
         String userName = userDTO1.getUserName();
-        model.addAttribute("userName",userName);
+        model.addAttribute("userName", userName);
     }
 
     @PostMapping("/admin/account/AccountModify")
-    public String account(@RequestParam String userId, @RequestParam int userCode,@RequestParam String userDepartment, @RequestParam String userPw, @RequestParam String userPwCheck, @RequestParam String userName,
+    public String account(@RequestParam String userId, @RequestParam int userCode, @RequestParam String userDepartment, @RequestParam String userPw, @RequestParam String userPwCheck, @RequestParam String userName,
                           @RequestParam String userEmail, @RequestParam String userAddress, @RequestParam String userPhone, Model model,
                           HttpSession session) {
         System.out.println("userId = " + userId);
@@ -105,7 +104,7 @@ public class AccountController {
         accountService.updateUser(userId, userCode, userDepartment, userPw, userEmail, userPwCheck, userAddress, userPhone, userName);
         if (!userPw.equals(userPwCheck)) {
             // 비밀번호 확인이 일치하지 않을 경우 에러 메시지 전달하고 리다이렉트
-            session.setAttribute("errorMessage","비밀번호가 일치하지 않습니다.");
+            session.setAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
             return "redirect:/admin/account/account";
 
         } else {
@@ -123,9 +122,5 @@ public class AccountController {
         return "redirect:/admin/account/account";
 
     }
-
-
-
-
 
 }

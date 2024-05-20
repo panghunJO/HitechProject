@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>HitechAutoworks</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/assets/img/favicon.png" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.bubble.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@14.0.1/simple-datatables.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <style>
+        .clickable {
+            cursor: pointer;
+        }
+        .hidden-content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{common/header.html}"></div>
+<div th:replace="~{common/sidebar.html}"></div>
+
+<!-- 입력 내용 -->
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>예약</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/user/selectRes">Home</a></li>
+                <li class="breadcrumb-item active"><a href="/user/res"></a>예약차량 등록</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <!-- first card -->
+    <div class="row">
+        <div class="col-lg-4 clickable dropdown">
+            <div class="card mb-3" onclick="toggleContent(this)">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="https://i.postimg.cc/L8rsr1gx/hyundai.jpg" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title mt-1">현대</h5>
+                            <p class="card-text me-4 mb-2">내 차를 선택해 주세요.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-content mt-3">
+                    <form class="p-3">
+                        <div class="form-check">
+                            <input class="form-check-input repair-item" type="checkbox" id="gran" value="그랜저">
+                            <label class="form-check-label" for="gran"> 그랜저 </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input repair-item" type="checkbox" id="abante" value="아반떼">
+                            <label class="form-check-label" for="abante">아반떼</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input repair-item" type="checkbox" id="sonata" value="쏘나타">
+                            <label class="form-check-label" for="sonata">쏘나타</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input repair-item" type="checkbox" id="santa" value="싼타페">
+                            <label class="form-check-label" for="santa">싼타페</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input repair-item" type="checkbox" id="star" value="스타렉스">
+                            <label class="form-check-label" for="star">스타렉스</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input repair-item" type="checkbox" id="ssan" value="투싼">
+                            <label class="form-check-label" for="ssan">투싼</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input repair-item" type="checkbox" id="genesis" value="제네시스">
+                            <label class="form-check-label" for="genesis">제네시스</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- second card -->
+        <div class="col-lg-4 clickable dropdown">
+            <div class="card mb-3" onclick="toggleContent(this)">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="https://i.postimg.cc/N0kkFBtv/image.png" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title mt-1">기아</h5>
+                            <p class="card-text me-4 mb-2">내 차를 선택해 주세요.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-content mt-3">
+                    <form class="p-3">
+                        <div class="form-check">
+                            <input class="form-check-input repair-item" type="checkbox" id="carnival" value="카니발">
+                            <label class="form-check-label" for="carnival">카니발</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input repair-item" type="checkbox" id="sorento" value="쏘렌토">
+                            <label class="form-check-label" for="sorento">쏘렌토</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input repair-item" type="checkbox" id="K5" value="K5">
+                            <label class="form-check-label" for="K5">K5</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input repair-item" type="checkbox" id="K7" value="K7">
+                            <label class="form-check-label" for="K7">K7</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input repair-item" type="checkbox" id="MN" value="모닝">
+                            <label class="form-check-label" for="MN">모닝</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input repair-item" type="checkbox" id="SP" value="스포티지">
+                            <label class="form-check-label" for="SP">스포티지</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input repair-item" type="checkbox" id="ray" value="레이">
+                            <label class="form-check-label" for="ray">레이</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+                <!-- last Card (Input Form) -->
+                <div class="col-lg-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title mt-1">다음 단계</h5>
+                            <form>
+                                <div class="mb-3">
+                                    <textarea class="form-control" id="inputMessage" rows="3" placeholder="수리내용을 체크해주세요"></textarea>
+                                    <label for="inputMessage" class="form-label mt-4">리스트에 없는 경우 직접 작성해주세요</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary">다음 단계로</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End First Row -->
+
+    <!--third card-->
+    <div class="row">
+    <div class="col-lg-4 clickable dropdown">
+        <div class="card mb-3" onclick="toggleContent(this)">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="https://i.postimg.cc/3NVMdgT6/chevy-impala-6889699-1280.jpg" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title mt-1">쌍용(KG모빌리티)/세보레(GM대우)</h5>
+                        <p class="card-text me-4 mb-2">내 차를 선택해 주세요.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden-content mt-3">
+                <form class="p-3">
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="tiboli" value="티볼리">
+                        <label class="form-check-label" for="tiboli">티볼리</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="Lex" value="렉스턴">
+                        <label class="form-check-label" for="Lex">렉스턴</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="corando" value="코란도">
+                        <label class="form-check-label" for="corando">코란도</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="tores" value="토레스">
+                        <label class="form-check-label" for="tores">토레스</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="chairman" value="체어맨">
+                        <label class="form-check-label" for="chairman">체어맨</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="AC" value="액티언">
+                        <label class="form-check-label" for="AC">액티언</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="spark" value="스파크">
+                        <label class="form-check-label" for="spark">스파크</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="malibu" value="말리부">
+                        <label class="form-check-label" for="malibu">말리부</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="trex" value="트랙스">
+                        <label class="form-check-label" for="trex">트랙스</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="cruz" value="cruz">
+                        <label class="form-check-label" for="cruz">크루즈</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="olando" value="올란도">
+                        <label class="form-check-label" for="olando">올란도</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="trailB" value="트레일블레이저">
+                        <label class="form-check-label" for="trailB">트레일블레이저</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- forth card -->
+    <div class="col-lg-4 clickable dropdown">
+        <div class="card mb-3" onclick="toggleContent(this)">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="https://i.postimg.cc/435rzCGp/jaguar-4073534-1280.png" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title mt-1">기타/수입차</h5>
+                        <p class="card-text me-4 mb-2">내 차를 선택해 주세요.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden-content mt-3">
+                <form class="p-3">
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="other" value="기타 승용차">
+                        <label class="form-check-label" for="other">기타 승용차</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="motos" value="어울림 모터스">
+                        <label class="form-check-label" for="motos">어울림 모터스</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="mini" value="미니">
+                        <label class="form-check-label" for="mini">미니</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="toyota" value="도요타">
+                        <label class="form-check-label" for="toyota">도요타</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="BMW" value="BMW">
+                        <label class="form-check-label" for="BMW">BMW</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="lax" value="렉서스">
+                        <label class="form-check-label" for="lax">렉서스</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input repair-item" type="checkbox" id="porche" value="포르쉐">
+                        <label class="form-check-label" for="porche">포르쉐</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<!--                            <div class="col-md-8">-->
+<!--                                <div class="card-body">-->
+<!--                                    <h5 class="card-title">기본점검 및 경정비</h5>-->
+<!--                                    <p class="card-text">기본점검 및 경정비는 차량의 안전과 편의를 위해 정기적으로 수행해야 합니다.</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="hidden-content mt-3">-->
+<!--                            <form class="p-3">-->
+<!--                                <div class="form-check">-->
+<!--                                    <input class="form-check-input repair-item" type="checkbox" id="warning" value="경고등 점등">-->
+<!--                                    <label class="form-check-label" for="warning">경고등 점등</label>-->
+<!--                                </div>-->
+<!--                                <div class="form-check">-->
+<!--                                    <input class="form-check-input repair-item" type="checkbox" id="warmAndCold" value="냉/난방 장치">-->
+<!--                                    <label class="form-check-label" for="warmAndCold">냉/난방 장치</label>-->
+<!--                                </div>-->
+<!--                                <div class="form-check">-->
+<!--                                    <input class="form-check-input repair-item" type="checkbox" id="wheelTire" value="휠/타이어 불량">-->
+<!--                                    <label class="form-check-label" for="wheelTire">휠/타이어 불량</label>-->
+<!--                                </div>-->
+<!--                                <div class="form-check">-->
+<!--                                    <input class="form-check-input repair-item" type="checkbox" id="lamp" value="램프류">-->
+<!--                                    <label class="form-check-label" for="lamp">램프류</label>-->
+<!--                                </div>-->
+<!--                                <div class="form-check">-->
+<!--                                    <input class="form-check-input repair-item" type="checkbox" id="openwarning" value="개폐 불량">-->
+<!--                                    <label class="form-check-label" for="openwarning">개폐 불량</label>-->
+<!--                                </div>-->
+<!--                                <div class="form-check">-->
+<!--                                    <input class="form-check-input repair-item" type="checkbox" id="switchProblem" value="스위치 작동">-->
+<!--                                    <label class="form-check-label" for="switchProblem">스위치 작동</label>-->
+<!--                                </div>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; Fifth Card &ndash;&gt;-->
+<!--                <div class="col-lg-4 clickable dropdown">-->
+<!--                    <div class="card mb-3" onclick="toggleContent(this)">-->
+<!--                        <div class="row g-0">-->
+<!--                            <div class="col-md-4">-->
+<!--                                <img src="https://i.postimg.cc/6qsSjXcT/DALL-E-2024-05-17-16-33-01-Create-a-simple-clean-and-modern-icon-that-combines-elements-of-a-car.webp" class="img-fluid rounded-start" alt="...">-->
+<!--                            </div>-->
+<!--                            <div class="col-md-8">-->
+<!--                                <div class="card-body">-->
+<!--                                    <h5 class="card-title">특화 정비</h5>-->
+<!--                                    <p class="card-text">특화정비는 차량의 고유 기능과 편의성을 유지하고 개선하는 작업입니다.</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="hidden-content mt-3">-->
+<!--                            <form class="p-3">-->
+<!--                                <div class="form-check">-->
+<!--                                    <input class="form-check-input repair-item" type="checkbox" id="sunloof" value="썬루프">-->
+<!--                                    <label class="form-check-label" for="sunloof">썬루프</label>-->
+<!--                                </div>-->
+<!--                                <div class="form-check">-->
+<!--                                    <input class="form-check-input repair-item" type="checkbox" id="glass" value="유리">-->
+<!--                                    <label class="form-check-label" for="glass">유리</label>-->
+<!--                                </div>-->
+<!--                                <div class="form-check">-->
+<!--                                    <input class="form-check-input repair-item" type="checkbox" id="audio" value="오디오">-->
+<!--                                    <label class="form-check-label" for="audio">오디오</label>-->
+<!--                                </div>-->
+<!--                                <div class="form-check">-->
+<!--                                    <input class="form-check-input repair-item" type="checkbox" id="sheet" value="시트">-->
+<!--                                    <label class="form-check-label" for="sheet">시트</label>-->
+<!--                                </div>-->
+<!--                                <div class="form-check">-->
+<!--                                    <input class="form-check-input repair-item" type="checkbox" id="etcCar" value="전기차/LPG">-->
+<!--                                    <label class="form-check-label" for="etcCar">전기차/LPG</label>-->
+<!--                                </div>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>&lt;!&ndash; End Second Row &ndash;&gt;-->
+        </div>
+
+        <script>
+            function toggleContent(card) {
+                var content = card.querySelector('.hidden-content');
+                if (content.style.display === "none" || content.style.display === "") {
+                    content.style.display = "block";
+                } else {
+                    content.style.display = "none";
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var repairItems = document.querySelectorAll('.repair-item');
+                repairItems.forEach(function(item) {
+                    item.addEventListener('change', function() {
+                        var selectedItems = [];
+                        repairItems.forEach(function(checkbox) {
+                            if (checkbox.checked) {
+                                selectedItems.push(checkbox.value);
+                            }
+                        });
+                        document.getElementById('inputMessage').value = selectedItems.join(', ');
+                    });
+                });
+            });
+        </script>
+    </section>
+</main>
+
+<div th:replace="~{common/footer.html}"></div>
+</body>
+</html>
