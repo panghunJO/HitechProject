@@ -58,12 +58,25 @@
 
 
     <section class="section">
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">HitechAutoworks 알리미</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                   수리내용과 날짜를 입력해주세요! 체크박스에 없으면 직접 입력해주세요!
+                </div>
+            </div>
+        </div>
+
         <div class="container mt-5">
             <div class="row">
                 <!-- First Card -->
                 <div class="col-lg-4 clickable dropdown">
-                    <div class="card mb-3" onclick="toggleContent(this)">
-                        <div class="row g-0">
+                    <div class="card mb-3">
+                        <div class="row g-0" onclick="toggleContent(this)">
                             <div class="col-md-4">
                                 <img src="https://i.postimg.cc/Cx3JjNxs/2024-05-17-3-42-26.png" class="img-fluid rounded-start" alt="...">
                             </div>
@@ -107,8 +120,8 @@
 
                 <!-- Second Card -->
                 <div class="col-lg-4 clickable dropdown">
-                    <div class="card mb-3" onclick="toggleContent(this)">
-                        <div class="row g-0">
+                    <div class="card mb-3">
+                        <div class="row g-0" onclick="toggleContent(this)">
                             <div class="col-md-4">
                                 <img src="https://i.postimg.cc/FHhmZjC3/DALL-E-2024-05-17-16-20-19-Create-a-simple-clean-and-modern-icon-of-a-car-engine-The-icon-shoul.webp" class="img-fluid rounded-start" alt="...">
                             </div>
@@ -165,51 +178,52 @@
                                 <label>Select Time</label>
                                 <div class="row">
                                     <div class="col-4">
-                                        <input type="checkbox" class="btn-check" id="btn-check-9" autocomplete="off">
-                                        <label class="btn btn-outline-primary time-btn" for="btn-check-9" value="9">9 AM</label>
+                                        <input type="radio" class="btn-check" name="time" id="btn-check-9" autocomplete="off" value="9">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-9">9:00</label>
                                     </div>
                                     <div class="col-4">
-                                        <input type="checkbox" class="btn-check" id="btn-check-10" autocomplete="off">
-                                        <label class="btn btn-outline-primary time-btn" for="btn-check-10" value="10">10 AM</label>
+                                        <input type="radio" class="btn-check" name="time" id="btn-check-10" autocomplete="off" value="10">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-10">10:00</label>
                                     </div>
                                     <div class="col-4">
-                                        <input type="checkbox" class="btn-check" id="btn-check-11" autocomplete="off">
-                                        <label class="btn btn-outline-primary time-btn" for="btn-check-11" value="11">11 AM</label>
-                                    </div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-4">
-                                        <input type="checkbox" class="btn-check" id="btn-check-13" autocomplete="off">
-                                        <label class="btn btn-outline-primary time-btn" for="btn-check-13" value="13">1 PM</label>
-                                    </div>
-                                    <div class="col-4">
-                                        <input type="checkbox" class="btn-check" id="btn-check-14" autocomplete="off">
-                                        <label class="btn btn-outline-primary time-btn" for="btn-check-14" value="14">2 PM</label>
-                                    </div>
-                                    <div class="col-4">
-                                        <input type="checkbox" class="btn-check" id="btn-check-15" autocomplete="off">
-                                        <label class="btn btn-outline-primary time-btn" for="btn-check-15" value="15">3 PM</label>
+                                        <input type="radio" class="btn-check" name="time" id="btn-check-11" autocomplete="off" value="11">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-11">11:00</label>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-4">
-                                        <input type="checkbox" class="btn-check" id="btn-check-16" autocomplete="off">
-                                        <label class="btn btn-outline-primary time-btn" for="btn-check-16" value="16">4 PM</label>
+                                        <input type="radio" class="btn-check" name="time" id="btn-check-13" autocomplete="off" value="13">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-13">13:00</label>
                                     </div>
                                     <div class="col-4">
-                                        <input type="checkbox" class="btn-check" id="btn-check-17" autocomplete="off">
-                                        <label class="btn btn-outline-primary time-btn" for="btn-check-17" value="17">5 PM</label>
+                                        <input type="radio" class="btn-check" name="time" id="btn-check-14" autocomplete="off" value="14">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-14">14:00</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="radio" class="btn-check" name="time" id="btn-check-15" autocomplete="off" value="15">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-15">15:00</label>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-4">
+                                        <input type="radio" class="btn-check" name="time" id="btn-check-16" autocomplete="off" value="16">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-16">16:00</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="radio" class="btn-check" name="time" id="btn-check-17" autocomplete="off" value="17">
+                                        <label class="btn btn-outline-primary time-btn" for="btn-check-17">17:00</label>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
 
                 <!-- Fourth Card -->
                 <div class="col-lg-4 clickable dropdown">
-                    <div class="card mb-3" onclick="toggleContent(this)">
-                        <div class="row g-0">
+                    <div class="card mb-3">
+                        <div class="row g-0" onclick="toggleContent(this)">
                             <div class="col-md-4">
                                 <img src="https://i.postimg.cc/15GVXrNq/DALL-E-2024-05-17-16-28-40-Create-a-simple-clean-and-modern-icon-of-a-car-tire-The-icon-should.webp" class="img-fluid rounded-start" alt="...">
                             </div>
@@ -253,8 +267,8 @@
 
                 <!-- Fifth Card -->
                 <div class="col-lg-4 clickable dropdown">
-                    <div class="card mb-3" onclick="toggleContent(this)">
-                        <div class="row g-0">
+                    <div class="card mb-3">
+                        <div class="row g-0" onclick="toggleContent(this)">
                             <div class="col-md-4">
                                 <img src="https://i.postimg.cc/6qsSjXcT/DALL-E-2024-05-17-16-33-01-Create-a-simple-clean-and-modern-icon-that-combines-elements-of-a-car.webp" class="img-fluid rounded-start" alt="...">
                             </div>
@@ -297,11 +311,16 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title mt-1">다음 단계</h5>
-                            <div class="mb-3">
-                                <label for="inputMessage" class="form-label">수리</label>
-                                <textarea class="form-control" id="inputMessage" rows="3" placeholder="수리내용을 체크해주세요"></textarea>
-                            </div>
-                            <button type="button" id="submitBtn" class="btn btn-primary">전송하기</button> <!-- 버튼 타입 수정 -->
+                            <form action="/user/res/carSubmit" method="post" style="position:relative;">
+                                <div class="mb-3">
+                                    <textarea class="form-control" id="inputMessage" name="inputMessage" rows="3" placeholder="수리내용을 체크해주세요"></textarea>
+                                    <label for="inputMessage" class="form-label mt-4">리스트에 없는 경우 직접 작성해주세요</label>
+                                </div>
+                                <div style="position:relative;">
+                                    <button type="submit" class="btn btn-primary" id="submitBtn" disabled>다음 단계로</button>
+                                    <div id="overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0); display:none;"></div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -310,8 +329,9 @@
     </section>
 
     <script>
+
         function toggleContent(card) {
-            var content = card.querySelector('.hidden-content');
+            var content = card.parentElement.querySelector('.hidden-content');
             if (content.style.display === "none" || content.style.display === "") {
                 content.style.display = "block";
             } else {
@@ -320,6 +340,37 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+
+            var inputMessage = document.getElementById('inputMessage');
+            var submitBtn = document.getElementById('submitBtn');
+            var overlay = document.getElementById('overlay');
+            var datePicker = document.getElementById('datePicker');
+            var selectedTime = null;
+
+            function checkInput() {
+                var dateSelected = datePicker.value.trim() !== "";
+                var timeSelected = selectedTime !== null;
+                var messageFilled = inputMessage.value.trim() !== "";
+
+                if (dateSelected && timeSelected && messageFilled) {
+                    submitBtn.disabled = false;
+                    overlay.style.display = 'none';
+                } else {
+                    submitBtn.disabled = true;
+                    overlay.style.display = 'block';
+                }
+            }
+
+            checkInput();
+
+            inputMessage.addEventListener('input', checkInput);
+
+            overlay.addEventListener('click', function() {
+                const toastLiveExample = document.getElementById('liveToast');
+                const toast = new bootstrap.Toast(toastLiveExample);
+                toast.show();
+            });
+
             var repairItems = document.querySelectorAll('.repair-item');
             repairItems.forEach(function(item) {
                 item.addEventListener('change', function() {
@@ -329,43 +380,35 @@
                             selectedItems.push(checkbox.value);
                         }
                     });
-                    document.getElementById('inputMessage').value = selectedItems.join(', ');
+                    inputMessage.value = selectedItems.join(', ');
+                    checkInput();
                 });
             });
 
-            var datePicker = document.getElementById('datePicker');
             datePicker.addEventListener('change', function() {
                 document.getElementById('timePickerDiv').style.display = 'block';
                 const selectedDate = datePicker.value;
-                fetchAndDisableTimes(selectedDate); // 바뀐 부분: change 이벤트에 fetchAndDisableTimes 함수 호출
+                fetchAndDisableTimes(selectedDate);
+                checkInput();
             });
 
             const timeButtons = document.querySelectorAll('.time-btn');
-            let selectedTime = null; // 선택된 시간을 저장할 변수
             timeButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    timeButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    selectedTime = button.getAttribute('value'); // 선택된 시간 값 저장
-                    console.log('Selected time:', selectedTime);
+                    selectedTime = button.value;
+                    checkInput();
                 });
             });
 
-            const initialSelectedDate = datePicker.value;
-            if (initialSelectedDate) {
-                fetchAndDisableTimesOnLoad(initialSelectedDate); // 바뀐 부분: 초기 로드 시 fetchAndDisableTimesOnLoad 함수 호출
-            }
-
-            // Submit 버튼 클릭 시 데이터 전송
             document.getElementById('submitBtn').addEventListener('click', function(event) {
                 event.preventDefault();
                 const date = datePicker.value;
-                const message = document.getElementById('inputMessage').value;
+                const message = inputMessage.value;
 
                 const data = {
                     date: date,
                     message: message,
-                    time: selectedTime // 선택된 시간 값 전송
+                    time: selectedTime
                 };
 
                 fetch('/user/res/Submit', {
@@ -378,65 +421,41 @@
                     .then(response => response.json())
                     .then(result => {
                         console.log('Success:', result);
-                        // 성공 시 추가 작업을 여기에 작성
                     })
                     .catch(error => {
                         console.error('Error:', error);
                     });
             });
+
+            function fetchAndDisableTimes(selectedDate) {
+                fetch('/user/res/resTime', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ date: selectedDate })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        const times = data.disabledTimes;
+                        console.log(times);
+                        times.forEach(time => {
+                            const timeButton = document.querySelector(`input[value="${time}"]`);
+                            if (timeButton) {
+                                timeButton.disabled = true;
+                                const label = document.querySelector(`label[for="${timeButton.id}"]`);
+                                if (label) {
+                                    label.classList.add('disabled');
+                                }
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
         });
 
-        // 서버에서 값을 받아와서 시간별 버튼 비활성화 (datePicker change 이벤트)
-        function fetchAndDisableTimes(selectedDate) {
-            fetch('/user/res/resTime', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ date: selectedDate })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    const times = data.disabledTimes;
-                    times.forEach(time => {
-                        const timeButton = document.querySelector(`label[value="${time}"]`);
-                        if (timeButton) {
-                            const checkbox = timeButton.previousElementSibling;
-                            checkbox.disabled = true;
-                            timeButton.classList.add('disabled');
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-
-        // 서버에서 값을 받아와서 시간별 버튼 비활성화 (초기 로드 시)
-        function fetchAndDisableTimesOnLoad(selectedDate) {
-            fetch('/user/res/resTime', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ date: selectedDate })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    const times = data.disabledTimes;
-                    times.forEach(time => {
-                        const timeButton = document.querySelector(`label[value="${time}"]`);
-                        if (timeButton) {
-                            const checkbox = timeButton.previousElementSibling;
-                            checkbox.disabled = true;
-                            timeButton.classList.add('disabled');
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
     </script>
 
 

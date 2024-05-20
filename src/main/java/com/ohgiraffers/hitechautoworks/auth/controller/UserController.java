@@ -19,10 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 @SessionAttributes("userDTO")
@@ -335,8 +332,12 @@ public class UserController {
     public Map<String, Object> checkResTime(@RequestBody Map<String,Date> date) {
 
         System.out.println("fadsfasdfasdfas" + date.get("date"));
-        // "disabledTimes": ["9", "11", "14"] 이대로 받으면 이거 비활성화
+        // "disabledTimes": ["9", "11", "14"] 이대로 받으면 이거 비활성화 무조건 배열로 !!!!!!!!!
         Map<String,Object> disabledTimes = new HashMap();
+        String[] disabledTimesArray = {"9", "10", "11"};
+//        List<String> disabledTimesList = Arrays.asList("9", "10", "11");  이 방식도 가능하다 함
+
+        disabledTimes.put("disabledTimes",disabledTimesArray);
 
 
         return disabledTimes;
