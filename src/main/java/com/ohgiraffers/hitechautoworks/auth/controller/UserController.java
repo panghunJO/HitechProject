@@ -355,13 +355,19 @@ public class UserController {
     }
 
 
-
-
     // 작업중
     @GetMapping("/user/resCar")
     public String resCar() {
 
         return "user/resCar";
+    }
+
+    @PostMapping("/user/res/carSubmit")
+    public String carSubmit(@RequestParam String inputMessage) {
+
+        System.out.println("inputMessage = " + inputMessage);
+
+        return "user/res";
     }
 
 }
