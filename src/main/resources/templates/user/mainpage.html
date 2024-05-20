@@ -92,12 +92,12 @@
                                                 new Chart(document.querySelector("#reportsChart"), {
                                                     type: 'bar',
                                                     data: {
-                                                        labels: data.partName.reverse(),
+                                                        labels: data.partName,
                                                         datasets: [
                                                             {
                                                                 label: "재고 수량",
                                                                 backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-                                                                data : data.partStock.reverse()
+                                                                data : data.partStock
                                                             }
                                                         ]
                                                     },
