@@ -343,7 +343,7 @@
                                                         const toastLiveExample = document.getElementById('liveToast')
                                                         const toast = new bootstrap.Toast(toastLiveExample)
                                                         toast.show()
-
+                                                        currentPasswordInput.value = '';
                                                     } else if (data == 1) {
                                                         alert("변경성공!! 다시 로그인해주세요");
                                                         location.href = '/logout';
