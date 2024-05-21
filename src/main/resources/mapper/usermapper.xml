@@ -119,5 +119,22 @@
         FROM tbl_user
         GROUP BY user_role;
     </select>
+
+    <select id="getCustomerCount">
+        SELECT
+        COUNT(user_code)
+        FROM tbl_user
+        WHERE user_role = 'EMPLOYEE';
+    </select>
+
+    <select id="getTimeCount">
+        SELECT
+        count(SUBSTR(res_date,12,2)) AS timeCount,
+        SUBSTR(res_date,12,2) AS time
+        FROM
+        tbl_res
+        WHERE SUBSTR(res_date,1,10) = #{ date1 }
+        group by res_date ;
+    </select>
 </mapper>
 

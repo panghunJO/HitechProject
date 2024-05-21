@@ -439,6 +439,15 @@
                     .then(data => {
                         const times = data.disabledTimes;
                         console.log(times);
+                        const allButtons = document.querySelectorAll('input[name="time"]');
+                        allButtons.forEach(button => {
+                            button.disabled = false;
+                            const label = document.querySelector(`label[for="${button.id}"]`);
+                            if (label) {
+                                label.classList.remove('disabled');
+                            }
+                        });
+
                         times.forEach(time => {
                             const timeButton = document.querySelector(`input[value="${time}"]`);
                             if (timeButton) {
@@ -448,6 +457,7 @@
                                     label.classList.add('disabled');
                                 }
                             }
+
                         });
                     })
                     .catch(error => {

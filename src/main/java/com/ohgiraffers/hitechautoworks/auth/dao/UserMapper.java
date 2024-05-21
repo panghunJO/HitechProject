@@ -7,6 +7,7 @@ import com.ohgiraffers.hitechautoworks.repair.dto.RepairPartDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -43,4 +44,8 @@ public interface UserMapper {
     List<Map<String, Object>> getPartChart();
 
     List<Map<String, Integer>> getPersonChart();
+
+    int getCustomerCount();
+
+    List<Map<String,Object>> getTimeCount(Date date1);
 }

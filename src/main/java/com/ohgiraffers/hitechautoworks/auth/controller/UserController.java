@@ -332,12 +332,14 @@ public class UserController {
     public Map<String, Object> checkResTime(@RequestBody Map<String,Date> date) {
 
         System.out.println("fadsfasdfasdfas" + date.get("date"));
+        Date date1 = date.get("date");
+        List<String> time = userService.getTime(date1);
         // "disabledTimes": ["9", "11", "14"] 이대로 받으면 이거 비활성화 무조건 배열로 !!!!!!!!!
-        Map<String,Object> disabledTimes = new HashMap();
-        String[] disabledTimesArray = {"9", "10", "11"};
-//        List<String> disabledTimesList = Arrays.asList("9", "10", "11");  이 방식도 가능하다 함
 
-        disabledTimes.put("disabledTimes",disabledTimesArray);
+        Map<String,Object> disabledTimes = new HashMap();
+//        List<String> disabledTimesList = Arrays.asList("9", "10", "11");
+
+        disabledTimes.put("disabledTimes",time);
 
 
         return disabledTimes;

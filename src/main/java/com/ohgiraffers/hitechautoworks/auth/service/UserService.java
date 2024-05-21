@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.sql.Date;
 import java.util.*;
 
 @Service
@@ -117,5 +118,62 @@ public class UserService  {
         }
 
         return map;
+    }
+
+    public List<String>getTime(Date date1) {
+
+//        for( Map<String,Integer> a : count){
+//            System.out.println(a.get("time"));
+//            System.out.println(a.get("timeCount"));
+//            switch (a.get("time")) {
+//                case 12:
+//                    checkNull = employeeCount - a.get("timeCount");
+//                    break;
+//                case 14:
+//                    checkNull = employeeCount - a.get("timeCount");
+//                    break;
+//                case 11:
+//                    checkNull = employeeCount - a.get("timeCount");
+//                    break;
+//            }
+//            System.out.println("checkNull = " + checkNull);
+//        }
+        int employeeCount = userMapper.getCustomerCount();
+        List<Map<String,Object>> count = userMapper.getTimeCount(date1);
+
+        System.out.println("count = " + count);
+        int checkNull = 0;
+        int thisTime = 0;
+        List<String> disabledTimesList = new ArrayList<>();
+        for (Map<String, Object> a : count) {
+            Object rawTime = a.get("time");
+            Object rawTimeCount = a.get("timeCount");
+
+            int time = Integer.parseInt(rawTime.toString());
+            int timeCount = ((Number) rawTimeCount).intValue();
+
+
+            switch (time) {
+                case 9: checkNull = employeeCount - timeCount; thisTime = 9; break;
+                case 10: checkNull = employeeCount - timeCount; thisTime = 10; break;
+                case 11: checkNull = employeeCount - timeCount; thisTime = 11; break;
+                case 12: checkNull = employeeCount - timeCount; thisTime = 12; break;
+                case 13: checkNull = employeeCount - timeCount; thisTime = 13; break;
+                case 14: checkNull = employeeCount - timeCount; thisTime = 14; break;
+                case 15: checkNull = employeeCount - timeCount; thisTime = 15; break;
+                case 16: checkNull = employeeCount - timeCount; thisTime = 16; break;
+                case 17: checkNull = employeeCount - timeCount; thisTime = 17; break;
+                default:
+                    System.out.println("Default case");
+                    break;
+            }
+            System.out.println("checkNull = " + checkNull);
+            if(checkNull == 0){
+                disabledTimesList.add(String.valueOf(thisTime));
+            }
+        }
+        String[] time123 = {"1"};
+        System.out.println("disabledTimesList = " + disabledTimesList);
+        return disabledTimesList;
     }
 }
