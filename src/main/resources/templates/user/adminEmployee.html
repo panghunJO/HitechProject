@@ -72,7 +72,8 @@
         </thead>
         <tbody>
         <tr th:each="user : ${userList}">
-            <td th:text="${user.userName}"></td>
+            <th scope="col"><a th:href="'/user/customermypage?customerUserCode=' + ${user.userCode}*123456 " th:text="${user.userName}"></a></th>
+<!--            <td th:text="${user.userName}"></td>-->
             <td th:text="${user.userCode}"></td>
             <td th:text="${user.userDepartment}"></td>
             <td th:text="${user.userPhone}"></td>
@@ -81,7 +82,14 @@
     </table>
 </main>
 
+<script>
+    function userDetail(userCode) {
+        location.href = '/user/customermypage?userCode=' + 123456 * userCode;
+    }
+</script>
 
 <div th:replace="/common/footer.html"></div>
+
+
 </body>
 </html>
