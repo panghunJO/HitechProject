@@ -144,7 +144,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label text-end">날짜</label>
                                 <div class="col-sm-6">
-                                    <input type="date" name="date" class="form-control" th:value="${sqldate}">
+                                    <input type="datetime-local" id="dateTime" name="date" class="form-control" th:value="${sqldate}">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -153,6 +153,12 @@
                                     <input type="text" name="extra" class="form-control" th:value="${res.extra}">
                                 </div>
                             </div>
+                                <div class="row mb-3">
+                                    <label class="col-sm-3 col-form-label text-end">진행상황</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="extra" class="form-control" th:value="${repair.status}">
+                                    </div>
+                                </div>
                             <div class="row">
                                 <div class="col text-end">
 
@@ -194,6 +200,7 @@
                         </form>
 
                         <script>
+
                             function updateItem() {
                                 document.getElementById("actionForm").action = "/user/resUpdate";
                                 document.getElementById("actionForm").submit();
@@ -273,6 +280,7 @@
                         </form>
 
                         <script>
+
                             document.addEventListener("DOMContentLoaded", function() {
                                 const authuserCode = `[[${userDTO.userCode}]]`;
                                 const userRole = `[[${userDTO.userRole}]]`;

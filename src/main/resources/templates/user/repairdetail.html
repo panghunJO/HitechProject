@@ -183,7 +183,6 @@
                                 <label class="col-sm-3 col-form-label text-end">날짜</label>
                                 <div class="col-sm-6">
                                     <input type="text" th:value="${repairDTO[0].repairDTO.date}" readonly>
-                                    <input type="date" name="date" class="form-control" >
                                 </div>
                             </div>
                             <div class="row">
@@ -263,6 +262,7 @@
 
                     </form>
                     <script>
+
                         function modifyrepair() {
                             document.getElementById("actionForm").action = "/user/repairModify";
                             document.getElementById("actionForm").submit();

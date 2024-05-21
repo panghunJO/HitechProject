@@ -151,7 +151,7 @@
         <set>
             <if test="content != null">repair_content = #{content},</if>
             <if test="status != null">repair_status = #{status},</if>
-            <if test="date != null">repair_date = #{date},</if>
+
         </set>
         WHERE res_code = #{resCode}
     </update>

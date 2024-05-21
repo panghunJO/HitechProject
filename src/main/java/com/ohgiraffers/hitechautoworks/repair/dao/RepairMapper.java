@@ -23,7 +23,7 @@ public interface RepairMapper {
 
     List<Repair2DTO> selectRepair(int resCode);
 
-    void modifyRepair(int resCode, String content, String status, Date date);
+    void modifyRepair(int resCode, String content, String status);
 
     List<Integer>  selectUserCodeByUserName(List<String> userName);
 
