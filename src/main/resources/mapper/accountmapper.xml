@@ -20,6 +20,7 @@
         SELECT
         *
         FROM TBL_USER
+        WHERE USER_ROLE = 'employee'
         ORDER BY user_name
     </select>
 
