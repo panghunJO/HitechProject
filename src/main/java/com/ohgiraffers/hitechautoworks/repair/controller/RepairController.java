@@ -95,12 +95,11 @@ public class RepairController {
             @RequestParam(name = "userName") String[] userNames,
             @RequestParam String content,
             @RequestParam(name = "partName") String[] partNames,
-            @RequestParam String status,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+            @RequestParam String status) {
 
         List<String> userNameList = Arrays.asList(userNames);
         List<String> partNameList = Arrays.asList(partNames);
-        repairService.modifyRepair(resCode, content, status, date);
+        repairService.modifyRepair(resCode, content, status);
         repairService.modifyRepairWorker(userNameList, resCode);
         repairService.modifyRepairPart(partNameList, resCode);
         return "redirect:/user/repair";

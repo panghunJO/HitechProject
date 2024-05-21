@@ -18,6 +18,12 @@
             <result property="userRole" column="user_role"/>
         </association>
     </resultMap>
+    <resultMap id="repair" type="com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO">
+        <result property="content" column="repair_content"/>
+        <result property="date" column="repair_date"/>
+        <result property="status" column="repair_status"/>
+        <association property="resDTO" resultMap="res" />
+    </resultMap>
 
     <select id="findUserCodeRes" resultMap="res">
         SELECT
@@ -71,6 +77,14 @@
         FROM tbl_res a
         JOIN tbl_user b ON (a.user_code = b.user_code)
         WHERE a.res_code = #{code}
+    </select>
+    <select id="findStatus" resultMap="repair">
+        SELECT
+            repair_status
+        FROM
+            tbl_repair
+        WHERE
+            res_code = #{resCode}
     </select>
 
     <insert id="registres" parameterType="com.ohgiraffers.hitechautoworks.res.dto.ResRegistDTO">
@@ -151,5 +165,12 @@
     <select id="resRepair" resultMap="res">
         SELECT * FROM tbl_res WHERE res_code = #{resCode}
     </select>
+    <insert id="insertRes">
+        INSERT INTO tbl_res (user_code,res_option,res_date,res_extra)
+        VALUES
+        (
+            #{userCode},#{option},#{dateTime},#{resExtra}
+        )
+    </insert>
 
 </mapper>
