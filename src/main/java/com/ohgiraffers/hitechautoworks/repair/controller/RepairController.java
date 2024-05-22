@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Controller
@@ -145,10 +146,11 @@ public class RepairController {
                             @RequestParam String content,
                             @RequestParam(name = "partName") String[] partNames,
                             @RequestParam String status,
-                            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date){
+                            @RequestParam LocalDateTime date,
+                            @RequestParam int extraTime){
         List<String> userNameList = Arrays.asList(userNames);
         List<String> partNameList = Arrays.asList(partNames);
-        repairService.addRepair(resCode,content,status,date);
+        repairService.addRepair(resCode,content,status,date,extraTime);
         repairService.addRepairPart(partNameList,resCode);
         repairService.addRepairWorker(userNameList,resCode);
         return "redirect:/user/repair";

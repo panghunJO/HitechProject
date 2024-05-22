@@ -126,7 +126,13 @@
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label text-end">날짜</label>
                         <div class="col-sm-8">
-                            <input name="date" type="date" class="form-control" >
+                            <input name="date" id="datetime" type="datetime-local" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-4 col-form-label text-end">예상시간</label>
+                        <div class="col-sm-8">
+                            <input name="extraTime" type="number" class="form-control">
                         </div>
                     </div>
                     <div class="row">
@@ -140,6 +146,20 @@
         </div>
 
         <script>
+
+            document.getElementById('datetime').addEventListener('input', function() {
+                var dateTimeInput = this.value;
+                if (dateTimeInput) {
+                    var [date, time] = dateTimeInput.split('T');
+                    var [hours, minutes] = time.split(':');
+                    if (minutes !== "00") {
+                        // 분을 00으로 설정
+                        var newTime = hours + ':00';
+                        this.value = date + 'T' + newTime;
+                    }
+                }
+            });
+
             function search() {
                 document.getElementById("actionForm").action = "/user/repair/repairSearch";
                 document.getElementById("actionForm").submit();
