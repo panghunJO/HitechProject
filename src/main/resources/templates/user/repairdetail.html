@@ -164,18 +164,18 @@
                                     <input type="button" name="removeButton" value="삭제" onclick="removePart()"><br><br>
                                     <!-- 선택된 작업자들을 보여주는 선택 박스 -->
                                     <select name="partName" id="selectedParts" style="width: 100%;" size="7" multiple>
-                                        <option class="w-100" th:each="part : ${parts}" th:value="${part.partDTO.partName}" th:text="${part.partDTO.partName}" selected ></option>
+                                        <option class="w-100" th:each="part : ${parts}" th:value="${part.partDTO.partName}" id="" th:text="${part.partDTO.partName}" selected ></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label text-end">진행상황</label>
                                 <div class="col-sm-6">
-                                    <input  name="extra" type="text" class="form-control w-100" th:value="${repairDTO[0].repairDTO.status}" readonly>
-                                    <select name="status" style="width: 100%;"  class="form-control">
-                                        <option>대기</option>
-                                        <option>진행중</option>
-                                        <option>완료</option>
+<!--                                    <input  name="extra" type="text" class="form-control w-100" th:value="${repairDTO[0].repairDTO.status}" readonly>-->
+                                    <select name="status" style="width: 100%;"  class="form-control" th:value="${repairDTO[0].repairDTO.status}"  >
+                                        <option th:selected="${repairDTO[0].repairDTO.status}=='대기'">대기</option>
+                                        <option th:selected="${repairDTO[0].repairDTO.status}=='진행중'">진행중</option>
+                                        <option th:selected="${repairDTO[0].repairDTO.status}=='완료'">완료</option>
                                     </select>
                                 </div>
                             </div>
@@ -263,10 +263,8 @@
                     </form>
                     <script>
 
-                        function modifyrepair() {
-                            document.getElementById("actionForm").action = "/user/repairModify";
-                            document.getElementById("actionForm").submit();
-                        }
+
+
 
                         function deleterepair(){
                             document.getElementById("actionForm").action = "/user/repairDelete";
@@ -477,6 +475,20 @@
                             }
                         }
 
+                        function selectAllOptions(selectElementId) {
+                            var selectElement = document.getElementById(selectElementId);
+                            for (var i = 0; i < selectElement.options.length; i++) {
+                                selectElement.options[i].selected = true;
+                            }
+                        }
+                        // 예를 들어, 폼이 제출될 때 모든 옵션을 선택 상태로 만들려면:
+                        document.getElementById('actionForm').addEventListener('submit', function(event) {
+                            selectAllOptions('selectedParts');
+                        });
+                        function modifyrepair() {
+                            document.getElementById("actionForm").action = "/user/repairModify";
+                            document.getElementById("actionForm").submit();
+                        }
                     </script>
                 </div>
             </div>

@@ -144,7 +144,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label text-end">날짜</label>
                                 <div class="col-sm-6">
-                                    <input type="datetime-local" id="dateTime" name="date" class="form-control" th:value="${sqldate}">
+                                    <input type="datetime-local" id="datetime" name="date" class="form-control" th:value="${sqldate}">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -156,7 +156,7 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label text-end">진행상황</label>
                                     <div class="col-sm-6">
-                                        <input type="text" name="extra" class="form-control" th:value="${repair.status}">
+                                        <input type="text" name="extra" class="form-control" th:value="${repair}" readonly>
                                     </div>
                                 </div>
                             <div class="row">
@@ -200,6 +200,18 @@
                         </form>
 
                         <script>
+                            document.getElementById('datetime').addEventListener('input', function() {
+                                var dateTimeInput = this.value;
+                                if (dateTimeInput) {
+                                    var [date, time] = dateTimeInput.split('T');
+                                    var [hours, minutes] = time.split(':');
+                                    if (minutes !== "00") {
+                                        // 분을 00으로 설정
+                                        var newTime = hours + ':00';
+                                        this.value = date + 'T' + newTime;
+                                    }
+                                }
+                            });
 
                             function updateItem() {
                                 document.getElementById("actionForm").action = "/user/resUpdate";
