@@ -234,12 +234,13 @@
         WHERE c.res_code IS NULL
     </select>
     <insert id="addRepair" >
-        INSERT INTO tbl_repair(res_code,repair_content, repair_status, repair_date)
+        INSERT INTO tbl_repair(res_code,repair_content, repair_status, repair_date, repair_time)
         VALUES(
             #{ resCode },
             #{ content },
             #{ status },
-            #{ date }
+            #{ date },
+            #{ extraTime }
         )
     </insert>
     <insert id="addRepairPart">

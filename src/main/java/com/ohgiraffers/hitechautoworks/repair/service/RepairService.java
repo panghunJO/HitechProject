@@ -11,6 +11,7 @@ import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -65,8 +66,8 @@ public class RepairService {
         return repairMapper.findWorkerList();
     }
 
-    public void addRepair(int resCode, String content, String status, Date date) {
-        repairMapper.addRepair(resCode,content,status,date);
+    public void addRepair(int resCode, String content, String status, LocalDateTime date, int extraTime) {
+        repairMapper.addRepair(resCode,content,status,date, extraTime);
     }
 
     public void addRepairPart(List<String> partName, int resCode) {
