@@ -1,5 +1,6 @@
 package com.ohgiraffers.hitechautoworks.res.service;
 
+import com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO;
 import com.ohgiraffers.hitechautoworks.res.dao.ResMapper;
 import com.ohgiraffers.hitechautoworks.res.dto.ResCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
@@ -75,6 +76,14 @@ public class ResService {
     }
     public List<ResDTO> findCustomerRes(int userCode) {
         return resMapper.findUserCodeRes(userCode);
+    }
+
+    public void insertRes(int userCode, String option, String dateTime, String resExtra) {
+        resMapper.insertRes(userCode,option,dateTime,resExtra);
+    }
+
+    public String findStatus(int resCode) {
+        return resMapper.findStatus(resCode);
     }
 }
 

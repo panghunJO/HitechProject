@@ -38,6 +38,19 @@ public class AccountController {
         return "user/employeePage";
     }
 
+    @GetMapping("/user/adminEmployee")
+    public String accountEmp(Model model) {
+        List<UserDTO> userList = accountService.findAllUser();
+        System.out.println("userList = " + userList);
+        model.addAttribute("userList", userList);
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        model.addAttribute("userDTO", userDTO1);
+        return "user/adminEmployee";
+    }
+
     @PostMapping("/user/empSearch")
     public String account2(@RequestParam String userName, @RequestParam String userCode, Model model) {
         AuthUserInfo authUserInfo = new AuthUserInfo();

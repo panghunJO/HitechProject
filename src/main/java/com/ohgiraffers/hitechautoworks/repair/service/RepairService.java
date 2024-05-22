@@ -37,8 +37,8 @@ public class RepairService {
         return repairMapper.selectRepair(resCode);
     }
 
-    public void modifyRepair(int resCode, String content, String status, Date date) {
-        repairMapper.modifyRepair(resCode, content, status, date);
+    public void modifyRepair(int resCode, String content, String status) {
+        repairMapper.modifyRepair(resCode, content, status);
     }
 
     public void modifyRepairWorker(List<String> userName, int resCode) {

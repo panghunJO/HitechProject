@@ -7,6 +7,7 @@ import com.ohgiraffers.hitechautoworks.auth.service.Details.AuthUserInfo;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
 import com.ohgiraffers.hitechautoworks.part.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.part.service.PartService;
+import com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.DeleteCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.EditCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResCommentDTO;
@@ -220,9 +221,15 @@ public class UserController {
     @GetMapping("/user/testPage")
     public void testpage(Model model, @RequestParam int resCode, HttpSession session) {
 
-        ResDTO res = resService.findUserRes(resCode / 123456);        // 들어올때 resCode 123456 나눠줘야댐 (나중에 제대로 암호화 ㄱㄱ)
+        ResDTO res = resService.findUserRes(resCode / 123456);// 들어올때 resCode 123456 나눠줘야댐 (나중에 제대로 암호화 ㄱㄱ)
         model.addAttribute("res", res);
-        model.addAttribute("sqldate", res.getSqlDate());
+        String date = String.valueOf(res.getDate());
+        String repair = resService.findStatus(resCode/123456);
+        if (repair == null){
+            repair = "대기";
+        }
+        model.addAttribute("repair", repair);
+        model.addAttribute("sqldate", date.substring(0,19));
         List<ResCommentDTO> resCommentDTO = resService.findComment(resCode / 123456);
         model.addAttribute("resComment", resCommentDTO);
 
@@ -347,14 +354,21 @@ public class UserController {
 
     @PostMapping("/user/res/Submit")
     @ResponseBody
-    public String resSubmit(@RequestBody Map<String,Object> info){
-
+    public String resSubmit(@RequestBody Map<String,Object> info,Model model){
+        String date = (String) info.get("date");
+        String time = (String) info.get("selectedRadioValue");
+        String dateTime = date+' '+time;
+        System.out.println("dateTime = " + dateTime);
         for(String key : info.keySet()) {
             String value = (String) info.get(key);
             System.out.println(key + " : " + value);
         }
+        String option = (String) info.get("message");
+        String resExtra = (String) info.get("resExtra");
+        int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
+        resService.insertRes(userCode,option,dateTime,resExtra);
 
-        return "user/mainpage";
+        return "1";
     }
 
 

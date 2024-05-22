@@ -66,14 +66,16 @@
         <tr>
             <th scope="col">사원이름</th>
             <th scope="col">사원번호</th>
-            <th scope="col">Role</th>
+            <th scope="col">부서</th>
+            <th scope="col">핸드폰번호</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user : ${userList}">
             <td th:text="${user.userName}"></td>
             <td th:text="${user.userCode}"></td>
-            <td th:text="${user.userRole}"></td>
+            <td th:text="${user.userDepartment}"></td>
+            <td th:text="${user.userPhone}"></td>
         </tr>
         </tbody>
     </table>

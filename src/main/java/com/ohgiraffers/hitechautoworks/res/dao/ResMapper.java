@@ -1,5 +1,6 @@
 package com.ohgiraffers.hitechautoworks.res.dao;
 
+import com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResCommentDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResRegistDTO;
@@ -44,4 +45,7 @@ public interface ResMapper {
 
     List<ResDTO> findUserCodeRes(int userCode);
 
+    void insertRes(int userCode, String option, String dateTime, String resExtra);
+
+    String findStatus(int resCode);
 }

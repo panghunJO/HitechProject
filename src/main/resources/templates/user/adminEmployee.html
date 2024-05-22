@@ -33,51 +33,63 @@
 
 </head>
 <body>
-<div th:replace="~{common/header.html}"></div>
-<div th:replace="~{common/sidebar.html}"></div>
+<div th:replace="/common/header.html"></div>
+<div th:replace="/common/sidebar.html"></div>
+
 
 <!-- 입력 내용 -->
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>예약 조회</h1>
+        <h1>직원 조회</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/user/selectRes">Home</a></li>
-                <li class="breadcrumb-item active"><a href="/user/rescustomer"></a>예약 조회</li>
+                <li class="breadcrumb-item"><a href="user/mainpage">Home</a></li>
+                <li class="breadcrumb-item active"><a href="user/common"></a>직원 조회</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
 
+    <form action="/user/empSearch" method="post">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="사원이름 입력" aria-label="Recipient's username"
+                   aria-describedby="button-addon2" name="userName"> &nbsp; &nbsp; &nbsp; &nbsp;
+            <input type="text" class="form-control" placeholder="사원번호 입력" aria-label="Recipient's usercode"
+                   aria-describedby="button-addon2" name="userCode"> &nbsp; &nbsp;
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon2" >검색</button>
+        </div>
+    </form>
+
+
     <table class="table table-bordered">
         <thead class="table-light">
         <tr>
-            <th scope="col">예약번호</th>
-            <th scope="col">고객명</th>
-            <th scope="col">수리내용</th>
-            <th scope="col">날짜</th>
-            <th scope="col">상세보기</th>
+            <th scope="col">사원이름</th>
+            <th scope="col">사원번호</th>
+            <th scope="col">부서</th>
+            <th scope="col">핸드폰번호</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="resList : ${resList}">
-            <th scope="row" th:text="${resList.code}"></th>
-            <td th:text="${resList.userDTO.userName}"></td>
-            <td class="w-25 p-3" th:text="${resList.option}"></td>
-            <td th:text="${#dates.format(resList.date, 'yyyy-MM-dd HH:mm')}"></td>
-            <td>
-                <button type="button" class="btn btn-outline-primary btn-sm" th:attr="onclick='resDetail(\'' + ${resList.code} + '\')'">상세보기</button>
-            </td>
+        <tr th:each="user : ${userList}">
+            <th scope="col"><a th:href="'/user/customermypage?customerUserCode=' + ${user.userCode}*123456 " th:text="${user.userName}"></a></th>
+<!--            <td th:text="${user.userName}"></td>-->
+            <td th:text="${user.userCode}"></td>
+            <td th:text="${user.userDepartment}"></td>
+            <td th:text="${user.userPhone}"></td>
         </tr>
         </tbody>
     </table>
 </main>
+
 <script>
-    function resDetail(resCode) {
-        location.href = '/user/testPage?resCode=' + 123456 * resCode;
+    function userDetail(userCode) {
+        location.href = '/user/customermypage?userCode=' + 123456 * userCode;
     }
 </script>
 
-<div th:replace="~{common/footer.html}"></div>
+<div th:replace="/common/footer.html"></div>
+
+
 </body>
 </html>

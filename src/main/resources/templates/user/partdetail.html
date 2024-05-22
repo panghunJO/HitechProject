@@ -178,6 +178,20 @@
                     </form>
 
                     <script>
+                        function preventEnterKey(event) {
+                            // keyCode가 13이면 엔터 키입니다.
+                            if (event.keyCode === 13) {
+                                event.preventDefault();
+                                return false;
+                            }
+                        }
+                        window.onload = function() {
+                            // 모든 입력 필드에 엔터 키 방지 이벤트 리스너 추가
+                            var inputs = document.querySelectorAll('input, textarea');
+                            inputs.forEach(function(input) {
+                                input.addEventListener('keydown', preventEnterKey);
+                            });
+                        };
                         function updateItem() {
                             document.getElementById("actionForm").action = "/user/partModify";
                             document.getElementById("actionForm").submit();
