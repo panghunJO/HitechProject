@@ -138,5 +138,12 @@
         WHERE b.res_date LIKE CONCAT('%', #{date1}, '%')
         group by b.res_date, b.res_code, c.repair_time
     </select>
+
+    <select id="getCalendar" resultType="map">
+        SELECT a.repair_content as "title", a.repair_date as "start", a.repair_time "extraTime"
+        FROM tbl_repair a
+        JOIN tbl_repair_workers b on a.res_code = b.res_code
+        WHERE b.user_code = #{userCode}
+    </select>
 </mapper>
 

@@ -388,6 +388,17 @@ public class UserController {
         return "user/res";
     }
 
+    @PostMapping("/user/getCalendar")
+    @ResponseBody
+    public List<Map<String, Object>> getCalendar(Model model) {
+
+        int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
+        List<Map<String, Object>> calendar = userService.getCalendar(userCode);
+        System.out.println("calendar = " + calendar);
+
+        return calendar;
+    }
+
 }
 
 
