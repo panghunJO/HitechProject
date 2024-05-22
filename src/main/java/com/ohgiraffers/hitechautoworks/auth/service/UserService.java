@@ -143,7 +143,7 @@ public class UserService  {
 
         System.out.println("count = " + count);
         int checkNull = 0;
-        int thisTime = 0;
+        String thisTime = "";
         List<String> disabledTimesList = new ArrayList<>();
         for (Map<String, Object> a : count) {
 
@@ -164,39 +164,39 @@ public class UserService  {
                 switch (time) {
                     case 9:
                         checkNull = AllemployeeCount - employeeCount;
-                        thisTime = 9; time++;
+                        thisTime = "09:00:00"; time++;
                         break;
                     case 10:
                         checkNull = AllemployeeCount - employeeCount;
-                        thisTime = 10; time++;
+                        thisTime = "10:00:00"; time++;
                         break;
                     case 11:
                         checkNull = AllemployeeCount - employeeCount;
-                        thisTime = 11; time++;
+                        thisTime = "11:00:00"; time++;
                         break;
                     case 12:
                         checkNull = AllemployeeCount - employeeCount;
-                        thisTime = 12; time++;
+                        thisTime = "12:00:00"; time++;
                         break;
                     case 13:
                         checkNull = AllemployeeCount - employeeCount;
-                        thisTime = 13; time++;
+                        thisTime = "13:00:00"; time++;
                         break;
                     case 14:
                         checkNull = AllemployeeCount - employeeCount;
-                        thisTime = 14; time++;
+                        thisTime = "14:00:00"; time++;
                         break;
                     case 15:
                         checkNull = AllemployeeCount - employeeCount;
-                        thisTime = 15; time++;
+                        thisTime = "15:00:00"; time++;
                         break;
                     case 16:
                         checkNull = AllemployeeCount - employeeCount;
-                        thisTime = 16; time++;
+                        thisTime = "16:00:00"; time++;
                         break;
                     case 17:
                         checkNull = AllemployeeCount - employeeCount;
-                        thisTime = 17; time++;
+                        thisTime = "17:00:00"; time++;
                         break;
                     default:
                         System.out.println("Default case");
@@ -205,7 +205,7 @@ public class UserService  {
 
                 System.out.println("checkNull = " + checkNull);
                 if (checkNull <= 0) {
-                    disabledTimesList.add(String.valueOf(thisTime));
+                    disabledTimesList.add(thisTime);
                 }
             }
         }

@@ -343,6 +343,7 @@ public class UserController {
         List<String> time = userService.getTime(date1);
         // "disabledTimes": ["9", "11", "14"] 이대로 받으면 이거 비활성화 무조건 배열로 !!!!!!!!!
 
+        System.out.println("time = " + time);
         Map<String,Object> disabledTimes = new HashMap();
 //        List<String> disabledTimesList = Arrays.asList("9", "10", "11");
 
