@@ -271,6 +271,43 @@
                             document.getElementById("actionForm").submit();
                         }
 
+                        function addPart(){
+                            var partSelect = document.getElementById('partName');
+                            var selectedPartSelect = document.getElementById('selectedParts');
+
+                            for (var i = 0; i < partSelect.options.length; i++) {
+                                if (partSelect.options[i].selected) {
+                                    var option = document.createElement("option");
+                                    option.text = partSelect.options[i].text;
+                                    option.value = partSelect.options[i].value;
+                                    option.selected = partSelect.options[i].selected;
+                                    selectedPartSelect.appendChild(option);
+                                    // Optionally, remove the added option from the workerCode select box
+                                    partSelect.remove(i);
+                                    i--; // Adjust index due to removal
+                                }
+                            }
+                        }
+                        function removePart() {
+                            var partSelect = document.getElementById('partName');
+                            var selectedPartSelect = document.getElementById('selectedParts');
+
+                            // Loop through the selected options in selectedWorkers and add them back to workerCode
+                            for (var i = 0; i < selectedPartSelect.options.length; i++) {
+                                if (selectedPartSelect.options[i].selected) {
+                                    var option = document.createElement("option");
+                                    option.text = selectedPartSelect.options[i].text;
+                                    option.value = selectedPartSelect.options[i].value;
+                                    partSelect.appendChild(option);
+                                    // Remove the added option from the selectedWorkers select box
+                                    selectedPartSelect.remove(i);
+
+                                    i--; // Adjust index due to removal
+                                }
+                            }
+                        }
+
+
                         document.addEventListener("DOMContentLoaded", function() {
                             fetch("/employee/repair/worker")
                                 .then(res => res.json())
@@ -315,6 +352,7 @@
                                     });
                                 });
                         });
+
                         function addWorker() {
                             var workerCodeSelect = document.getElementById('workerCode');
                             var selectedWorkersSelect = document.getElementById('selectedWorkers');

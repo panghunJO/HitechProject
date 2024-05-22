@@ -128,13 +128,15 @@
     </select>
 
     <select id="getTimeCount">
-        SELECT
-        count(SUBSTR(res_date,12,2)) AS timeCount,
-        SUBSTR(res_date,12,2) AS time
-        FROM
-        tbl_res
-        WHERE SUBSTR(res_date,1,10) = #{ date1 }
-        group by res_date ;
+        select COUNT(a.user_code) AS employeeCount,
+        SUBSTR(b.res_date,12,2) AS time,
+        b.res_code,
+        c.repair_time AS extraTime
+        FROM tbl_repair_workers a
+        JOIN tbl_res b on a.res_code = b.res_code
+        JOIN tbl_repair c on b.res_code = c.res_code
+        WHERE b.res_date LIKE CONCAT('%', #{date1}, '%')
+        group by b.res_date, b.res_code, c.repair_time
     </select>
 </mapper>
 

@@ -37,15 +37,30 @@
         .hidden-content {
             display: none;
         }
+        @media (max-width: 768px) {
+            .order-lg-1 {
+                order: 1;
+            }
+            .order-lg-2 {
+                order: 2;
+            }
+            .order-lg-3 {
+                order: 4; /* Change this to a higher number to move it last */
+            }
+            .order-lg-4 {
+                order: 3;
+            }
+            .order-lg-5 {
+                order: 5;
+            }
+        }
     </style>
 </head>
 <body>
 <div th:replace="~{common/header.html}"></div>
 <div th:replace="~{common/sidebar.html}"></div>
 
-<!-- 입력 내용 -->
 <main id="main" class="main">
-
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
@@ -58,9 +73,7 @@
         </div>
     </div>
 
-
     <section class="section">
-
         <div class="pagetitle">
             <h1>예약</h1>
             <nav>
@@ -73,8 +86,8 @@
 
         <!-- first card -->
         <div class="row">
-            <div class="col-lg-4 clickable dropdown">
-                <div class="card mb-3" >
+            <div class="col-lg-4 clickable dropdown order-lg-1">
+                <div class="card mb-3">
                     <div class="row g-0" onclick="toggleContent(this)">
                         <div class="col-md-4">
                             <img src="https://i.postimg.cc/L8rsr1gx/hyundai.jpg" class="img-fluid rounded-start" alt="...">
@@ -122,8 +135,8 @@
             </div>
 
             <!-- second card -->
-            <div class="col-lg-4 clickable dropdown">
-                <div class="card mb-3" >
+            <div class="col-lg-4 clickable dropdown order-lg-2">
+                <div class="card mb-3">
                     <div class="row g-0" onclick="toggleContent(this)">
                         <div class="col-md-4">
                             <img src="https://i.postimg.cc/N0kkFBtv/image.png" class="img-fluid rounded-start" alt="...">
@@ -171,7 +184,7 @@
             </div>
 
             <!-- last Card (Input Form) -->
-            <div class="col-lg-4">
+            <div class="col-lg-4 order-lg-3">
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title mt-1">다음 단계</h5>
@@ -188,12 +201,11 @@
                     </div>
                 </div>
             </div>
-
         </div><!-- End First Row -->
 
         <!--third card-->
         <div class="row">
-            <div class="col-lg-4 clickable dropdown">
+            <div class="col-lg-4 clickable dropdown order-lg-4">
                 <div class="card mb-3">
                     <div class="row g-0" onclick="toggleContent(this)">
                         <div class="col-md-4">
@@ -262,8 +274,8 @@
             </div>
 
             <!-- forth card -->
-            <div class="col-lg-4 clickable dropdown">
-                <div class="card mb-3" >
+            <div class="col-lg-4 clickable dropdown order-lg-5">
+                <div class="card mb-3">
                     <div class="row g-0" onclick="toggleContent(this)">
                         <div class="col-md-4">
                             <img src="https://i.postimg.cc/435rzCGp/jaguar-4073534-1280.png" class="img-fluid rounded-start" alt="...">
@@ -309,13 +321,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </section>
 
     <script>
-
         function toggleContent(card) {
             var content = card.parentElement.querySelector('.hidden-content');
             if (content.style.display === "none" || content.style.display === "") {
@@ -364,14 +373,8 @@
                 const toast = new bootstrap.Toast(toastLiveExample);
                 toast.show();
             });
-
         });
-
-
     </script>
-
-
-
 </main>
 
 <div th:replace="~{common/footer.html}"></div>

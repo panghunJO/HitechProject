@@ -138,7 +138,7 @@ public class UserService  {
 //            }
 //            System.out.println("checkNull = " + checkNull);
 //        }
-        int employeeCount = userMapper.getCustomerCount();
+        int AllemployeeCount = userMapper.getCustomerCount();
         List<Map<String,Object>> count = userMapper.getTimeCount(date1);
 
         System.out.println("count = " + count);
@@ -146,34 +146,69 @@ public class UserService  {
         int thisTime = 0;
         List<String> disabledTimesList = new ArrayList<>();
         for (Map<String, Object> a : count) {
+
+
             Object rawTime = a.get("time");
-            Object rawTimeCount = a.get("timeCount");
+            Object rawTimeCount = a.get("employeeCount");
+            Object extraTime = a.get("extraTime");
 
             int time = Integer.parseInt(rawTime.toString());
-            int timeCount = ((Number) rawTimeCount).intValue();
+            int employeeCount = ((Number) rawTimeCount).intValue();
+            int extraTimeCount = ((Number) extraTime).intValue();
 
+            System.out.println("time = " + time);
+            System.out.println("employeeCount = " + employeeCount);
+            System.out.println("extraTimeCount = " + extraTimeCount);
+            for(int i = 0; i < extraTimeCount; i++) {
 
-            switch (time) {
-                case 9: checkNull = employeeCount - timeCount; thisTime = 9; break;
-                case 10: checkNull = employeeCount - timeCount; thisTime = 10; break;
-                case 11: checkNull = employeeCount - timeCount; thisTime = 11; break;
-                case 12: checkNull = employeeCount - timeCount; thisTime = 12; break;
-                case 13: checkNull = employeeCount - timeCount; thisTime = 13; break;
-                case 14: checkNull = employeeCount - timeCount; thisTime = 14; break;
-                case 15: checkNull = employeeCount - timeCount; thisTime = 15; break;
-                case 16: checkNull = employeeCount - timeCount; thisTime = 16; break;
-                case 17: checkNull = employeeCount - timeCount; thisTime = 17; break;
-                default:
-                    System.out.println("Default case");
-                    break;
-            }
-            System.out.println("checkNull = " + checkNull);
-            if(checkNull == 0){
-                disabledTimesList.add(String.valueOf(thisTime));
+                switch (time) {
+                    case 9:
+                        checkNull = AllemployeeCount - employeeCount;
+                        thisTime = 9; time++;
+                        break;
+                    case 10:
+                        checkNull = AllemployeeCount - employeeCount;
+                        thisTime = 10; time++;
+                        break;
+                    case 11:
+                        checkNull = AllemployeeCount - employeeCount;
+                        thisTime = 11; time++;
+                        break;
+                    case 12:
+                        checkNull = AllemployeeCount - employeeCount;
+                        thisTime = 12; time++;
+                        break;
+                    case 13:
+                        checkNull = AllemployeeCount - employeeCount;
+                        thisTime = 13; time++;
+                        break;
+                    case 14:
+                        checkNull = AllemployeeCount - employeeCount;
+                        thisTime = 14; time++;
+                        break;
+                    case 15:
+                        checkNull = AllemployeeCount - employeeCount;
+                        thisTime = 15; time++;
+                        break;
+                    case 16:
+                        checkNull = AllemployeeCount - employeeCount;
+                        thisTime = 16; time++;
+                        break;
+                    case 17:
+                        checkNull = AllemployeeCount - employeeCount;
+                        thisTime = 17; time++;
+                        break;
+                    default:
+                        System.out.println("Default case");
+                        break;
+                }
+
+                System.out.println("checkNull = " + checkNull);
+                if (checkNull <= 0) {
+                    disabledTimesList.add(String.valueOf(thisTime));
+                }
             }
         }
-        String[] time123 = {"1"};
-        System.out.println("disabledTimesList = " + disabledTimesList);
         return disabledTimesList;
     }
 }
