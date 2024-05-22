@@ -78,7 +78,7 @@
         JOIN tbl_user b ON (a.user_code = b.user_code)
         WHERE a.res_code = #{code}
     </select>
-    <select id="findStatus" resultMap="repair">
+    <select id="findStatus">
         SELECT
             repair_status
         FROM

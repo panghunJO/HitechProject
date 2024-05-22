@@ -47,5 +47,5 @@ public interface ResMapper {
 
     void insertRes(int userCode, String option, String dateTime, String resExtra);
 
-    RepairDTO findStatus(int resCode);
+    String findStatus(int resCode);
 }

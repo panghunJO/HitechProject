@@ -82,7 +82,7 @@ public class ResService {
         resMapper.insertRes(userCode,option,dateTime,resExtra);
     }
 
-    public RepairDTO findStatus(int resCode) {
+    public String findStatus(int resCode) {
         return resMapper.findStatus(resCode);
     }
 }

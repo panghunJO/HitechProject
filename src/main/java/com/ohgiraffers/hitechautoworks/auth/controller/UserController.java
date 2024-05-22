@@ -224,8 +224,11 @@ public class UserController {
         ResDTO res = resService.findUserRes(resCode / 123456);// 들어올때 resCode 123456 나눠줘야댐 (나중에 제대로 암호화 ㄱㄱ)
         model.addAttribute("res", res);
         String date = String.valueOf(res.getDate());
-        RepairDTO repair = resService.findStatus(resCode/123456);
-        model.addAttribute("repair",repair);
+        String repair = resService.findStatus(resCode/123456);
+        if (repair == null){
+            repair = "대기";
+        }
+        model.addAttribute("repair", repair);
         model.addAttribute("sqldate", date.substring(0,19));
         List<ResCommentDTO> resCommentDTO = resService.findComment(resCode / 123456);
         model.addAttribute("resComment", resCommentDTO);
