@@ -48,4 +48,6 @@ public interface UserMapper {
     int getCustomerCount();
 
     List<Map<String,Object>> getTimeCount(Date date1);
+
+    List<Map<String, Object>> getCalendar(int userCode);
 }

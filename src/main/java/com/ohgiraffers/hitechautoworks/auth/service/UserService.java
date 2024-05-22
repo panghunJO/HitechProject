@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -210,5 +212,26 @@ public class UserService  {
             }
         }
         return disabledTimesList;
+    }
+
+    public List<Map<String, Object>> getCalendar(int userCode) {
+        List<Map<String, Object>> getCalendar = userMapper.getCalendar(userCode);
+        List<Map<String, Object>> updatedCalendar = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+
+        for (Map<String, Object> event : getCalendar) {
+            String title = (String) event.get("title");
+            LocalDateTime start = (LocalDateTime) event.get("start");
+            int extraTime = (int) event.get("extraTime");
+
+            LocalDateTime end = start.plusHours(extraTime);
+
+            Map<String, Object> updatedEvent = new HashMap<>(event);
+            updatedEvent.put("start", start.format(formatter));
+            updatedEvent.put("end", end.format(formatter));
+            updatedCalendar.add(updatedEvent);
+        }
+
+        return updatedCalendar;
     }
 }
