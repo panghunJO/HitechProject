@@ -50,4 +50,10 @@ public interface UserMapper {
     List<Map<String,Object>> getTimeCount(Date date1);
 
     List<Map<String, Object>> getCalendar(int userCode);
+
+    Map<String, Object> searchForId(String idForEmail);
+
+    int findPW(String pwForId, String pwForPhone);
+
+    void changePassForId(String encodePw, String pwForId);
 }

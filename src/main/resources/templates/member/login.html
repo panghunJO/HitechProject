@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Pages / Login - NiceAdmin Bootstrap Template</title>
+    <title>HitechAutoWorks</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -43,7 +43,7 @@
 
                         <div class="d-flex justify-content-center py-4">
                             <a href="/member/login" class="logo d-flex align-items-center w-auto">
-                                <span class="d-none d-lg-block">하이테크 오토웍스입니다 어서오세요!</span>
+                                <span class="d-none d-lg-block">HitechAutoworks</span>
                             </a>
                         </div><!-- End Logo -->
 
@@ -61,7 +61,6 @@
                                     <div class="col-12">
                                         <label for="yourUsername" class="form-label">아이디</label>
                                         <div class="input-group has-validation">
-                                            <span class="input-group-text" id="inputGroupPrepend">@</span>
                                             <input type="text" name="user12" class="form-control" id="yourUsername" required>
                                             <div class="invalid-feedback">아이디를 입력해주세요!</div>
                                         </div>
@@ -83,6 +82,7 @@
                                     </div>
                                     <div class="col-12">
                                         <p class="small mb-0">계정이 없으신가요? <a href="/member/regist"> 회원가입 하기</a></p>
+                                        <p class="small mb-0">계정을 잊으셨나요?<a href="#" onclick="openPasswordModal()"> 계정 찾기</a></p>
                                     </div>
                                 </form>
 
@@ -92,7 +92,139 @@
                     </div>
                 </div>
             </div>
+            <!-- 모달 -->
+            <div id="passwordModal" class="modal" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">아이디/비밀번호 찾기</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closePasswordModal()"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">아이디 찾기</h5>
+                                            <p class="card-text">아이디를 찾기 위해 정보를 입력하세요:</p>
+                                            <input type="email" class="form-control mb-3" placeholder="이메일을 입력하세요" id="emailForId">
+                                            <button type="button" class="btn btn-primary" id="searchForId">아이디 찾기</button>
+                                            <div id="idResult" class="mt-3" style="display: none;">
+                                                <h6><span id="foundId"></span></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">비밀번호 찾기</h5>
+                                            <p class="card-text">비밀번호를 찾기 위해 정보를 입력하세요:</p>
+                                            <input type="text" class="form-control mb-3" placeholder="아이디를 입력하세요" id="findPwId">
+                                            <input type="tel" class="form-control mb-3" placeholder="휴대폰 번호를 입력하세요" id="findPwPhone">
+                                            <div id="phoneMessage" style="color: red; margin-bottom: 0.25rem; display: none">"-" 를 포함한 13자리수 이상 숫자만 입력하세요</div>
+                                            <button type="button" class="btn btn-primary" id="searchForPw" disabled>비밀번호 찾기</button>
+                                            <div id="PWResult" class="mt-3" style="display: none;">
+                                                <h6><span id="foundPW"></span></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="closePasswordModal()">취소</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <script>
+                function openPasswordModal() {
+                    var modal = new bootstrap.Modal(document.getElementById('passwordModal'));
+                    modal.show();
+                }
+
+                function closePasswordModal() {
+                    var modal = bootstrap.Modal.getInstance(document.getElementById('passwordModal'));
+                    modal.hide();
+                }
+
+                document.getElementById('searchForPw').addEventListener('click', () => {
+                    var userId = document.getElementById('findPwId').value;
+                    var userPhone = document.getElementById('findPwPhone').value;
+                    fetch("/auth/searchForPW", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            Id:userId,
+                            phone:userPhone
+                        })
+                    }) .then(response => response.json())
+                        .then(result => {
+                            if (result && result.newPass) {
+                                document.getElementById('foundPW').innerText = '임시비밀번호는 ' +result.newPass + '입니다 반드시 비밀번호를 변경해주세요';
+                                document.getElementById('PWResult').style.display = 'block';
+                            } else {
+                                document.getElementById('foundPW').innerText = '아이디, 휴대폰 번호에 해당하는 비밀번호를 찾을 수 없습니다!';
+                                document.getElementById('PWResult').style.display = 'block';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+
+                })
+
+
+                document.getElementById('searchForId').addEventListener('click', () => {
+                    var idForEmail = document.getElementById('emailForId').value;
+                    var passForId = document.getElementById('findPwId');
+                    fetch("/auth/searchForId", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email:idForEmail
+                        })
+                    }) .then(response => response.json())
+                        .then(result => {
+                            if (result && result.user_id) {
+                                document.getElementById('foundId').innerText = '당신의 아이디는 ' +result.user_id + '입니다!!';
+                                document.getElementById('idResult').style.display = 'block';
+                                passForId.value = result.user_id;
+                            } else {
+                                document.getElementById('foundId').innerText = '이메일에 해당하는 아이디를 찾을 수 없습니다!';
+                                document.getElementById('idResult').style.display = 'block';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                })
+
+                function validatePhoneNumber() {
+                    const phoneInput = document.getElementById('findPwPhone');
+                    const phoneMessage = document.getElementById('phoneMessage');
+                    const phoneValue = phoneInput.value;
+
+                    const pwbutton = document.getElementById('searchForPw');
+
+                    if (!/^\d{3}-\d{3,4}-\d{4}$/.test(phoneValue) || phoneValue.length < 13) {
+                        phoneMessage.style.display = 'block';
+                        phoneInput.classList.add('is-invalid');
+                    } else {
+                        phoneMessage.style.display = 'none';
+                        phoneInput.classList.remove('is-invalid');
+                        phoneInput.classList.add('is-valid');
+                        pwbutton.disabled = false;
+                    }
+                }
+                document.getElementById('findPwPhone').addEventListener('input', validatePhoneNumber);
+            </script>
         </section>
 
     </div>

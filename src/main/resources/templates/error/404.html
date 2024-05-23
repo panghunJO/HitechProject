@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -39,8 +39,12 @@
                 <div class="error-details">
                     Sorry, an error has occured, Requested page not found!
                 </div>
-                <div class="error-actions">
+                <div class="error-actions" sec:authorize="hasAnyAuthority('관리자','직원')">
                     <a href="/user/mainpage" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                        Take Me Home </a>
+                </div>
+                <div class="error-actions" sec:authorize="hasAnyAuthority('손님')">
+                    <a href="/user/selectRes" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
                         Take Me Home </a>
                 </div>
             </div>

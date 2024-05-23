@@ -236,4 +236,31 @@ public class UserService  {
 
         return updatedCalendar;
     }
+
+    public Map<String, Object> searchForId(Object email) {
+        String idForEmail = String.valueOf(email);
+        Map<String,Object> gogoEmail = userMapper.searchForId(idForEmail);
+
+        return gogoEmail;
+    }
+
+    public Map<String, Object> searchForPW(Map<String, Object> info) {
+        String PWForPhone = (String) info.get("phone");
+        String PWForId = (String) info.get("Id");
+        System.out.println("PWForId = " + PWForId);
+        System.out.println("PWForPhone = " + PWForPhone);
+
+        Map<String,Object> goPass = new HashMap<>();
+        int result = userMapper.findPW(PWForId,PWForPhone);
+        System.out.println("result = " + result);
+        if(result != 0){
+            int newPw = (int) ((Math.random() * 900000) + 100000);
+            String newPw1 = String.valueOf(newPw);
+            String encodePw = passwordEncoder.encode(newPw1);
+            userMapper.changePassForId(encodePw,PWForId);
+            goPass.put("newPass",newPw);
+        }
+
+        return goPass;
+    }
 }
