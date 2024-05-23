@@ -140,6 +140,13 @@ public class RepairController {
         List<ResDTO> resList = repairService.findResList();
         return resList;
     }
+    @PostMapping("/repair/getDate")
+    @ResponseBody
+    public Map<String,Object> getDate(@RequestBody Map<String,Object> info,Model model){
+        Object code = info.get("code");
+        Map<String,Object> date = repairService.getDate(code);
+        return date;
+    }
 
     @PostMapping("/user/repair/regist")
     @ResponseBody

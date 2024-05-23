@@ -146,6 +146,24 @@
         </div>
 
         <script>
+            document.getElementById("resCode").addEventListener("click" , () =>{
+                let codeValue = document.getElementById("resCode").value; // 입력 필드 값 가져오기
+                fetch("/repair/getDate", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                       code:codeValue
+                    })
+                }) .then(response => response.json())
+                    .then(result => {
+                        document.getElementById("datetime").value = result.res_date;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
             function getAllSelectedWorkerValues() {
                 let selectBox = document.querySelector('#selectedWorkers');
                 let values = Array.from(selectBox.options).map(option => option.value);
@@ -302,7 +320,6 @@
             fetch("/employee/repair/part")
                 .then(res => res.json())
                 .then(data =>{
-                    console.log(data);
                     const $partName = document.getElementById('partName');
 
                     for(let index in data){
@@ -315,7 +332,6 @@
             fetch("/employee/repair/worker")
                 .then(res => res.json())
                 .then(data =>{
-                    console.log(data);
                     const $workerCode = document.getElementById('workerCode');
 
                     for(let index in data){
@@ -328,7 +344,6 @@
             fetch("/employee/repair/res")
                 .then(res => res.json())
                 .then(data =>{
-                    console.log(data);
                     const $resCode = document.getElementById('resCode');
 
                     for(let index in data){
@@ -338,6 +353,7 @@
                         $resCode.appendChild($option);
                     }
                 })
+
 
         </script>
 

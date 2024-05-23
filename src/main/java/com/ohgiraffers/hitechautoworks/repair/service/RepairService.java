@@ -81,6 +81,7 @@ public class RepairService {
     public void addRepairWorker(List<String> userName, int resCode) {
         System.out.println("userName = " + userName);
         List<Integer> newUserCode = repairMapper.selectUserCodeByUserName(userName);
+        System.out.println("newUserCode = " + newUserCode);
         repairMapper.addRepairWorker(newUserCode,resCode);
     }
 
@@ -94,5 +95,8 @@ public class RepairService {
 
     public List<WorkerDTO> selectWorker(int resCode) {
         return repairMapper.selectWorker(resCode);
+    }
+
+    public Map<String, Object> getDate(Object code) { return repairMapper.getDate(code);
     }
 }

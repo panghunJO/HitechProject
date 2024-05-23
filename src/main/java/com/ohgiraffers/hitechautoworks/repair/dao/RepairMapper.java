@@ -57,4 +57,6 @@ public interface RepairMapper {
     void deleteOldWorker( int resCode);
 
     void deleteOldPart( int resCode);
+
+    Map<String, Object> getDate(Object code);
 }
