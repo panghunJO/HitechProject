@@ -210,8 +210,8 @@
         SELECT
             *
         FROM
-            tbl_user
-        WHERE user_role = "ADMIN" OR user_role = "EMPLOYEE"
+            tbl_user a
+        WHERE  a.user_role = "EMPLOYEE"
     </select>
     <select id="findResList" resultMap="res">
         SELECT
@@ -238,6 +238,13 @@
             #{ extraTime }
         )
     </insert>
+    <select id="getDate">
+        SELECT
+            res_date
+        FROM
+            tbl_res
+        WHERE res_code = #{code}
+    </select>
     <insert id="addRepairPart">
         INSERT INTO tbl_repair_part(part_code, res_code)
         VALUES
