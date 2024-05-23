@@ -2,22 +2,33 @@ package com.ohgiraffers.hitechautoworks.repair.dto;
 
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class RepairDTO {
 
     private String content;
-    private Date date;
+    private Timestamp date;
     private String status;
     private ResDTO resDTO;
+    private int time;
 
     public RepairDTO() {}
 
-    public RepairDTO(String content, Date date, String status, ResDTO resDTO) {
+    public RepairDTO(String content, Timestamp date, String status,int time, ResDTO resDTO) {
         this.content = content;
         this.date = date;
         this.status = status;
+        this.time = time;
         this.resDTO = resDTO;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 
     public String getContent() {
@@ -28,14 +39,14 @@ public class RepairDTO {
         this.content = content;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         if (this.date != null) {
-            return new java.sql.Date(this.date.getTime());
+            return new Timestamp(this.date.getTime());
         }
         return null;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
@@ -62,6 +73,7 @@ public class RepairDTO {
                 ", date=" + date +
                 ", status='" + status + '\'' +
                 ", resDTO=" + resDTO +
+                ", time=" + time +
                 '}';
     }
 }

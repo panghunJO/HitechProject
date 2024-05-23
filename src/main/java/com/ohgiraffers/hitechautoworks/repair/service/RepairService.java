@@ -11,6 +11,7 @@ import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -34,12 +35,12 @@ public class RepairService {
         return repairMapper.SearchByworkerName(worker);
     }
 
-    public List<Repair2DTO> selectRepair(int resCode) {
+    public RepairDTO selectRepair(int resCode) {
         return repairMapper.selectRepair(resCode);
     }
 
-    public void modifyRepair(int resCode, String content, String status) {
-        repairMapper.modifyRepair(resCode, content, status);
+    public void modifyRepair(int resCode, String content, String status, String date) {
+        repairMapper.modifyRepair(resCode, content, status,date);
     }
 
     public void modifyRepairWorker(List<String> userName, int resCode) {
@@ -66,7 +67,7 @@ public class RepairService {
         return repairMapper.findWorkerList();
     }
 
-    public void addRepair(int resCode, String content, String status, LocalDateTime date, int extraTime) {
+    public void addRepair(int resCode, String content, String status, String date, int extraTime) {
         repairMapper.addRepair(resCode,content,status,date, extraTime);
     }
 
