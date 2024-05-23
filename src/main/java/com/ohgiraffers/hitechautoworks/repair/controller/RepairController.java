@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -39,6 +40,7 @@ public class RepairController {
         UserDTO userDTO1 = userService.findUserCode(userCode);
         model.addAttribute("userDTO", userDTO1);
         List<Map<String,Object>> repairList = repairService.findAllRepair();
+        System.out.println("repairList = " + repairList);
         model.addAttribute("repairList", repairList);
         return "/user/repair";
     }
@@ -79,7 +81,7 @@ public class RepairController {
         UserDTO userDTO1 = userService.findUserCode(userCode);
         model.addAttribute("userDTO", userDTO1);
         System.out.println("resCode = " + resCode);
-        List<Repair2DTO> repairDTO = repairService.selectRepair(resCode);
+        RepairDTO repairDTO = repairService.selectRepair(resCode);
         System.out.println("repairDTO = " + repairDTO);
         List<RepairPartDTO> parts = repairService.selectRepairPart(resCode);
         System.out.println("parts = " + parts);
@@ -91,19 +93,25 @@ public class RepairController {
     }
 
     @PostMapping("/user/repairModify")
+    @ResponseBody
     public String modifyRepair(
-            @RequestParam int resCode,
-            @RequestParam(name = "userName") String[] userNames,
-            @RequestParam String content,
-            @RequestParam(name = "partName") String[] partNames,
-            @RequestParam String status) {
+            @RequestBody Map<String,Object> info,Model model) {
 
-        List<String> userNameList = Arrays.asList(userNames);
-        List<String> partNameList = Arrays.asList(partNames);
-        repairService.modifyRepair(resCode, content, status);
-        repairService.modifyRepairWorker(userNameList, resCode);
-        repairService.modifyRepairPart(partNameList, resCode);
-        return "redirect:/user/repair";
+        List<String> workers = (List<String>) info.get("worker");
+        List<String> parts = (List<String>) info.get("part");
+        String content = (String) info.get("content");
+        String date = (String) info.get("date");
+        String status = (String) info.get("status");
+        String resCodeString = (String) info.get("resCode");
+
+        int resCode = Integer.parseInt(resCodeString);
+        System.out.println("resCode = " + resCode);
+
+        repairService.modifyRepair(resCode, content, status,date);
+        repairService.modifyRepairWorker(workers, resCode);
+        repairService.modifyRepairPart(parts, resCode);
+
+        return "1";
     }
 
     @PostMapping("/user/repairDelete")
@@ -113,14 +121,7 @@ public class RepairController {
 
         return "redirect:/user/repair";
     }
-//    @GetMapping("/employee/repair/repairAdd")
-//    public void partAdd(Model model){
-//        authUserInfo = new AuthUserInfo();
-//        UserDTO userDTO = authUserInfo.getUserDTO();
-//        authUserInfo.getUserDTO().getUserCode();
-//        String userName = userDTO.getUserName();
-//        model.addAttribute("userName",userName);
-//    }
+
     @GetMapping(value = "/employee/repair/part", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<PartDTO> findPartList(){
@@ -141,19 +142,32 @@ public class RepairController {
     }
 
     @PostMapping("/user/repair/regist")
-    public String addRepair(@RequestParam int resCode,
-                            @RequestParam(name = "userName") String[] userNames,
-                            @RequestParam String content,
-                            @RequestParam(name = "partName") String[] partNames,
-                            @RequestParam String status,
-                            @RequestParam LocalDateTime date,
-                            @RequestParam int extraTime){
-        List<String> userNameList = Arrays.asList(userNames);
-        List<String> partNameList = Arrays.asList(partNames);
+    @ResponseBody
+    public String addRepair(@RequestBody Map<String,Object> info,Model model){
+
+//        resCode:resCode,
+//                worker:worker,
+//                part:part,
+//                content:content,
+//                date :date,
+//                status:status,
+//                extraTime:extraTime
+        List<String> workers = (List<String>) info.get("worker");
+        List<String> parts = (List<String>) info.get("part");
+        String content = (String) info.get("content");
+        String date = (String) info.get("date");
+        String status = (String) info.get("status");
+        String resCodeString = (String) info.get("resCode");
+        String extraTimeString = info.get("extraTime").toString();
+
+        int resCode = Integer.parseInt(resCodeString);
+        int extraTime = Integer.parseInt(extraTimeString);
+
+
         repairService.addRepair(resCode,content,status,date,extraTime);
-        repairService.addRepairPart(partNameList,resCode);
-        repairService.addRepairWorker(userNameList,resCode);
-        return "redirect:/user/repair";
+        repairService.addRepairPart(parts,resCode);
+        repairService.addRepairWorker(workers,resCode);
+        return "1";
     }
 
 }

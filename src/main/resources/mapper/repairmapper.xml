@@ -77,7 +77,8 @@
         JOIN tbl_repair_part e ON a.res_code = e.res_code
         JOIN tbl_part f ON e.part_code = f.part_code
         GROUP BY
-        a.res_code, a.repair_date, a.repair_status, u.user_name;
+        a.res_code, a.repair_date, a.repair_status, u.user_name
+        ORDER BY a.repair_date DESC;
     </select>
 
     <select id="SearchByworkerCode" resultType="map">
@@ -126,24 +127,17 @@
         a.res_code, a.repair_date, a.repair_status, u.user_name
 
     </select>
-    <select id="selectRepair" resultMap="repair2">
-        SELECT DISTINCT
-        a.res_code,
-        d.user_name ,
-        a.repair_content,
-        f.part_name ,
-        a.repair_status,
-        a.repair_date
+    <select id="selectRepair" resultMap="repair">
+        SELECT
+            res_code,
+            repair_content,
+            repair_status,
+            repair_date,
+            repair_time
         FROM
-        tbl_repair a
-        JOIN tbl_res b ON a.res_code = b.res_code
-        JOIN tbl_user u ON b.user_code = u.user_code
-        JOIN tbl_repair_workers c ON a.res_code = c.res_code
-        JOIN tbl_user d ON c.user_code = d.user_code
-        JOIN tbl_repair_part e ON a.res_code = e.res_code
-        JOIN tbl_part f ON e.part_code = f.part_code
+            tbl_repair
         WHERE
-            a.res_code = #{resCode};
+            res_code = #{resCode};
     </select>
 
     <update id="modifyRepair">
@@ -151,6 +145,7 @@
         <set>
             <if test="content != null">repair_content = #{content},</if>
             <if test="status != null">repair_status = #{status},</if>
+            <if test="date != null">repair_date = #{date},</if>
 
         </set>
         WHERE res_code = #{resCode}

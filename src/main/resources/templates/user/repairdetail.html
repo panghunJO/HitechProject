@@ -132,7 +132,7 @@
                             <div class="row mb-3 mt-4">
                                 <label class="col-sm-3 col-form-label text-end">예약번호</label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="resCode" class="form-control" th:value="${repairDTO[0].resDTO.code}" readonly>
+                                    <input type="text" name="resCode" id="resCode" class="form-control" th:value="${repairDTO.resDTO.code}" readonly>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -152,7 +152,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label text-end">작업내용</label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="content" class="form-control" th:value="${repairDTO[0].repairDTO.content}">
+                                    <input type="text" name="content" class="form-control" id="content" th:value="${repairDTO.content}">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -171,18 +171,18 @@
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label text-end">진행상황</label>
                                 <div class="col-sm-6">
-<!--                                    <input  name="extra" type="text" class="form-control w-100" th:value="${repairDTO[0].repairDTO.status}" readonly>-->
-                                    <select name="status" style="width: 100%;"  class="form-control" th:value="${repairDTO[0].repairDTO.status}"  >
-                                        <option th:selected="${repairDTO[0].repairDTO.status}=='대기'">대기</option>
-                                        <option th:selected="${repairDTO[0].repairDTO.status}=='진행중'">진행중</option>
-                                        <option th:selected="${repairDTO[0].repairDTO.status}=='완료'">완료</option>
+                                    <!--                                    <input  name="extra" type="text" class="form-control w-100" th:value="${repairDTO[0].repairDTO.status}" readonly>-->
+                                    <select name="status" id="status" style="width: 100%;"  class="form-control" th:value="${repairDTO.status}"  >
+                                        <option th:selected="${repairDTO.status}=='대기'">대기</option>
+                                        <option th:selected="${repairDTO.status}=='진행중'">진행중</option>
+                                        <option th:selected="${repairDTO.status}=='완료'">완료</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label text-end">날짜</label>
                                 <div class="col-sm-6">
-                                    <input type="text" th:value="${repairDTO[0].repairDTO.date}" readonly>
+                                    <input type="datetime-local" id="date" th:value="${repairDTO.date}" name="date">
                                 </div>
                             </div>
                             <div class="row">
@@ -262,8 +262,53 @@
 
                     </form>
                     <script>
+                        function getAllSelectedWorkerValues() {
+                            let selectBox = document.querySelector('#selectedWorkers');
+                            let values = Array.from(selectBox.options).map(option => option.value);
 
+                            return values;
+                        }
 
+                        function getAllSelectedPartValues() {
+                            let selectBox = document.querySelector('#selectedParts');
+                            let values = Array.from(selectBox.options).map(option => option.value);
+
+                            return values;
+                        }
+
+                        function modifyrepair() {
+                            var resCode =  document.getElementById("resCode").value;
+                            var worker = getAllSelectedWorkerValues();
+                            var part = getAllSelectedPartValues();
+                            var content = document.getElementById("content").value;
+                            var date = document.getElementById("date").value;
+                            var status = document.getElementById("status").value;
+                            console.log("worker"+worker+"part"+part+"content"+content+"date"+date+"status"+status+"resCode"+resCode)
+
+                            fetch("/user/repairModify", {
+                                method: "POST",
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    resCode:resCode,
+                                    worker:worker,
+                                    part:part,
+                                    content:content,
+                                    date :date,
+                                    status:status
+                                })
+                            }) .then(response => response.json())
+                                .then(result => {
+                                    if(result == "1"){
+                                        alert("수정되었습니다.")
+                                        location.href="/user/repair"
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        }
 
 
                         function deleterepair(){
@@ -280,7 +325,7 @@
                                     var option = document.createElement("option");
                                     option.text = partSelect.options[i].text;
                                     option.value = partSelect.options[i].value;
-                                    option.selected = partSelect.options[i].selected;
+                                    option.selected = true;
                                     selectedPartSelect.appendChild(option);
                                     // Optionally, remove the added option from the workerCode select box
                                     partSelect.remove(i);
@@ -292,19 +337,18 @@
                             var partSelect = document.getElementById('partName');
                             var selectedPartSelect = document.getElementById('selectedParts');
 
-                            // Loop through the selected options in selectedWorkers and add them back to workerCode
                             for (var i = 0; i < selectedPartSelect.options.length; i++) {
                                 if (selectedPartSelect.options[i].selected) {
                                     var option = document.createElement("option");
                                     option.text = selectedPartSelect.options[i].text;
                                     option.value = selectedPartSelect.options[i].value;
                                     partSelect.appendChild(option);
-                                    // Remove the added option from the selectedWorkers select box
                                     selectedPartSelect.remove(i);
+                                    i--;
 
-                                    i--; // Adjust index due to removal
                                 }
                             }
+                            selectedPartSelect.options.selected=true;
                         }
 
 
@@ -391,43 +435,6 @@
                             }
                         }
 
-                        function addPart() {
-                            var partNameSelect = document.getElementById('partName');
-                            var selectedPartsSelect = document.getElementById('selectedParts');
-
-                            for (var i = 0; i < partNameSelect.options.length; i++) {
-                                if (partNameSelect.options[i].selected) {
-                                    if (!optionExists(selectedPartsSelect, partNameSelect.options[i].value)) {
-                                        var option = document.createElement("option");
-                                        option.text = partNameSelect.options[i].text;
-                                        option.value = partNameSelect.options[i].value;
-                                        option.selected = true;
-                                        selectedPartsSelect.appendChild(option);
-                                    }
-                                    partNameSelect.remove(i);
-                                    i--; // Adjust index due to removal
-                                }
-                            }
-                        }
-
-                        function removePart() {
-                            var partNameSelect = document.getElementById('partName');
-                            var selectedPartsSelect = document.getElementById('selectedParts');
-
-                            for (var i = 0; i < selectedPartsSelect.options.length; i++) {
-                                if (selectedPartsSelect.options[i].selected) {
-                                    if (!optionExists(partNameSelect, selectedPartsSelect.options[i].value)) {
-                                        var option = document.createElement("option");
-                                        option.text = selectedPartsSelect.options[i].text;
-                                        option.value = selectedPartsSelect.options[i].value;
-                                        option.selected = true;
-                                        partNameSelect.appendChild(option);
-                                    }
-                                    selectedPartsSelect.remove(i);
-                                    i--; // Adjust index due to removal
-                                }
-                            }
-                        }
                         function optionExists(selectElement, value) {
                             for (var i = 0; i < selectElement.options.length; i++) {
                                 if (selectElement.options[i].value === value) {
@@ -513,20 +520,8 @@
                             }
                         }
 
-                        function selectAllOptions(selectElementId) {
-                            var selectElement = document.getElementById(selectElementId);
-                            for (var i = 0; i < selectElement.options.length; i++) {
-                                selectElement.options[i].selected = true;
-                            }
-                        }
-                        // 예를 들어, 폼이 제출될 때 모든 옵션을 선택 상태로 만들려면:
-                        document.getElementById('actionForm').addEventListener('submit', function(event) {
-                            selectAllOptions('selectedParts');
-                        });
-                        function modifyrepair() {
-                            document.getElementById("actionForm").action = "/user/repairModify";
-                            document.getElementById("actionForm").submit();
-                        }
+
+
                     </script>
                 </div>
             </div>

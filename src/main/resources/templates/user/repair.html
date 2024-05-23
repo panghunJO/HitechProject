@@ -74,7 +74,7 @@
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <h2 style="text-align: center">작업 등록</h2>
-                <form action="/user/repair/regist" method="post">
+
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label text-end">예약번호</label>
                         <div class="col-sm-8">
@@ -97,7 +97,7 @@
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label text-end">작업 내용</label>
                         <div class="col-sm-8">
-                            <input name="content" type="text" class="form-control" >
+                            <input name="content" id="content" type="text" class="form-control" >
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -116,7 +116,7 @@
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label text-end">진행상황</label>
                         <div class="col-sm-8">
-                            <select name="status" style="width: 100%;"  class="form-control">
+                            <select name="status" style="width: 100%;" id="status" class="form-control">
                                 <option>대기</option>
                                 <option>진행중</option>
                                 <option>완료</option>
@@ -132,20 +132,69 @@
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label text-end">예상시간</label>
                         <div class="col-sm-8">
-                            <input name="extraTime" type="number" class="form-control">
+                            <input name="extraTime" id="extraTime" type="number" class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col text-end">
-                            <button type="submit" class="btn btn-modify " >등록</button>
+                            <button type="submit" class="btn btn-modify " onclick="repairRegist()" >등록</button>
                             <button type="button" class="btn btn-modify"  onclick="closeModal()">취소</button>
                         </div>
                     </div>
-                </form>
+
             </div>
         </div>
 
         <script>
+            function getAllSelectedWorkerValues() {
+                let selectBox = document.querySelector('#selectedWorkers');
+                let values = Array.from(selectBox.options).map(option => option.value);
+
+                return values;
+            }
+
+            function getAllSelectedPartValues() {
+                let selectBox = document.querySelector('#selectedParts');
+                let values = Array.from(selectBox.options).map(option => option.value);
+
+                return values;
+            }
+            function repairRegist(){
+
+                var resCode =  document.getElementById("resCode").value;
+                var worker = getAllSelectedWorkerValues();
+                var part = getAllSelectedPartValues();
+                var date = document.getElementById("datetime").value;
+                var status = document.getElementById("status").value;
+                var extraTime = document.getElementById("extraTime").value;
+                var content = document.getElementById("content").value;
+
+
+                fetch("/user/repair/regist", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        resCode:resCode,
+                        worker:worker,
+                        part:part,
+                        content:content,
+                        date :date,
+                        status:status,
+                        extraTime:extraTime
+                    })
+                }) .then(response => response.json())
+                    .then(result => {
+                        if(result == "1"){
+                            alert("등록되었습니다.")
+                            location.href="/user/repair"
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
 
             document.getElementById('datetime').addEventListener('input', function() {
                 var dateTimeInput = this.value;

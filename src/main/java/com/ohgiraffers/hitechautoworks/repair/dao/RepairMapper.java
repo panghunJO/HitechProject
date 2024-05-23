@@ -9,6 +9,7 @@ import com.ohgiraffers.hitechautoworks.repair.dto.WorkerDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -22,9 +23,9 @@ public interface RepairMapper {
 
     List<Map<String,Object>> SearchByworkerName(String worker);
 
-    List<Repair2DTO> selectRepair(int resCode);
+    RepairDTO selectRepair(int resCode);
 
-    void modifyRepair(int resCode, String content, String status);
+    void modifyRepair(int resCode, String content, String status, String date);
 
     List<Integer>  selectUserCodeByUserName(List<String> userName);
 
@@ -42,7 +43,7 @@ public interface RepairMapper {
 
     List<ResDTO> findResList();
 
-    void addRepair(int resCode, String content, String status, LocalDateTime date, int extraTime);
+    void addRepair(int resCode, String content, String status, String date, int extraTime);
 
     void addRepairPart(List<Integer>  newPartCode, int resCode);
 
