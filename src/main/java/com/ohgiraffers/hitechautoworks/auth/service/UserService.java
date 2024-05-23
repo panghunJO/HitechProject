@@ -216,6 +216,7 @@ public class UserService  {
 
     public List<Map<String, Object>> getCalendar(int userCode) {
         List<Map<String, Object>> getCalendar = userMapper.getCalendar(userCode);
+        System.out.println("getCalendar = " + getCalendar);
         List<Map<String, Object>> updatedCalendar = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
@@ -229,6 +230,7 @@ public class UserService  {
             Map<String, Object> updatedEvent = new HashMap<>(event);
             updatedEvent.put("start", start.format(formatter));
             updatedEvent.put("end", end.format(formatter));
+            updatedEvent.put("title", title);
             updatedCalendar.add(updatedEvent);
         }
 

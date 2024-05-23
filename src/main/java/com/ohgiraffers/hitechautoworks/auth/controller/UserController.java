@@ -394,7 +394,7 @@ public class UserController {
 
         int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
         List<Map<String, Object>> calendar = userService.getCalendar(userCode);
-        System.out.println("calendar = " + calendar);
+        System.out.println("calendar321312 = " + calendar);
 
         return calendar;
     }
