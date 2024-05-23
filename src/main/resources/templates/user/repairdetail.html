@@ -145,7 +145,7 @@
                                     <input type="button" name="removeButton" value="삭제" onclick="removeWorker()"><br><br>
                                     <!-- 선택된 작업자들을 보여주는 선택 박스 -->
                                     <select name="userName" id="selectedWorkers" style="width: 100%;" size="7" multiple>
-                                        <option th:each="worker : ${workers}" th:value="${worker.userDTO.userName}" th:text="${worker.userDTO.userName}" selected></option>
+                                        <option th:each="worker : ${workers}" th:value="${worker.userDTO.userName}" th:text="${worker.userDTO.userName}" ></option>
                                     </select>
                                 </div>
                             </div>
@@ -164,7 +164,7 @@
                                     <input type="button" name="removeButton" value="삭제" onclick="removePart()"><br><br>
                                     <!-- 선택된 작업자들을 보여주는 선택 박스 -->
                                     <select name="partName" id="selectedParts" style="width: 100%;" size="7" multiple>
-                                        <option class="w-100" th:each="part : ${parts}" th:value="${part.partDTO.partName}" id="" th:text="${part.partDTO.partName}" selected ></option>
+                                        <option class="w-100" th:each="part : ${parts}" th:value="${part.partDTO.partName}" id="" th:text="${part.partDTO.partName}"  ></option>
                                     </select>
                                 </div>
                             </div>
