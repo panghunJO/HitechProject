@@ -71,82 +71,87 @@
         </div>
     </form>
         <!-- 모달 구조 -->
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <h2 style="text-align: center">작업 등록</h2>
-
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label text-end">예약번호</label>
-                        <div class="col-sm-8">
-                            <select name="resCode" id="resCode" style="width: 100%;" class="form-control" ></select>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">작업등록</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()"></button>
+            </div>
+            <div class="container">
+                <div class="row mb-3 mt-3">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="col-form-label">예약번호</label>
+                                    <select name="resCode" id="resCode" style="width: 100%;" class="form-control"></select>
+                                </div>
+                                <div>
+                                    <label class="col-form-label">작업자</label>
+                                    <select id="workerCode" style="width: 100%;" class="form-control" multiple></select>
+                                    <input type="button" name="button" value="추가" onclick="addWorker()">
+                                    <input type="button" name="removeButton" value="삭제" onclick="removeWorker()"><br><br>
+                                    <select name="userName" id="selectedWorkers" style="width: 100%;" size="7" multiple></select>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label text-end">작업자</label>
-                        <div class="col-sm-8">
-                            <!-- 작업자 선택 박스 -->
-                            <select id="workerCode" style="width: 100%;" class="form-control" multiple></select>
-                            <!-- 추가 및 삭제 버튼 -->
-                            <input type="button" name="button" value="추가" onclick="addWorker()">
-                            <input type="button" name="removeButton" value="삭제" onclick="removeWorker()"><br><br>
-                            <!-- 선택된 작업자들을 보여주는 선택 박스 -->
-                            <select name="userName" id="selectedWorkers" style="width:420px;" size="7" multiple>
-                            </select>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="col-form-label">작업 내용</label>
+                                    <input name="content" id="content" type="text" class="form-control">
+                                </div>
+                                <div>
+                                    <label class="col-form-label">필요 부품</label>
+                                    <select id="partName" style="width: 100%;" class="form-control" multiple></select>
+                                    <input type="button" name="button" value="추가" onclick="addPart()">
+                                    <input type="button" name="removeButton" value="삭제" onclick="removePart()"><br><br>
+                                    <select name="partName" id="selectedParts" style="width: 100%;" size="7" multiple></select>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label text-end">작업 내용</label>
-                        <div class="col-sm-8">
-                            <input name="content" id="content" type="text" class="form-control" >
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-md-4">
+                                        <label class="col-form-label">진행상황</label>
+                                        <select name="status" style="width: 100%;" id="status" class="form-control">
+                                            <option>대기</option>
+                                            <option>진행중</option>
+                                            <option>완료</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="col-form-label">날짜</label>
+                                        <input name="date" id="datetime" type="datetime-local" class="form-control">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="col-form-label">예상시간</label>
+                                        <input name="extraTime" id="extraTime" type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text-end">
+                                        <button type="submit" class="btn btn-modify" onclick="repairRegist()">등록</button>
+                                        <button type="button" class="btn btn-modify" onclick="closeModal()">취소</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label text-end" multiple>필요 부품</label>
-                        <div class="col-sm-8">
-                            <select id="partName" style="width: 100%;" class="form-control" multiple></select>
-                            <!-- 추가 및 삭제 버튼 -->
-                            <input type="button" name="button" value="추가" onclick="addPart()">
-                            <input type="button" name="removeButton" value="삭제" onclick="removePart()"><br><br>
-                            <!-- 선택된 작업자들을 보여주는 선택 박스 -->
-                            <select name="partName" id="selectedParts" style="width:420px;" size="7" multiple>
-
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label text-end">진행상황</label>
-                        <div class="col-sm-8">
-                            <select name="status" style="width: 100%;" id="status" class="form-control">
-                                <option>대기</option>
-                                <option>진행중</option>
-                                <option>완료</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label text-end">날짜</label>
-                        <div class="col-sm-8">
-                            <input name="date" id="datetime" type="datetime-local" class="form-control" >
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label text-end">예상시간</label>
-                        <div class="col-sm-8">
-                            <input name="extraTime" id="extraTime" type="number" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col text-end">
-                            <button type="submit" class="btn btn-modify " onclick="repairRegist()" >등록</button>
-                            <button type="button" class="btn btn-modify"  onclick="closeModal()">취소</button>
-                        </div>
-                    </div>
-
+                </div>
             </div>
         </div>
+    </div>
 
         <script>
-            document.getElementById("resCode").addEventListener("click" , () =>{
+            document.getElementById("resCode").addEventListener("change" , () =>{
                 let codeValue = document.getElementById("resCode").value; // 입력 필드 값 가져오기
                 fetch("/repair/getDate", {
                     method: "POST",

@@ -145,5 +145,23 @@
         JOIN tbl_repair_workers b on a.res_code = b.res_code
         WHERE b.user_code = #{userCode}
     </select>
+
+    <select id="searchForId" resultType="map">
+        SELECT user_id
+        FROM tbl_user
+        WHERE user_email = #{ idForEmail }
+    </select>
+
+    <select id="findPW" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_user
+        WHERE user_id = #{pwForId} AND user_phone = #{pwForPhone}
+    </select>
+
+    <update id="changePassForId">
+        UPDATE tbl_user
+        SET user_pw = #{ encodePw }
+        WHERE user_id = #{ pwForId }
+    </update>
 </mapper>
 
