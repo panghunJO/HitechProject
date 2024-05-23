@@ -230,8 +230,8 @@ public class UserController {
         }
         model.addAttribute("repair", repair);
         model.addAttribute("sqldate", date.substring(0,19));
-        List<ResCommentDTO> resCommentDTO = resService.findComment(resCode / 123456);
-        model.addAttribute("resComment", resCommentDTO);
+//        List<ResCommentDTO> resCommentDTO = resService.findComment(resCode / 123456);
+//        model.addAttribute("resComment", resCommentDTO);
 
         if (session.getAttribute("result") != null) {
             model.addAttribute("result", session.getAttribute("result"));
@@ -256,7 +256,7 @@ public class UserController {
         if (result == 1){
             session.setAttribute("result",result);
         }
-        return "redirect:/user/testPage?resCode=" + resCode;
+        return "redirect:/user/testPage?resCode=" + 123456 * resCode;
     }
 
     @PostMapping("/user/resDelete")
