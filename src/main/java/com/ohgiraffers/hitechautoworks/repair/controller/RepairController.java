@@ -152,13 +152,6 @@ public class RepairController {
     @ResponseBody
     public String addRepair(@RequestBody Map<String,Object> info,Model model){
 
-//        resCode:resCode,
-//                worker:worker,
-//                part:part,
-//                content:content,
-//                date :date,
-//                status:status,
-//                extraTime:extraTime
         List<String> workers = (List<String>) info.get("worker");
         List<String> parts = (List<String>) info.get("part");
         String content = (String) info.get("content");
