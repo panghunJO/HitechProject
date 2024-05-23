@@ -2,313 +2,225 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="keywords" content="SignUp, Login, Register">
-    <meta name="keywords" content="Sign up, Sign in">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <!--Bootstrap Css-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <!--Font-aweome-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <!-- Popper JS -->
+    <title>HitechAutoWorks</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/assets/img/favicon.png" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-        var successMessage = /*[[${successMessage}]]*/ '';
-        document.addEventListener("DOMContentLoaded", function() {
-            if (successMessage !== null && successMessage !== '') {
-                alert(successMessage);
-            }
-        });
-        /*]]>*/
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const signbutton = document.getElementById("signup_button");
-            signbutton.disabled = true;
-            let set = 0;
-            document.getElementById("overlappedID").addEventListener("click", () => {
-                const id = document.getElementById("fname").value;
-                // console.log(id);
-                fetch("/auth/idCheck?id=" + id)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data == 1) {
-                            alert("이미 사용중인 ID 입니다.");
-                        } else {
-                            alert("사용 가능한 ID 입니다.");
-                            set++;
-                        }
-                    })
-                    .catch(error => console.error("Error:", error));
-            })
-            document.getElementById("fname").addEventListener("input", () => {
-                // 회원가입 버튼을 비활성화
-                signbutton.disabled = true;
-            });
 
-            document.getElementById("cpass").addEventListener("input",() => {
-                const cpass = document.getElementById("cpass").value;
-                const pass = document.getElementById("signup_password").value;
-                const nocorrect = document.getElementById("nocorrect");
-
-                nocorrect.style.display = "none";
-
-                if (cpass == pass){
-                    nocorrect.style.display = "none";
-                    if(set == 1){
-                        signbutton.disabled = false;
-                    }
-                } else {
-                    nocorrect.style.display = "block";
-                }
-            })
-        });
-    </script>
-
-    <link rel="stylesheet" href="https://example.com/path/to/login.css">
 </head>
 <style>
-    :root{
-        --background-theme:#e6e9f0;
-        --text-color:#000;
-    }
-
-    *,html{
-        margin:0px;
-        padding:0px;
-        font-size: 10px;
-        color: var(--text-color);
-        box-sizing: border-box;
-        font-family: 'Poppins', sans-serif;
-    }
-
-    body{
-        width:100%;
-        background-color:var(--background-theme);
-    }
-    h1{
-        font-size: 3.2rem;
-    }
-    p{
-        font-size: 1.2rem;
-    }
-    /* Sections */
-    .login_section{
-        min-height: 100vh;
-        display: flex;
-        align-items:center;
-        position: relative;
-        justify-content:center;
-    }
-
-    .accounts_container {
-        height: 600px; /* Adjusted height to accommodate the logo */
-        min-height: 600px;
-        max-height: 100%;
-        border-radius: 10px;
-        box-shadow: 8px 8px 8px rgba(0,0,0,0.1);
-        background-color: #fcfcfc;
-        overflow: hidden;
-    }
-
-    .accounts_image img {
-        object-fit: cover;
-        object-position: center;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-    }
-
-    .accounts_col form .form-group {
-        position: relative !important;
-    }
-
-    .accounts_col form .form-control {
-        font-size: 1.6rem;
-        padding: 20px 10px;
-        margin-bottom: 20px;
-        background: transparent !important;
-    }
-
-    .accounts_col form label,
-    .accounts_col form .form-group i {
-        position: absolute;
-        z-index: 1;
-        pointer-events: none;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 1.2rem;
-        left: 10px;
-    }
-
-    .accounts_col form label {
-        transition: .2s linear;
-    }
-
-    /* Logo Container Styles */
-    .logo_container {
-        position: absolute;
-        bottom: 50;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .logo_img {
-        max-width: 150px; /* Adjust as per your logo size */
-    }
-    .accounts_col form label,
-    .accounts_col form .form-group i{
-        position:absolute;
-        z-index: 1;
-        pointer-events: none;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size:1.2rem;
-        left:10px;
-
-    }
-    .accounts_col form label{
-        transition: .2s linear;
-    }
-    .change_label{
-        background-color:#fcfcfc;
-        transition: .2s linear;
-        transform: scale(0.8);
-        top:0 !important;
-    }
-    .accounts_col form .form-group i{
-        left:90% !important;
-        cursor: pointer;
-        pointer-events:visible;
-    }
-    .register_btn{
-        padding:10px 0!important;
-        font-size: 1.6rem !important;
-        font-weight: 600 !important;
-
-    }
-
-    .already_member_box p,
-    .already_member_box span{
-        cursor: pointer;
-    }
-    .login_form,
-    .signup_form{
-        display: block;
-    }
-
-    /* Existing CSS remains unchanged */
-
-    .image_buttons_container {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px; /* Adjust spacing as needed */
-    }
-
-    .image_button {
-        margin: 0 10px; /* Adjust spacing between buttons */
-    }
-
-    .image_button img {
-        width: 50px; /* Adjust button image size */
-        height: auto;
-    }
-
-    .divider {
-        border-left: 1px solid #ccc; /* Adjust border properties as needed */
-    }
-
-    .input-group-append {
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        background-color: skyblue;
-    }
-
-    #password_error_message {
-        display: none;
+    #phoneMessage {
         color: red;
-        font-size: 12px;
-    }
-
-    #nocorrect {
         display: none;
+        margin-top: 0.25rem;
     }
-
 </style>
 <body>
 
-<section class="login_section">
-    <div class="container outer_container accounts_container">
-        <div class="row h-100">
-            <div class="col col-sm-12 col-md-12 col-lg-8 m-0 p-0 w-100 h-100 accounts_col">
-                <div class="accounts_image w-100 h-100">
-                    <img src="https://github.com/YoonJae00/Spring-Security/assets/157236060/9ceca26b-3162-41af-8fa3-f2f896996e37" alt="accounts_image" class="img-fluid w-100 h-100" />
-                </div>
-                <!--accounts_image-->
-            </div>
-            <!--account_col-->
-            <div class="col col-sm-12 col-md-12 col-lg-4 m-0 p-0 accounts_col">
-                <div class="accounts_forms signup_form w-100 h-100" id="signup">
-                    <div class="title mt-4 p-4 w-100">
-                        <h1>회원가입</h1>
-                        <p class="mt-3">뭘 써야할까? 모르겠넹</p>
-                    </div>
-                    <!--title-->
-                    <form method="post" name="form" class="form w-100 p-4" action="/member/regist">
-                        <div class="form-group">
-                            <input type="text" name="userid" class="form-control" placeholder="아이디" id="fname" onfocus="labelUp(this)" onblur="labelDown(this)" required />
-                            <div class="input-group-append">
-                                <button id="overlappedID" type="button">중복확인</button><br>
+<main>
+    <div class="container">
+
+        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+                        <div class="d-flex justify-content-center py-4">
+                            <a href="index.html" class="logo d-flex align-items-center w-auto">
+                                <!-- <img src="https://github.com/YoonJae00/Spring-Security/assets/157236060/9ceca26b-3162-41af-8fa3-f2f896996e37" alt="logo"> -->
+                                <span class="d-none d-lg-block">HitechAutoworks</span>
+                            </a>
+                        </div><!-- End Logo -->
+
+                        <div class="card mb-3">
+
+                            <div class="card-body">
+
+                                <div class="pt-4 pb-2">
+                                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+                                    <p class="text-center small"></p>
+                                </div>
+
+                                <form class="row g-3 needs-validation" action="/member/regist" method="post">
+
+                                    <div class="col-12">
+                                        <label for="fname" class="form-label">아이디</label>
+                                        <div class="input-group">
+                                            <input type="text" name="userid" class="form-control" id="fname" required>
+                                            <button type="button" id="overlappedID" class="btn btn-info">중복확인</button>
+                                        </div>
+                                        <div class="invalid-feedback">아이디를 입력해주세요</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="signup_password" class="form-label">비밀번호</label>
+                                        <input type="password" name="pass" class="form-control" id="signup_password" required>
+                                        <div class="invalid-feedback">비빌번호를 입력해주세요 !</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="cpass" class="form-label">비밀번호 확인</label>
+                                        <input type="password" name="cpass" class="form-control" id="cpass" required>
+                                        <span style="color: red; display: none" id="nocorrect">비밀번호가 일치하지 않습니다</span>
+                                        <div class="invalid-feedback">비빌번호 확인을 입력해주세요 !</div>
+                                    </div>
+
+
+                                    <div class="col-12">
+                                        <label for="lname" class="form-label">이름</label>
+                                        <input type="text" name="username" class="form-control" id="lname" required>
+                                        <div class="invalid-feedback">이름을 입력해주세요!</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="email" class="form-label">이메일</label>
+                                        <input type="email" name="email" class="form-control" id="email" required>
+                                        <div class="invalid-feedback">이메일 형식에 맞게 입력해주세요!</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="phone" class="form-label">휴대폰번호</label>
+                                        <div class="input-group has-validation">
+                                            <input type="tel" name="phone" class="form-control" id="phone" required>
+                                            <div class="invalid-feedback">휴대폰 번호를 입력해주세요 !</div>
+                                        </div>
+                                        <div id="phoneMessage">"-" 를 포함한 13자리수 이상 숫자만 입력하세요</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
+                                            <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
+                                            <div class="invalid-feedback">동의 하셔야 가입완료됩니다.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100" id="signup_button" type="submit">회원가입하기</button>
+                                    </div>
+                                    <div class="col-12">
+                                        <p class="small mb-0">이미 계정인 있으신가요??? <a href="/member/login">로그인하러가기</a></p>
+                                    </div>
+                                </form>
+
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        const signbutton = document.getElementById("signup_button");
+                                        signbutton.disabled = true;
+                                        let set = 0;
+                                        document.getElementById("overlappedID").addEventListener("click", () => {
+                                            const id = document.getElementById("fname").value;
+                                            // console.log(id);
+                                            fetch("/auth/idCheck?id=" + id)
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data == 1) {
+                                                        alert("이미 사용중인 ID 입니다.");
+                                                    } else {
+                                                        alert("사용 가능한 ID 입니다.");
+                                                        set++;
+                                                    }
+                                                })
+                                                .catch(error => console.error("Error:", error));
+                                        })
+
+                                        // document.getElementById("fname").addEventListener("input", () => {
+                                        //     // 회원가입 버튼을 비활성화
+                                        //     signbutton.disabled = true;
+                                        // });
+
+                                        document.getElementById("cpass").addEventListener("input",() => {
+                                            const cpass = document.getElementById("cpass").value;
+                                            const pass = document.getElementById("signup_password").value;
+                                            const nocorrect = document.getElementById("nocorrect");
+
+                                            nocorrect.style.display = "none";
+
+                                            if (cpass == pass){
+                                                nocorrect.style.display = "none";
+                                                if(set == 1){
+                                                    set++;
+                                                }
+                                            } else {
+                                                nocorrect.style.display = "block";
+                                            }
+                                        })
+
+                                        function validatePhoneNumber() {
+                                            const phoneInput = document.getElementById('phone');
+                                            const phoneMessage = document.getElementById('phoneMessage');
+                                            const phoneValue = phoneInput.value;
+
+                                            if (!/^\d{3}-\d{3,4}-\d{4}$/.test(phoneValue) || phoneValue.length < 13) {
+                                                phoneMessage.style.display = 'block';
+                                                phoneInput.classList.add('is-invalid');
+                                            } else {
+                                                phoneMessage.style.display = 'none';
+                                                phoneInput.classList.remove('is-invalid');
+                                                phoneInput.classList.add('is-valid');
+                                            }
+                                        }
+
+                                        document.getElementById('phone').addEventListener('input', () => {
+                                            const phoneInput = document.getElementById('phone');
+                                            const phoneMessage = document.getElementById('phoneMessage');
+                                            const phoneValue = phoneInput.value;
+
+                                            if (!/^\d{3}-\d{3,4}-\d{4}$/.test(phoneValue) || phoneValue.length < 13) {
+                                                phoneMessage.style.display = 'block';
+                                                phoneInput.classList.add('is-invalid');
+                                            } else {
+                                                phoneMessage.style.display = 'none';
+                                                phoneInput.classList.remove('is-invalid');
+                                                phoneInput.classList.add('is-valid');
+                                            }
+                                            if(set == 2){
+                                                signbutton.disabled = false;
+                                            }
+                                        });
+
+                                    });
+                                </script>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <i class="fa fa-eye-slash" id="eye_icon_signup"></i>
-                            <input type="password" name="pass" class="form-control" placeholder="비밀번호" id="signup_password" onfocus="labelUp(this)" onblur="labelDown(this)" required />
-                        </div>
-                        <!--                        <div id="password_error_message">비밀번호는 8자리 이상이어야 하며 특수문자를 포함해야 합니다.</div>-->
-                        <div class="form-group">
-                            <input type="password" name="cpass" class="form-control" placeholder="비밀번호 확인" id="cpass" onfocus="labelUp(this)" onblur="labelDown(this)" required />
-                            <span style="color: red;" id="nocorrect">비밀번호가 일치하지 않습니다</span>
-                        </div>
 
-                        <div class="form-group">
-                            <input type="text" name="username" placeholder="이름" class="form-control" id="lname" onfocus="labelUp(this)" onblur="labelDown(this)" required />
-                        </div>
-                        <div class="form-group">
-                            <input type="email" name="email" class="form-control" placeholder="이메일" id="email" onfocus="labelUp(this)" onblur="labelDown(this)" required />
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" name="phone" class="form-control" placeholder="휴대폰 번호" id="phone" onfocus="labelUp(this)" onblur="labelDown(this)" required />
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary register_btn w-100" id="signup_button">Sign Up</button>
-                        </div>
-                    </form>
-
-                    <div class="already_member_box">
-                        <p class="text-center" id="to_login" onclick="location.href='/member/login'" >로그인으로 이동</p>
                     </div>
                 </div>
-                <!--accounts_forms-->
             </div>
-            <!--account_col-->
-        </div>
-        <!--row-->
-    </div>
-    <!--accounts_container-->
-</section>
-<!--login_section-->
 
+        </section>
+
+    </div>
+</main><!-- End #main -->
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+
+<!-- Template Main JS File -->
+<script src="/assets/js/main.js"></script>
 
 </body>
 
