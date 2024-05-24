@@ -42,7 +42,7 @@ public class RepairController {
         List<Map<String,Object>> repairList = repairService.findAllRepair();
         System.out.println("repairList = " + repairList);
         model.addAttribute("repairList", repairList);
-        return "/user/repair";
+        return "user/repair";
     }
 
     @PostMapping("/user/repair/repairSearch")
