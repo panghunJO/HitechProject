@@ -59,75 +59,7 @@ public class PartController {
     }
 
 
-    @GetMapping("/user/partAllCall")
-    public void partAllCall(Model model) {
 
-        List<PartDTO> partList = partService.selectAllPart();
-        model.addAttribute("partList", partList);
-    }
-    @PostMapping("/user/partAllCall")
-    public String partAllCall2(@RequestParam String partName, @RequestParam String partCode,
-                               Model model) {
-
-        if (partName == "" && partCode == "") {
-            List<PartDTO> partList = partService.selectAllPart();
-            model.addAttribute("partList", partList);
-            System.out.println("partList = " + partList);
-        } else if (partName == "") {
-            List<PartDTO> partList = partService.selectPartByCode(Integer.parseInt(partCode));
-            System.out.println("partList = " + partList);
-            model.addAttribute("partList", partList);
-        } else {
-            List<PartDTO> partList = partService.partSearchBtPartName(partName);
-            System.out.println("partList = " + partList);
-            model.addAttribute("partList", partList);
-        }
-
-        return "user/partAllCall";
-    }
-    @PostMapping("/user/registpart")
-    public String registpart(@RequestParam Map<String, String> parts, Model model){
-
-        int result = partService.addPart(parts);
-        if(result == 1) {
-            String partName = parts.get("partName");
-            model.addAttribute("result", result);
-            model.addAttribute("partName", partName);
-        }
-
-        return "redirect:/user/partAllCall";
-    }
-    @GetMapping("/user/partAdd")
-    public void partAdd(Model model) {
-    }
-
-
-    @GetMapping("/user/partdetail")
-    public void partdetail(@RequestParam int partCode,
-                           Model model) {
-        AuthUserInfo authUserInfo = new AuthUserInfo();
-        UserDTO userDTO = authUserInfo.getUserDTO();
-        int userCode = userDTO.getUserCode();
-        UserDTO userDTO1 = userService.findUserCode(userCode);
-        model.addAttribute("userDTO", userDTO1);
-        PartDTO partDTO = partService.selectpart(partCode);
-        System.out.println("partDTO = " + partDTO);
-        model.addAttribute("partDTO", partDTO);
-
-    }
-
-    @PostMapping("/user/partModify")
-    public String part(@RequestParam String partName, @RequestParam int partstock, @RequestParam int partPrice, @RequestParam String partCode ){
-        partService.modifyPart(partCode, partstock, partPrice, partName);
-        return "redirect:/user/partAllCall";
-    }
-
-    @PostMapping("/user/partDelete")
-    public String delete(@RequestParam String partCode){
-        partService.deletePart(partCode);
-
-        return "redirect:/user/partAllCall";
-    }
 
 
 
