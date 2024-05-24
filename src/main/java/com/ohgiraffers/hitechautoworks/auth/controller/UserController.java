@@ -71,8 +71,8 @@ public class UserController {
         }
         model.addAttribute("repair", repair);
         model.addAttribute("sqldate", date.substring(0,19));
-//        List<ResCommentDTO> resCommentDTO = resService.findComment(resCode / 123456);
-//        model.addAttribute("resComment", resCommentDTO);
+        List<ResCommentDTO> resCommentDTO = resService.findComment(resCode / 123456);
+        model.addAttribute("resComment", resCommentDTO);
 
         if (session.getAttribute("result") != null) {
             model.addAttribute("result", session.getAttribute("result"));
