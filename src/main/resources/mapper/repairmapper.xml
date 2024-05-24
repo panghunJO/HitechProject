@@ -206,12 +206,21 @@
         FROM
             tbl_part
     </select>
-    <select id="findWorkerList" resultMap="user">
-        SELECT
-            *
-        FROM
-            tbl_user a
-        WHERE  a.user_role = "EMPLOYEE"
+    <select id="findWorkerList" >
+        SELECT DISTINCT
+            a.user_name
+        FROM tbl_user a
+        WHERE a.user_role = 'EMPLOYEE'
+        AND a.user_name NOT IN (SELECT DISTINCT
+                                     a.user_name
+                                FROM
+                                    tbl_user a
+                                JOIN tbl_repair_workers b ON a.user_code = b.user_code
+                                JOIN tbl_repair c ON b.res_code = c.res_code
+                                WHERE  a.user_role = 'EMPLOYEE' AND (SELECT
+                                                                        res_date
+                                                                    FROM tbl_res
+                                                                    WHERE res_code = #{code}) = c.repair_date);
     </select>
     <select id="findResList" resultMap="res">
         SELECT
