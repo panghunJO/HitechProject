@@ -39,7 +39,7 @@ public interface RepairMapper {
 
     List<PartDTO> findPartList();
 
-    List<UserDTO> findWorkerList();
+    List<Map<String,Object>> findWorkerList(Object code);
 
     List<ResDTO> findResList();
 

@@ -128,10 +128,14 @@ public class RepairController {
         List<PartDTO> partList = repairService.findPartList();
         return partList;
     }
-    @GetMapping(value = "/employee/repair/worker",produces = "application/json; charset=UTF-8")
+    @PostMapping(value = "/employee/repair/worker")
     @ResponseBody
-    public List<UserDTO> findWorkerList(){
-        List<UserDTO> workerList = repairService.findWorkerList();
+    public List<Map<String,Object>> findWorkerList(@RequestBody Map<String,Object> info){
+        Object code = info.get("code");
+//        List<UserDTO> workerList =  repairService.findWorkerList();
+
+        List<Map<String,Object>> workerList =  repairService.findWorkerList(code);
+        System.out.println("workerList = " + workerList);
         return workerList;
     }
     @GetMapping(value ="/employee/repair/res" ,produces = "application/json; charset=UTF-8")

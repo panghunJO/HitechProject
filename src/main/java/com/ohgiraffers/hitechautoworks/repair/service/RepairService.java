@@ -63,8 +63,8 @@ public class RepairService {
         return repairMapper.findPartList();
     }
 
-    public List<UserDTO> findWorkerList() {
-        return repairMapper.findWorkerList();
+    public List<Map<String,Object>> findWorkerList(Object code) {
+        return repairMapper.findWorkerList(code);
     }
 
     public void addRepair(int resCode, String content, String status, String date, int extraTime) {
