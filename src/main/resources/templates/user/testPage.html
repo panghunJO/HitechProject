@@ -364,7 +364,6 @@
                                 })
                                     .then(response => response.json())
                                     .then(data => {
-                                        console.log(data);
                                         var replyList = document.getElementById('replyList-' + replyCode);
 
                                         // replyList 요소가 존재하는지 확인하고, 없으면 생성
@@ -401,55 +400,69 @@
                                     });
                             }
 
-
                             function editComment(resReplyCode, resCode, usercommentCode) {
                                 var authuserCode = `[[${userDTO.userCode}]]`;
                                 var resuserCode = usercommentCode;
                                 var userRole = `[[${userDTO.userRole}]]`;
 
                                 if (authuserCode == resuserCode || userRole == 'ADMIN' ) {
-                                    var userInput = prompt("수정할 내용을 입력해주세요");
-                                    if (userInput) {
-                                        fetch("/user/reseditComment", {
-                                            method: "POST",
-                                            headers: {
-                                                'Content-Type': 'application/json'
-                                            },
-                                            body: JSON.stringify({
-                                                str: userInput,
-                                                resReplyCode: resReplyCode,
-                                                resCode : resCode
-                                            })
-                                        })
-                                            .then(response => response.json())
-                                            .then(data => {
-                                                if (data == 1) {
-                                                    const commentContent = document.getElementById('commentContent-' + resReplyCode);
-                                                    if (commentContent) {
-                                                        commentContent.textContent = userInput;
-                                                    }
-                                                    const toastLiveExample = document.getElementById('liveToast');
-                                                    const toast = new bootstrap.Toast(toastLiveExample);
-                                                    toast.show();
-                                                } else {
-                                                    alert("수정에 실패했습니다. 다시 시도해주세요.");
-                                                    location.reload(true);
-                                                }
-                                            })
-                                            .catch(error => {
-                                                console.error('Error:', error);
-                                                alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
-                                            });
-                                    }
+                                    const commentContent = document.getElementById('commentContent-' + resReplyCode);
+                                    const originalContent = commentContent.textContent;
+                                    commentContent.innerHTML = `
+            <textarea class="form-control" id="editContent-${resReplyCode}" rows="3">${originalContent}</textarea>
+            <button type="button" class="btn btn-primary btn-sm mt-2" onclick="submitEdit(${resReplyCode}, ${resCode})">수정</button>
+            <button type="button" class="btn btn-secondary btn-sm mt-2" onclick="cancelEdit(${resReplyCode}, '${originalContent}')">취소</button>
+        `;
                                 } else {
                                     alert("본인의 댓글만 수정할 수 있습니다!!!");
                                 }
                             }
 
+                            function submitEdit(resReplyCode, resCode) {
+                                const editContent = document.getElementById('editContent-' + resReplyCode).value;
+
+                                fetch("/user/reseditComment", {
+                                    method: "POST",
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        str: editContent,
+                                        resReplyCode: resReplyCode,
+                                        resCode: resCode
+                                    })
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data == 1) {
+                                            const commentContent = document.getElementById('commentContent-' + resReplyCode);
+                                            if (commentContent) {
+                                                commentContent.textContent = editContent;
+                                            }
+                                            const toastLiveExample = document.getElementById('liveToast');
+                                            const toast = new bootstrap.Toast(toastLiveExample);
+                                            toast.show();
+                                        } else {
+                                            alert("수정에 실패했습니다. 다시 시도해주세요.");
+                                            location.reload(true);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                        alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
+                                    });
+                            }
+
+                            function cancelEdit(resReplyCode, originalContent) {
+                                const commentContent = document.getElementById('commentContent-' + resReplyCode);
+                                commentContent.innerHTML = originalContent;
+                            }
+
                             function deleteComment(resReplyCode, resCode, usercommentCode) {
                                 var authuserCode = `[[${userDTO.userCode}]]`;
                                 var resuserCode = usercommentCode;
-                                if (authuserCode == resuserCode) {
+                                var userRole = `[[${userDTO.userRole}]]`;
+                                if (authuserCode == resuserCode || userRole == 'ADMIN' ) {
                                     var userInput = confirm("삭제하시겠습니까?");
                                     if (userInput) {
                                         fetch("/user/deleteComment", {
