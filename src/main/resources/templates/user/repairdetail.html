@@ -348,32 +348,31 @@
 
                                 }
                             }
-                            selectedPartSelect.options.selected=true;
                         }
 
 
                         document.addEventListener("DOMContentLoaded", function() {
-                            fetch("/employee/repair/worker")
+                            var resCode =  document.getElementById("resCode").value;
+                            fetch("/employee/repair/worker",{
+                                method: "POST",
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    code:resCode
+                                })
+                            })
                                 .then(res => res.json())
-                                .then(data => {
-                                    // 전체 작업자 목록
-                                    const allWorkers = data;
-
-                                    // 선택된 작업자 목록을 HTML에서 가져오기
-                                    const selectedWorkersSelect = document.getElementById('selectedWorkers');
-                                    const selectedWorkers = Array.from(selectedWorkersSelect.options).map(option => option.value);
-
-                                    // workerCode select box를 채우기
-                                    const workerCodeSelect = document.getElementById('workerCode');
-                                    allWorkers.forEach(worker => {
-                                        if (!selectedWorkers.includes(worker.userName)) {
-                                            const option = document.createElement("option");
-                                            option.value = worker.userName;
-                                            option.textContent = worker.userName;
-                                            workerCodeSelect.appendChild(option);
-                                        }
-                                    });
-                                });
+                                .then(data =>{
+                                    console.log(data);
+                                    const $workerCode = document.getElementById('workerCode');
+                                    for(let index in data){
+                                        const $option = document.createElement("option");
+                                        $option.value = data[index].user_name;
+                                        $option.textContent = data[index].user_name;
+                                        $workerCode.appendChild($option);
+                                    }
+                                })
                             fetch("/employee/repair/part")
                                 .then(res => res.json())
                                 .then(data => {

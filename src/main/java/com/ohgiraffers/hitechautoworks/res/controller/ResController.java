@@ -24,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -207,38 +208,7 @@ public class ResController {
 
     }
 
-    @PostMapping("/customer/res/resDelete")
-    public String resDelete(@RequestParam int resCode ){
-     resService.resDelete(resCode);
 
-     return "customer/res/res";
-    }
-
-    @PostMapping("/user/res/editComment")
-    @ResponseBody
-    public int editComment(@RequestBody EditCommentDTO editCommentDTO){
-        int resReplyCode = editCommentDTO.getResReplyCode();
-        String editcomment = editCommentDTO.getStr();
-        int rescode = editCommentDTO.getRescode();
-
-        int result = resService.updateComment(resReplyCode, editcomment);
-
-//        return "redirect:/customer/res/resDetail?resCode=" + rescode;
-
-        return result;
-    }
-
-    @PostMapping("/customer/res/deleteComment")
-    @ResponseBody
-    public int deleteComment(@RequestBody DeleteCommentDTO deleteCommentDTO){
-        int resReplyCode = deleteCommentDTO.getResReplyCode();
-        int rescode = deleteCommentDTO.getRescode();
-        System.out.println("deleteCommentDTO111 = " + deleteCommentDTO);
-        int result = resService.deleteComment(resReplyCode);
-
-        return result;
-//        return "/customer/res/resDetail?resCode=" + rescode;
-    }
 
     @GetMapping("/customer/res/repair")
     public void resRepair(@RequestParam("resCode") int resCode,Model model) {
@@ -246,6 +216,10 @@ public class ResController {
         System.out.println("res = " + res);
         model.addAttribute("res", res);
     }
+
+
+
+
 
 
 

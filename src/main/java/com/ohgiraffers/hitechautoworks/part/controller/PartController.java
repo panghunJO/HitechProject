@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PartController {
@@ -57,41 +58,8 @@ public class PartController {
         }
     }
 
-    @GetMapping("/employee/part/partAdd")
-    public void partAdd(Model model){
-        authUserInfo = new AuthUserInfo();
-        UserDTO userDTO = authUserInfo.getUserDTO();
-        String userName = userDTO.getUserName();
-        model.addAttribute("userName",userName);
-    }
 
 
-    @GetMapping("/user/partdetail")
-    public void partdetail(@RequestParam int partCode,
-                           Model model) {
-        AuthUserInfo authUserInfo = new AuthUserInfo();
-        UserDTO userDTO = authUserInfo.getUserDTO();
-        int userCode = userDTO.getUserCode();
-        UserDTO userDTO1 = userService.findUserCode(userCode);
-        model.addAttribute("userDTO", userDTO1);
-        PartDTO partDTO = partService.selectpart(partCode);
-        System.out.println("partDTO = " + partDTO);
-        model.addAttribute("partDTO", partDTO);
-
-    }
-
-    @PostMapping("/user/partModify")
-    public String part(@RequestParam String partName, @RequestParam int partstock, @RequestParam int partPrice, @RequestParam String partCode ){
-        partService.modifyPart(partCode, partstock, partPrice, partName);
-        return "redirect:/user/partAllCall";
-    }
-
-    @PostMapping("/user/partDelete")
-    public String delete(@RequestParam String partCode){
-        partService.deletePart(partCode);
-
-        return "redirect:/user/partAllCall";
-    }
 
 
 
