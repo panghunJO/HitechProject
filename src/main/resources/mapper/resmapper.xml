@@ -116,7 +116,7 @@
         <association property="userDTO" resultMap="user"/>
     </resultMap>
 
-    <select id="findComment" parameterType="int" resultMap="commentResultMap">
+    <select id="findComment" resultMap="commentResultMap">
         select a.res_reply_content, a.res_time, a.res_code, b.user_name, b.user_code, a.res_reply_code, b.user_role, b.user_img
         from tbl_res_reply a
         join tbl_user b on a.user_code = b.user_code
@@ -173,4 +173,12 @@
         )
     </insert>
 
+    <select id="replyComment">
+        select a.user_img, a.user_name, a.user_role, b.res_replyComment_time, b.res_replyComment_content, b.res_reply_code
+        from tbl_res_replycomment b
+        join tbl_user a on b.user_code = a.user_code
+        join tbl_res c on b.res_code = c.res_code
+        where c.res_code = #{resCode}
+        ORDER BY b.res_replyComment_time desc
+    </select>
 </mapper>

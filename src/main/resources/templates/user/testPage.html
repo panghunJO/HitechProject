@@ -132,7 +132,7 @@
                             <div class="row mb-3 mt-4">
                                 <label class="col-sm-3 col-form-label text-end">예약번호</label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="resCode" class="form-control" th:value="${res.code}" readonly>
+                                    <input type="text" name="resCode" id="resCode" class="form-control" th:value="${res.code}" readonly>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -276,14 +276,30 @@
                                                             </a>
                                                         </li>
                                                     </ul>
+                                                    <div th:each="reply:${replyComment}">
+                                                    <div class="media g-mb-30 media-comment" style="margin-left: 40px" th:if="${comment.resReplyCode} == ${reply.res_reply_code} ">
+                                                        <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                                            <div class="g-mb-15">
+                                                                <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" th:src="${reply.user_img}" alt="Image Description">
+                                                                <h5 class="h5 g-color-gray-dark-v1 mb-0" th:text="${reply.user_name}"></h5>
+                                                                <span class="small-text ml-3" th:text="${reply.user_role}"></span> &nbsp;
+                                                                <span class="g-color-gray-dark-v4 g-font-size-12"th:text="${reply.res_replyComment_time}"></span>
+                                                            </div>
+                                                            <p class="mt-1" th:text="${reply.res_replyComment_content}"></p>
+                                                        </div>
+                                                    </div>
+                                                    </div>
                                                     <!-- 답글 인풋 태그 ㅡㅡㅡㅡㅡㅡ -->
                                                     <div th:attr="id='replyBox-' + ${comment.resReplyCode}" class="reply-box" style="display: none;">
                                                         <textarea class="form-control mt-2" rows="3" placeholder="답글을 입력하세요"></textarea>
                                                         <button type="button" class="btn btn-primary btn-sm mt-2" th:attr="onclick='submitReply(' + ${comment.resReplyCode} + ')'">답글 작성</button>
                                                         <button type="button" class="btn btn-secondary btn-sm mt-2" th:attr="onclick='hideReplyBox(' + ${comment.resReplyCode} + ')'">취소</button>
                                                     </div>
+
                                                 </div>
                                             </div>
+
+
                                         </div>
                                         <hr>
                                     </div>
@@ -333,48 +349,58 @@
                                 var replyBox = document.getElementById('replyBox-' + replyCode);
                                 var textarea = replyBox.querySelector('textarea');
                                 var replyContent = textarea.value;
+                                var resCode = document.getElementById('resCode').value;
 
-                                fetch('/submitReply', {
+                                fetch('/user/submitReply', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json'
                                     },
                                     body: JSON.stringify({
+                                        resCode: resCode,
                                         replyCode: replyCode,
                                         content: replyContent
                                     })
                                 })
                                     .then(response => response.json())
                                     .then(data => {
-                                        if (data.success) {
-                                            var replyList = document.getElementById('replyList-' + replyCode);
-                                            var newReply = document.createElement('div');
-                                            newReply.classList.add('media', 'g-mb-30', 'media-comment');
-                                            newReply.style.marginLeft = '40px';
+                                        console.log(data);
+                                        var replyList = document.getElementById('replyList-' + replyCode);
 
-                                            newReply.innerHTML = `
-                    <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
-                        <div class="g-mb-15">
-                            <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="${data.userImg}" alt="Image Description">
-                            <h5 class="h5 g-color-gray-dark-v1 mb-0">${data.userName}</h5>
-                            <span class="small-text ml-3">${data.userRole}</span> &nbsp;
-                            <span class="g-color-gray-dark-v4 g-font-size-12">${data.replyDate}</span>
-                        </div>
-                        <p class="mt-1">${replyContent}</p>
-                    </div>
-                `;
-                                            replyList.appendChild(newReply);
-
-                                            textarea.value = '';
-                                            replyBox.style.display = 'none';
-                                        } else {
-                                            console.error('Error:', data.message);
+                                        // replyList 요소가 존재하는지 확인하고, 없으면 생성
+                                        if (!replyList) {
+                                            console.warn('replyList not found for replyCode:', replyCode);
+                                            replyList = document.createElement('div');
+                                            replyList.id = 'replyList-' + replyCode;
+                                            replyBox.parentNode.insertBefore(replyList, replyBox.nextSibling);
                                         }
+
+                                        var newReply = document.createElement('div');
+                                        newReply.classList.add('media', 'g-mb-30', 'media-comment');
+                                        newReply.style.marginLeft = '40px';
+
+                                        newReply.innerHTML = `
+            <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                <div class="g-mb-15">
+                    <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="${data.userImg}" alt="Image Description">
+                    <h5 class="h5 g-color-gray-dark-v1 mb-0">${data.userName}</h5>
+                    <span class="small-text ml-3">${data.userRole}</span> &nbsp;
+                    <span class="g-color-gray-dark-v4 g-font-size-12">${data.replyDate}</span>
+                </div>
+                <p class="mt-1">${data.replyContent}</p>
+            </div>
+        `;
+
+                                        replyList.appendChild(newReply);
+
+                                        textarea.value = '';
+                                        replyBox.style.display = 'none';
                                     })
                                     .catch(error => {
                                         console.error('Error:', error);
                                     });
                             }
+
 
                             function editComment(resReplyCode, resCode, usercommentCode) {
                                 var authuserCode = `[[${userDTO.userCode}]]`;

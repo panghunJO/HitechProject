@@ -163,5 +163,20 @@
         SET user_pw = #{ encodePw }
         WHERE user_id = #{ pwForId }
     </update>
+
+    <insert id="submitReply">
+        INSERT INTO tbl_res_replycomment
+        (res_reply_code, res_replyComment_content, res_replyComment_time, user_code, res_code)
+        VALUES ( #{replyCode}, #{content}, #{registTime}, #{userCode}, #{resCode} )
+    </insert>
+
+    <select id="searchReply" resultType="map">
+        select a.user_img as userImg, a.user_name as userName, a.user_role as userRole, b.res_replyComment_time as replyDate, b.res_replyComment_content as replyContent
+        from tbl_res_replycomment b
+        join tbl_user a on b.user_code = a.user_code
+        where b.res_reply_code = #{ resReplyCode }
+        ORDER BY replyDate desc
+        LIMIT 1
+    </select>
 </mapper>
 

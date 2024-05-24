@@ -232,7 +232,8 @@ public class UserController {
         model.addAttribute("sqldate", date.substring(0,19));
         List<ResCommentDTO> resCommentDTO = resService.findComment(resCode / 123456);
         model.addAttribute("resComment", resCommentDTO);
-
+        List<Map<String,Object>> replyComment = resService.replyComment(resCode / 123456);
+        model.addAttribute("replyComment",replyComment);
         if (session.getAttribute("result") != null) {
             model.addAttribute("result", session.getAttribute("result"));
             session.removeAttribute("result");
@@ -397,6 +398,22 @@ public class UserController {
         System.out.println("calendar321312 = " + calendar);
 
         return calendar;
+    }
+
+    @PostMapping("/user/submitReply")
+    @ResponseBody
+    public Map<String,Object> submitReply(@RequestBody Map<String,Object> info, Model model) {
+
+        int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
+        int resReplyCode = (int) info.get("replyCode");
+        info.put("userCode",userCode);
+        int result = userService.submitReply(info);
+
+        Map<String,Object> commentInfo = userService.getReplyComment(resReplyCode);
+
+        System.out.println("commentInfo = " + commentInfo);
+
+        return commentInfo;
     }
 
 }
