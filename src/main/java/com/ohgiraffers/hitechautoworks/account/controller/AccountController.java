@@ -25,7 +25,7 @@ public class AccountController {
     private AuthUserInfo authUserInfo;
 
 
-    @GetMapping("/user/employee")
+    @GetMapping("/user/employeePage")
     public String account(Model model) {
         List<UserDTO> userList = accountService.findAllUser();
         System.out.println("userList = " + userList);
