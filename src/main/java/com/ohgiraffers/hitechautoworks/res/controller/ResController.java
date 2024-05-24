@@ -220,8 +220,10 @@ public class ResController {
     @GetMapping("/user/common")
     public void common(Model model) {
         List<ResDTO> resList = resService.findAllres();
+        System.out.println("resList = " + resList);
         model.addAttribute("resList", resList);
     }
+
     @PostMapping("/user/res/ressearch")
     public String resgo(Model model,@RequestParam String resCode, @RequestParam String resName){
 
@@ -287,13 +289,7 @@ public class ResController {
     }
 
 
-    @GetMapping("/user/rescustomer")
-    public void resccustomer(Model model) {
 
-        int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
-        List<ResDTO> resList = resService.findCustomerRes(userCode);
-        model.addAttribute("resList",resList);
-    }
 
 
     @PostMapping("/user/reseditComment")

@@ -31,6 +31,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ResService resService;
+
     @ModelAttribute
     public void addUserToModel(Model model){
         AuthUserInfo authUserInfo = new AuthUserInfo();
@@ -40,6 +43,13 @@ public class UserController {
         model.addAttribute("userDTO",userDTO1);
     }
 
+    @GetMapping("/user/rescustomer")
+    public void resccustomer(Model model) {
+
+        int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
+        List<ResDTO> resList = resService.findCustomerRes(userCode);
+        model.addAttribute("resList",resList);
+    }
 
     @GetMapping("/user/dashboard")
     public void dashboard(Model model) {
