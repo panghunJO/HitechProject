@@ -219,6 +219,23 @@ public class UserController {
     @GetMapping("/user/selectRes")
     public String selectRes() {
 
+        ResDTO res = resService.findUserRes(resCode / 123456);// 들어올때 resCode 123456 나눠줘야댐 (나중에 제대로 암호화 ㄱㄱ)
+        model.addAttribute("res", res);
+        String date = String.valueOf(res.getDate());
+        String repair = resService.findStatus(resCode/123456);
+        if (repair == null){
+            repair = "대기";
+        }
+        model.addAttribute("repair", repair);
+        model.addAttribute("sqldate", date.substring(0,19));
+        List<ResCommentDTO> resCommentDTO = resService.findComment(resCode / 123456);
+        model.addAttribute("resComment", resCommentDTO);
+        List<Map<String,Object>> replyComment = resService.replyComment(resCode / 123456);
+        model.addAttribute("replyComment",replyComment);
+        if (session.getAttribute("result") != null) {
+            model.addAttribute("result", session.getAttribute("result"));
+            session.removeAttribute("result");
+        }
         return "user/selectRes";
     }
 
@@ -411,6 +428,22 @@ public class UserController {
         partService.deletePart(partCode);
 
         return "redirect:/user/partAllCall";
+    }
+
+    @PostMapping("/user/submitReply")
+    @ResponseBody
+    public Map<String,Object> submitReply(@RequestBody Map<String,Object> info, Model model) {
+
+        int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
+        int resReplyCode = (int) info.get("replyCode");
+        info.put("userCode",userCode);
+        int result = userService.submitReply(info);
+
+        Map<String,Object> commentInfo = userService.getReplyComment(resReplyCode);
+
+        System.out.println("commentInfo = " + commentInfo);
+
+        return commentInfo;
     }
 
 }

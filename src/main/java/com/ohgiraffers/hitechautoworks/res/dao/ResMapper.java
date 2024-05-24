@@ -11,6 +11,7 @@ import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ResMapper {
@@ -48,4 +49,7 @@ public interface ResMapper {
     void insertRes(int userCode, String option, String dateTime, String resExtra);
 
     String findStatus(int resCode);
+
+    List<Map<String, Object>> replyComment(int resCode);
+
 }

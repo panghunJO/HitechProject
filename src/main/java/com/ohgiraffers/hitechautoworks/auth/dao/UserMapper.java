@@ -56,4 +56,8 @@ public interface UserMapper {
     int findPW(String pwForId, String pwForPhone);
 
     void changePassForId(String encodePw, String pwForId);
+
+    int submitReply(Map<String, Object> info);
+
+    Map<String,Object> searchReply(int resReplyCode);
 }

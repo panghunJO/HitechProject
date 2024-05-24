@@ -38,7 +38,6 @@ public class UserService  {
     @Async
     public int regist(UserRegistDTO registDTO) {
         registDTO.setPass(passwordEncoder.encode(registDTO.getPass()));
-        System.out.println("registDTO = " + registDTO);
         int result = 0;
         try {
             result = userMapper.regist(registDTO);
@@ -124,22 +123,6 @@ public class UserService  {
 
     public List<String>getTime(Date date1) {
 
-//        for( Map<String,Integer> a : count){
-//            System.out.println(a.get("time"));
-//            System.out.println(a.get("timeCount"));
-//            switch (a.get("time")) {
-//                case 12:
-//                    checkNull = employeeCount - a.get("timeCount");
-//                    break;
-//                case 14:
-//                    checkNull = employeeCount - a.get("timeCount");
-//                    break;
-//                case 11:
-//                    checkNull = employeeCount - a.get("timeCount");
-//                    break;
-//            }
-//            System.out.println("checkNull = " + checkNull);
-//        }
         int AllemployeeCount = userMapper.getCustomerCount();
         List<Map<String,Object>> count = userMapper.getTimeCount(date1);
 
@@ -262,5 +245,21 @@ public class UserService  {
         }
 
         return goPass;
+    }
+
+    public int submitReply(Map<String, Object> info) {
+
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedNow = now.format(formatter);
+
+        info.put("registTime",formattedNow);
+
+        System.out.println("info = " + info);
+        return userMapper.submitReply(info);
+    }
+
+    public Map<String,Object> getReplyComment(int resReplyCode) {
+        return userMapper.searchReply(resReplyCode);
     }
 }

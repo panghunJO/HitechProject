@@ -13,6 +13,7 @@ import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ResService {
@@ -84,6 +85,11 @@ public class ResService {
 
     public String findStatus(int resCode) {
         return resMapper.findStatus(resCode);
+    }
+
+
+    public List<Map<String, Object>> replyComment(int resCode) {
+        return resMapper.replyComment(resCode);
     }
 }
 

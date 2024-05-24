@@ -129,11 +129,24 @@
                                 <script>
                                     document.addEventListener("DOMContentLoaded", function() {
                                         const signbutton = document.getElementById("signup_button");
+                                        let idinput = document.getElementById("fname");
+
                                         signbutton.disabled = true;
-                                        let set = 0;
+
+                                        let set1 = 0;
+                                        let set2 = 0;
+                                        let set3 = 0;
+
+                                        function updateButtonState() {
+                                            if (set1 === 1 && set2 === 1 && set3 === 1) {
+                                                signbutton.disabled = false;
+                                            } else {
+                                                signbutton.disabled = true;
+                                            }
+                                        }
+
                                         document.getElementById("overlappedID").addEventListener("click", () => {
                                             const id = document.getElementById("fname").value;
-                                            // console.log(id);
                                             fetch("/auth/idCheck?id=" + id)
                                                 .then(response => response.json())
                                                 .then(data => {
@@ -141,33 +154,31 @@
                                                         alert("이미 사용중인 ID 입니다.");
                                                     } else {
                                                         alert("사용 가능한 ID 입니다.");
-                                                        set++;
+                                                        idinput.readOnly = true;
+                                                        set1 = 1;
+                                                        updateButtonState();
                                                     }
                                                 })
                                                 .catch(error => console.error("Error:", error));
-                                        })
+                                        });
 
-                                        // document.getElementById("fname").addEventListener("input", () => {
-                                        //     // 회원가입 버튼을 비활성화
-                                        //     signbutton.disabled = true;
-                                        // });
-
-                                        document.getElementById("cpass").addEventListener("input",() => {
+                                        function checkPasswordMatch() {
                                             const cpass = document.getElementById("cpass").value;
                                             const pass = document.getElementById("signup_password").value;
                                             const nocorrect = document.getElementById("nocorrect");
 
-                                            nocorrect.style.display = "none";
-
-                                            if (cpass == pass){
-                                                nocorrect.style.display = "none";
-                                                if(set == 1){
-                                                    set++;
-                                                }
-                                            } else {
+                                            if (cpass !== pass) {
                                                 nocorrect.style.display = "block";
+                                                set2 = 0;
+                                            } else {
+                                                nocorrect.style.display = "none";
+                                                set2 = 1;
                                             }
-                                        })
+                                            updateButtonState();
+                                        }
+
+                                        document.getElementById("cpass").addEventListener("input", checkPasswordMatch);
+                                        document.getElementById("signup_password").addEventListener("input", checkPasswordMatch);
 
                                         function validatePhoneNumber() {
                                             const phoneInput = document.getElementById('phone');
@@ -177,32 +188,19 @@
                                             if (!/^\d{3}-\d{3,4}-\d{4}$/.test(phoneValue) || phoneValue.length < 13) {
                                                 phoneMessage.style.display = 'block';
                                                 phoneInput.classList.add('is-invalid');
+                                                set3 = 0;
                                             } else {
                                                 phoneMessage.style.display = 'none';
                                                 phoneInput.classList.remove('is-invalid');
                                                 phoneInput.classList.add('is-valid');
+                                                set3 = 1;
                                             }
+                                            updateButtonState();
                                         }
 
-                                        document.getElementById('phone').addEventListener('input', () => {
-                                            const phoneInput = document.getElementById('phone');
-                                            const phoneMessage = document.getElementById('phoneMessage');
-                                            const phoneValue = phoneInput.value;
-
-                                            if (!/^\d{3}-\d{3,4}-\d{4}$/.test(phoneValue) || phoneValue.length < 13) {
-                                                phoneMessage.style.display = 'block';
-                                                phoneInput.classList.add('is-invalid');
-                                            } else {
-                                                phoneMessage.style.display = 'none';
-                                                phoneInput.classList.remove('is-invalid');
-                                                phoneInput.classList.add('is-valid');
-                                            }
-                                            if(set == 2){
-                                                signbutton.disabled = false;
-                                            }
-                                        });
-
+                                        document.getElementById('phone').addEventListener('input', validatePhoneNumber);
                                     });
+
                                 </script>
                             </div>
                         </div>
