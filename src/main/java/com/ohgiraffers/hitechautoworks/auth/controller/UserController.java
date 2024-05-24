@@ -50,6 +50,12 @@ public class UserController {
         List<ResDTO> resList = resService.findCustomerRes(userCode);
         model.addAttribute("resList",resList);
     }
+    @GetMapping("/user/common")
+    public void common(Model model) {
+        List<ResDTO> resList = resService.findAllres();
+        System.out.println("resList = " + resList);
+        model.addAttribute("resList", resList);
+    }
 
     @GetMapping("/user/dashboard")
     public void dashboard(Model model) {

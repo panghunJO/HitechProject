@@ -217,12 +217,7 @@ public class ResController {
         model.addAttribute("res", res);
     }
 
-    @GetMapping("/user/common")
-    public void common(Model model) {
-        List<ResDTO> resList = resService.findAllres();
-        System.out.println("resList = " + resList);
-        model.addAttribute("resList", resList);
-    }
+
 
     @PostMapping("/user/res/ressearch")
     public String resgo(Model model,@RequestParam String resCode, @RequestParam String resName){
