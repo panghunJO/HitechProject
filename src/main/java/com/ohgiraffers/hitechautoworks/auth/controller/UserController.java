@@ -135,9 +135,11 @@ public class UserController {
 
 
     @GetMapping("/user/common")
-    public void common(Model model) {
+    public String common(Model model) {
         List<ResDTO> resList = resService.findAllres();
         model.addAttribute("resList", resList);
+
+        return "user/common";
     }
 
 
@@ -160,10 +162,12 @@ public class UserController {
     }
 
     @GetMapping("/user/partAllCall")
-    public void partAllCall(Model model) {
+    public String partAllCall(Model model) {
 
         List<PartDTO> partList = partService.selectAllPart();
         model.addAttribute("partList", partList);
+
+        return "user/partAllCall";
     }
 
     @PostMapping("/user/partAllCall")

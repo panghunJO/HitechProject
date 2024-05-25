@@ -282,6 +282,12 @@
                                                             </a>
                                                         </li>
                                                     </ul>
+                                                    <!-- 답글 인풋 태그 ㅡㅡㅡㅡㅡㅡ -->
+                                                    <div th:attr="id='replyBox-' + ${comment.resReplyCode}" class="reply-box" style="display: none;">
+                                                        <textarea class="form-control mt-2" rows="3" placeholder="답글을 입력하세요"></textarea>
+                                                        <button type="button" class="btn btn-primary btn-sm mt-2" th:attr="onclick='submitReply(' + ${comment.resReplyCode} + ')'">답글 작성</button>
+                                                        <button type="button" class="btn btn-secondary btn-sm mt-2" th:attr="onclick='hideReplyBox(' + ${comment.resReplyCode} + ')'">취소</button>
+                                                    </div>
                                                     <div th:each="reply:${replyComment}">
                                                     <div class="media g-mb-30 media-comment" style="margin-left: 40px" th:if="${comment.resReplyCode} == ${reply.res_reply_code} ">
                                                         <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">
@@ -295,12 +301,7 @@
                                                         </div>
                                                     </div>
                                                     </div>
-                                                    <!-- 답글 인풋 태그 ㅡㅡㅡㅡㅡㅡ -->
-                                                    <div th:attr="id='replyBox-' + ${comment.resReplyCode}" class="reply-box" style="display: none;">
-                                                        <textarea class="form-control mt-2" rows="3" placeholder="답글을 입력하세요"></textarea>
-                                                        <button type="button" class="btn btn-primary btn-sm mt-2" th:attr="onclick='submitReply(' + ${comment.resReplyCode} + ')'">답글 작성</button>
-                                                        <button type="button" class="btn btn-secondary btn-sm mt-2" th:attr="onclick='hideReplyBox(' + ${comment.resReplyCode} + ')'">취소</button>
-                                                    </div>
+
 
                                                 </div>
                                             </div>
