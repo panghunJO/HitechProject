@@ -179,6 +179,6 @@
         join tbl_user a on b.user_code = a.user_code
         join tbl_res c on b.res_code = c.res_code
         where c.res_code = #{resCode}
-        ORDER BY b.res_replyComment_time desc
+        ORDER BY b.res_replyComment_time
     </select>
 </mapper>

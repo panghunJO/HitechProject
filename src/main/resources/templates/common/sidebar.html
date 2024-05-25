@@ -2,8 +2,15 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-        <li class="nav-item">
-            <a class="nav-link " href="index.html">
+        <li class="nav-item" sec:authorize="hasAnyAuthority('관리자','직원')">
+            <a class="nav-link " href="/user/mainpage">
+                <i class="bi bi-grid"></i>
+                <span>MainPage</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item" sec:authorize="hasAnyAuthority('손님')">
+            <a class="nav-link " href="/user/selectRes">
                 <i class="bi bi-grid"></i>
                 <span>MainPage</span>
             </a>

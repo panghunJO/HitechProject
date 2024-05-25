@@ -23,7 +23,9 @@ public class RepairService {
     @Autowired
     private RepairMapper repairMapper;
 
-    public List<Map<String,Object>>   findAllRepair() {
+    public List<Map<String,Object>> findAllRepair() {
+
+
         return repairMapper.findAllRepair();
     }
 

@@ -1,6 +1,6 @@
-<header id="header" class="header fixed-top d-flex align-items-center">
+<header id="header" class="header fixed-top d-flex align-items-center" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-    <div class="d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center justify-content-between" sec:authorize="hasAnyAuthority('관리자','직원')">
         <a href="/user/mainpage" class="logo d-flex align-items-center">
             <!-- <img src="assets/img/logo.png" alt=""> -->
             <span class="d-none d-lg-block">HitechAutoworks</span>
@@ -8,6 +8,13 @@
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
+    <div class="d-flex align-items-center justify-content-between" sec:authorize="hasAnyAuthority('손님')">
+        <a href="/user/selectRes" class="logo d-flex align-items-center">
+            <!-- <img src="assets/img/logo.png" alt=""> -->
+            <span class="d-none d-lg-block">HitechAutoworks</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
     <!-- <div class="search-bar">
       <form class="search-form d-flex align-items-center" method="POST" action="#">
         <input type="text" name="query" placeholder="Search" title="Enter search keyword">
