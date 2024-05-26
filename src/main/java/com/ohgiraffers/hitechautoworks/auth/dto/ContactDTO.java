@@ -8,14 +8,25 @@ public class ContactDTO {
     private String content;
     private Timestamp date;
     private UserDTO userDTO;
+    private String status;
+
     public ContactDTO() {}
 
-    public ContactDTO(int code, String title, String content, Timestamp date, UserDTO userDTO) {
+    public ContactDTO(int code, String title, String content, Timestamp date, UserDTO userDTO, String status) {
         this.code = code;
         this.title = title;
         this.content = content;
         this.date = date;
         this.userDTO = userDTO;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getCode() {

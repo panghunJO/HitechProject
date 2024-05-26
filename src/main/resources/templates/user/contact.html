@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>HitechAutoworks</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/assets/img/favicon.png" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.bubble.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@14.0.1/simple-datatables.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+
+</head>
+<body>
+<div th:replace="~{common/header.html}"></div>
+<div th:replace="~{common/sidebar.html}"></div>
+
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>문의 상세</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/user/selectRes">Home</a></li>
+                <li class="breadcrumb-item"><a href="/user/contact">문의 하기</a></li>
+                <li class="breadcrumb-item active">문의 상세</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="section contact">
+
+        <div class="row gy-4">
+
+            <div class="col-xl-6">
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="info-box card">
+                            <i class="bi bi-geo-alt"></i>
+                            <h3>Address</h3>
+                            <p>휘경동 295-31,<br>망우로 12나길 35</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="info-box card">
+                            <i class="bi bi-telephone"></i>
+                            <h3>Call Us</h3>
+                            <p>+82 010-9146-0489 <br>+82 010-0000-0000</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="info-box card">
+                            <i class="bi bi-envelope"></i>
+                            <h3>Email Us</h3>
+                            <p>hitechautoworks@hitech.com<br>byetechautoworks@hitech.com</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="info-box card">
+                            <i class="bi bi-clock"></i>
+                            <h3>Open Hours</h3>
+                            <p>Monday - Friday<br>9:00AM - 06:00PM</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-xl-6">
+                <div class="card p-4">
+                        <div class="row gy-4">
+
+                            <div class="col-md-6">
+                                <input type="text" name="name" id="name" class="form-control" placeholder="이름" th:value="${userName}" required>
+                            </div>
+
+                            <div class="col-md-6 ">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="이메일" th:value="${email}" required>
+                            </div>
+
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" id="subject" name="subject" placeholder="제목" required>
+                            </div>
+
+                            <div class="col-md-12">
+                                <textarea class="form-control" name="message" id="message" rows="6" placeholder="내용" required></textarea>
+                            </div>
+
+                            <div class="col-md-12 text-center">
+                                <button class="btn btn-primary" type="button" id="sendMessage">Send Message</button>
+                            </div>
+
+                        </div>
+
+                    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <strong class="me-auto">HitechAitoworks 알리미</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                문의가 성공적으로 등록되었습니다!!!
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        document.getElementById('sendMessage').addEventListener('click', ()=> {
+                            var name = document.getElementById('name').value;
+                            var email = document.getElementById('email').value;
+                            var subject = document.getElementById('subject').value;
+                            var message = document.getElementById('message').value;
+                            fetch('/user/submitContact', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    name: name,
+                                    email: email,
+                                    subject: subject,
+                                    message: message
+                                })
+                            })
+                                .then(response => response.json())
+                                .then(result => {
+                                    if(result == 1 ) {
+                                        document.getElementById('sendMessage').disabled = true;
+                                        const toastLiveExample = document.getElementById('liveToast');
+                                        const toast = new bootstrap.Toast(toastLiveExample);
+                                        toast.show();
+                                    } else {
+                                        alert("알수 없는 오류로 등록에 실패하였습니다");
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        })
+
+                    </script>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main><!-- End #main -->
+
+<div th:replace="~{common/footer.html}"></div>
+</body>
+</html>

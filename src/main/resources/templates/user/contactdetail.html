@@ -65,6 +65,12 @@
                                 </li>
                             </ul>
                             <div class="row mb-3 mt-4">
+                                <label class="col-sm-3 col-form-label text-end">문의상태</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="contactStatus" id="contactStatus" class="form-control" th:value="${contact.status}" readonly>
+                                </div>
+                            </div>
+                            <div class="row mb-3 mt-4">
                                 <label class="col-sm-3 col-form-label text-end">문의번호</label>
                                 <div class="col-sm-6">
                                     <input type="text" name="contactCode" id="contactCode" class="form-control" th:value="${contact.code}" readonly>
@@ -92,6 +98,13 @@
                                 <label class="col-sm-3 col-form-label text-end">날짜</label>
                                 <div class="col-sm-6">
                                     <input type="datetime-local" id="datetime" name="date" class="form-control" th:value="${contact.date}">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col text-end">
+                                    <button type="button" class="btn btn-primary " onclick="statusgogo()">진행중으로 변경
+                                    </button>
                                 </div>
                             </div>
 
@@ -144,6 +157,11 @@
                             }
                         });
 
+
+                        function statusgogo(){
+                            document.getElementById("actionForm").action = "/user/changeStatus";
+                            document.getElementById("actionForm").submit();
+                        }
 
                         function deleteItem() {
                             document.getElementById("actionForm").action = "/user/deletecontact";

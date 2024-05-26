@@ -285,4 +285,28 @@ public class UserService  {
     public List<ContactDTO> selectContactByName(String userName) {
         return userMapper.selectContactByName(userName);
     }
+
+    public void changeContact(int contactCode) {
+        userMapper.changeContact(contactCode);
+    }
+
+    public void changeStatus(int contactCode) {
+        userMapper.changeStatus(contactCode);
+    }
+
+    public String findContactStatus(int contactCode) {
+        return userMapper.findContactStatus(contactCode);
+    }
+
+    public int submitContact(Map<String, Object> info) {
+        return userMapper.submitContact(info);
+    }
+
+    public void saveNote(Map<String, Object> info) {
+        userMapper.saveNote(info);
+    }
+
+    public Map<String, Object> getNote() {
+        return userMapper.getNote();
+    }
 }

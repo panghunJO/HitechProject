@@ -183,6 +183,7 @@
         <result property="title" column="contact_title"/>
         <result property="content" column="contact_content"/>
         <result property="date" column="contact_date"/>
+        <result property="status" column="contact_status"/>
         <association property="userDTO" resultMap="login"/>
     </resultMap>
 
@@ -192,9 +193,16 @@
             a.contact_title,
             a.contact_content,
             a.contact_date,
+            a.contact_status,
             b.user_name
         FROM tbl_contact a JOIN tbl_user b ON a.user_code = b.user_code
     </select>
+
+    <update id="changeStatus">
+        UPDATE tbl_contact
+        SET contact_status = '진행중'
+        WHERE contact_code = #{contactCode}
+    </update>
 
     <select id="selectContact" resultMap="contact">
         SELECT
@@ -202,6 +210,7 @@
         a.contact_title,
         a.contact_content,
         a.contact_date,
+        a.contact_status,
         b.user_name
         FROM tbl_contact a JOIN tbl_user b ON a.user_code = b.user_code
         WHERE a.contact_code = #{code}
@@ -216,6 +225,7 @@
         a.contact_title,
         a.contact_content,
         a.contact_date,
+        a.contact_status,
         b.user_name
         FROM tbl_contact a JOIN tbl_user b ON a.user_code = b.user_code
         WHERE a.contact_code = #{contactCode}
@@ -226,9 +236,41 @@
         a.contact_title,
         a.contact_content,
         a.contact_date,
+        a.contact_status,
         b.user_name
         FROM tbl_contact a JOIN tbl_user b ON a.user_code = b.user_code
         WHERE b.user_name = #{userName}
+    </select>
+    <update id="changeContact">
+        UPDATE tbl_contact
+        SET contact_status = '대기'
+        WHERE contact_code = #{contactCode}
+    </update>
+
+    <select id="findContactStatus" resultType="string">
+        SELECT contact_status
+        FROM tbl_contact
+        WHERE contact_code = #{contactCode}
+    </select>
+
+    <insert id="submitContact">
+        INSERT INTO tbl_contact
+        ( contact_title, contact_content, contact_date, user_code )
+        VALUES
+        ( #{ subject }, #{ message }, #{ nowTime }, #{ userCode } )
+    </insert>
+
+    <update id="saveNote">
+        UPDATE tbl_notepad
+        SET notepad_content = #{ content }, user_code = #{ userCode }
+        WHERE notepad_code = 1;
+    </update>
+
+    <select id="getNote">
+        SELECT a.notepad_content as content, b.user_name as userName
+        FROM tbl_notepad a
+        JOIN tbl_user b on a.user_code = b.user_code
+        WHERE a.notepad_code = 1
     </select>
 </mapper>
 
