@@ -348,7 +348,12 @@
                                                     } else if (data == 1) {
                                                         alert("변경성공!! 다시 로그인해주세요");
                                                         location.href = '/logout';
-                                                    } else if (data.error) {
+                                                    } else if(data == 2) {
+                                                        alert("같은 비밀번호는 사용할 수 없습니다 !!");
+                                                        newPasswordInput.value = '';
+                                                        renewPasswordInput.value = '';
+                                                    }
+                                                    else if (data.error) {
                                                         alert("Error: " + data.error);
                                                         return Promise.reject(new Error(data.error));
                                                     }

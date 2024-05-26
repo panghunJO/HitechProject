@@ -202,9 +202,11 @@ public class ResController {
 
     @PostMapping("/customer/res/resUpdate")
     public String resModify(@RequestParam int resCode ,@RequestParam String fixOption,@RequestParam String date,@RequestParam String extra ){
+
+        System.out.println("fixOption = " + fixOption);
         resService.resModify(resCode,fixOption,date,extra);
 
-    return "customer/res/res";
+    return "redirect:/user/testPage?resCode=" + resCode * 123456;
 
     }
 

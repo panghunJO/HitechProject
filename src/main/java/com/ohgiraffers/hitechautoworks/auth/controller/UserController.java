@@ -261,7 +261,7 @@ public class UserController {
         if (result == 1){
             session.setAttribute("result",result);
         }
-        return "redirect:/user/testPage?resCode=" + resCode;
+        return "redirect:/user/testPage?resCode=" + 123456 * resCode;
     }
 
     @PostMapping("/user/resDelete")

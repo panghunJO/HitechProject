@@ -234,10 +234,6 @@
                                 document.getElementById("actionForm").submit();
                             }
 
-                            var result = `[[${result}]]`;
-                            if (result) {
-                                alert("수정에 성공하였습니다 !")
-                            }
                         </script>
 
                         <form id="actionForm2" method="post">
@@ -375,7 +371,6 @@
 
                                         // replyList 요소가 존재하는지 확인하고, 없으면 생성
                                         if (!replyList) {
-                                            console.warn('replyList not found for replyCode:', replyCode);
                                             replyList = document.createElement('div');
                                             replyList.id = 'replyList-' + replyCode;
                                             replyBox.parentNode.insertBefore(replyList, replyBox.nextSibling);
