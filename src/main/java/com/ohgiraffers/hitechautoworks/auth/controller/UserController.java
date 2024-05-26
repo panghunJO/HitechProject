@@ -419,6 +419,27 @@ public class UserController {
 
         return commentInfo;
     }
+    @GetMapping("/user/contactList")
+    public void contactList(Model model){
+
+        List<ContactDTO> contactList = userService.contactList();
+        System.out.println("contactList = " + contactList);
+        model.addAttribute("contactList",contactList);
+
+    }
+    @GetMapping("/user/contactdetail")
+    public String contactdetail(@RequestParam int contactCode,Model model){
+        System.out.println("code = " + contactCode);
+        ContactDTO contact = userService.selectContact(contactCode);
+        System.out.println("contact = " + contact);
+        model.addAttribute("contact",contact);
+        return "/user/contactdetail";
+    }
+    @PostMapping("/user/deletecontact")
+    public String deleteContact(@RequestParam int contactCode,Model model){
+       userService.deleteContact(contactCode);
+       return "redirect:/user/contactList";
+    }
 
 }
 

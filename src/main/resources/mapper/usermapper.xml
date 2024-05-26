@@ -178,5 +178,37 @@
         ORDER BY replyDate desc
         LIMIT 1
     </select>
+    <resultMap id="contact" type="com.ohgiraffers.hitechautoworks.auth.dto.ContactDTO">
+        <id property="code" column="contact_code"/>
+        <result property="title" column="contact_title"/>
+        <result property="content" column="contact_content"/>
+        <result property="date" column="contact_date"/>
+        <association property="userDTO" resultMap="login"/>
+    </resultMap>
+
+    <select id="contactList" resultMap="contact">
+        SELECT
+            a.contact_code,
+            a.contact_title,
+            a.contact_content,
+            a.contact_date,
+            b.user_name
+        FROM tbl_contact a JOIN tbl_user b ON a.user_code = b.user_code
+    </select>
+
+    <select id="selectContact" resultMap="contact">
+        SELECT
+        a.contact_code,
+        a.contact_title,
+        a.contact_content,
+        a.contact_date,
+        b.user_name
+        FROM tbl_contact a JOIN tbl_user b ON a.user_code = b.user_code
+        WHERE a.contact_code = #{code}
+    </select>
+    <delete id="deleteContact">
+        DELETE FROM tbl_contact
+        WHERE contact_code = #{contactCode}
+    </delete>
 </mapper>
 

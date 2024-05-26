@@ -266,4 +266,15 @@ public class UserService  {
     public Map<String,Object> getReplyComment(int resReplyCode) {
         return userMapper.searchReply(resReplyCode);
     }
+
+    public List<ContactDTO> contactList() { return userMapper.contactList();
+    }
+
+    public ContactDTO selectContact(int code) {
+        return userMapper.selectContact(code);
+    }
+
+    public void deleteContact(int contactCode) {
+        userMapper.deleteContact(contactCode);
+    }
 }
