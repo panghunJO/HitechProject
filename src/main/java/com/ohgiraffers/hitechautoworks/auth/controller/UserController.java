@@ -440,6 +440,22 @@ public class UserController {
        userService.deleteContact(contactCode);
        return "redirect:/user/contactList";
     }
+    @PostMapping("/user/contactSearch")
+    public String contactSearch(@RequestParam String contactCode ,@RequestParam String userName,Model model){
+
+        if (contactCode == "" && userName == "") {
+            List<ContactDTO> contactList = userService.contactList();
+            model.addAttribute("contactList", contactList);
+        } else if (userName == "") {
+            List<ContactDTO> contactList = userService.selectContactByCode(Integer.parseInt(contactCode));
+            model.addAttribute("contactList", contactList);
+        } else {
+            List<ContactDTO> contactList = userService.selectContactByName(userName);
+            model.addAttribute("contactList", contactList);
+        }
+        return "/user/contactList";
+    }
+
 
 }
 

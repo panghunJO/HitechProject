@@ -66,4 +66,8 @@ public interface UserMapper {
     ContactDTO selectContact(int code);
 
     void deleteContact(int contactCode);
+
+    List<ContactDTO> selectContactByCode(int contactCode);
+
+    List<ContactDTO> selectContactByName(String userName);
 }
