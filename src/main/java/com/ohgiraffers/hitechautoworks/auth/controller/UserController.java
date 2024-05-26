@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.*;
 
 @Controller
@@ -419,27 +420,35 @@ public class UserController {
 
         return commentInfo;
     }
+
+
     @GetMapping("/user/contactList")
     public void contactList(Model model){
 
         List<ContactDTO> contactList = userService.contactList();
-        System.out.println("contactList = " + contactList);
+
         model.addAttribute("contactList",contactList);
 
     }
+
     @GetMapping("/user/contactdetail")
-    public String contactdetail(@RequestParam int contactCode,Model model){
-        System.out.println("code = " + contactCode);
+    public String contactdetail(@RequestParam int contactCode ,Model model){
+        String status = userService.findContactStatus(contactCode);
+        if(status.equals("신규")) {
+            userService.changeContact(contactCode);
+        }
+
         ContactDTO contact = userService.selectContact(contactCode);
-        System.out.println("contact = " + contact);
         model.addAttribute("contact",contact);
-        return "/user/contactdetail";
+        return "user/contactdetail";
     }
+
     @PostMapping("/user/deletecontact")
     public String deleteContact(@RequestParam int contactCode,Model model){
        userService.deleteContact(contactCode);
        return "redirect:/user/contactList";
     }
+
     @PostMapping("/user/contactSearch")
     public String contactSearch(@RequestParam String contactCode ,@RequestParam String userName,Model model){
 
@@ -453,10 +462,57 @@ public class UserController {
             List<ContactDTO> contactList = userService.selectContactByName(userName);
             model.addAttribute("contactList", contactList);
         }
-        return "/user/contactList";
+        return "user/contactList";
     }
 
 
+    @GetMapping("/user/contact")
+    public String contact(Model model) {
+        String userName = ((UserDTO) model.getAttribute("userDTO")).getUserName();
+        String email = ((UserDTO) model.getAttribute("userDTO")).getUserEmail();
+        model.addAttribute("userName",userName);
+        model.addAttribute("email",email);
+        return "user/contact";
+    }
+
+
+    @PostMapping("/user/changeStatus")
+    public String changeStatus(@RequestParam int contactCode){
+        userService.changeStatus(contactCode);
+
+        return "redirect:/user/contactdetail?contactCode=" + contactCode;
+    }
+
+    @PostMapping("/user/submitContact")
+    @ResponseBody
+    public int submitContact(@RequestBody Map<String,Object> info, Model model ){
+        int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
+        info.put("userCode",userCode);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        info.put("nowTime",timestamp);
+        int result = userService.submitContact(info);
+
+        return result;
+    }
+
+    @PostMapping("/user/saveNote")
+    @ResponseBody
+    public void saveNote(@RequestBody Map<String,Object> info, Model model){
+        int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
+        info.put("userCode",userCode);
+        userService.saveNote(info);
+
+        System.out.println("info = " + info);
+    }
+
+    @GetMapping("/user/getNote")
+    @ResponseBody
+    public Map<String,Object> getNote() {
+
+        Map<String,Object> note = userService.getNote();
+        System.out.println("note = " + note);
+        return note;
+    }
 }
 
 

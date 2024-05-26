@@ -70,4 +70,16 @@ public interface UserMapper {
     List<ContactDTO> selectContactByCode(int contactCode);
 
     List<ContactDTO> selectContactByName(String userName);
+
+    void changeContact(int contactCode);
+
+    void changeStatus(int contactCode);
+
+    String findContactStatus(int contactCode);
+
+    int submitContact(Map<String, Object> info);
+
+    void saveNote(Map<String, Object> info);
+
+    Map<String, Object> getNote();
 }
