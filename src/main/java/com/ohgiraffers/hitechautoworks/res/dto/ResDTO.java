@@ -13,7 +13,7 @@ public class ResDTO {
     private String title;
     private UserDTO userDTO;
     private String option;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp date;
     private String extra;
 

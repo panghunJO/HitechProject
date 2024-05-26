@@ -80,13 +80,17 @@ public class UserService  {
 
     public int changepass(String currentPassword, String newPassword, String pw, int userCode) {
         if(passwordEncoder.matches(currentPassword,pw)) {
-            String encodepw = passwordEncoder.encode(newPassword);
-            userMapper.changepass(encodepw,userCode);
-            return 1;
+            if(newPassword.equals(currentPassword)){
+                return 2;
+            } else {
+                String encodepw = passwordEncoder.encode(newPassword);
+                userMapper.changepass(encodepw, userCode);
+                return 1;
+            }
         } else {
-            System.out.println("불일치");
             return 0;
         }
+
     }
 
     public void updateUser(Map<String, String> myprofile) {

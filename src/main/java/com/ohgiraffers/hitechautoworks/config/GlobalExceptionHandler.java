@@ -14,6 +14,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoResourceFoundException.class)
     public String handleNoResourceFoundException(NoResourceFoundException exception) {
         System.out.println("exception = " + exception);
-        return "/error/404";
+        return "error/404";
     }
 }
