@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>HitechAutoworks</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/assets/img/favicon.png" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.bubble.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@14.0.1/simple-datatables.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+
+</head>
+<body>
+<div th:replace="~{common/header.html}"></div>
+<div th:replace="~{common/sidebar.html}"></div>
+
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>문의 상세</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/user/mainpage">Home</a></li>
+                <li class="breadcrumb-item"><a href="/user/contactList">문의 조회</a></li>
+                <li class="breadcrumb-item active">문의 상세</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="actionForm" method="POST">
+                            <ul class="nav nav-tabs nav-tabs-bordered">
+                                <li class="nav-item mt-4">
+                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">수정/삭제</button>
+                                </li>
+                            </ul>
+                            <div class="row mb-3 mt-4">
+                                <label class="col-sm-3 col-form-label text-end">문의번호</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="contactCode" id="contactCode" class="form-control" th:value="${contact.code}" readonly>
+                                </div>
+                            </div>
+                            <div class="row mb-3 mt-4">
+                                <label class="col-sm-3 col-form-label text-end">고객명</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="userName" class="form-control" th:value="${contact.userDTO.userName}" readonly>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label text-end">제목</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="title" class="form-control" th:value="${contact.title}" readonly>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label text-end">내용</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="contact" class="form-control" th:value="${contact.content}">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label text-end">날짜</label>
+                                <div class="col-sm-6">
+                                    <input type="datetime-local" id="datetime" name="date" class="form-control" th:value="${contact.date}">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col text-end">
+                                    <button type="button" class="btn btn-danger " onclick="deleteItem()">삭제
+                                    </button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">댓글 알리미</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        댓글 수정에 성공하였습니다!
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Comment </h5>
+                        <div class="col-md-12 mt-4">
+                            <div class="input-group input-group-lg">
+                                <input type="text" class="form-control" id="comment" name="comment" placeholder="댓글 입력" onkeydown="if(event.key === 'Enter') registcommit();">
+                                <button type="button"  class="btn btn-success" onclick="registcommit()">등록</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+
+                    <script>
+                        document.getElementById('datetime').addEventListener('input', function() {
+                            var dateTimeInput = this.value;
+                            if (dateTimeInput) {
+                                var [date, time] = dateTimeInput.split('T');
+                                var [hours, minutes] = time.split(':');
+                                if (minutes !== "00") {
+                                    // 분을 00으로 설정
+                                    var newTime = hours + ':00';
+                                    this.value = date + 'T' + newTime;
+                                }
+                            }
+                        });
+
+
+                        function deleteItem() {
+                            document.getElementById("actionForm").action = "/user/deletecontact";
+                            document.getElementById("actionForm").submit();
+                        }
+
+                        function registcommit(){
+                            document.getElementById("actionForm").action = "/user/registcomment";
+                            document.getElementById("actionForm").submit();
+                        }
+
+                        var result = `[[${result}]]`;
+                        if (result) {
+                            alert("수정에 성공하였습니다 !")
+                        }
+                    </script>
+
+<!--                    <form id="actionForm2" method="post">-->
+<!--                        <div >-->
+<!--                            <div class="container">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-md-12 mb-4">-->
+
+<!--                                        <div class="media g-mb-30 media-comment">-->
+<!--                                            <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">-->
+<!--                                                <div class="g-mb-15">-->
+<!--                                                    <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"  alt="Image Description">-->
+<!--                                                    <h5 class="h5 g-color-gray-dark-v1 mb-0" ></h5>-->
+<!--                                                  -->
+<!--                                                    <a >정보 확인</a>-->
+<!--                                                    <span class="small-text ml-3" ></span> &nbsp;-->
+<!--                                                    <span class="g-color-gray-dark-v4 g-font-size-12" th:text="${#dates.format(comment.resTime, 'yyyy-MM-dd HH:mm')}"></span>-->
+<!--                                                </div>-->
+<!--                                                <p class="mt-1" th:attr="id='commentContent-' + ${comment.resReplyCode}" th:text="${comment.resReplyContent}"></p>-->
+<!--                                                <ul class="list-inline d-sm-flex my-0">-->
+<!--                                                    <li class="list-inline-item g-mr-15">-->
+<!--                                                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary&#45;&#45;hover" href="#!"-->
+<!--                                                           th:onclick="'showReplyBox(' + ${comment.resReplyCode} + ')'">-->
+<!--                                                            <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>-->
+<!--                                                            답글-->
+<!--                                                        </a>-->
+<!--                                                    </li>-->
+<!--                                                    <li class="list-inline-item g-mr-20" th:id="'edit-' + ${comment.resReplyCode}"-->
+<!--                                                        th:data-user="${comment.userDTO.userCode}" th:data-role="${userDTO.userRole}" style="display: none">-->
+<!--                                                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary&#45;&#45;hover" href="#!"-->
+<!--                                                           th:onclick="'editComment(\'' + ${comment.resReplyCode} + '\', \'' + ${comment.resCode} + '\', \'' + ${comment.userDTO.userCode} + '\')'">-->
+<!--                                                            <i class="bi bi-pencil-fill g-pos-rel g-top-1 g-mr-3"></i>-->
+<!--                                                            수정-->
+<!--                                                        </a>-->
+<!--                                                    </li>-->
+<!--                                                    <li class="list-inline-item ml-auto" th:id="'delete-' + ${comment.resReplyCode}"-->
+<!--                                                        th:data-user="${comment.userDTO.userCode}" style="display: none">-->
+<!--                                                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary&#45;&#45;hover" href="#!"-->
+<!--                                                           th:onclick="'deleteComment(\'' + ${comment.resReplyCode} + '\', \'' + ${comment.resCode} + '\', \'' + ${comment.userDTO.userCode} + '\')'">-->
+<!--                                                            <i class="bi bi-trash3-fill g-pos-rel g-top-1 g-mr-3"></i>-->
+<!--                                                            삭제-->
+<!--                                                        </a>-->
+<!--                                                    </li>-->
+<!--                                                </ul>-->
+<!--                                                <div th:each="reply:${replyComment}">-->
+<!--                                                    <div class="media g-mb-30 media-comment" style="margin-left: 40px" th:if="${comment.resReplyCode} == ${reply.res_reply_code} ">-->
+<!--                                                        <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">-->
+<!--                                                            <div class="g-mb-15">-->
+<!--                                                                <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" th:src="${reply.user_img}" alt="Image Description">-->
+<!--                                                                <h5 class="h5 g-color-gray-dark-v1 mb-0" th:text="${reply.user_name}"></h5>-->
+<!--                                                                <span class="small-text ml-3" th:text="${reply.user_role}"></span> &nbsp;-->
+<!--                                                                <span class="g-color-gray-dark-v4 g-font-size-12"th:text="${reply.res_replyComment_time}"></span>-->
+<!--                                                            </div>-->
+<!--                                                            <p class="mt-1" th:text="${reply.res_replyComment_content}"></p>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                                &lt;!&ndash; 답글 인풋 태그 ㅡㅡㅡㅡㅡㅡ &ndash;&gt;-->
+<!--                                                <div th:attr="id='replyBox-' + ${comment.resReplyCode}" class="reply-box" style="display: none;">-->
+<!--                                                    <textarea class="form-control mt-2" rows="3" placeholder="답글을 입력하세요"></textarea>-->
+<!--                                                    <button type="button" class="btn btn-primary btn-sm mt-2" th:attr="onclick='submitReply(' + ${comment.resReplyCode} + ')'">답글 작성</button>-->
+<!--                                                    <button type="button" class="btn btn-secondary btn-sm mt-2" th:attr="onclick='hideReplyBox(' + ${comment.resReplyCode} + ')'">취소</button>-->
+<!--                                                </div>-->
+
+<!--                                            </div>-->
+<!--                                        </div>-->
+
+
+<!--                                    </div>-->
+<!--                                    <hr>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </form>-->
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </section>
+
+</main><!-- End #main -->
+
+
+<div th:replace="~{common/footer.html}"></div>
+</body>
+</html>
