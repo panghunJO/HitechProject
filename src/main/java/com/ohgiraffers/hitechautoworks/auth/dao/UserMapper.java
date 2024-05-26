@@ -60,4 +60,10 @@ public interface UserMapper {
     int submitReply(Map<String, Object> info);
 
     Map<String,Object> searchReply(int resReplyCode);
+
+    List<ContactDTO> contactList();
+
+    ContactDTO selectContact(int code);
+
+    void deleteContact(int contactCode);
 }
