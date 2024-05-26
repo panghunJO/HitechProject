@@ -273,4 +273,12 @@ public class UserService  {
     public void deleteContact(int contactCode) {
         userMapper.deleteContact(contactCode);
     }
+
+    public List<ContactDTO> selectContactByCode(int contactCode) {
+        return userMapper.selectContactByCode(contactCode);
+    }
+
+    public List<ContactDTO> selectContactByName(String userName) {
+        return userMapper.selectContactByName(userName);
+    }
 }

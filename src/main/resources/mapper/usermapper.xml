@@ -210,5 +210,25 @@
         DELETE FROM tbl_contact
         WHERE contact_code = #{contactCode}
     </delete>
+    <select id="selectContactByCode" resultMap="contact">
+        SELECT
+        a.contact_code,
+        a.contact_title,
+        a.contact_content,
+        a.contact_date,
+        b.user_name
+        FROM tbl_contact a JOIN tbl_user b ON a.user_code = b.user_code
+        WHERE a.contact_code = #{contactCode}
+    </select>
+    <select id="selectContactByName" resultMap="contact">
+        SELECT
+        a.contact_code,
+        a.contact_title,
+        a.contact_content,
+        a.contact_date,
+        b.user_name
+        FROM tbl_contact a JOIN tbl_user b ON a.user_code = b.user_code
+        WHERE b.user_name = #{userName}
+    </select>
 </mapper>
 
