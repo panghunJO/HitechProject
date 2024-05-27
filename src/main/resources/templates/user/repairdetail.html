@@ -95,6 +95,29 @@
             color: gray;
         }
 
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 50px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        [name="stock"]{
+            width: 100%;
+            border-collapse: collapse; /* 테두리를 하나로 합침 */
+            border: 1px solid lightgray; /* 세로 선의 색상 변경 */
+            border-width: 1px; /* 세로 선의 두께를 1px로 설정 */
+            padding: 8px;
+            text-align: left;
+        }
+
+        .small-button {
+            width: 100px;
+            height: 30px;
+            font-size: 12px; /* 필요에 따라 글자 크기도 조정 가능 */
+        }
+
     </style>
 </head>
 <body>
@@ -188,6 +211,9 @@
                             <div class="row">
                                 <div class="col text-end">
 
+                                    <button type="button" class="btn btn-light" id="modalClick" onclick="openModal()">최종확인
+                                    </button>
+
                                     <button type="button" class="btn btn-primary " onclick="modifyrepair()">수정
                                     </button>
 
@@ -215,7 +241,6 @@
                     </form>
 
 
-
                     <form id="actionForm2" method="post">
                         <div th:each="comment : ${resComment}">
                             <div class="container">
@@ -237,6 +262,8 @@
                                                             답글
                                                         </a>
                                                     </li>
+
+
                                                     <li class="list-inline-item g-mr-20">
                                                         <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
                                                            th:attr="onclick='editComment(\'' + ${comment.resReplyCode} + '\', \'' + ${comment.resCode}+ '\', \'' + ${comment.userDTO.userCode}+ '\')'">
@@ -259,9 +286,82 @@
                                 </div>
                             </div>
                         </div>
-
                     </form>
-                    <script>
+
+                    <!-- 모달 구조 -->
+                    <div id="myModal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">최종 확인</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()"></button>
+                            </div>
+
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                <tr>
+                                    <th scope="col">필요 부품</th>
+                                    <th scope="col">필요 개수</th>
+                                </tr>
+                                </thead>
+                                <tbody id="ModalDetail">
+                                </tbody>
+                            </table>
+
+                            <button type="button" class="btn btn-outline-info small-button" style="float:right; width: 100px; height: 30px;" onclick="closeModal()">등록</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+           <script>
+               // 모달 열기 함수
+               function openModal() {
+                   document.getElementById("myModal").style.display = "block";
+
+               //getMapping 처럼 데이터 끌어오기
+
+                   const resCode = document.getElementById("resCode").value;
+                   fetch("/user/repairModalInfo",{
+                       method: "POST",
+                       headers: {
+                           'Content-Type': 'application/json'
+                       },
+                       body: JSON.stringify({
+                           resCode:resCode
+                       })
+                   }).then(res => res.json())
+                       .then(data => {
+                           const $table = document.getElementById("ModalDetail");
+                           if($table.childElementCount ==0) {
+                               for (let index in data) {
+                                   const $table = document.getElementById("ModalDetail");
+                                   const $tr = document.createElement("tr");
+                                   const $td = document.createElement("td");
+                                   const $input = document.createElement("input");
+
+                                   $td.textContent = data[index].PART_NAME;
+                                   $input.type = "text";
+                                   $input.name = "stock";
+
+
+                                   $table.appendChild($tr);
+                                   $tr.appendChild($td);
+                                   $tr.appendChild($input)
+
+                               }
+                           }
+
+                       })
+                       .catch(error => {
+                           console.error('Error:', error);
+                       });
+
+               }
+                   function repairDetail(resCode) {
+                   location.href = '/user/repairdetail?resCode=' + resCode;
+              }
+
                         function getAllSelectedWorkerValues() {
                             let selectBox = document.querySelector('#selectedWorkers');
                             let values = Array.from(selectBox.options).map(option => option.value);
@@ -275,6 +375,43 @@
 
                             return values;
                         }
+
+                        function repairmodal(){
+
+                            var resCode =  document.getElementById("resCode").value;
+                            var worker = getAllSelectedWorkerValues();
+                            var part = getAllSelectedPartValues();
+                            var date = document.getElementById("datetime").value;
+                            var status = document.getElementById("status").value;
+                            var extraTime = document.getElementById("extraTime").value;
+                            var content = document.getElementById("content").value;
+
+                            fetch("/user/repairModal", {
+                                method: "POST",
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    resCode:resCode,
+                                    worker:worker,
+                                    part:part,
+                                    content:content,
+                                    date :date,
+                                    status:status,
+                                    extraTime:extraTime
+                                })
+                            }) .then(response => response.json())
+                                .then(result => {
+                                    if(result == "1"){
+                                        alert("등록되었습니다.")
+                                        location.href="/user/repair"
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        }
+
 
                         function modifyrepair() {
                             var resCode =  document.getElementById("resCode").value;
@@ -310,7 +447,6 @@
                                 });
                         }
 
-
                         function deleterepair(){
                             document.getElementById("actionForm").action = "/user/repairDelete";
                             document.getElementById("actionForm").submit();
@@ -345,11 +481,9 @@
                                     partSelect.appendChild(option);
                                     selectedPartSelect.remove(i);
                                     i--;
-
                                 }
                             }
                         }
-
 
                         document.addEventListener("DOMContentLoaded", function() {
                             var resCode =  document.getElementById("resCode").value;
@@ -521,14 +655,21 @@
 
 
 
+                        // 모달 닫기 함수
+                        function closeModal() {
+                            document.getElementById("myModal").style.display = "none";
+                        }
+
+                        // 모달 외부 클릭시 닫기
+                        window.onclick = function(event) {
+                            if (event.target == document.getElementById("myModal")) {
+                                closeModal();
+                            }
+                        }
                     </script>
-                </div>
-            </div>
-
-        </div>
-
-        </div>
     </section>
+
+
 
 </main><!-- End #main -->
 

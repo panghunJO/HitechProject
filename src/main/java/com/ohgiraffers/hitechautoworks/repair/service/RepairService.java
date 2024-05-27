@@ -101,4 +101,9 @@ public class RepairService {
 
     public Map<String, Object> getDate(Object code) { return repairMapper.getDate(code);
     }
+
+    public List<Map<String, Object>> ModalClick(Object resCode) {
+
+        return repairMapper.modalClick(resCode);
+    }
 }
