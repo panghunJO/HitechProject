@@ -304,7 +304,7 @@
     </select>
 
     <select id="modalClick" >
-        SELECT b.PART_NAME,a.res_code
+        SELECT b.PART_NAME,a.res_code,b.part_code
         FROM tbl_part b
         JOIN tbl_repair_part a
         ON a.part_code = b.part_code
