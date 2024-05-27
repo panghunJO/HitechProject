@@ -3,6 +3,8 @@
 package com.ohgiraffers.hitechautoworks.auth.dao;
 
 import com.ohgiraffers.hitechautoworks.auth.dto.*;
+import com.ohgiraffers.hitechautoworks.part.dto.PartDTO;
+import com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO;
 import com.ohgiraffers.hitechautoworks.repair.dto.RepairPartDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -82,4 +84,8 @@ public interface UserMapper {
     void saveNote(Map<String, Object> info);
 
     Map<String, Object> getNote();
+
+    List<RepairDTO> repairnoti(int userCode);
+
+    List<PartDTO> partnoti();
 }

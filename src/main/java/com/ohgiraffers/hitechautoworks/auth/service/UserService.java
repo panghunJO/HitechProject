@@ -309,4 +309,10 @@ public class UserService  {
     public Map<String, Object> getNote() {
         return userMapper.getNote();
     }
+
+    public List<RepairDTO> repairnoti(int userCode) {  return userMapper.repairnoti(userCode);
+    }
+
+    public List<PartDTO> partnoti() { return userMapper.partnoti();
+    }
 }

@@ -272,5 +272,44 @@
         JOIN tbl_user b on a.user_code = b.user_code
         WHERE a.notepad_code = 1
     </select>
+    <resultMap id="res" type="com.ohgiraffers.hitechautoworks.res.dto.ResDTO">
+        <id property="code" column="res_code"/>
+        <result property="title" column="res_title"/>
+        <result property="option" column="res_option"/>
+        <result property="date" column="res_date"/>
+        <result property="extra" column="res_extra"/>
+        <association property="userDTO" javaType="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
+            <id property="userCode" column="user_code"/>
+            <result property="userId" column="user_id"/>
+            <result property="password" column="password"/>
+            <result property="userName" column="user_name"/>
+        </association>
+    </resultMap>
+    <resultMap id="repair" type="com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO">
+        <result property="content" column="repair_content"/>
+        <result property="date" column="repair_date"/>
+        <result property="status" column="repair_status"/>
+        <association property="resDTO" resultMap="res" />
+    </resultMap>
+    <select id="repairnoti" resultMap="repair">
+        SELECT a.repair_content,a.repair_date,a.repair_status,a.res_code,a.repair_time
+        FROM tbl_repair a
+        JOIN tbl_repair_workers b ON a.res_code = b.res_code
+        WHERE
+        substr(a.repair_date,1,10) = substr(now(),1,10)
+        AND  (substr(a.repair_date,12,2) - substr(now(),12,2)) = 1
+        AND b.user_code = #{userCode};
+    </select>
+    <resultMap id="partResultMap" type="com.ohgiraffers.hitechautoworks.part.dto.PartDTO">
+        <id property="partCode" column="part_code"/>
+        <result property="partName" column="part_name"/>
+        <result property="partstock" column="part_stock"/>
+        <result property="partPrice" column="part_price"/>
+    </resultMap>
+
+    <select id="partnoti" resultMap="partResultMap">
+        SELECT *
+        FROM tbl_part WHERE <![CDATA[ part_stock < 4]]>
+    </select>
 </mapper>
 

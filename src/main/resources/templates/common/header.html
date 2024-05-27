@@ -1,5 +1,11 @@
 <header id="header" class="header fixed-top d-flex align-items-center" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+<style>
+    #noti {
+        max-height: 300px;
+        overflow-y: auto;
+        width: 100%;
+    }
+</style>
     <div class="d-flex align-items-center justify-content-between" sec:authorize="hasAnyAuthority('관리자','직원')">
         <a href="/user/mainpage" class="logo d-flex align-items-center">
             <!-- <img src="assets/img/logo.png" alt=""> -->
@@ -35,81 +41,17 @@
 
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                     <i class="bi bi-bell"></i>
-                    <span class="badge bg-primary badge-number">4</span>
+                    <span class="badge bg-primary badge-number" id="countnoti"></span>
                 </a><!-- End Notification Icon -->
 
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-                    <li class="dropdown-header">
-                        You have 4 new notifications
-                        <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                    </li>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" >
                     <li>
                         <hr class="dropdown-divider">
                     </li>
+                    <div id="noti" style="width: 250px; max-height: 300px; overflow-y: auto;">
 
-                    <li class="notification-item">
-                        <i class="bi bi-exclamation-circle text-warning"></i>
-                        <div>
-                            <h4>제목 부분</h4>
-                            <p>내용 부분</p>
-                            <p>30 min. ago</p>
-                        </div>
-                    </li>
+                    </div>
 
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li class="notification-item">
-                        <i class="bi bi-x-circle text-danger"></i>
-                        <div>
-                            <h4>Atque rerum nesciunt</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>1 hr. ago</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li class="notification-item">
-                        <i class="bi bi-check-circle text-success"></i>
-                        <div>
-                            <h4>Sit rerum fuga</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>2 hrs. ago</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li class="notification-item">
-                        <i class="bi bi-info-circle text-primary"></i>
-                        <div>
-                            <h4>Dicta reprehenderit</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>4 hrs. ago</p>
-                        </div>
-                    </li>
-
-                    <li class="notification-item">
-                        <i class="bi bi-info-circle text-success"></i>
-                        <div>
-                            <h4>창이 늘어나니</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>4 hrs. ago</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li class="dropdown-footer">
-                        <a href="#">Show all notifications</a>
-                    </li>
 
                 </ul><!-- End Notification Dropdown Items -->
 
@@ -166,4 +108,85 @@
     </nav><!-- End Icons Navigation -->
 
 </header><!-- End Header -->
+<script>
+
+    fetch("/user/repairnoti")
+        .then(res => res.json())
+        .then(data =>{
+            const countnoti = document.getElementById("countnoti");
+            countnoti.textContent = data.length;
+            const $noti = document.getElementById('noti');
+
+
+            for(let index in data){
+                const li = document.createElement("li");
+                li.className = "notification-item";
+
+                // i 요소 생성 및 클래스 추가
+                const icon = document.createElement("i");
+                icon.className = "bi bi-exclamation-circle text-warning";
+
+                const a = document.createElement("a");
+                a.href='/user/repairdetail?resCode=' + data[index].resDTO.code;
+                console.log(data)
+
+                $noti.appendChild(li);
+                const li2 = document.createElement("li");
+                const hr = document.createElement("hr");
+                hr.className = "dropdown-divider";
+                $noti.appendChild(li2);
+                li2.appendChild(hr);
+                li.appendChild(a);
+                a.appendChild(icon);
+                const $title = document.createElement("h4");
+                const $content = document.createElement("p");
+                $title.value = data[index].content;
+                $title.textContent = data[index].content;
+                $content.textContent = "해당 작업 시작이 한시간 남았습니다.";
+                icon.appendChild($title);
+                icon.appendChild($content);
+
+            }
+        })
+    fetch("/user/partnoti")
+        .then(res => res.json())
+        .then(data =>{
+            const countnoti = document.getElementById("countnoti");
+            countnoti.textContent=parseInt(countnoti.textContent) +parseInt( data.length);
+
+            const $noti = document.getElementById('noti');
+
+
+            for(let index in data){
+                const li = document.createElement("li");
+                li.className = "notification-item";
+
+                // i 요소 생성 및 클래스 추가
+                const icon = document.createElement("i");
+                icon.className = "bi bi-exclamation-circle text-warning";
+
+                const a = document.createElement("a");
+                a.id = "part"+data[index].partCode;
+                a.href='/user/partdetail?partCode='  + data[index].partCode;
+
+                $noti.appendChild(li);
+                const li2 = document.createElement("li");
+                const hr = document.createElement("hr");
+                hr.className = "dropdown-divider";
+                $noti.appendChild(li2);
+                li2.appendChild(hr);
+                li.appendChild(a);
+                a.appendChild(icon);
+                const $title = document.createElement("h4");
+                const $content = document.createElement("p");
+                $title.textContent = data[index].partName;
+                $content.textContent = "해당 부품이 3개 이하 남았습니다.";
+                icon.appendChild($title);
+                icon.appendChild($content);
+
+            }
+        })
+        countnoti.textContent = count;
+
+</script>
 

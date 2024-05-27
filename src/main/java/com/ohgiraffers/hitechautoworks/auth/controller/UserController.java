@@ -510,8 +510,22 @@ public class UserController {
     public Map<String,Object> getNote() {
 
         Map<String,Object> note = userService.getNote();
-        System.out.println("note = " + note);
+
         return note;
+    }
+    @GetMapping(value = "/user/repairnoti", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public List<RepairDTO> repairnoti( Model model){
+        int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
+        List<RepairDTO> repairList = userService.repairnoti(userCode);
+        System.out.println("repairList = " + repairList);
+        return repairList;
+    }
+    @GetMapping(value = "/user/partnoti",produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public List<PartDTO> partnoti( ){
+        List<PartDTO> partList = userService.partnoti();
+        return partList;
     }
 }
 
