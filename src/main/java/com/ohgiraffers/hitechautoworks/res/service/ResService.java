@@ -91,5 +91,13 @@ public class ResService {
     public List<Map<String, Object>> replyComment(int resCode) {
         return resMapper.replyComment(resCode);
     }
+
+    public int updateReComment(Map<String, Object> info) {
+        return resMapper.updateReComment(info);
+    }
+
+    public int deleteReComment(Map<String, Object> deleteInfo) {
+        return resMapper.deleteReComment(deleteInfo);
+    }
 }
 

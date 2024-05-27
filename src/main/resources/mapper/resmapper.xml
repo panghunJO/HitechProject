@@ -153,6 +153,12 @@
         WHERE res_reply_code = #{ resReplyCode }
     </update>
 
+    <update id="updateReComment">
+        UPDATE tbl_res_replycomment
+        SET res_replyComment_content = #{ str }
+        WHERE res_replyCommentCode = #{ resReplyCode }
+    </update>
+
     <update id="deleteComment">
         UPDATE
             tbl_res_reply
@@ -174,11 +180,21 @@
     </insert>
 
     <select id="replyComment">
-        select a.user_img, a.user_name, a.user_role, b.res_replyComment_time, b.res_replyComment_content, b.res_reply_code
+        select a.user_img, a.user_name, a.user_role, a.user_code ,b.res_replyComment_time, b.res_replyComment_content, b.res_reply_code, b.res_replyCommentCode as replyCode
         from tbl_res_replycomment b
         join tbl_user a on b.user_code = a.user_code
         join tbl_res c on b.res_code = c.res_code
-        where c.res_code = #{resCode}
+        where c.res_code = #{resCode} AND b.res_replyComment_status = 'Y'
         ORDER BY b.res_replyComment_time
     </select>
+
+    <update id="deleteReComment">
+        UPDATE
+        tbl_res_replycomment
+        SET
+        res_replyComment_status = 'N'
+        WHERE
+        res_replyCommentCode = #{ resReplyCode }
+
+    </update>
 </mapper>

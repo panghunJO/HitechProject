@@ -171,7 +171,7 @@
     </insert>
 
     <select id="searchReply" resultType="map">
-        select a.user_img as userImg, a.user_name as userName, a.user_role as userRole, b.res_replyComment_time as replyDate, b.res_replyComment_content as replyContent
+        select a.user_img as userImg, a.user_name as userName, a.user_role as userRole, a.user_code as userCode , b.res_replyComment_time as replyDate, b.res_replyComment_content as replyContent
         from tbl_res_replycomment b
         join tbl_user a on b.user_code = a.user_code
         where b.res_reply_code = #{ resReplyCode }

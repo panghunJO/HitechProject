@@ -52,4 +52,7 @@ public interface ResMapper {
 
     List<Map<String, Object>> replyComment(int resCode);
 
+    int updateReComment(Map<String, Object> info);
+
+    int deleteReComment(Map<String, Object> deleteInfo);
 }
