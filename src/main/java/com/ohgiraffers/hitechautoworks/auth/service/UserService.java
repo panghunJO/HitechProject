@@ -308,7 +308,14 @@ public class UserService  {
         return userMapper.getNote();
     }
 
+
+    public List<RepairDTO> repairnoti(int userCode) {  return userMapper.repairnoti(userCode);
+    }
+
+    public List<PartDTO> partnoti() { return userMapper.partnoti();
+
     public List<Map<String, Object>> getContactCommit() {
         return userMapper.getContactCommit();
+
     }
 }
