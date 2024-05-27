@@ -82,4 +82,6 @@ public interface UserMapper {
     void saveNote(Map<String, Object> info);
 
     Map<String, Object> getNote();
+
+    List<Map<String, Object>> getContactCommit();
 }

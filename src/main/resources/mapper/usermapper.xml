@@ -20,6 +20,7 @@
         <result property="userName" column="USER_NAME"/>
         <result property="password" column="user_pw"/>
         <result property="userRole" column="USER_ROLE"/>
+        <result property="userEmail" column="user_email"/>
     </resultMap>
     <select id="findByUsername" resultMap="login">
         SELECT *
@@ -204,6 +205,13 @@
         WHERE contact_code = #{contactCode}
     </update>
 
+    <select id="getContactCommit">
+        SELECT a.user_img, a.user_name, a.user_code, a.user_role, b.contact_reply_time, b.contact_reply_content, b.contact_code, b.contact_reply_code
+        FROM tbl_contact_reply b
+        JOIN tbl_user a on b.user_code = a.user_code;
+    </select>
+
+
     <select id="selectContact" resultMap="contact">
         SELECT
         a.contact_code,
@@ -211,7 +219,8 @@
         a.contact_content,
         a.contact_date,
         a.contact_status,
-        b.user_name
+        b.user_name,
+        b.user_email
         FROM tbl_contact a JOIN tbl_user b ON a.user_code = b.user_code
         WHERE a.contact_code = #{code}
     </select>

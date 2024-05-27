@@ -458,9 +458,9 @@ public class UserController {
         if(status.equals("신규")) {
             userService.changeContact(contactCode);
         }
-
         ContactDTO contact = userService.selectContact(contactCode);
         model.addAttribute("contact",contact);
+
         return "user/contactdetail";
     }
 
