@@ -82,6 +82,20 @@ public class MainController {
         return "redirect:/certified/loading";
     }
 
+    @PostMapping("/user/sendContact")
+    @ResponseBody
+    public int submitContact(@RequestBody Map<String,Object> info){
+        MailDTO mailDTO = new MailDTO();
+        mailDTO.setTitle(info.get("userName") + "님 HitechAutoworks 문의 답변 글입니다");
+        mailDTO.setMessage(info.get("title") + "에 대한 답변이 등록되었습니다. \n" + info.get("commment"));
+        mailDTO.setAddress((String) info.get("email"));
+
+        mailService.sendContact(mailDTO);
+        System.out.println("info = " + info);
+
+        return 1;
+    }
+
 
     @GetMapping("/member/regist")
     public String regist() {

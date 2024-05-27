@@ -309,4 +309,8 @@ public class UserService  {
     public Map<String, Object> getNote() {
         return userMapper.getNote();
     }
+
+    public List<Map<String, Object>> getContactCommit() {
+        return userMapper.getContactCommit();
+    }
 }
