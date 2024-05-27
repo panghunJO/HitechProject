@@ -21,3 +21,8 @@ mybatis:
   mapper-locations: mapper/**/*.xml
 server:
   port: 1818
+
+coolsms:
+  api:
+    key: NCSYGLQNT7X2BOIH
+    secret: DRV8SYBLQYBAY7K0IFZ6VK6QQTAUXSKY

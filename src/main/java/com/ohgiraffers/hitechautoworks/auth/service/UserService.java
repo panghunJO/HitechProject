@@ -234,8 +234,6 @@ public class UserService  {
     public Map<String, Object> searchForPW(Map<String, Object> info) {
         String PWForPhone = (String) info.get("phone");
         String PWForId = (String) info.get("Id");
-        System.out.println("PWForId = " + PWForId);
-        System.out.println("PWForPhone = " + PWForPhone);
 
         Map<String,Object> goPass = new HashMap<>();
         int result = userMapper.findPW(PWForId,PWForPhone);

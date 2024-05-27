@@ -165,7 +165,7 @@
                     }) .then(response => response.json())
                         .then(result => {
                             if (result && result.newPass) {
-                                document.getElementById('foundPW').innerText = '임시비밀번호는 ' +result.newPass + '입니다 반드시 비밀번호를 변경해주세요';
+                                document.getElementById('foundPW').innerText = '임시비밀번호는가 휴대폰으로 발송 되었습니다. 반드시 비밀번호를 변경해주세요';
                                 document.getElementById('PWResult').style.display = 'block';
                             } else {
                                 document.getElementById('foundPW').innerText = '아이디, 휴대폰 번호에 해당하는 비밀번호를 찾을 수 없습니다!';
