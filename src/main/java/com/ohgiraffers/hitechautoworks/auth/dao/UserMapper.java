@@ -88,4 +88,7 @@ public interface UserMapper {
     List<RepairDTO> repairnoti(int userCode);
 
     List<PartDTO> partnoti();
+
+    List<Map<String, Object>> getContactCommit();
+
 }

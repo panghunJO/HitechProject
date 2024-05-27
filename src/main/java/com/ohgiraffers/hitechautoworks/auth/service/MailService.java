@@ -25,7 +25,14 @@ public class MailService {
         message.setText(mail.getMessage());
 
 
-        message.setText(mail.getMessage());
+        mailSender.send(message);
+    }
+
+    public void sendContact(MailDTO mailDTO) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(mailDTO.getAddress());
+        message.setSubject(mailDTO.getTitle());
+        message.setText(mailDTO.getMessage());
 
         mailSender.send(message);
     }

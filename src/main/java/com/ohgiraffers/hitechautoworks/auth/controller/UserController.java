@@ -294,6 +294,18 @@ public class UserController {
         return result;
     }
 
+    @PostMapping("/user/reseditComment1")
+    @ResponseBody
+    public int editComment1(@RequestBody Map<String,Object> info){
+
+        int result = resService.updateReComment(info);
+        System.out.println("info = " + info);
+
+
+        return result;
+    }
+
+
 
     @GetMapping("/user/customermypage")
     public String customermypage(Model model, @RequestParam int customerUserCode, HttpSession session){
@@ -324,6 +336,15 @@ public class UserController {
         int resReplyCode = deleteCommentDTO.getResReplyCode();
         int rescode = deleteCommentDTO.getRescode();
         int result = resService.deleteComment(resReplyCode);
+
+        return result;
+    }
+
+    @PostMapping("/user/deleteComment1")
+    @ResponseBody
+    public int deleteComment1(@RequestBody Map<String,Object> deleteInfo){
+
+        int result = resService.deleteReComment(deleteInfo);
 
         return result;
     }
@@ -437,9 +458,9 @@ public class UserController {
         if(status.equals("신규")) {
             userService.changeContact(contactCode);
         }
-
         ContactDTO contact = userService.selectContact(contactCode);
         model.addAttribute("contact",contact);
+
         return "user/contactdetail";
     }
 
@@ -501,8 +522,6 @@ public class UserController {
         int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
         info.put("userCode",userCode);
         userService.saveNote(info);
-
-        System.out.println("info = " + info);
     }
 
     @GetMapping("/user/getNote")
@@ -528,8 +547,4 @@ public class UserController {
         return partList;
     }
 }
-
-
-
-
 

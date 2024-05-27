@@ -55,7 +55,7 @@
     <section class="section">
 
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-7">
                 <div class="card">
                     <div class="card-body">
                         <form id="actionForm" method="POST">
@@ -79,13 +79,13 @@
                             <div class="row mb-3 mt-4">
                                 <label class="col-sm-3 col-form-label text-end">고객명</label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="userName" class="form-control" th:value="${contact.userDTO.userName}" readonly>
+                                    <input type="text" name="userName" id="userName" class="form-control" th:value="${contact.userDTO.userName}" readonly>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label text-end">제목</label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="title" class="form-control" th:value="${contact.title}" readonly>
+                                    <input type="text" name="title" id="title" class="form-control" th:value="${contact.title}" readonly>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -105,154 +105,29 @@
                                 <div class="col text-end">
                                     <button type="button" class="btn btn-primary " onclick="statusgogo()">진행중으로 변경
                                     </button>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col text-end">
                                     <button type="button" class="btn btn-danger " onclick="deleteItem()">삭제
                                     </button>
                                 </div>
                             </div>
+                        </form>
                     </div>
                 </div>
             </div>
 
-            <div class="toast-container position-fixed bottom-0 end-0 p-3">
-                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="toast-header">
-                        <strong class="me-auto">댓글 알리미</strong>
-                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                    </div>
-                    <div class="toast-body">
-                        댓글 수정에 성공하였습니다!
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-lg-12">
+            <div class="col-lg-5">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Comment </h5>
+                        <h5 class="card-title">고객에게 메일 보내기 </h5>
                         <div class="col-md-12 mt-4">
                             <div class="input-group input-group-lg">
-                                <input type="text" class="form-control" id="comment" name="comment" placeholder="댓글 입력" onkeydown="if(event.key === 'Enter') registcommit();">
-                                <button type="button"  class="btn btn-success" onclick="registcommit()">등록</button>
+                                <textarea class="form-control" id="comment" name="comment" placeholder="내용 입력" rows="5" onkeydown="if(event.key === 'Enter') submit();"></textarea>
+                            </div>
+                            <div class="row">
+                            <button type="button" class="btn btn-success mt-4" id="submitbtn" onclick="submit()">전송</button>
                             </div>
                         </div>
                     </div>
-                    </form>
-
-                    <script>
-                        document.getElementById('datetime').addEventListener('input', function() {
-                            var dateTimeInput = this.value;
-                            if (dateTimeInput) {
-                                var [date, time] = dateTimeInput.split('T');
-                                var [hours, minutes] = time.split(':');
-                                if (minutes !== "00") {
-                                    // 분을 00으로 설정
-                                    var newTime = hours + ':00';
-                                    this.value = date + 'T' + newTime;
-                                }
-                            }
-                        });
-
-
-                        function statusgogo(){
-                            document.getElementById("actionForm").action = "/user/changeStatus";
-                            document.getElementById("actionForm").submit();
-                        }
-
-                        function deleteItem() {
-                            document.getElementById("actionForm").action = "/user/deletecontact";
-                            document.getElementById("actionForm").submit();
-                        }
-
-                        function registcommit(){
-                            document.getElementById("actionForm").action = "/user/registcomment";
-                            document.getElementById("actionForm").submit();
-                        }
-
-                        var result = `[[${result}]]`;
-                        if (result) {
-                            alert("수정에 성공하였습니다 !")
-                        }
-                    </script>
-
-<!--                    <form id="actionForm2" method="post">-->
-<!--                        <div >-->
-<!--                            <div class="container">-->
-<!--                                <div class="row">-->
-<!--                                    <div class="col-md-12 mb-4">-->
-
-<!--                                        <div class="media g-mb-30 media-comment">-->
-<!--                                            <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">-->
-<!--                                                <div class="g-mb-15">-->
-<!--                                                    <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15"  alt="Image Description">-->
-<!--                                                    <h5 class="h5 g-color-gray-dark-v1 mb-0" ></h5>-->
-<!--                                                  -->
-<!--                                                    <a >정보 확인</a>-->
-<!--                                                    <span class="small-text ml-3" ></span> &nbsp;-->
-<!--                                                    <span class="g-color-gray-dark-v4 g-font-size-12" th:text="${#dates.format(comment.resTime, 'yyyy-MM-dd HH:mm')}"></span>-->
-<!--                                                </div>-->
-<!--                                                <p class="mt-1" th:attr="id='commentContent-' + ${comment.resReplyCode}" th:text="${comment.resReplyContent}"></p>-->
-<!--                                                <ul class="list-inline d-sm-flex my-0">-->
-<!--                                                    <li class="list-inline-item g-mr-15">-->
-<!--                                                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary&#45;&#45;hover" href="#!"-->
-<!--                                                           th:onclick="'showReplyBox(' + ${comment.resReplyCode} + ')'">-->
-<!--                                                            <i class="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>-->
-<!--                                                            답글-->
-<!--                                                        </a>-->
-<!--                                                    </li>-->
-<!--                                                    <li class="list-inline-item g-mr-20" th:id="'edit-' + ${comment.resReplyCode}"-->
-<!--                                                        th:data-user="${comment.userDTO.userCode}" th:data-role="${userDTO.userRole}" style="display: none">-->
-<!--                                                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary&#45;&#45;hover" href="#!"-->
-<!--                                                           th:onclick="'editComment(\'' + ${comment.resReplyCode} + '\', \'' + ${comment.resCode} + '\', \'' + ${comment.userDTO.userCode} + '\')'">-->
-<!--                                                            <i class="bi bi-pencil-fill g-pos-rel g-top-1 g-mr-3"></i>-->
-<!--                                                            수정-->
-<!--                                                        </a>-->
-<!--                                                    </li>-->
-<!--                                                    <li class="list-inline-item ml-auto" th:id="'delete-' + ${comment.resReplyCode}"-->
-<!--                                                        th:data-user="${comment.userDTO.userCode}" style="display: none">-->
-<!--                                                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary&#45;&#45;hover" href="#!"-->
-<!--                                                           th:onclick="'deleteComment(\'' + ${comment.resReplyCode} + '\', \'' + ${comment.resCode} + '\', \'' + ${comment.userDTO.userCode} + '\')'">-->
-<!--                                                            <i class="bi bi-trash3-fill g-pos-rel g-top-1 g-mr-3"></i>-->
-<!--                                                            삭제-->
-<!--                                                        </a>-->
-<!--                                                    </li>-->
-<!--                                                </ul>-->
-<!--                                                <div th:each="reply:${replyComment}">-->
-<!--                                                    <div class="media g-mb-30 media-comment" style="margin-left: 40px" th:if="${comment.resReplyCode} == ${reply.res_reply_code} ">-->
-<!--                                                        <div class="media-body u-shadow-v18 g-bg-secondary g-pa-30">-->
-<!--                                                            <div class="g-mb-15">-->
-<!--                                                                <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" th:src="${reply.user_img}" alt="Image Description">-->
-<!--                                                                <h5 class="h5 g-color-gray-dark-v1 mb-0" th:text="${reply.user_name}"></h5>-->
-<!--                                                                <span class="small-text ml-3" th:text="${reply.user_role}"></span> &nbsp;-->
-<!--                                                                <span class="g-color-gray-dark-v4 g-font-size-12"th:text="${reply.res_replyComment_time}"></span>-->
-<!--                                                            </div>-->
-<!--                                                            <p class="mt-1" th:text="${reply.res_replyComment_content}"></p>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                                &lt;!&ndash; 답글 인풋 태그 ㅡㅡㅡㅡㅡㅡ &ndash;&gt;-->
-<!--                                                <div th:attr="id='replyBox-' + ${comment.resReplyCode}" class="reply-box" style="display: none;">-->
-<!--                                                    <textarea class="form-control mt-2" rows="3" placeholder="답글을 입력하세요"></textarea>-->
-<!--                                                    <button type="button" class="btn btn-primary btn-sm mt-2" th:attr="onclick='submitReply(' + ${comment.resReplyCode} + ')'">답글 작성</button>-->
-<!--                                                    <button type="button" class="btn btn-secondary btn-sm mt-2" th:attr="onclick='hideReplyBox(' + ${comment.resReplyCode} + ')'">취소</button>-->
-<!--                                                </div>-->
-
-<!--                                            </div>-->
-<!--                                        </div>-->
-
-
-<!--                                    </div>-->
-<!--                                    <hr>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </form>-->
-
-
                 </div>
             </div>
 
@@ -261,7 +136,97 @@
 
     </section>
 
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast1" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">HitechAutoworks 알리미</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                메일 전송에 성공하였습니다 !!!!!!!
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">HitechAutoworks 알리미</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                메일 전송중 입니다..... 잠시만 기다려주세요
+            </div>
+        </div>
+    </div>
+
 </main><!-- End #main -->
+<script>
+    function submit() {
+        var commment = document.getElementById('comment').value;
+        var userName = document.getElementById('userName').value;
+        var title = document.getElementById('title').value;
+        var email = `[[${contact.userDTO.userEmail}]]`;
+        document.getElementById('submitbtn').disabled = true;
+        const toastLiveExample1 = document.getElementById('liveToast');
+        const toast1 = new bootstrap.Toast(toastLiveExample1);
+        toast1.show();
+        fetch('/user/sendContact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                commment: commment,
+                userName: userName,
+                title: title,
+                email: email
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data == 1) {
+                    const toastLiveExample = document.getElementById('liveToast1');
+                    const toast = new bootstrap.Toast(toastLiveExample);
+                    toast.show();
+                    commment = '';
+                } else {
+                    alert("수정에 실패했습니다. 다시 시도해주세요.");
+                    // location.reload(true);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
+            });
+    }
+
+
+    document.getElementById('datetime').addEventListener('input', function() {
+        var dateTimeInput = this.value;
+        if (dateTimeInput) {
+            var [date, time] = dateTimeInput.split('T');
+            var [hours, minutes] = time.split(':');
+            if (minutes !== "00") {
+                // 분을 00으로 설정
+                var newTime = hours + ':00';
+                this.value = date + 'T' + newTime;
+            }
+        }
+    });
+
+
+    function statusgogo(){
+        document.getElementById("actionForm").action = "/user/changeStatus";
+        document.getElementById("actionForm").submit();
+    }
+
+    function deleteItem() {
+        document.getElementById("actionForm").action = "/user/deletecontact";
+        document.getElementById("actionForm").submit();
+    }
+
+</script>
 
 
 <div th:replace="~{common/footer.html}"></div>

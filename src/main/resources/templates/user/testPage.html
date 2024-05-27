@@ -290,10 +290,29 @@
                                                             <div class="g-mb-15">
                                                                 <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" th:src="${reply.user_img}" alt="Image Description">
                                                                 <h5 class="h5 g-color-gray-dark-v1 mb-0" th:text="${reply.user_name}"></h5>
+                                                                <a th:href="@{/user/customermypage(customerUserCode=${reply.user_code} * 123456)}">정보 확인</a>
                                                                 <span class="small-text ml-3" th:text="${reply.user_role}"></span> &nbsp;
                                                                 <span class="g-color-gray-dark-v4 g-font-size-12"th:text="${reply.res_replyComment_time}"></span>
                                                             </div>
-                                                            <p class="mt-1" th:text="${reply.res_replyComment_content}"></p>
+                                                            <p class="mt-1" th:attr="id='commentContent1-' + ${reply.replyCode}" th:text="${reply.res_replyComment_content}"></p>
+                                                            <ul class="list-inline d-sm-flex my-0">
+                                                                <li class="list-inline-item g-mr-20" th:id="'edit1-' + ${reply.replyCode}"
+                                                                    th:data-user="${reply.user_code}" th:data-role="${reply.user_role}" style="display: none">
+                                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!"
+                                                                       th:onclick="'editComment1(\'' + ${reply.replyCode} + '\', \'' + ${comment.resCode} + '\', \'' + ${reply.user_code} + '\')'">
+                                                                        <i class="bi bi-pencil-fill g-pos-rel g-top-1 g-mr-3"></i>
+                                                                        수정
+                                                                    </a>
+                                                                </li>
+                                                                <li class="list-inline-item ml-auto" th:id="'delete1-' + ${reply.replyCode}"
+                                                                    th:data-user="${reply.user_code}" style="display: none">
+                                                                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!"
+                                                                       th:onclick="'deleteComment1(\'' + ${reply.replyCode} + '\', \'' + ${comment.resCode} + '\', \'' + ${reply.user_code} + '\')'">
+                                                                        <i class="bi bi-trash3-fill g-pos-rel g-top-1 g-mr-3"></i>
+                                                                        삭제
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                     </div>
@@ -325,6 +344,23 @@
                                     }
                                 });
 
+                                const editButtons1 = document.querySelectorAll('li[id^="edit1-"]');
+
+                                editButtons1.forEach(button => {
+                                    const resuserCode = button.getAttribute('data-user');
+                                    if (authuserCode == resuserCode || userRole == 'ADMIN') {
+                                        button.style.display = 'block';
+                                    }
+                                });
+
+                                const deleteButtons1 = document.querySelectorAll('li[id^="delete1-"]');
+                                deleteButtons1.forEach(button => {
+                                    const resuserCode = button.getAttribute('data-user');
+                                    if (authuserCode == resuserCode || userRole == 'ADMIN') {
+                                        button.style.display = 'block';
+                                    }
+                                });
+
                                 const deleteButtons = document.querySelectorAll('li[id^="delete-"]');
                                 deleteButtons.forEach(button => {
                                     const resuserCode = button.getAttribute('data-user');
@@ -347,6 +383,7 @@
                                     replyBox.style.display = 'none';
                                 }
                             }
+
 
                             function submitReply(replyCode) {
                                 var replyBox = document.getElementById('replyBox-' + replyCode);
@@ -385,6 +422,7 @@
                 <div class="g-mb-15">
                     <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="${data.userImg}" alt="Image Description">
                     <h5 class="h5 g-color-gray-dark-v1 mb-0">${data.userName}</h5>
+                       <a th:href="@{/user/customermypage(customerUserCode=${data.userCode} * 123456)}">정보 확인</a>
                     <span class="small-text ml-3">${data.userRole}</span> &nbsp;
                     <span class="g-color-gray-dark-v4 g-font-size-12">${data.replyDate}</span>
                 </div>
@@ -400,6 +438,24 @@
                                     .catch(error => {
                                         console.error('Error:', error);
                                     });
+                            }
+
+                            function editComment1(resReplyCode, resCode, usercommentCode) {
+                                var authuserCode = `[[${userDTO.userCode}]]`;
+                                var resuserCode = usercommentCode;
+                                var userRole = `[[${userDTO.userRole}]]`;
+
+                                if (authuserCode == resuserCode || userRole == 'ADMIN' ) {
+                                    const commentContent = document.getElementById('commentContent1-' + resReplyCode);
+                                    const originalContent = commentContent.textContent;
+                                    commentContent.innerHTML = `
+            <textarea class="form-control" id="editContent1-${resReplyCode}" rows="3">${originalContent}</textarea>
+            <button type="button" class="btn btn-primary btn-sm mt-2" onclick="submitEdit1(${resReplyCode}, ${resCode})">수정</button>
+            <button type="button" class="btn btn-secondary btn-sm mt-2" onclick="cancelEdit1(${resReplyCode}, '${originalContent}')">취소</button>
+        `;
+                                } else {
+                                    alert("본인의 댓글만 수정할 수 있습니다!!!");
+                                }
                             }
 
                             function editComment(resReplyCode, resCode, usercommentCode) {
@@ -418,6 +474,41 @@
                                 } else {
                                     alert("본인의 댓글만 수정할 수 있습니다!!!");
                                 }
+                            }
+
+                            function submitEdit1(resReplyCode, resCode) {
+                                const editContent = document.getElementById('editContent1-' + resReplyCode).value;
+
+                                fetch("/user/reseditComment1", {
+                                    method: "POST",
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        str: editContent,
+                                        resReplyCode: resReplyCode,
+                                        resCode: resCode
+                                    })
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data == 1) {
+                                            const commentContent = document.getElementById('commentContent1-' + resReplyCode);
+                                            if (commentContent) {
+                                                commentContent.textContent = editContent;
+                                            }
+                                            const toastLiveExample = document.getElementById('liveToast');
+                                            const toast = new bootstrap.Toast(toastLiveExample);
+                                            toast.show();
+                                        } else {
+                                            alert("수정에 실패했습니다. 다시 시도해주세요.");
+                                            location.reload(true);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error:', error);
+                                        alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
+                                    });
                             }
 
                             function submitEdit(resReplyCode, resCode) {
@@ -460,6 +551,11 @@
                                 commentContent.innerHTML = originalContent;
                             }
 
+                            function cancelEdit1(resReplyCode, originalContent) {
+                                const commentContent = document.getElementById('commentContent1-' + resReplyCode);
+                                commentContent.innerHTML = originalContent;
+                            }
+
                             function deleteComment(resReplyCode, resCode, usercommentCode) {
                                 var authuserCode = `[[${userDTO.userCode}]]`;
                                 var resuserCode = usercommentCode;
@@ -468,6 +564,43 @@
                                     var userInput = confirm("삭제하시겠습니까?");
                                     if (userInput) {
                                         fetch("/user/deleteComment", {
+                                            method: "POST",
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({
+                                                resReplyCode: resReplyCode,
+                                                resCode : resCode
+                                            })
+                                        })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                if (data == 1) {
+                                                    alert("삭제가 완료되었습니다.");
+                                                    location.href='/user/testPage?resCode=' + 123456 * resCode;
+                                                } else {
+                                                    alert("삭제에 실패했습니다. 다시 시도해주세요.");
+                                                    location.reload(true);
+                                                }
+                                            })
+                                            .catch(error => {
+                                                console.error('Error:', error);
+                                                alert("오류가 발생했습니다. 나중에 다시 시도해주세요.");
+                                            });
+                                    }
+                                } else {
+                                    alert("본인 or 관리자만 삭제할 수 있습니다.");
+                                }
+                            }
+
+                            function deleteComment1(resReplyCode, resCode, usercommentCode) {
+                                var authuserCode = `[[${userDTO.userCode}]]`;
+                                var resuserCode = usercommentCode;
+                                var userRole = `[[${userDTO.userRole}]]`;
+                                if (authuserCode == resuserCode || userRole == 'ADMIN' ) {
+                                    var userInput = confirm("삭제하시겠습니까?");
+                                    if (userInput) {
+                                        fetch("/user/deleteComment1", {
                                             method: "POST",
                                             headers: {
                                                 'Content-Type': 'application/json'
