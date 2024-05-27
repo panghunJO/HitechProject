@@ -59,4 +59,6 @@ public interface RepairMapper {
     void deleteOldPart( int resCode);
 
     Map<String, Object> getDate(Object code);
+
+    List<Map<String, Object>> modalClick(Object resCode);
 }

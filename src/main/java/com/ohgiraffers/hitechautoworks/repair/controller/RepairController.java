@@ -92,7 +92,19 @@ public class RepairController {
 
     }
 
-    @PostMapping("/user/repairModify")
+    @PostMapping("/user/repairModalInfo")
+    @ResponseBody
+    public List<Map<String,Object>> ModalClick(@RequestBody Map<String, Object> info) {
+        Object resCode = info.get("resCode");
+
+
+        List <Map<String, Object>> partList = repairService.ModalClick(resCode);
+        System.out.println("partList =111 " + partList);
+        return partList;
+    }
+
+
+
     @ResponseBody
     public String modifyRepair(
             @RequestBody Map<String,Object> info,Model model) {

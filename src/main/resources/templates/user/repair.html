@@ -355,24 +355,24 @@
 
                     for(let index in data){
                         const $option = document.createElement("option");
+                        fetch("/employee/repair/res")
+                            .then(res => res.json())
+                            .then(data =>{
+                                const $resCode = document.getElementById('resCode');
+
+                                for(let index in data){
+                                    const $option = document.createElement("option");
+                                    $option.value = data[index].code;
+                                    $option.textContent = data[index].code;
+                                    $resCode.appendChild($option);
+                                }
+                            })
                         $option.value = data[index].partName;
                         $option.textContent = data[index].partName;
                         $partName.appendChild($option);
                     }
                 })
 
-            fetch("/employee/repair/res")
-                .then(res => res.json())
-                .then(data =>{
-                    const $resCode = document.getElementById('resCode');
-
-                    for(let index in data){
-                        const $option = document.createElement("option");
-                        $option.value = data[index].code;
-                        $option.textContent = data[index].code;
-                        $resCode.appendChild($option);
-                    }
-                })
 
 
         </script>

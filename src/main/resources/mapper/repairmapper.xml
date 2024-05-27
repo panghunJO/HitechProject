@@ -302,4 +302,14 @@
         JOIN tbl_user b ON (a.user_code=b.user_code)
         WHERE a.res_code = #{resCode}
     </select>
+
+    <select id="modalClick" >
+        SELECT b.PART_NAME,a.res_code
+        FROM tbl_part b
+        JOIN tbl_repair_part a
+        ON a.part_code = b.part_code
+        WHERE a.res_code = #{resCode}
+    </select>
+
+
 </mapper>
