@@ -17,8 +17,7 @@ public interface PartMapper {
 
     List<PartDTO> partSearchBtPartName(String partName);
 
-    void modifyPart(String partCode, int partstock, String partName, int partPrice);
-    
+    void modifyPart(int partCode, int partstock, String partName, int partPrice);
 
     void deletePart(String partCode);
 

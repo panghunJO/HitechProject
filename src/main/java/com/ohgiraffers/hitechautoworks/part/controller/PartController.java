@@ -74,6 +74,16 @@ public class PartController {
         return "user/partdetail";
     }
 
+    @PostMapping("/user/partModify")
+    public String partModify(@RequestParam int partCode,
+                             @RequestParam String partName,
+                             @RequestParam int partstock,
+                             @RequestParam int partPrice){
+
+     partService.modifyPart(partCode,partstock,partPrice,partName);
+
+     return "redirect:/user/partdetail?partCode="+partCode;
+    }
 
 
 
