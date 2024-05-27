@@ -104,7 +104,7 @@ public class RepairController {
     }
 
 
-
+    @PostMapping("/user/repairModify")
     @ResponseBody
     public String modifyRepair(
             @RequestBody Map<String,Object> info,Model model) {
@@ -124,6 +124,11 @@ public class RepairController {
         repairService.modifyRepairPart(parts, resCode);
 
         return "1";
+    }
+    @PostMapping("/user/registerStock")
+    @ResponseBody
+    public void registPartStock(@RequestBody List<Map<String, Object>> info){
+        System.out.println("info = " + info);
     }
 
     @PostMapping("/user/repairDelete")

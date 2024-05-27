@@ -296,9 +296,10 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()"></button>
                             </div>
 
-                            <table class="table table-bordered">
+                            <table class="table table-bordered" name="table1">
                                 <thead class="table-light">
                                 <tr>
+                                    <th scope="col">부품 코드</th>
                                     <th scope="col">필요 부품</th>
                                     <th scope="col">필요 개수</th>
                                 </tr>
@@ -332,26 +333,109 @@
                        })
                    }).then(res => res.json())
                        .then(data => {
+                           // const $table = document.getElementById("ModalDetail");
+                           // if($table.childElementCount ==0) {
+                           //     for (let index in data) {
+                           //         const $table = document.getElementById("ModalDetail");
+                           //         const $tr = document.createElement("tr");
+                           //         const $td1 = document.createElement("td");
+                           //         const $td2 = document.createElement("td");
+                           //         const $input = document.createElement("input");
+                           //
+                           //         $td2.textContent = data[index].part_code;
+                           //         $td2.value = data[index].part_code;
+                           //         $td1.textContent = data[index].PART_NAME;
+                           //         $input.type = "text";
+                           //         $input.name = "stock";
+                           //
+                           //         $table.appendChild($tr);
+                           //         $tr.appendChild($td2);
+                           //         $tr.appendChild($td1);
+                           //         $tr.appendChild($input)
+                           //
+                           //     }
+                           // }
                            const $table = document.getElementById("ModalDetail");
-                           if($table.childElementCount ==0) {
-                               for (let index in data) {
-                                   const $table = document.getElementById("ModalDetail");
-                                   const $tr = document.createElement("tr");
-                                   const $td = document.createElement("td");
-                                   const $input = document.createElement("input");
 
-                                   $td.textContent = data[index].PART_NAME;
-                                   $input.type = "text";
-                                   $input.name = "stock";
-
-
-                                   $table.appendChild($tr);
-                                   $tr.appendChild($td);
-                                   $tr.appendChild($input)
-
-                               }
+                           // 기존 테이블 내용 지우기
+                           while ($table.firstChild) {
+                               $table.removeChild($table.firstChild);
                            }
 
+                           // 새 데이터 추가
+                           data.forEach(item => {
+                               const $tr = document.createElement("tr");
+                               const $td1 = document.createElement("td");
+                               const $td2 = document.createElement("td");
+                               const $td3 = document.createElement("td"); // 추가된 input을 담을 셀
+
+                               const $input = document.createElement("input");
+                               $input.type = "text";
+                               $input.name = "stock";
+                               $input.dataset.partCode = item.part_code; // part_code를 데이터 속성으로 저장
+
+                               $td2.textContent = item.PART_NAME;
+                               $td1.textContent = item.part_code;
+                               $td3.appendChild($input);
+
+                               $tr.appendChild($td1);
+                               $tr.appendChild($td2);
+                               $tr.appendChild($td3);
+
+                               $table.appendChild($tr);
+                           })
+
+                       })
+                       .catch(error => {
+                           console.error('Error:', error);
+                       });
+
+               }
+               // 모달 닫기 함수
+               function closeModal() {
+                   document.getElementById("myModal").style.display = "none";
+
+                       //
+                       // const rows = document.querySelectorAll("#table1 tbody tr");
+                       // let data = [];
+                       //
+                       // rows.forEach(row => {
+                       //     const cells = row.querySelectorAll("td");
+                       //     const item = {
+                       //         name: cells[0].textContent,
+                       //         value: cells[1].textContent
+                       //     };
+                       //     data.push(item);
+                       // });
+                       //
+                       // console.log(data); // 확인을 위해 콘솔에 출력
+                   const $inputs = document.querySelectorAll('#ModalDetail input[name="stock"]');
+                   const dataToSend = [];
+
+                   $inputs.forEach($input => {
+                       const partCode = $input.dataset.partCode;
+                       const stockValue = $input.value;
+                       console.log("partCode "+partCode);
+                       console.log("stockValue "+stockValue);
+
+                       dataToSend.push({
+                           part_code: partCode,
+                           stock: stockValue
+                       });
+                   });
+                   console.log("dataToSend = "+dataToSend);
+
+                   fetch("/user/registerStock", {
+                       method: "POST",
+                       headers: {
+                           'Content-Type': 'application/json'
+                       },
+                       body: JSON.stringify(dataToSend)
+                   })
+                       .then(response => response.json())
+                       .then(data => {
+                           console.log('Success:', data);
+                           // 필요한 경우 모달을 닫거나 추가적인 작업을 수행합니다.
                        })
                        .catch(error => {
                            console.error('Error:', error);
@@ -498,7 +582,6 @@
                             })
                                 .then(res => res.json())
                                 .then(data =>{
-                                    console.log(data);
                                     const $workerCode = document.getElementById('workerCode');
                                     for(let index in data){
                                         const $option = document.createElement("option");
@@ -655,10 +738,7 @@
 
 
 
-                        // 모달 닫기 함수
-                        function closeModal() {
-                            document.getElementById("myModal").style.display = "none";
-                        }
+
 
                         // 모달 외부 클릭시 닫기
                         window.onclick = function(event) {
