@@ -153,6 +153,8 @@
                 document.getElementById('searchForPw').addEventListener('click', () => {
                     var userId = document.getElementById('findPwId').value;
                     var userPhone = document.getElementById('findPwPhone').value;
+                    var searchbtn = document.getElementById('searchForPw');
+                    searchbtn.disabled = true;
                     fetch("/auth/searchForPW", {
                         method: "POST",
                         headers: {
