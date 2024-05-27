@@ -58,6 +58,22 @@ public class PartController {
         }
     }
 
+    @GetMapping("/user/partdetail")
+    public String partdetail(@RequestParam int partCode,Model model) {
+
+
+        AuthUserInfo authUserInfo = new AuthUserInfo();
+        UserDTO userDTO = authUserInfo.getUserDTO();
+        int userCode = userDTO.getUserCode();
+        UserDTO userDTO1 = userService.findUserCode(userCode);
+        model.addAttribute("userDTO", userDTO1);
+
+        PartDTO partDTO = partService.selectpart(partCode);
+        model.addAttribute("partDTO", partDTO);
+
+        return "user/partdetail";
+    }
+
 
 
 
