@@ -522,8 +522,6 @@ public class UserController {
         int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
         info.put("userCode",userCode);
         userService.saveNote(info);
-
-        System.out.println("info = " + info);
     }
 
     @GetMapping("/user/getNote")
@@ -531,12 +529,7 @@ public class UserController {
     public Map<String,Object> getNote() {
 
         Map<String,Object> note = userService.getNote();
-        System.out.println("note = " + note);
         return note;
     }
 }
-
-
-
-
 

@@ -1,16 +1,11 @@
-// AuthController.java
-
 package com.ohgiraffers.hitechautoworks.auth.controller;
 
-import com.ohgiraffers.hitechautoworks.auth.dto.UserRegistDTO;
+import com.ohgiraffers.hitechautoworks.auth.dto.SMSUtil;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +16,9 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SMSUtil smsUtil;
 
     @GetMapping("/fail")
     public void fail(Model model, @RequestParam String message) {
@@ -58,10 +56,13 @@ public class AuthController {
     @ResponseBody
     public Map<String,Object> searchForPW(@RequestBody Map<String,Object> info) {
 
+        String phone = info.get("phone").toString();
+        String formattedPhone = phone.replace("-", "");
         Map<String,Object> stat = userService.searchForPW(info);
-        if (stat == null) {
-            stat = new HashMap<>();
-        }
+
+        int newPassword = (int) stat.get("newPass");
+
+        smsUtil.sendOne(formattedPhone,newPassword);
 
         return stat;
     }
