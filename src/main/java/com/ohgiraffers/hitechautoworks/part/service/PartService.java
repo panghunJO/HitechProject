@@ -39,7 +39,7 @@ public class PartService {
 
         return partList;
     }
-    public void modifyPart(String partCode, int partstock, int partPrice, String partName) {
+    public void modifyPart(int partCode, int partstock, int partPrice, String partName) {
         partMapper.modifyPart(partCode, partstock, partName, partPrice);
     }
 
