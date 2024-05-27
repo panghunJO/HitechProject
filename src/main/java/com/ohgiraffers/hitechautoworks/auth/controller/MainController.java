@@ -4,6 +4,7 @@ import com.ohgiraffers.hitechautoworks.auth.dto.MailDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.UserRegistDTO;
 import com.ohgiraffers.hitechautoworks.auth.service.MailService;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class MainController {
             randomNumber = (int) (Math.random() * 1000000);
         }
         String content =
-                "나의 APP을 방문해주셔서 감사합니다." + 	//html 형식으로 작성 !
+                "HitechAutoworks 인증링크 입니다." + 	//html 형식으로 작성 !
                         "<br><br>" +
                         "<a href=\"http://115.95.149.11:1818/certified/checkinfo?checknumber=" + randomNumber + "&userId=" + registDTO.getUserid() + "\">인증하기</a>" +
                         "<br>";
@@ -64,6 +65,8 @@ public class MainController {
             try {
                 mailService.check(mailDTO);
             } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (MessagingException e) {
                 throw new RuntimeException(e);
             }
         });
