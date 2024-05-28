@@ -193,5 +193,10 @@ public class RepairController {
         repairService.addRepairWorker(workers,resCode);
         return "1";
     }
+    @PostMapping("/user/repairChart")
+    @ResponseBody
+    public void repairChart(Model model){
+
+    }
 
 }
