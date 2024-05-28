@@ -320,5 +320,11 @@
         SELECT *
         FROM tbl_part WHERE <![CDATA[ part_stock < 4]]>
     </select>
+
+    <update id="uploadimg">
+        UPDATE tbl_user
+        SET user_img = #{ filepath }
+        WHERE user_code = #{ userCode }
+    </update>
 </mapper>
 

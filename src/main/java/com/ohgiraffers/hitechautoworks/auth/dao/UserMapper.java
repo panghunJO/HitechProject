@@ -40,7 +40,7 @@ public interface UserMapper {
 
     void changepass(String encodepw, int userCode);
 
-    void updateUser(Map<String, String> myprofile);
+    void updateUser(Map<String, Object> myprofile);
 
 
     List<Map<String, Object>> getPartChart();
@@ -91,4 +91,5 @@ public interface UserMapper {
 
     List<Map<String, Object>> getContactCommit();
 
+    int uploadimg(String filepath, int userCode);
 }

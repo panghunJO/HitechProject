@@ -8,12 +8,18 @@ import com.ohgiraffers.hitechautoworks.part.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,6 +33,13 @@ public class UserService  {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private ResourceLoader resourceLoader;
+
+    @Value("${file.upload-dir}")
+    private String uploadDir;
+
 
 
 
@@ -93,7 +106,7 @@ public class UserService  {
 
     }
 
-    public void updateUser(Map<String, String> myprofile) {
+    public void updateUser(Map<String, Object> myprofile) {
         userMapper.updateUser(myprofile);
     }
 
@@ -318,6 +331,71 @@ public class UserService  {
 
     public List<Map<String, Object>> getContactCommit() {
         return userMapper.getContactCommit();
+    }
+
+//    public int imgUpload(MultipartFile img, int userCode){
+//
+//        Resource resource = resourceLoader.getResource("classpath:static/img/profile");
+//        String filePath = null;
+//
+//        if (!resource.exists()) {
+//            // 만약 static 폴더에 파일이 없는 경우 만들어준다.
+//            String root = "src/main/resources/static/img/profile";
+//            File file = new File(root);
+//
+//            file.mkdirs();  // 폴더 만들기
+//
+//            filePath = file.getAbsolutePath();
+//        } else {
+//            try {
+//                filePath = resourceLoader.getResource("classpath:static/img/profile").getFile().getAbsolutePath();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//
+//        String originalFilename = img.getOriginalFilename();
+//
+//        String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+//
+//        String savedName = UUID.randomUUID().toString().replace("-", "") + ext;
+//
+//        try {
+//            img.transferTo(new File(filePath + "/" + savedName));
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        String filepath = "/img/profile/" + savedName;
+//
+//        int result = userMapper.uploadimg(filepath,userCode);
+//
+//        return result;
+//    }
+
+    public int imgUpload(MultipartFile img, int userCode) {
+
+        File directory = new File(uploadDir);
+
+        if (!directory.exists()) {
+            directory.mkdirs();  // 폴더 만들기
+        }
+
+        String originalFilename = img.getOriginalFilename();
+        String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+        String savedName = UUID.randomUUID().toString().replace("-", "") + ext;
+
+        try {
+            img.transferTo(new File(directory + "/" + savedName));
+        } catch (IOException e) {
+            throw new RuntimeException("파일 업로드 중 오류가 발생했습니다.", e);
+        }
+
+        String filepath = "/images/profile/" + savedName;
+
+        int result = userMapper.uploadimg(filepath, userCode);
+
+        return result;
     }
 
 }
