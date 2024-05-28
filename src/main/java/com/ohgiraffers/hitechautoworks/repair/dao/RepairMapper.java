@@ -61,4 +61,11 @@ public interface RepairMapper {
     Map<String, Object> getDate(Object code);
 
     List<Map<String, Object>> modalClick(Object resCode);
+
+
+    int selectPartStock(Object partCode);
+
+    void modifyPartStock(Object partCode, int modifyStock);
+
+    void modifyStatus(Object resCode);
 }

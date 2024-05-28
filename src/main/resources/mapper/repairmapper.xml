@@ -311,5 +311,20 @@
         WHERE a.res_code = #{resCode}
     </select>
 
+    <select id="selectPartStock">
+        SELECT part_stock
+        FROM tbl_part
+        WHERE part_code = #{partCode}
+    </select>
+    <update id="modifyPartStock">
+        UPDATE tbl_part
+        SET part_stock = #{modifyStock}
+        WHERE part_code = #{partCode}
+    </update>
+    <update id="modifyStatus">
+        UPDATE tbl_repair
+        SET repair_status = "완료"
+        WHERE res_code = #{resCode}
+    </update>
 
 </mapper>

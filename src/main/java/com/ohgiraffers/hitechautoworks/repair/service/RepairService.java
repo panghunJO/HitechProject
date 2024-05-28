@@ -106,4 +106,29 @@ public class RepairService {
 
         return repairMapper.modalClick(resCode);
     }
+
+    public void registPartStock(List<Map<String, Object>> info) {
+        for (Map<String, Object> part : info) {
+            Object partCode = part.get("part_code");
+            int partCodeint = Integer.parseInt(partCode.toString());
+            System.out.println("partCodeint = " + partCodeint);
+            Object originalStock = repairMapper.selectPartStock(partCodeint);
+
+            Object stock = part.get("stock");
+
+            int originalStockint = Integer.parseInt(originalStock.toString());
+            int stockint = Integer.parseInt(stock.toString());
+
+            System.out.println("originalStockint = " + originalStockint);
+            System.out.println("stockint = " + stockint);
+            int modifyStock = originalStockint - stockint;
+            System.out.println("modifyStock = " + modifyStock);
+            repairMapper.modifyPartStock(partCodeint,modifyStock);
+            Object resCode = part.get("resCode");
+            System.out.println("resCode = " + resCode);
+            repairMapper.modifyStatus(resCode);
+
+        }
+
+    }
 }
