@@ -68,4 +68,9 @@ public interface RepairMapper {
     void modifyPartStock(Object partCode, int modifyStock);
 
     void modifyStatus(Object resCode);
+
+
+    int repairChart(int i);
+
+    List<Map<String, Object>> workerChart();
 }

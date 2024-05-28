@@ -546,5 +546,7 @@ public class UserController {
         List<PartDTO> partList = userService.partnoti();
         return partList;
     }
+
+
 }
 

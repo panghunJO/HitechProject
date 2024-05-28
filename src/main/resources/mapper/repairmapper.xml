@@ -326,5 +326,18 @@
         SET repair_status = "완료"
         WHERE res_code = #{resCode}
     </update>
+    <select id="repairChart">
+        SELECT count(res_code) FROM tbl_repair
+        WHERE SUBSTR(repair_date,1,4) = SUBSTR(now(),1,4)
+        AND SUBSTR(repair_date,6,7) = #{i}
+    </select>
+    <select id="workerChart">
+        SELECT a.user_code,count(*) as amount,c.user_img,c.user_department,c.user_name,c.user_code FROM tbl_repair_workers a
+        JOIN tbl_repair b ON a.res_code = b.res_code
+        JOIN tbl_user c ON a.user_code = c.user_code
+        WHERE SUBSTR(repair_date,1,7) = SUBSTR(now(),1,7)
+        GROUP BY a.user_code
+        ORDER BY count(*) desc limit 5;
+    </select>
 
 </mapper>
