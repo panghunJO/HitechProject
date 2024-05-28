@@ -193,10 +193,20 @@ public class RepairController {
         repairService.addRepairWorker(workers,resCode);
         return "1";
     }
+
     @PostMapping("/user/repairChart")
     @ResponseBody
-    public void repairChart(Model model){
+    public int[] repairChart(){
+        int[] count = repairService.repairChart();
+        return count;
+    }
 
+    @PostMapping("/user/workerChart")
+    @ResponseBody
+    public List<Map<String,Object>> workerChart(){
+        List<Map<String,Object>> workerList = repairService.workerChart();
+        System.out.println("workerList = " + workerList);
+        return workerList;
     }
 
 }

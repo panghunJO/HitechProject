@@ -13,9 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class RepairService {
@@ -132,5 +130,18 @@ public class RepairService {
 
     }
 
+    public int[] repairChart() {
+        int[] chart = new int[12];
+        for (int i = 1; i <=12; i++) {
+            int count = repairMapper.repairChart(i);
+            chart[i-1] = count;
+        }
+        System.out.println(Arrays.toString(chart));
+        return chart;
+        
+    }
 
+    public List<Map<String, Object>> workerChart() {
+        return repairMapper.workerChart();
+    }
 }

@@ -549,6 +549,7 @@ public class UserController {
         return partList;
     }
 
+
     @PostMapping("/user/imgUpload")
     @ResponseBody
     public int imgUpload(@RequestParam("profileImage") MultipartFile file, Model model) {
@@ -558,6 +559,7 @@ public class UserController {
 
         return result;
     }
+
 
 }
 

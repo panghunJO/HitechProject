@@ -83,6 +83,10 @@
         top: 0;
         left: 0;
     }
+    tr:hover {
+        background-color: #f5f5f5;
+        cursor: pointer;
+    }
 
 </style>
 <body>
@@ -255,70 +259,65 @@
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
 
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div>
-
                             <div class="card-body pb-0">
-                                <h5 class="card-title">Top Selling <span>| Today</span></h5>
+                                <h5 class="card-title">Top Selling <span>| This Month</span></h5>
 
                                 <table class="table table-borderless">
                                     <thead>
                                     <tr>
-                                        <th scope="col">Preview</th>
-                                        <th scope="col">Product</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Sold</th>
-                                        <th scope="col">Revenue</th>
+                                        <th scope="col"></th>
+                                        <th scope="col">작업량</th>
+                                        <th scope="col">작업자</th>
+                                        <th scope="col">부서</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th scope="row"><a href="#"><img src="/assets/img/product-1.jpg" alt=""></a></th>
-                                        <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas nulla</a></td>
-                                        <td>$64</td>
-                                        <td class="fw-bold">124</td>
-                                        <td>$5,828</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"><a href="#"><img src="/assets/img/product-2.jpg" alt=""></a></th>
-                                        <td><a href="#" class="text-primary fw-bold">Exercitationem similique doloremque</a></td>
-                                        <td>$46</td>
-                                        <td class="fw-bold">98</td>
-                                        <td>$4,508</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"><a href="#"><img src="/assets/img/product-3.jpg" alt=""></a></th>
-                                        <td><a href="#" class="text-primary fw-bold">Doloribus nisi exercitationem</a></td>
-                                        <td>$59</td>
-                                        <td class="fw-bold">74</td>
-                                        <td>$4,366</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"><a href="#"><img src="/assets/img/product-4.jpg" alt=""></a></th>
-                                        <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum error</a></td>
-                                        <td>$32</td>
-                                        <td class="fw-bold">63</td>
-                                        <td>$2,016</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"><a href="#"><img src="/assets/img/product-5.jpg" alt=""></a></th>
-                                        <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus repellendus</a></td>
-                                        <td>$79</td>
-                                        <td class="fw-bold">41</td>
-                                        <td>$3,239</td>
-                                    </tr>
+                                    <tbody id="selling">
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", () => {
+                                            fetch("/user/workerChart", {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                }
+                                            }) .then(response => response.json())
+                                                .then(data => {
+
+                                                    const tboby = document.getElementById("selling")
+                                                    for(let index in data) {
+                                                        const tr = document.createElement("tr");
+                                                        const th = document.createElement("th");
+                                                        const td = document.createElement("td");
+                                                        const td1 = document.createElement("td");
+                                                        const td2 = document.createElement("td");
+                                                        const img = document.createElement("img");
+
+                                                        img.src = data[index].user_img;
+                                                        td.textContent = data[index].amount;
+                                                        td1.textContent = data[index].user_name;
+                                                        td2.textContent = data[index].user_department;
+                                                        tr.addEventListener("click", () => {
+                                                            window.location.href = "/user/customermypage?customerUserCode=" + (data[index].user_code * 123456);
+                                                        });
+                                                        tr.appendChild(th);
+                                                        th.appendChild(img);
+                                                        tr.appendChild(td);
+                                                        tr.appendChild(td1);
+                                                        tr.appendChild(td2);
+                                                        tboby.appendChild(tr);
+                                                    }
+                                                })
+                                        })
+                                    </script>
                                     </tbody>
                                 </table>
+
+                                <tr >
+                                    <th><img src="" alt=""></th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
 
                             </div>
 
@@ -487,49 +486,54 @@
                             <!-- Line Chart -->
                             <div id="lineChart"></div>
 
-<!--                            <script>-->
-<!--                                document.addEventListener("DOMContentLoaded", () => {-->
-<!--                                    fetch("/user/repairChart", {-->
-<!--                                        method: 'POST',-->
-<!--                                        headers: {-->
-<!--                                            'Content-Type': 'application/json'-->
-<!--                                        },)-->
-<!--                                    new ApexCharts(document.querySelector("#lineChart"), {-->
-<!--                                        series: [{-->
-<!--                                            name: "Desktops",-->
-<!--                                            data: [10, 41, 35, 51, 49, 62, 69, 91, 148]-->
-<!--                                        }],-->
-<!--                                        chart: {-->
-<!--                                            height: 350,-->
-<!--                                            type: 'line',-->
-<!--                                            zoom: {-->
-<!--                                                enabled: false-->
-<!--                                            }-->
-<!--                                        },-->
-<!--                                        dataLabels: {-->
-<!--                                            enabled: false-->
-<!--                                        },-->
-<!--                                        stroke: {-->
-<!--                                            curve: 'straight'-->
-<!--                                        },-->
-<!--                                        grid: {-->
-<!--                                            row: {-->
-<!--                                                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns-->
-<!--                                                opacity: 0.5-->
-<!--                                            },-->
-<!--                                        },-->
-<!--                                        xaxis: {-->
-<!--                                            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],-->
-<!--                                        }-->
-<!--                                    }).render();-->
-<!--                                });-->
-<!--                            </script>-->
+                            <script>
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    fetch("/user/repairChart", {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        }
+                                    }) .then(response => response.json())
+                                        .then(data => {
+                                            new ApexCharts(document.querySelector("#lineChart"), {
+                                                series: [{
+                                                    name: "Desktops",
+                                                    data: data
+                                                }],
+                                                chart: {
+                                                    height: 350,
+                                                    type: 'line',
+                                                    zoom: {
+                                                        enabled: false
+                                                    }
+                                                },
+                                                dataLabels: {
+                                                    enabled: false
+                                                },
+                                                stroke: {
+                                                    curve: 'straight'
+                                                },
+                                                grid: {
+                                                    row: {
+                                                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                                                        opacity: 0.5
+                                                    },
+                                                },
+                                                xaxis: {
+                                                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep','Oct','Nov','Dec'],
+                                                }
+                                            }).render();
+                                        })
+                                })
+
+
+                            </script>
                             <!-- End Line Chart -->
 
                         </div>
                     </div>
 
-                <!-- Budget Report -->
+                <!-- News & Updates Traffic -->
 <!--                <div class="card">-->
 <!--                    <div class="filter">-->
 <!--                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>-->
@@ -545,117 +549,43 @@
 <!--                    </div>-->
 
 <!--                    <div class="card-body pb-0">-->
-<!--                        <h5 class="card-title">Budget Report <span>| This Month</span></h5>-->
+<!--                        <h5 class="card-title">News &amp; Updates <span>| Today</span></h5>-->
 
-<!--                        <div id="budgetChart" style="min-height: 400px;" class="echart"></div>-->
+<!--                        <div class="news">-->
+<!--                            <div class="post-item clearfix">-->
+<!--                                <img src="/assets/img/news-1.jpg" alt="">-->
+<!--                                <h4><a href="#">Nihil blanditiis at in nihil autem</a></h4>-->
+<!--                                <p>Sit recusandae non aspernatur laboriosam. Quia enim eligendi sed ut harum...</p>-->
+<!--                            </div>-->
 
-<!--                        <script>-->
-<!--                            document.addEventListener("DOMContentLoaded", () => {-->
-<!--                                var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({-->
-<!--                                    legend: {-->
-<!--                                        data: ['Allocated Budget', 'Actual Spending']-->
-<!--                                    },-->
-<!--                                    radar: {-->
-<!--                                        // shape: 'circle',-->
-<!--                                        indicator: [{-->
-<!--                                            name: 'Sales',-->
-<!--                                            max: 6500-->
-<!--                                        },-->
-<!--                                            {-->
-<!--                                                name: 'Administration',-->
-<!--                                                max: 16000-->
-<!--                                            },-->
-<!--                                            {-->
-<!--                                                name: 'Information Technology',-->
-<!--                                                max: 30000-->
-<!--                                            },-->
-<!--                                            {-->
-<!--                                                name: 'Customer Support',-->
-<!--                                                max: 38000-->
-<!--                                            },-->
-<!--                                            {-->
-<!--                                                name: 'Development',-->
-<!--                                                max: 52000-->
-<!--                                            },-->
-<!--                                            {-->
-<!--                                                name: 'Marketing',-->
-<!--                                                max: 25000-->
-<!--                                            }-->
-<!--                                        ]-->
-<!--                                    },-->
-<!--                                    series: [{-->
-<!--                                        name: 'Budget vs spending',-->
-<!--                                        type: 'radar',-->
-<!--                                        data: [{-->
-<!--                                            value: [4200, 3000, 20000, 35000, 50000, 18000],-->
-<!--                                            name: 'Allocated Budget'-->
-<!--                                        },-->
-<!--                                            {-->
-<!--                                                value: [5000, 14000, 28000, 26000, 42000, 21000],-->
-<!--                                                name: 'Actual Spending'-->
-<!--                                            }-->
-<!--                                        ]-->
-<!--                                    }]-->
-<!--                                });-->
-<!--                            });-->
-<!--                        </script>-->
+<!--                            <div class="post-item clearfix">-->
+<!--                                <img src="/assets/img/news-2.jpg" alt="">-->
+<!--                                <h4><a href="#">Quidem autem et impedit</a></h4>-->
+<!--                                <p>Illo nemo neque maiores vitae officiis cum eum turos elan dries werona nande...</p>-->
+<!--                            </div>-->
+
+<!--                            <div class="post-item clearfix">-->
+<!--                                <img src="/assets/img/news-3.jpg" alt="">-->
+<!--                                <h4><a href="#">Id quia et et ut maxime similique occaecati ut</a></h4>-->
+<!--                                <p>Fugiat voluptas vero eaque accusantium eos. Consequuntur sed ipsam et totam...</p>-->
+<!--                            </div>-->
+
+<!--                            <div class="post-item clearfix">-->
+<!--                                <img src="/assets/img/news-4.jpg" alt="">-->
+<!--                                <h4><a href="#">Laborum corporis quo dara net para</a></h4>-->
+<!--                                <p>Qui enim quia optio. Eligendi aut asperiores enim repellendusvel rerum cuder...</p>-->
+<!--                            </div>-->
+
+<!--                            <div class="post-item clearfix">-->
+<!--                                <img src="/assets/img/news-5.jpg" alt="">-->
+<!--                                <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>-->
+<!--                                <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>-->
+<!--                            </div>-->
+
+<!--                        </div>&lt;!&ndash; End sidebar recent posts&ndash;&gt;-->
 
 <!--                    </div>-->
-<!--                </div>&lt;!&ndash; End Budget Report &ndash;&gt;-->
-
-                <!-- News & Updates Traffic -->
-                <div class="card">
-                    <div class="filter">
-                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <li class="dropdown-header text-start">
-                                <h6>Filter</h6>
-                            </li>
-
-                            <li><a class="dropdown-item" href="#">Today</a></li>
-                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                            <li><a class="dropdown-item" href="#">This Year</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="card-body pb-0">
-                        <h5 class="card-title">News &amp; Updates <span>| Today</span></h5>
-
-                        <div class="news">
-                            <div class="post-item clearfix">
-                                <img src="/assets/img/news-1.jpg" alt="">
-                                <h4><a href="#">Nihil blanditiis at in nihil autem</a></h4>
-                                <p>Sit recusandae non aspernatur laboriosam. Quia enim eligendi sed ut harum...</p>
-                            </div>
-
-                            <div class="post-item clearfix">
-                                <img src="/assets/img/news-2.jpg" alt="">
-                                <h4><a href="#">Quidem autem et impedit</a></h4>
-                                <p>Illo nemo neque maiores vitae officiis cum eum turos elan dries werona nande...</p>
-                            </div>
-
-                            <div class="post-item clearfix">
-                                <img src="/assets/img/news-3.jpg" alt="">
-                                <h4><a href="#">Id quia et et ut maxime similique occaecati ut</a></h4>
-                                <p>Fugiat voluptas vero eaque accusantium eos. Consequuntur sed ipsam et totam...</p>
-                            </div>
-
-                            <div class="post-item clearfix">
-                                <img src="/assets/img/news-4.jpg" alt="">
-                                <h4><a href="#">Laborum corporis quo dara net para</a></h4>
-                                <p>Qui enim quia optio. Eligendi aut asperiores enim repellendusvel rerum cuder...</p>
-                            </div>
-
-                            <div class="post-item clearfix">
-                                <img src="/assets/img/news-5.jpg" alt="">
-                                <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
-                                <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
-                            </div>
-
-                        </div><!-- End sidebar recent posts-->
-
-                    </div>
-                </div><!-- End News & Updates -->
+<!--                </div>&lt;!&ndash; End News & Updates &ndash;&gt;-->
 
             </div><!-- End Right side columns -->
 
