@@ -43,9 +43,9 @@ public class SecurityConfig {
         http.authorizeHttpRequests( auth -> {
             auth.requestMatchers("/main","/","/error/*","/auth/idCheck","/auth/searchForId","/auth/searchForPW","/member/login","/member/regist","/certified/loading","/certified/checkinfo").permitAll();
             auth.requestMatchers("/*").hasAnyAuthority(UserRole.ADMIN.getRole());
-            auth.requestMatchers("/employee/*").hasAnyAuthority(UserRole.EMPLOYEE.getRole());
-            auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.CUSTOMER.getRole());
-            auth.requestMatchers("/certified/*").hasAnyAuthority(UserRole.CERTIFIED.getRole());
+            auth.requestMatchers("/employee/**").hasAnyAuthority(UserRole.EMPLOYEE.getRole());
+            auth.requestMatchers("/user/**").hasAnyAuthority(UserRole.EMPLOYEE.getRole(), UserRole.CUSTOMER.getRole());
+            auth.requestMatchers("/certified/**").hasAnyAuthority(UserRole.CERTIFIED.getRole());
             auth.anyRequest().authenticated();
         }).formLogin(login -> {
             login.loginPage("/member/login");

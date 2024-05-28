@@ -94,8 +94,9 @@ public class UserController {
     }
 
     @GetMapping("/user/mainpage")
-    public void mainpage(Model model) {
+    public String mainpage(Model model) {
 
+        return "user/mainpage";
     }
 
     // 메인페이지 부품 수량 Js
