@@ -155,19 +155,8 @@
 
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
-                                <!-- Profile Edit Form -->
                                 <form id="actionForm" method="POST">
                                     <div class="row mb-3">
-<!--                                        <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>-->
-<!--                                        <div class="col-md-8 col-lg-9">-->
-<!--                                            <div class="input-group mb-3">-->
-<!--                                                <input type="text" class="form-control" name="userImg" placeholder="이미지 url를 넣어주세요! ex. (https://~~~~.png )" aria-label="Recipient's username" aria-describedby="basic-addon2"-->
-<!--                                                th:value="${userDTO.userImg}">-->
-<!--                                                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
-<!--                                                    사용방법-->
-<!--                                                </button>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
                                         <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                                         <div class="col-md-8 col-lg-9">
                                             <img id="profileImg" th:src="@{${userDTO.userImg}}" alt="Profile" width="200" class="rounded-circle">
@@ -295,6 +284,7 @@
                                         <label for="Phone" class="col-md-4 col-lg-3 col-form-label">휴대폰 번호</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="phone" type="text" class="form-control" id="Phone" th:value="${userDTO.userPhone}">
+                                            <div id="phoneMessage" style="display: none; color: red">"-" 를 포함한 13자리수 이상 숫자만 입력하세요</div>
                                         </div>
                                     </div>
 
@@ -306,9 +296,31 @@
                                     </div>
 
                                     <div class="text-center">
-                                        <button type="button" class="btn btn-primary" onclick="updateProfile()">Save Changes</button>
+                                        <button type="button" class="btn btn-primary" id="submitbtn" onclick="updateProfile()">Save Changes</button>
                                     </div>
                                 </form><!-- End Profile Edit Form -->
+
+
+                                <script>
+                                    function validatePhoneNumber() {
+                                        const phoneInput = document.getElementById('Phone');
+                                        const phoneMessage = document.getElementById('phoneMessage');
+                                        const phoneValue = phoneInput.value;
+                                        document.getElementById('submitbtn').disabled = true;
+                                        if (!/^\d{3}-\d{3,4}-\d{4}$/.test(phoneValue) || phoneValue.length < 13) {
+                                            phoneMessage.style.display = 'block';
+                                            phoneInput.classList.add('is-invalid');
+                                        } else {
+                                            phoneMessage.style.display = 'none';
+                                            phoneInput.classList.remove('is-invalid');
+                                            phoneInput.classList.add('is-valid');
+                                            document.getElementById('submitbtn').disabled = false;
+                                        }
+                                    }
+
+                                    document.getElementById('Phone').addEventListener('input', validatePhoneNumber);
+
+                                </script>
 
                                 <script>
                                     function updateProfile(){
