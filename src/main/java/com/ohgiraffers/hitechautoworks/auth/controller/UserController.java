@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -207,7 +208,7 @@ public class UserController {
 
 
     @PostMapping("/user/mypage/update")
-    public String updateUser(@RequestParam Map<String, String> myprofile) {
+    public String updateUser(@RequestParam Map<String, Object> myprofile) {
 
         AuthUserInfo authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
@@ -218,6 +219,7 @@ public class UserController {
 
         return "redirect:/user/mypage";
     }
+
 
     @GetMapping("/user/partAdd")
     public void partAdd(Model model) {
@@ -318,7 +320,7 @@ public class UserController {
     }
 
     @PostMapping("/user/customermypage/update")
-    public String updateAnotherUser(@RequestParam Map<String, String> myprofile, HttpSession session) {
+    public String updateAnotherUser(@RequestParam Map<String, Object> myprofile, HttpSession session) {
 
 
         int customerUserCode = (int) session.getAttribute("customerUserCode");
@@ -546,5 +548,16 @@ public class UserController {
         List<PartDTO> partList = userService.partnoti();
         return partList;
     }
+
+    @PostMapping("/user/imgUpload")
+    @ResponseBody
+    public int imgUpload(@RequestParam("profileImage") MultipartFile file, Model model) {
+        int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
+
+        int result = userService.imgUpload(file, userCode);
+
+        return result;
+    }
+
 }
 

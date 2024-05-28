@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title><!DOCTYPE html>
-        <html lang="en">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-        <head>
-        <meta charset="utf-8">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-        <title>HitechAutoworks</title>
+    <title>HitechAutoworks</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -102,8 +98,8 @@
     </style>
 </head>
 <body>
-<div th:replace="/common/header.html"></div>
-<div th:replace="/common/sidebar.html"></div>
+<div th:replace="~{common/header.html}"></div>
+<div th:replace="~{common/sidebar.html}"></div>
 
 <main id="main" class="main">
 
@@ -225,6 +221,6 @@
 </main><!-- End #main -->
 
 
-<div th:replace="/common/footer.html"></div>
+<div th:replace="~{common/footer.html}"></div>
 </body>
 </html>
