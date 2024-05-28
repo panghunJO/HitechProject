@@ -127,8 +127,11 @@ public class RepairController {
     }
     @PostMapping("/user/registerStock")
     @ResponseBody
-    public void registPartStock(@RequestBody List<Map<String, Object>> info){
+    public String registPartStock(@RequestBody List<Map<String, Object>> info){
         System.out.println("info = " + info);
+
+        repairService.registPartStock(info);
+        return "1";
     }
 
     @PostMapping("/user/repairDelete")

@@ -214,7 +214,7 @@
                                     <button type="button" class="btn btn-light" id="modalClick" onclick="openModal()">최종확인
                                     </button>
 
-                                    <button type="button" class="btn btn-primary " onclick="modifyrepair()">수정
+                                    <button type="button" class="btn btn-primary " id="modifyButton" onclick="modifyrepair()">수정
                                     </button>
 
                                     <button type="button" class="btn btn-danger " onclick="deleterepair()">삭제
@@ -316,6 +316,17 @@
         </div>
         </div>
            <script>
+               if(document.getElementById("status").value == "완료"){
+                   // 모든 input 태그를 선택합니다.
+                   var inputs = document.getElementsByTagName("input");
+
+                   // input 태그 각각에 대해 readonly 속성을 true로 설정합니다.
+                   for(var i = 0; i < inputs.length; i++) {
+                       inputs[i].readOnly = true;
+                   }
+                   document.getElementById("modifyButton").disabled = true;
+
+               }
                // 모달 열기 함수
                function openModal() {
                    document.getElementById("myModal").style.display = "block";
@@ -333,28 +344,7 @@
                        })
                    }).then(res => res.json())
                        .then(data => {
-                           // const $table = document.getElementById("ModalDetail");
-                           // if($table.childElementCount ==0) {
-                           //     for (let index in data) {
-                           //         const $table = document.getElementById("ModalDetail");
-                           //         const $tr = document.createElement("tr");
-                           //         const $td1 = document.createElement("td");
-                           //         const $td2 = document.createElement("td");
-                           //         const $input = document.createElement("input");
-                           //
-                           //         $td2.textContent = data[index].part_code;
-                           //         $td2.value = data[index].part_code;
-                           //         $td1.textContent = data[index].PART_NAME;
-                           //         $input.type = "text";
-                           //         $input.name = "stock";
-                           //
-                           //         $table.appendChild($tr);
-                           //         $tr.appendChild($td2);
-                           //         $tr.appendChild($td1);
-                           //         $tr.appendChild($input)
-                           //
-                           //     }
-                           // }
+
                            const $table = document.getElementById("ModalDetail");
 
                            // 기존 테이블 내용 지우기
@@ -395,32 +385,20 @@
                function closeModal() {
                    document.getElementById("myModal").style.display = "none";
 
-                       //
-                       // const rows = document.querySelectorAll("#table1 tbody tr");
-                       // let data = [];
-                       //
-                       // rows.forEach(row => {
-                       //     const cells = row.querySelectorAll("td");
-                       //     const item = {
-                       //         name: cells[0].textContent,
-                       //         value: cells[1].textContent
-                       //     };
-                       //     data.push(item);
-                       // });
-                       //
-                       // console.log(data); // 확인을 위해 콘솔에 출력
                    const $inputs = document.querySelectorAll('#ModalDetail input[name="stock"]');
                    const dataToSend = [];
 
                    $inputs.forEach($input => {
                        const partCode = $input.dataset.partCode;
                        const stockValue = $input.value;
+                       const resCode = document.getElementById("resCode").value;
                        console.log("partCode "+partCode);
                        console.log("stockValue "+stockValue);
 
                        dataToSend.push({
                            part_code: partCode,
-                           stock: stockValue
+                           stock: stockValue,
+                           resCode:resCode
                        });
                    });
                    console.log("dataToSend = "+dataToSend);
@@ -434,8 +412,15 @@
                    })
                        .then(response => response.json())
                        .then(data => {
-                           console.log('Success:', data);
-                           // 필요한 경우 모달을 닫거나 추가적인 작업을 수행합니다.
+                           if (data == "1") {
+
+                           console.log('Success:');
+                           alert("부품 등록이 완료되었습니다.");
+                           location.reload();
+
+
+                           }
+
                        })
                        .catch(error => {
                            console.error('Error:', error);
