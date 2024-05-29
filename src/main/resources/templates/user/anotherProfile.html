@@ -41,7 +41,8 @@
         <h1>Profile</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/user/mainpage">Home</a></li>
+                <li class="breadcrumb-item" sec:authorize="hasAnyAuthority('관리자','직원')"><a href="/user/mainpage">Home</a></li>
+                <li class="breadcrumb-item" sec:authorize="hasAnyAuthority('손님')"><a href="/selectRes">Home</a></li>
                 <li class="breadcrumb-item">Users</li>
                 <li class="breadcrumb-item active">Profile</li>
             </ol>

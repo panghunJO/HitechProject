@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -41,38 +41,13 @@
         <h1>Profile</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/user/mainpage">Home</a></li>
+                <li class="breadcrumb-item" sec:authorize="hasAnyAuthority('관리자','직원')"><a href="/user/mainpage">Home</a></li>
+                <li class="breadcrumb-item" sec:authorize="hasAnyAuthority('손님')"><a href="/selectRes">Home</a></li>
                 <li class="breadcrumb-item">Users</li>
                 <li class="breadcrumb-item active">Profile</li>
             </ol>
         </nav>
-    </div><!-- End Page Title -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title w-100 text-center" id="exampleModalLabel">프로필 사진 삽입 방법</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <img src="https://i.postimg.cc/ZnM1gsBD/2024-05-16-11-56-21.png" class="img-fluid" alt="이미지설명">
-                    <button type="button" class="btn btn-success" onclick="imglinked()">이동하기!</button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
     </div>
-    <script>
-        function imglinked(){
-            var popurl = "https://postimages.org/";
-            var popOption = "top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no";
-            window.open(popurl, popOption);
-        }
-    </script>
 
     <section class="section profile">
         <div class="row">
@@ -104,10 +79,6 @@
                                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
                             </li>
 
-                            <!-- <li class="nav-item">
-                              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
-                            </li> -->
-
                             <li class="nav-item">
                                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
                             </li>
@@ -119,7 +90,7 @@
                                 <h5 class="card-title">About</h5>
                                 <p class="small fst-italic" th:text="${userDTO.userAbout}"></p>
 
-                                <h5 class="card-title">Profile Details</h5>user_id
+                                <h5 class="card-title">Profile Details</h5>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label ">이름</div>
@@ -441,15 +412,6 @@
 
                                 </script>
 
-
-                                <!-- End Change Password Form -->
-
-
-<!--                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
-<!--                                    Launch demo modal-->
-<!--                                </button>-->
-
-                                <!-- 모달 -->
                                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
@@ -469,7 +431,7 @@
 
                             </div>
 
-                        </div><!-- End Bordered Tabs -->
+                        </div>
 
                     </div>
                 </div>
@@ -478,7 +440,7 @@
         </div>
     </section>
 
-</main><!-- End #main -->
+</main>
 
 <div th:replace="~{common/footer.html}"></div>
 </body>

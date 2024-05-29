@@ -38,11 +38,12 @@ public class ResController {
         model.addAttribute("userDTO",userDTO1);
     }
 
-    @GetMapping("/user/common")
+
+    @GetMapping("/user/rescheck")
     public String common(Model model) {
         List<ResDTO> resList = resService.findAllres();
         model.addAttribute("resList", resList);
-        return "user/common";
+        return "user/rescheck";
     }
 
     @PostMapping("/user/res/ressearch")
@@ -60,11 +61,11 @@ public class ResController {
             model.addAttribute("resList", resList);
         }
 
-        return "user/common";
+        return "user/rescheck";
     }
 
-    @GetMapping("/user/testPage")
-    public void testpage(Model model, @RequestParam int resCode, HttpSession session) {
+    @GetMapping("/resdetail")
+    public String testpage(Model model, @RequestParam int resCode, HttpSession session) {
 
         ResDTO res = resService.findUserRes(resCode / 123456);// 들어올때 resCode 123456 나눠줘야댐 (나중에 제대로 암호화 ㄱㄱ)
         model.addAttribute("res", res);
@@ -84,13 +85,15 @@ public class ResController {
             session.removeAttribute("result");
         }
 
+        return "user/resdetail";
     }
+
     @PostMapping("/user/registcomment")
     public String testPage2(@RequestParam String comment, @RequestParam int resCode,Model model) {
 
         int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
         resService.registcomment(comment,resCode,userCode);
-        return "redirect:/user/testPage?resCode=" + 123456 * resCode;
+        return "redirect:/resdetail?resCode=" + 123456 * resCode;
     }
 
     @PostMapping("/user/resUpdate")
@@ -101,23 +104,25 @@ public class ResController {
         if (result == 1){
             session.setAttribute("result",result);
         }
-        return "redirect:/user/testPage?resCode=" + 123456 * resCode;
+        return "redirect:/resdetail?resCode=" + 123456 * resCode;
     }
 
     @PostMapping("/user/resDelete")
     public String resDelete(@RequestParam int resCode){
         resService.resDelete(resCode);
 
-        return "user/testPage";
+        return "resdetail";
     }
 
 
-    @GetMapping("/user/rescustomer")
-    public void resccustomer(Model model) {
+    @GetMapping("/rescustomer")
+    public String resccustomer(Model model) {
 
         int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
         List<ResDTO> resList = resService.findCustomerRes(userCode);
         model.addAttribute("resList",resList);
+
+        return "user/rescustomer";
     }
 
 
@@ -163,13 +168,13 @@ public class ResController {
         return result;
     }
 
-    @GetMapping("/user/res")
+    @GetMapping("/res")
     public String res() {
 
         return "user/res";
     }
 
-    @GetMapping("/user/selectRes")
+    @GetMapping("/selectRes")
     public String selectRes() {
 
         return "user/selectRes";
@@ -211,7 +216,7 @@ public class ResController {
     }
 
 
-    @GetMapping("/user/resCar")
+    @GetMapping("/resCar")
     public String resCar() {
 
         return "user/resCar";
