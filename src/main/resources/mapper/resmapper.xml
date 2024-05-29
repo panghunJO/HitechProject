@@ -10,6 +10,7 @@
         <result property="option" column="res_option"/>
         <result property="date" column="res_date"/>
         <result property="extra" column="res_extra"/>
+        <result property="resAble" column="res_able"/>
         <association property="userDTO" javaType="com.ohgiraffers.hitechautoworks.auth.dto.UserDTO">
             <id property="userCode" column="user_code"/>
             <result property="userId" column="user_id"/>
@@ -36,7 +37,7 @@
         FROM
         tbl_res a
         join tbl_user b on (a.user_code = b.user_code)
-        WHERE b.user_code = #{ userCode }
+        WHERE b.user_code = #{ userCode } AND a.res_able = 'Y'
     </select>
 
     <select id="findAllres" resultMap="res">
@@ -50,20 +51,21 @@
         from
         tbl_res a
         join tbl_user b on (a.user_code = b.user_code)
+        WHERE a.res_able = 'Y'
     </select>
 
     <select id="findUserRes" resultMap="res">
         SELECT *
         FROM tbl_user a
         JOIN tbl_res b on a.user_code = b.user_code
-        WHERE res_code = #{ resCode }
+        WHERE b.res_code = #{ resCode } AND b.res_able = 'Y'
     </select>
 
     <select id="findNameRes" resultMap="res">
         SELECT *
         FROM tbl_user a
         JOIN tbl_res b on a.user_code = b.user_code
-        WHERE user_name = #{ resName }
+        WHERE a.user_name = #{ resName } AND b.res_able = 'Y'
     </select>
 
     <select id="findCodeRes" resultMap="res">
@@ -76,8 +78,10 @@
         b.user_name
         FROM tbl_res a
         JOIN tbl_user b ON (a.user_code = b.user_code)
-        WHERE a.res_code = #{code}
+        WHERE a.res_code = #{code} AND a.res_able = 'Y'
     </select>
+
+
     <select id="findStatus">
         SELECT
             repair_status
@@ -135,12 +139,13 @@
            RES_CODE = #{ resCode }
     </update>
 
-    <delete id="resDelete">
-        DELETE FROM
+    <update id="resDelete">
+        UPDATE
              tbl_res
+        SET res_able = 'N'
         WHERE
             res_code = #{ resCode }
-    </delete>
+    </update>
 
     <insert id="gofile">
         INSERT INTO tb3 ( tbl_file )
@@ -169,8 +174,9 @@
 
     </update>
     <select id="resRepair" resultMap="res">
-        SELECT * FROM tbl_res WHERE res_code = #{resCode}
+        SELECT * FROM tbl_res WHERE res_code = #{resCode} AND res_able = 'Y'
     </select>
+
     <insert id="insertRes">
         INSERT INTO tbl_res (user_code,res_option,res_date,res_extra)
         VALUES

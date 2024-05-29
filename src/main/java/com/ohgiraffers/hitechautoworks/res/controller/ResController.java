@@ -109,9 +109,10 @@ public class ResController {
 
     @PostMapping("/user/resDelete")
     public String resDelete(@RequestParam int resCode){
+
         resService.resDelete(resCode);
 
-        return "resdetail";
+        return "redirect:/user/rescheck";
     }
 
 

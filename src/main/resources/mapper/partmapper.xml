@@ -15,18 +15,19 @@
     <select id="selectPartByCode" resultMap="partReusltMap">
         SELECT *
         FROM tbl_part
-        WHERE part_code = #{partCode}
+        WHERE part_code = #{partCode} AND part_able = 'Y'
     </select>
 
     <select id="selectAllPart" resultMap="partReusltMap">
         SELECT *
         FROM tbl_part
+        WHERE part_able = 'Y'
     </select>
 
     <select id="selectpart" resultMap="partReusltMap">
         SELECT *
         FROM tbl_part
-        where part_code = #{partCode}
+        where part_code = #{partCode} AND part_able = 'Y'
     </select>
 
     <select id="partSearchBtPartName" resultMap="partReusltMap">
@@ -35,7 +36,7 @@
         FROM
         tbl_part
         WHERE
-        part_name = #{ partName }
+        part_name = #{ partName } AND part_able = 'Y'
     </select>
 
     <update id="modifyPart">
@@ -58,11 +59,11 @@
         )
     </insert>
 
-    <delete id="deletePart">
-        DELETE FROM
-                    tbl_part
+    <update id="deletePart">
+        UPDATE tbl_part
+        SET part_able = 'N'
         WHERE
                     part_code = #{ partCode }
-    </delete>
+    </update>
 
 </mapper>
