@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Controller
+@SessionAttributes("userDTO")
 public class RepairController {
 
     @Autowired
@@ -30,17 +31,20 @@ public class RepairController {
     @Autowired
     private UserService userService;
 
-    private AuthUserInfo authUserInfo;
 
-    @GetMapping("/user/repair")
-    public String repair(Model model) {
+    @ModelAttribute
+    public void addUserToModel(Model model){
         AuthUserInfo authUserInfo = new AuthUserInfo();
         UserDTO userDTO = authUserInfo.getUserDTO();
         int userCode = userDTO.getUserCode();
         UserDTO userDTO1 = userService.findUserCode(userCode);
-        model.addAttribute("userDTO", userDTO1);
+        model.addAttribute("userDTO",userDTO1);
+    }
+
+    @GetMapping("/user/repair")
+    public String repair(Model model) {
+
         List<Map<String,Object>> repairList = repairService.findAllRepair();
-        System.out.println("repairList = " + repairList);
         model.addAttribute("repairList", repairList);
         return "user/repair";
     }
@@ -48,25 +52,16 @@ public class RepairController {
     @PostMapping("/user/repair/repairSearch")
     public String repair2(@RequestParam String worker, @RequestParam String workerCode,
                         Model model) {
-        AuthUserInfo authUserInfo = new AuthUserInfo();
-        UserDTO userDTO = authUserInfo.getUserDTO();
-        int userCode = userDTO.getUserCode();
-        UserDTO userDTO1 = userService.findUserCode(userCode);
-        model.addAttribute("userDTO", userDTO1);
-        System.out.println("userDTO1 = " + userDTO1);
-        System.out.println("worker = " + worker);
-        System.out.println("workerCode = " + workerCode);
+
+
         if (worker == "" && workerCode == "") {
             List<Map<String,Object>>   repairList = repairService.findAllRepair();
             model.addAttribute("repairList", repairList);
-            System.out.println("repairList = " + repairList);
         } else if (worker == "") {
             List<Map<String,Object>> repairList = repairService.SearchByworkerCode(Integer.parseInt(workerCode));
-            System.out.println("repairList = " + repairList);
             model.addAttribute("repairList", repairList);
         } else {
             List<Map<String,Object>> repairList = repairService.SearchByworkerName(worker);
-            System.out.println("repairList = " + repairList);
             model.addAttribute("repairList", repairList);
         }
         return "user/repair";
@@ -75,16 +70,9 @@ public class RepairController {
     @GetMapping("/user/repairdetail")
     public void repairdetail(@RequestParam int resCode,
                              Model model) {
-        AuthUserInfo authUserInfo = new AuthUserInfo();
-        UserDTO userDTO = authUserInfo.getUserDTO();
-        int userCode = userDTO.getUserCode();
-        UserDTO userDTO1 = userService.findUserCode(userCode);
-        model.addAttribute("userDTO", userDTO1);
-        System.out.println("resCode = " + resCode);
+
         RepairDTO repairDTO = repairService.selectRepair(resCode);
-        System.out.println("repairDTO = " + repairDTO);
         List<RepairPartDTO> parts = repairService.selectRepairPart(resCode);
-        System.out.println("parts = " + parts);
         List<WorkerDTO> workers = repairService.selectWorker(resCode);
         model.addAttribute("repairDTO", repairDTO);
         model.addAttribute("parts",parts);
@@ -96,10 +84,7 @@ public class RepairController {
     @ResponseBody
     public List<Map<String,Object>> ModalClick(@RequestBody Map<String, Object> info) {
         Object resCode = info.get("resCode");
-
-
         List <Map<String, Object>> partList = repairService.ModalClick(resCode);
-        System.out.println("partList =111 " + partList);
         return partList;
     }
 
@@ -117,7 +102,6 @@ public class RepairController {
         String resCodeString = (String) info.get("resCode");
 
         int resCode = Integer.parseInt(resCodeString);
-        System.out.println("resCode = " + resCode);
 
         repairService.modifyRepair(resCode, content, status,date);
         repairService.modifyRepairWorker(workers, resCode);
@@ -128,8 +112,6 @@ public class RepairController {
     @PostMapping("/user/registerStock")
     @ResponseBody
     public String registPartStock(@RequestBody List<Map<String, Object>> info){
-        System.out.println("info = " + info);
-
         repairService.registPartStock(info);
         return "1";
     }
@@ -152,10 +134,8 @@ public class RepairController {
     @ResponseBody
     public List<Map<String,Object>> findWorkerList(@RequestBody Map<String,Object> info){
         Object code = info.get("code");
-//        List<UserDTO> workerList =  repairService.findWorkerList();
 
         List<Map<String,Object>> workerList =  repairService.findWorkerList(code);
-        System.out.println("workerList = " + workerList);
         return workerList;
     }
     @GetMapping(value ="/employee/repair/res" ,produces = "application/json; charset=UTF-8")
@@ -205,7 +185,6 @@ public class RepairController {
     @ResponseBody
     public List<Map<String,Object>> workerChart(){
         List<Map<String,Object>> workerList = repairService.workerChart();
-        System.out.println("workerList = " + workerList);
         return workerList;
     }
 
