@@ -340,4 +340,64 @@
         ORDER BY count(*) desc limit 5;
     </select>
 
+    <select id="searchAllRepairComments">
+        select a.repair_reply_content as commentContent, a.repair_time as commentTime, a.res_code, b.user_name as userName, b.user_code as userCode, a.repair_reply_code as commentCode, b.user_role as userRole, b.user_img as userImg
+        from tbl_repair_reply a
+        join tbl_user b on a.user_code = b.user_code
+        WHERE a.res_code = #{ resCode } AND a.repair_comment_able = 'Y'
+        ORDER BY repair_time desc
+    </select>
+
+    <insert id="registComment">
+        INSERT INTO tbl_repair_reply(res_code, repair_reply_content, repair_time, user_code)
+        VALUES( #{ resCode }, #{ comment }, #{ repairTime }, #{ userCode })
+    </insert>
+
+    <update id="editComment">
+        UPDATE tbl_repair_reply
+        SET repair_reply_content = #{content}
+        WHERE repair_reply_code = #{ commentCode }
+    </update>
+
+    <update id="deleteComment">
+        UPDATE tbl_repair_reply
+        SET repair_comment_able = 'N'
+        WHERE repair_reply_code = #{ commentCode }
+    </update>
+
+    <select id="searchAllReplyComments">
+        select a.user_img, a.user_name, a.user_role, a.user_code ,b.repair_replyComment_time, b.repair_replyComment_content, b.repair_reply_code, b.repair_replycomment_code as replyCode
+        from tbl_repair_replycomment b
+        join tbl_user a on b.user_code = a.user_code
+        join tbl_res c on b.res_code = c.res_code
+        where c.res_code = #{ resCode } AND b.repair_replyComment_status = 'Y'
+        ORDER BY b.repair_replyComment_time
+    </select>
+
+    <insert id="submitRepairReply">
+        INSERT INTO tbl_repair_replycomment(repair_reply_code, repair_replycomment_content, repair_replycomment_time, user_code, res_code)
+        VALUES (#{ replyCode }, #{ content }, #{ repairTime }, #{ userCode }, #{ resCode })
+    </insert>
+
+    <select id="searchRepairReply">
+        select a.user_img as userImg, a.user_name as userName, a.user_role as userRole, a.user_code as userCode , b.repair_replyComment_time as replyDate, b.repair_replyComment_content as replyContent
+        from tbl_repair_replycomment b
+        join tbl_user a on b.user_code = a.user_code
+        where b.repair_reply_code = #{ replyCode }
+        ORDER BY replyDate desc
+        LIMIT 1
+    </select>
+
+    <update id="editRepairReplyComment">
+        UPDATE tbl_repair_replycomment
+        SET repair_replycomment_content = #{ content }
+        WHERE repair_replycomment_code = #{ replyCommentCode }
+    </update>
+
+    <update id="deleteRepairReplyCommen">
+        UPDATE tbl_repair_replycomment
+        SET repair_replycomment_status = 'N'
+        WHERE repair_replycomment_code = #{ replyCommentCode }
+    </update>
+
 </mapper>
