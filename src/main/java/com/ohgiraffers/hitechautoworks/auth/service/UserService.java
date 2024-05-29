@@ -34,9 +34,13 @@ public class UserService  {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     @Value("${file.upload-dir}")
     private String uploadDir;
+
+
 
 
     public String overlappedID(String id) {
@@ -74,6 +78,14 @@ public class UserService  {
     }
 
 
+
+    public UserRegistDTO getAll(int userCode) {
+        return userMapper.getAll(userCode);
+    }
+
+    public void deletePeople(int userCode) {
+        userMapper.deletePeople(userCode);
+    }
 
     public UserDTO findUserCode(int userCode) {
         return userMapper.findUserCode(userCode);
@@ -317,6 +329,49 @@ public class UserService  {
         return userMapper.partnoti();
     }
 
+    public List<Map<String, Object>> getContactCommit() {
+        return userMapper.getContactCommit();
+    }
+
+//    public int imgUpload(MultipartFile img, int userCode){
+//
+//        Resource resource = resourceLoader.getResource("classpath:static/img/profile");
+//        String filePath = null;
+//
+//        if (!resource.exists()) {
+//            // 만약 static 폴더에 파일이 없는 경우 만들어준다.
+//            String root = "src/main/resources/static/img/profile";
+//            File file = new File(root);
+//
+//            file.mkdirs();  // 폴더 만들기
+//
+//            filePath = file.getAbsolutePath();
+//        } else {
+//            try {
+//                filePath = resourceLoader.getResource("classpath:static/img/profile").getFile().getAbsolutePath();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//
+//        String originalFilename = img.getOriginalFilename();
+//
+//        String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+//
+//        String savedName = UUID.randomUUID().toString().replace("-", "") + ext;
+//
+//        try {
+//            img.transferTo(new File(filePath + "/" + savedName));
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        String filepath = "/img/profile/" + savedName;
+//
+//        int result = userMapper.uploadimg(filepath,userCode);
+//
+//        return result;
+//    }
 
     public int imgUpload(MultipartFile img, int userCode) {
 
@@ -343,4 +398,7 @@ public class UserService  {
         return result;
     }
 
+    public List<ContactDTO> myContact(int userCode) {
+        return userMapper.myContact(userCode);
+    }
 }

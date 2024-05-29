@@ -326,5 +326,16 @@
         SET user_img = #{ filepath }
         WHERE user_code = #{ userCode }
     </update>
+    <select id="myContact" resultMap="contact">
+        SELECT
+        a.contact_code,
+        a.contact_title,
+        a.contact_content,
+        a.contact_date,
+        a.contact_status,
+        b.user_name
+        FROM tbl_contact a JOIN tbl_user b ON a.user_code = b.user_code
+        WHERE b.user_code = #{userCode}
+    </select>
 </mapper>
 

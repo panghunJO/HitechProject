@@ -91,4 +91,6 @@ public interface UserMapper {
     List<Map<String, Object>> getContactCommit();
 
     int uploadimg(String filepath, int userCode);
+
+    List<ContactDTO> myContact(int userCode);
 }
