@@ -38,9 +38,8 @@
     </style>
 </head>
 <body>
-<div th:replace="/common/header.html"></div>
-<div th:replace="/common/sidebar.html"></div>
-
+<div th:replace="~{common/header.html}"></div>
+<div th:replace="~{common/sidebar.html}"></div>
 
 <!-- 입력 내용 -->
 <main id="main" class="main">
@@ -50,7 +49,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="user/mainpage">Home</a></li>
-                <li class="breadcrumb-item active"><a href="user/common"></a>직원 조회</li>
+                <li class="breadcrumb-item active"><a href="user/employeePage"></a>직원 조회</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -91,7 +90,7 @@
     }
 </script>
 
-<div th:replace="/common/footer.html"></div>
+<div th:replace="~{common/footer.html}"></div>
 </body>
 
 </html>

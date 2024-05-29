@@ -39,8 +39,8 @@
     }
 </style>
 <body>
-<div th:replace="/common/header.html"></div>
-<div th:replace="/common/sidebar.html"></div>
+<div th:replace="~{common/header.html}"></div>
+<div th:replace="~{common/sidebar.html}"></div>
 
 
 <!-- 입력 내용 -->
@@ -50,8 +50,8 @@
         <h1>직원 조회</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="user/mainpage">Home</a></li>
-                <li class="breadcrumb-item active"><a href="user/common"></a>직원 조회</li>
+                <li class="breadcrumb-item"><a href="/user/mainpage">Home</a></li>
+                <li class="breadcrumb-item active"><a href="/user/rescheck"></a>직원 조회</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -77,7 +77,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${userList}" th:onclick="'userCode(' + ${user.userCode} + ')'" >
+
+         <tr th:each="user : ${userList}" th:onclick="'userDetail(' + ${user.userCode} + ')'" >
             <td th:text="${user.userName}"></td>
             <td th:text="${user.userCode}"></td>
             <td th:text="${user.userDepartment}"></td>
@@ -88,14 +89,11 @@
 </main>
 
 <script>
-    function userCode(userCode) {
-        location.href = '/user/customermypage?customerUserCode=' + (123456 * userCode);
+    function userDetail(userCode) {
+        location.href = '/showprofile?userCode=' + 123456 * userCode;
     }
-
 </script>
 
-<div th:replace="/common/footer.html"></div>
-
-
+<div th:replace="~{common/footer.html}"></div>
 </body>
 </html>

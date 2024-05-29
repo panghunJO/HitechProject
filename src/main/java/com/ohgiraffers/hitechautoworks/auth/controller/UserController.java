@@ -64,9 +64,11 @@ public class UserController {
         return getPersonChart;
     }
 
-    @GetMapping("/user/mypage")
-    public void mypage(Model model) {
+    @GetMapping("/mypage")
+    public String mypage(Model model) {
 
+
+        return "user/mypage";
     }
 
     @PostMapping(value = "/user/mypage/changepass", produces = "application/json; charset=UTF-8")
@@ -94,12 +96,12 @@ public class UserController {
         myprofile.put("userCode", String.valueOf(userCode));
         userService.updateUser(myprofile);
 
-        return "redirect:/user/mypage";
+        return "redirect:/mypage";
     }
 
 
 
-    @GetMapping("/user/customermypage")
+    @GetMapping("/showprofile")
     public String customermypage(Model model, @RequestParam int customerUserCode, HttpSession session){
 
         int customerCode = customerUserCode / 123456 ;
@@ -119,7 +121,7 @@ public class UserController {
             userService.updateUser(myprofile);
             session.removeAttribute("customerUserCode");
         }
-        return "redirect:/user/customermypage?customerUserCode=" + customerUserCode;
+        return "redirect:/showprofile?customerUserCode=" + customerUserCode;
     }
 
 
@@ -193,7 +195,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/user/contact")
+    @GetMapping("/contact")
     public String contact(Model model) {
         String userName = ((UserDTO) model.getAttribute("userDTO")).getUserName();
         String email = ((UserDTO) model.getAttribute("userDTO")).getUserEmail();

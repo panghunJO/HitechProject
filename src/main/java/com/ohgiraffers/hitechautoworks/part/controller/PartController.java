@@ -31,6 +31,8 @@ public class PartController {
         UserDTO userDTO1 = userService.findUserCode(userCode);
         model.addAttribute("userDTO",userDTO1);
     }
+
+
     @GetMapping("/user/partAllCall")
     public String partAllCall(Model model) {
 

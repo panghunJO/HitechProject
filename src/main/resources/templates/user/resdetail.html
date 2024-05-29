@@ -108,8 +108,8 @@
             <h1>예약 상세</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/user/mainpage">Home</a></li>
-                    <li class="breadcrumb-item"><a href="/user/common">예약 조회</a></li>
+                    <li class="breadcrumb-item"><a href="/mainpage">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/rescustomer">예약 조회</a></li>
                     <li class="breadcrumb-item active">예약 상세</li>
                 </ol>
             </nav>
@@ -247,8 +247,7 @@
                                                     <div class="g-mb-15">
                                                         <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" th:src="@{${comment.userDTO.userImg}}" alt="Image Description">
                                                         <h5 class="h5 g-color-gray-dark-v1 mb-0" th:text="${comment.userDTO.userName}"></h5>
-                                                        <a th:href="@{/user/rescustomer(userToken=${userDTO.password})}"></a>
-                                                        <a th:href="@{/user/customermypage(customerUserCode=${comment.userDTO.userCode} * 123456)}">정보 확인</a>
+                                                        <a th:href="@{/showprofile(customerUserCode=${comment.userDTO.userCode} * 123456)}">정보 확인</a>
                                                         <span class="small-text ml-3" th:text="${comment.userDTO.userRole}"></span> &nbsp;
                                                         <span class="g-color-gray-dark-v4 g-font-size-12" th:text="${#dates.format(comment.resTime, 'yyyy-MM-dd HH:mm')}"></span>
                                                     </div>
@@ -290,7 +289,7 @@
                                                             <div class="g-mb-15">
                                                                 <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" th:src="${reply.user_img}" alt="Image Description">
                                                                 <h5 class="h5 g-color-gray-dark-v1 mb-0" th:text="${reply.user_name}"></h5>
-                                                                <a th:href="@{/user/customermypage(customerUserCode=${reply.user_code} * 123456)}">정보 확인</a>
+                                                                <a th:href="@{/showprofile(customerUserCode=${reply.user_code} * 123456)}">정보 확인</a>
                                                                 <span class="small-text ml-3" th:text="${reply.user_role}"></span> &nbsp;
                                                                 <span class="g-color-gray-dark-v4 g-font-size-12"th:text="${reply.res_replyComment_time}"></span>
                                                             </div>
@@ -422,7 +421,7 @@
                 <div class="g-mb-15">
                     <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" src="${data.userImg}" alt="Image Description">
                     <h5 class="h5 g-color-gray-dark-v1 mb-0">${data.userName}</h5>
-                       <a th:href="@{/user/customermypage(customerUserCode=${data.userCode} * 123456)}">정보 확인</a>
+                       <a th:href="@{/showprofile(customerUserCode=${data.userCode} * 123456)}">정보 확인</a>
                     <span class="small-text ml-3">${data.userRole}</span> &nbsp;
                     <span class="g-color-gray-dark-v4 g-font-size-12">${data.replyDate}</span>
                 </div>
@@ -577,7 +576,7 @@
                                             .then(data => {
                                                 if (data == 1) {
                                                     alert("삭제가 완료되었습니다.");
-                                                    location.href='/user/testPage?resCode=' + 123456 * resCode;
+                                                    location.href='/resdetail?resCode=' + 123456 * resCode;
                                                 } else {
                                                     alert("삭제에 실패했습니다. 다시 시도해주세요.");
                                                     location.reload(true);
@@ -614,7 +613,7 @@
                                             .then(data => {
                                                 if (data == 1) {
                                                     alert("삭제가 완료되었습니다.");
-                                                    location.href='/user/testPage?resCode=' + 123456 * resCode;
+                                                    location.href='/resdetail?resCode=' + 123456 * resCode;
                                                 } else {
                                                     alert("삭제에 실패했습니다. 다시 시도해주세요.");
                                                     location.reload(true);
