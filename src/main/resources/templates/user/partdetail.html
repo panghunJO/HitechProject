@@ -191,11 +191,18 @@
                         function updateItem() {
                             document.getElementById("actionForm").action = "/user/partModify";
                             document.getElementById("actionForm").submit();
+
+
+                            alert("부품이 수정되었습니다.");
+
                         }
 
                         function deleteItem() {
                             document.getElementById("actionForm").action = "/user/partDelete";
                             document.getElementById("actionForm").submit();
+
+                            alert("부품이 삭제되었습니다.");
+
                         }
 
                         function registcommit(){
