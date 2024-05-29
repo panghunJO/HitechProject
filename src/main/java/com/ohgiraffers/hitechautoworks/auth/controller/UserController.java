@@ -9,6 +9,7 @@ import com.ohgiraffers.hitechautoworks.part.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.part.service.PartService;
 import com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import java.util.*;
 
 @Controller
 @SessionAttributes("userDTO")
+@Slf4j
 public class UserController {
 
 
@@ -61,6 +63,7 @@ public class UserController {
     public Map<String,Integer> getPersonChart() {
         Map<String,Integer> getPersonChart = userService.getpersonchart();
 
+        log.info("getPersonChart + {} ",getPersonChart);
         return getPersonChart;
     }
 
