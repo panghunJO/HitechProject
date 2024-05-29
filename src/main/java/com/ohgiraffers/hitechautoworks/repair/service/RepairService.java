@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -143,5 +144,49 @@ public class RepairService {
 
     public List<Map<String, Object>> workerChart() {
         return repairMapper.workerChart();
+    }
+
+    public List<Map<String, Object>> searchAllRepairComments(int resCode) {
+        return repairMapper.searchAllRepairComments(resCode);
+    }
+
+    public int registComment(Map<String, Object> comment) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedNow = now.format(formatter);
+        comment.put("repairTime",formattedNow);
+        return repairMapper.registComment(comment);
+    }
+
+    public int editComment(Map<String, Object> info) {
+        return repairMapper.editComment(info);
+    }
+
+    public int deletComment(Map<String, Object> info) {
+        return repairMapper.deleteComment(info);
+    }
+
+    public List<Map<String, Object>> searchAllReplyComments(int resCode) {
+        return repairMapper.searchAllReplyComments(resCode);
+    }
+
+    public int submitRepairReply(Map<String, Object> info) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedNow = now.format(formatter);
+        info.put("repairTime",formattedNow);
+        return repairMapper.submitRepairReply(info);
+    }
+
+    public Map<String, Object> searchRepairReply(Object replyCode) {
+        return repairMapper.searchRepairReply(replyCode);
+    }
+
+    public int editRepairReplyComment(Map<String, Object> info) {
+        return repairMapper.editRepairReplyComment(info);
+    }
+
+    public int deleteRepairReplyCommen(Map<String, Object> info) {
+        return repairMapper.deleteRepairReplyCommen(info);
     }
 }

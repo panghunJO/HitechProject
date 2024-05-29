@@ -78,6 +78,70 @@ public class RepairController {
         model.addAttribute("parts",parts);
         model.addAttribute("workers",workers);
 
+        List<Map<String,Object>> repairComments = repairService.searchAllRepairComments(resCode);
+        model.addAttribute("repairComments",repairComments);
+        List<Map<String,Object>> replyComments = repairService.searchAllReplyComments(resCode);
+        model.addAttribute("replyComments",replyComments);
+
+    }
+
+    @PostMapping("/user/submitRepairReply")
+    @ResponseBody
+    public Map<String,Object> submitRepairReply(@RequestBody Map<String,Object> info, Model model) {
+
+        int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
+        info.put("userCode",userCode);
+
+        int result = repairService.submitRepairReply(info);
+        Map<String,Object> data = repairService.searchRepairReply(info.get("replyCode"));
+
+        return data;
+    }
+
+    @PostMapping("/user/deleteRepairReplyComment")
+    @ResponseBody
+    public int deleteRepairReplyCommen(@RequestBody Map<String,Object> info, Model model) {
+
+        int result = repairService.deleteRepairReplyCommen(info);
+
+        return result;
+    }
+
+    @PostMapping("/user/editRepairReplyComment")
+    @ResponseBody
+    public int editRepairReplyComment(@RequestBody Map<String,Object> info ){
+
+        int result = repairService.editRepairReplyComment(info);
+
+        return result;
+    }
+
+    @PostMapping("/user/editComment")
+    @ResponseBody
+    public int editComment(@RequestBody Map<String,Object> info, Model model){
+
+        int result = repairService.editComment(info);
+
+        return result;
+    }
+
+    @PostMapping("/user/deleteRepairComment")
+    @ResponseBody
+    public int deleteComment(@RequestBody Map<String,Object> info){
+
+        int result = repairService.deletComment(info);
+
+        return result;
+    }
+
+    @PostMapping("/user/registerComment")
+    @ResponseBody
+    public int registerComment(@RequestBody Map<String,Object> comment, Model model) {
+        int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
+        comment.put("userCode",userCode);
+        int result = repairService.registComment(comment);
+        System.out.println("result = " + result);
+        return 1;
     }
 
     @PostMapping("/user/repairModalInfo")

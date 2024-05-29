@@ -73,4 +73,22 @@ public interface RepairMapper {
     int repairChart(int i);
 
     List<Map<String, Object>> workerChart();
+
+    List<Map<String, Object>> searchAllRepairComments(int resCode);
+
+    int registComment(Map<String, Object> comment);
+
+    int editComment(Map<String, Object> info);
+
+    int deleteComment(Map<String, Object> info);
+
+    List<Map<String, Object>> searchAllReplyComments(int resCode);
+
+    int submitRepairReply(Map<String, Object> info);
+
+    Map<String, Object> searchRepairReply(Object replyCode);
+
+    int editRepairReplyComment(Map<String, Object> info);
+
+    int deleteRepairReplyCommen(Map<String, Object> info);
 }
