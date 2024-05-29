@@ -103,7 +103,7 @@
 
                             <div class="row">
                                 <div class="col text-end">
-                                    <button type="button" class="btn btn-primary " onclick="statusgogo()">진행중으로 변경
+                                    <button type="button" class="btn btn-primary " onclick="statusgogo()" id="statusbutton">진행중으로 변경
                                     </button>
                                     <button type="button" class="btn btn-danger " onclick="deleteItem()">삭제
                                     </button>
@@ -190,6 +190,9 @@
                     const toast = new bootstrap.Toast(toastLiveExample);
                     toast.show();
                     commment = '';
+                    const status = document.getElementById("contactStatus");
+                    status.value = "완료";
+                    document.getElementById("statusbutton").disabled =true;
                 } else {
                     alert("수정에 실패했습니다. 다시 시도해주세요.");
                     // location.reload(true);
