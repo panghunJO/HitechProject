@@ -34,7 +34,7 @@
         SELECT
         *
         FROM TBL_USER
-        WHERE user_name = #{userName}
+        WHERE user_name LIKE CONCAT('%', #{userName}, '%')
     </select>
 
     <select id="selectAccount" resultMap="user">

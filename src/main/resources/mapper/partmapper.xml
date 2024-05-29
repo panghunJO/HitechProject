@@ -36,7 +36,8 @@
         FROM
         tbl_part
         WHERE
-        part_name = #{ partName } AND part_able = 'Y'
+        part_name LIKE CONCAT('%', #{partName}, '%')
+        AND part_able = 'Y'
     </select>
 
     <update id="modifyPart">

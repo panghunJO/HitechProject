@@ -65,7 +65,8 @@
         SELECT *
         FROM tbl_user a
         JOIN tbl_res b on a.user_code = b.user_code
-        WHERE a.user_name = #{ resName } AND b.res_able = 'Y'
+        WHERE a.user_name LIKE CONCAT('%', #{resName}, '%')
+        AND b.res_able = 'Y'
     </select>
 
     <select id="findCodeRes" resultMap="res">

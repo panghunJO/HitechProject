@@ -28,3 +28,6 @@ coolsms:
     secret: DRV8SYBLQYBAY7K0IFZ6VK6QQTAUXSKY
 file:
   upload-dir: ${user.home}/app/images/profile
+logging:
+  file:
+    name: ${user.dir}/log/test.log
