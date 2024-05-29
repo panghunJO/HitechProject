@@ -25,7 +25,7 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
                 response.sendRedirect("/user/mainpage");
                 break;
             case "CUSTOMER":
-                response.sendRedirect("/user/selectRes");
+                response.sendRedirect("/selectRes");
                 break;
             case "CERTIFIED":
                 response.sendRedirect("/certified/certifiedError");
