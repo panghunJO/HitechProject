@@ -223,7 +223,7 @@ public class ResController {
         return "user/resCar";
     }
 
-    @PostMapping("/user/res/carSubmit")
+    @PostMapping("/carSubmit")
     public String carSubmit(@RequestParam String inputMessage) {
 
         return "user/res";
