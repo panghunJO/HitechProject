@@ -47,7 +47,6 @@ public class AuthController {
         if (stat == null) {
             stat = new HashMap<>();
         }
-        System.out.println("stat = " + stat);
 
         return stat;
     }

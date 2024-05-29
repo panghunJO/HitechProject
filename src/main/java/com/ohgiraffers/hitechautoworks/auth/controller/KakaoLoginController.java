@@ -31,7 +31,6 @@ public class KakaoLoginController {
         HashMap<String, Object> userInfo = kakaoService.getUserInfo(accessToken);
         log.info("id : " + userInfo.get("id"));
         String nickname = (String) userInfo.get("nickname");
-        System.out.println("nickname = " + nickname);
         userInfo.get("profileImage");
 
         return userInfo.toString();

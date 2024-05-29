@@ -28,10 +28,7 @@ public class CertifiedController {
 
     @GetMapping("/certified/checkinfo")
     public String check(@RequestParam int checknumber, @RequestParam String userId) {
-        System.out.println("checknumber = " + checknumber);
-        System.out.println("userId = " + userId);
-//        authUserInfo = new AuthUserInfo();
-//        UserDTO userDTO = authUserInfo.getUserDTO();
+
         int result = userService.findcheck(checknumber,userId);
         return "member/login";
     }

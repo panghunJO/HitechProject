@@ -94,7 +94,7 @@ public class MainController {
         mailDTO.setAddress((String) info.get("email"));
 
         mailService.sendContact(mailDTO);
-        System.out.println("info = " + info);
+
 
         return 1;
     }
