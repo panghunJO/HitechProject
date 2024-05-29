@@ -266,6 +266,16 @@ public class UserController {
         return result;
     }
 
+    @GetMapping("/user/contactcustomer")
+    public String contactcustomer(Model model){
+
+        int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
+        List<ContactDTO> contactList =  userService.myContact(userCode);
+        model.addAttribute("contactList",contactList);
+
+        return "user/contactcustomer";
+    }
+
 
 }
 

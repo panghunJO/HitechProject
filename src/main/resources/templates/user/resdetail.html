@@ -162,16 +162,16 @@
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label text-end">진행상황</label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="status" class="form-control" th:value="${repair}" readonly>
+                                    <input type="text" name="status" id="status" class="form-control" th:value="${repair}" readonly>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col text-end">
 
-                                    <button type="button" class="btn btn-primary " onclick="updateItem()">수정
+                                    <button type="button" class="btn btn-primary " id="modifyButton" onclick="updateItem()">수정
                                     </button>
 
-                                    <button type="button" class="btn btn-danger " onclick="deleteItem()">삭제
+                                    <button type="button" class="btn btn-danger "  onclick="deleteItem()">삭제
                                     </button>
 
                                 </div>
@@ -232,6 +232,18 @@
                             function registcommit(){
                                 document.getElementById("actionForm").action = "/user/registcomment";
                                 document.getElementById("actionForm").submit();
+                            }
+
+                            if(document.getElementById("status").value == "완료"){
+                                // 모든 input 태그를 선택합니다.
+                                var inputs = document.getElementsByTagName("input");
+
+                                // input 태그 각각에 대해 readonly 속성을 true로 설정합니다.
+                                for(var i = 0; i < inputs.length; i++) {
+                                    inputs[i].readOnly = true;
+                                }
+                                document.getElementById("modifyButton").disabled = true;
+
                             }
 
                         </script>
