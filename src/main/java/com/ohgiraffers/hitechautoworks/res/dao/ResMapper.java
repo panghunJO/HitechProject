@@ -19,13 +19,7 @@ public interface ResMapper {
 
     ResDTO findUserRes(int resCode);
 
-    List<ResDTO> findCodeRes(int resCode);
-
-    int registres(ResRegistDTO resRegistDTO);
-
-
     void registcomment(String comment, int rescode, Timestamp date, int usercode);
-
 
     List<ResCommentDTO> findComment(int resCode);
 
@@ -33,16 +27,11 @@ public interface ResMapper {
 
     void resDelete(int resCode);
 
-    void gofile(MultipartFile file);
-
     int updateComment(int resReplyCode, String editcomment);
 
     int deleteComment(int resReplyCode);
 
     List<ResDTO> findNameRes(String resName);
-
-
-    ResDTO resRepair(int resCode);
 
     List<ResDTO> findUserCodeRes(int userCode);
 

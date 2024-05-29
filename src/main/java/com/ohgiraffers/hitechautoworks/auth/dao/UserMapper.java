@@ -22,7 +22,6 @@ public interface UserMapper {
 
     UserDTO findByUsername(String username);
 
-//    Integer findcheck(int checknumber, int userCode);
 
     void findcheck(@Param("checknumber") int checknumber, @Param("userId") String userId);
 
