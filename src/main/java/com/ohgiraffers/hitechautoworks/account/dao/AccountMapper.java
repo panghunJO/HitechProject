@@ -14,7 +14,4 @@ public interface AccountMapper {
 
     UserDTO selectAccount(int userCode);
 
-    void updateUser(String userId, int userCode, String userDepartment, String userPw, String userEmail, String userPw1, String userAddress, String userPhone, String userName);
-
-    void deleteUser(int userCode);
 }

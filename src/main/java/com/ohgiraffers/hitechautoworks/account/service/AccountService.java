@@ -37,15 +37,6 @@ public class AccountService {
         return accountMapper.selectAccount(userCode);
     }
 
-    public void updateUser(String userId, int userCode, String userDepartment, String userPw, String userEmail, String userPwCheck, String userAddress, String userPhone, String userName) {
-        accountMapper.updateUser(userId,userCode,userDepartment,userPw,userEmail,userPw,userAddress,userPhone,userName);
-    }
-
-
-    public void accountDeleteUser(int userCode) {
-        accountMapper.deleteUser(userCode);
-    }
-
 
 
 }
