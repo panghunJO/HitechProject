@@ -16,16 +16,18 @@ public class ResDTO {
 //    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp date;
     private String extra;
+    private String resAble;
 
     public ResDTO() { }
 
-    public ResDTO(int code, String title, UserDTO userDTO, String option, Timestamp date, String extra) {
+    public ResDTO(int code, String title, UserDTO userDTO, String option, Timestamp date, String extra, String resAble) {
         this.code = code;
         this.title = title;
         this.userDTO = userDTO;
         this.option = option;
         this.date = date;
         this.extra = extra;
+        this.resAble = resAble;
     }
 
     public Date getSqlDate() {
@@ -83,6 +85,14 @@ public class ResDTO {
         this.extra = extra;
     }
 
+    public String getResAble() {
+        return resAble;
+    }
+
+    public void setResAble(String resAble) {
+        this.resAble = resAble;
+    }
+
     @Override
     public String toString() {
         return "ResDTO{" +
@@ -92,6 +102,7 @@ public class ResDTO {
                 ", option='" + option + '\'' +
                 ", date=" + date +
                 ", extra='" + extra + '\'' +
+                ", resAble='" + resAble + '\'' +
                 '}';
     }
 }

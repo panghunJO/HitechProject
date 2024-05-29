@@ -171,7 +171,7 @@
                                     <button type="button" class="btn btn-primary " onclick="updateItem()">수정
                                     </button>
 
-                                    <button type="button" class="btn btn-danger " onclick="deleteItem()">삭제
+                                    <button type="button" class="btn btn-danger " onclick="deleteItem()" sec:authorize="hasAnyAuthority('관리자','직원')">삭제
                                     </button>
 
                                 </div>
