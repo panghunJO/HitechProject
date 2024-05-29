@@ -29,14 +29,6 @@ public class ResService {
         return resMapper.findAllres();
     }
 
-    public List<ResDTO> findCodeRes(int resCode) {
-        return resMapper.findCodeRes(resCode);
-    }
-
-    public int registres(ResRegistDTO resRegistDTO) {
-        return resMapper.registres(resRegistDTO);
-    }
-
     public void registcomment(String comment, int rescode, int usercode) {
         Timestamp date = new Timestamp(System.currentTimeMillis());
         resMapper.registcomment(comment, rescode, date, usercode);
@@ -55,10 +47,6 @@ public class ResService {
 
     }
 
-    public void gofile(MultipartFile file) {
-        resMapper.gofile(file);
-    }
-
     public int updateComment(int resReplyCode, String editcomment) {
        return resMapper.updateComment(resReplyCode,editcomment);
     }
@@ -71,10 +59,6 @@ public class ResService {
         return resMapper.findNameRes(resName);
     }
 
-
-    public ResDTO resRepair(int resCode) {
-        return resMapper.resRepair(resCode);
-    }
     public List<ResDTO> findCustomerRes(int userCode) {
         return resMapper.findUserCodeRes(userCode);
     }
