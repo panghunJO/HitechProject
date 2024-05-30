@@ -97,6 +97,11 @@ public class MainController {
 
         mailService.sendContact(mailDTO);
 
+        String contactCode = (String) info.get("contactCode");
+
+
+        userService.contactStatus(contactCode);
+
 
         return 1;
     }

@@ -93,4 +93,6 @@ public interface UserMapper {
     int uploadimg(String filepath, int userCode);
 
     List<ContactDTO> myContact(int userCode);
+
+    void cotactStatus(String contactCode);
 }

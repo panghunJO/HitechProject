@@ -296,7 +296,7 @@
                                                         td1.textContent = data[index].user_name;
                                                         td2.textContent = data[index].user_department;
                                                         tr.addEventListener("click", () => {
-                                                            window.location.href = "/user/showprofile?customerUserCode=" + (data[index].user_code * 123456);
+                                                            window.location.href = "/showprofile?customerUserCode=" + (data[index].user_code * 123456);
                                                         });
                                                         tr.appendChild(th);
                                                         th.appendChild(img);

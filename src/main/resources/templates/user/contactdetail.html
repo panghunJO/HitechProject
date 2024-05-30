@@ -162,11 +162,18 @@
 
 </main><!-- End #main -->
 <script>
+    var status = document.getElementById("contactStatus").value;
+    if(status == "완료"){
+        document.getElementById("statusbutton").disabled =true;
+    }
+
+
     function submit() {
         var commment = document.getElementById('comment').value;
         var userName = document.getElementById('userName').value;
         var title = document.getElementById('title').value;
         var email = `[[${contact.userDTO.userEmail}]]`;
+        var contactCode = document.getElementById("contactCode").value;
         document.getElementById('submitbtn').disabled = true;
         const toastLiveExample1 = document.getElementById('liveToast');
         const toast1 = new bootstrap.Toast(toastLiveExample1);
@@ -180,7 +187,8 @@
                 commment: commment,
                 userName: userName,
                 title: title,
-                email: email
+                email: email,
+                contactCode:contactCode
             })
         })
             .then(response => response.json())

@@ -337,5 +337,10 @@
         FROM tbl_contact a JOIN tbl_user b ON a.user_code = b.user_code
         WHERE b.user_code = #{userCode}
     </select>
+    <update id="cotactStatus">
+        UPDATE tbl_contact
+        SET contact_status = "완료"
+        WHERE contact_code = #{contactCode}
+    </update>
 </mapper>
 
