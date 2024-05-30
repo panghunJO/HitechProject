@@ -28,8 +28,8 @@ public class RepairService {
         return repairMapper.findAllRepair();
     }
 
-    public List<Map<String,Object>>SearchByworkerCode(int workerCode) {
-        return repairMapper.SearchByworkerCode(workerCode);
+    public List<Map<String,Object>> SearchByresCode(int resCode) {
+        return repairMapper.SearchByresCode(resCode);
     }
 
     public List<Map<String,Object>> SearchByworkerName(String worker) {
@@ -40,8 +40,8 @@ public class RepairService {
         return repairMapper.selectRepair(resCode);
     }
 
-    public void modifyRepair(int resCode, String content, String status, String date) {
-        repairMapper.modifyRepair(resCode, content, status,date);
+    public void modifyRepair(Map<String,Object> info) {
+        repairMapper.modifyRepair(info);
     }
 
     public void modifyRepairWorker(List<String> userName, int resCode) {
