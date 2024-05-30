@@ -38,11 +38,26 @@
             display: none;
         }
         .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 30px;
-            border: 1px solid #888;
-            width: 60%;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-modify {
+            background-color: #007bff;
+            color: white;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 1rem;
+        }
+        .btn-modify:hover {
+            background-color: #0056b3;
+        }
+        #resExtra {
+            width: 100%;
+            height: 300px;
+            resize: none;
+            border: 1px solid #ced4da;
+            border-radius: 10px;
+            padding: 10px;
         }
     </style>
 </head>
@@ -324,7 +339,7 @@
                                     <label for="inputMessage" class="form-label mt-4">리스트에 없는 경우 직접 작성해주세요</label>
                                 </div>
                                 <div style="position:relative;">
-                                    <button class="btn btn-primary" onclick="openModal()" type="button" >추가사항</button>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" >추가사항</button>
                                     <button type="submit" class="btn btn-primary" id="submitBtn" disabled>다음 단계로</button>
                                     <div id="overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0); display:none;"></div>
                                 </div>
@@ -335,42 +350,31 @@
             </div>
         </div>
     </section>
-    <!-- 모달 구조 -->
-    <div id="myModal" tabindex="-1"  class="modal">
-        <div class="modal-content">
-            <h5 class="modal-title w-100 text-center" id="exampleModalLabel">추가 사항</h5><br><br>
-                <div class="row mb-3">
-                    <div class="col-sm-8">
-                        <textarea id="resExtra" style="width: 600px; height: 300px; margin-left:240px;" ></textarea>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col text-end">
-                        <button type="button" class="btn btn-modify"  onclick="closeModal()">등록</button>
+    <!-- 모달 -->
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title w-100 text-center" id="exampleModalLabel">추가 사항</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <textarea id="resExtra" class="form-control"></textarea>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-modify" data-bs-dismiss="modal">등록</button>
+                </div>
+            </div>
         </div>
     </div>
 
+
     <script>
 
-        // 모달 열기 함수
-        function openModal() {
-            document.getElementById("myModal").style.display = "block";
-        }
 
-        // 모달 닫기 함수
-        function closeModal() {
-            document.getElementById("myModal").style.display = "none";
-        }
-
-        // 모달 외부 클릭시 닫기
-        window.onclick = function(event) {
-            if (event.target == document.getElementById("myModal")) {
-                closeModal();
-            }
-        }
         function toggleContent(card) {
             var content = card.parentElement.querySelector('.hidden-content');
             if (content.style.display === "none" || content.style.display === "") {
