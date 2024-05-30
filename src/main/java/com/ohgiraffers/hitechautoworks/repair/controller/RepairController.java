@@ -10,6 +10,7 @@ import com.ohgiraffers.hitechautoworks.repair.dto.RepairPartDTO;
 import com.ohgiraffers.hitechautoworks.repair.dto.WorkerDTO;
 import com.ohgiraffers.hitechautoworks.repair.service.RepairService;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
