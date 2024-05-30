@@ -11,6 +11,7 @@ import com.ohgiraffers.hitechautoworks.repair.dto.WorkerDTO;
 import com.ohgiraffers.hitechautoworks.repair.service.RepairService;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import java.util.*;
 
 @Controller
 @SessionAttributes("userDTO")
+@Slf4j
 public class RepairController {
 
     @Autowired
@@ -85,6 +87,8 @@ public class RepairController {
         model.addAttribute("repairComments",repairComments);
         List<Map<String,Object>> replyComments = repairService.searchAllReplyComments(resCode);
         model.addAttribute("replyComments",replyComments);
+        log.info("getcomment = {}",repairComments);
+        log.info("getreplycomment = {}",replyComments);
 
     }
 
