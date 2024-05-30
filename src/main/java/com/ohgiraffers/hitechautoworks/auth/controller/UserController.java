@@ -269,6 +269,16 @@ public class UserController {
         return result;
     }
 
+    @PostMapping("/user/yourimgUpload")
+    @ResponseBody
+    public int yourimgUpload(@RequestParam("profileImage") MultipartFile file,
+                             @RequestParam("userCode") int userCode) {
+
+        int result = userService.imgUpload(file, userCode);
+
+        return result;
+    }
+
     @GetMapping("/user/contactcustomer")
     public String contactcustomer(Model model){
 

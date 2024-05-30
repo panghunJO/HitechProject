@@ -219,11 +219,13 @@
                                             }
 
                                             const canvas = document.getElementById('canvas');
+                                            var userCode = `[[${customerDTO.userCode}]]`;
                                             canvas.toBlob(function(blob) {
                                                 const formData = new FormData();
                                                 formData.append('profileImage', blob, 'profile.png');
+                                                formData.append('userCode',userCode);
 
-                                                fetch('/user/imgUpload', {
+                                                fetch('/user/yourimgUpload', {
                                                     method: 'POST',
                                                     body: formData
                                                 })
