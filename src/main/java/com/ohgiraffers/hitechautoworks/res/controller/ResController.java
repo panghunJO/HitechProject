@@ -142,9 +142,9 @@ public class ResController {
     @PostMapping("/user/reseditComment1")
     @ResponseBody
     public int editComment1(@RequestBody Map<String,Object> info){
-
+        System.out.println("info11 = " + info);
         int result = resService.updateReComment(info);
-
+        System.out.println("result = " + result);
 
 
         return result;

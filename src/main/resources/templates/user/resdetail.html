@@ -443,24 +443,21 @@
         <span class="small-text ml-3">${data.userRole}</span> &nbsp;
         <span class="g-color-gray-dark-v4 g-font-size-12">${data.replyDate}</span>
     </div>
-    <p class="mt-1">${data.replyContent}</p>
+    <p class="mt-1" id ="commentContent1-${data.resReplyCode}">${data.replyContent}</p>
     <ul class="list-inline d-sm-flex my-0">
-
         <li class="list-inline-item g-mr-20" id="edit1-${data.replyCode}" data-user="${data.userCode}" data-role="${data.userRole}">
-            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!" onclick="editComment1('${data.replyCode}', '${data.resCode}', '${data.userCode}')">
+            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!" onclick="editComment1('${data.resReplyCode}', '${data.resCode}', '${data.userCode}')">
                 <i class="bi bi-pencil-fill g-pos-rel g-top-1 g-mr-3"></i>
                 수정
             </a>
         </li>
 
-
         <li class="list-inline-item ml-auto" id="delete1-${data.replyCode}" data-user="${data.userCode}">
-            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!" onclick="deleteComment1('${data.replyCode}', '${data.resCode}', '${data.userCode}')">
+            <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!" onclick="deleteComment1('${data.resReplyCode}', '${data.resCode}', '${data.userCode}')">
                 <i class="bi bi-trash3-fill g-pos-rel g-top-1 g-mr-3"></i>
                 삭제
             </a>
         </li>
-
     </ul>
 </div>
 `;
@@ -475,13 +472,17 @@
                             }
 
                             function editComment1(resReplyCode, resCode, usercommentCode) {
+
+                                console.log(resReplyCode+" , "+resCode+" , "+usercommentCode );
                                 var authuserCode = `[[${userDTO.userCode}]]`;
                                 var resuserCode = usercommentCode;
                                 var userRole = `[[${userDTO.userRole}]]`;
 
+
                                 if (authuserCode == resuserCode || userRole == 'ADMIN' ) {
                                     const commentContent = document.getElementById('commentContent1-' + resReplyCode);
                                     const originalContent = commentContent.textContent;
+
                                     commentContent.innerHTML = `
             <textarea class="form-control" id="editContent1-${resReplyCode}" rows="3">${originalContent}</textarea>
             <button type="button" class="btn btn-primary btn-sm mt-2" onclick="submitEdit1(${resReplyCode}, ${resCode})">수정</button>
@@ -512,6 +513,7 @@
 
                             function submitEdit1(resReplyCode, resCode) {
                                 const editContent = document.getElementById('editContent1-' + resReplyCode).value;
+                                console.log("editContent = "+editContent);
 
                                 fetch("/user/reseditComment1", {
                                     method: "POST",
@@ -628,9 +630,11 @@
                             }
 
                             function deleteComment1(resReplyCode, resCode, usercommentCode) {
+
                                 var authuserCode = `[[${userDTO.userCode}]]`;
                                 var resuserCode = usercommentCode;
                                 var userRole = `[[${userDTO.userRole}]]`;
+                                console.log(resReplyCode+" , "+resCode+" , "+usercommentCode+" , "+authuserCode+" , "+userRole);
                                 if (authuserCode == resuserCode || userRole == 'ADMIN' ) {
                                     var userInput = confirm("삭제하시겠습니까?");
                                     if (userInput) {
