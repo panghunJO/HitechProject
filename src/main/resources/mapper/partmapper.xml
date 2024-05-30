@@ -64,7 +64,7 @@
         UPDATE tbl_part
         SET part_able = 'N'
         WHERE
-                    part_code = #{ partCode }
+         part_code = #{ partCode }
     </update>
 
 </mapper>

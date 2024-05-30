@@ -48,6 +48,8 @@ public class SecurityConfig {
             auth.requestMatchers("/rescustomer").hasAnyAuthority(UserRole.CUSTOMER.getRole(),UserRole.ADMIN.getRole(),UserRole.EMPLOYEE.getRole());
             auth.requestMatchers("/resdetail").hasAnyAuthority(UserRole.CUSTOMER.getRole(),UserRole.ADMIN.getRole(),UserRole.EMPLOYEE.getRole());
             auth.requestMatchers("/contact").hasAnyAuthority(UserRole.CUSTOMER.getRole(),UserRole.ADMIN.getRole(),UserRole.EMPLOYEE.getRole());
+            auth.requestMatchers("/mypage").hasAnyAuthority(UserRole.CUSTOMER.getRole(),UserRole.ADMIN.getRole(),UserRole.EMPLOYEE.getRole());
+            auth.requestMatchers("/showprofile").hasAnyAuthority(UserRole.ADMIN.getRole(),UserRole.EMPLOYEE.getRole());
             auth.requestMatchers("/user/**").hasAnyAuthority(UserRole.EMPLOYEE.getRole(), UserRole.CUSTOMER.getRole(),UserRole.ADMIN.getRole());
             auth.requestMatchers("/certified/**").hasAnyAuthority(UserRole.CERTIFIED.getRole());
             auth.requestMatchers("/*").hasAnyAuthority(UserRole.ADMIN.getRole());

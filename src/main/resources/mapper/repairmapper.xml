@@ -76,6 +76,7 @@
         JOIN tbl_user d ON c.user_code = d.user_code
         JOIN tbl_repair_part e ON a.res_code = e.res_code
         JOIN tbl_part f ON e.part_code = f.part_code
+        WHERE a.repair_able = 'Y'
         GROUP BY
         a.res_code, a.repair_date, a.repair_status, u.user_name
         ORDER BY a.repair_date DESC;
@@ -99,7 +100,7 @@
         JOIN tbl_repair_part e ON a.res_code = e.res_code
         JOIN tbl_part f ON e.part_code = f.part_code
         WHERE
-            d.user_code LIKE CONCAT('%', #{workerCode}, '%')
+            d.user_code LIKE CONCAT('%', #{workerCode}, '%') AND a.repair_able = 'Y'
         GROUP BY
             a.res_code, a.repair_date, a.repair_status, u.user_name
 
@@ -122,7 +123,7 @@
         JOIN tbl_repair_part e ON a.res_code = e.res_code
         JOIN tbl_part f ON e.part_code = f.part_code
         WHERE
-        d.user_name LIKE CONCAT('%', #{worker}, '%')
+        d.user_name LIKE CONCAT('%', #{worker}, '%') AND a.repair_able = 'Y'
         GROUP BY
         a.res_code, a.repair_date, a.repair_status, u.user_name
 
@@ -163,11 +164,6 @@
         </foreach>
     </select>
     <insert id="modifyRepairWorker" >
-<!--        <selectKey keyProperty="isDuplicate" resultType="java.lang.Integer" order="BEFORE">-->
-<!--            SELECT COUNT(*) FROM tbl_repair_workers-->
-<!--            WHERE user_code = #{newUserCode} AND res_code = #{resCode}-->
-<!--        </selectKey>-->
-<!--        <if test="isDuplicate == 0">-->
             INSERT INTO tbl_repair_workers (user_code, res_code)
             VALUES
             <foreach item="newUserCode" collection="newUserCode" separator=",">
@@ -176,14 +172,8 @@
                 #{resCode}
                 )
             </foreach>
-<!--        </if>-->
     </insert>
     <insert id="modifyRepairPart">
-<!--        <selectKey keyProperty="isDuplicate" resultType="java.lang.Integer" order="BEFORE">-->
-<!--            SELECT COUNT(*) FROM tbl_repair_part-->
-<!--            WHERE part_code = #{newPartCode} AND res_code = #{resCode}-->
-<!--        </selectKey>-->
-<!--        <if test="isDuplicate == 0">-->
             INSERT INTO tbl_repair_part (part_code, res_code)
             VALUES
             <foreach item="newPartCode" collection="newPartCode" separator=",">
@@ -192,14 +182,13 @@
                 #{resCode}
                 )
             </foreach>
-<!--        </if>-->
     </insert>
-    <delete id="deleteRepair">
-        DELETE FROM
-        tbl_repair
+    <update id="deleteRepair">
+        UPDATE tbl_repair
+        SET repair_able = 'N'
         WHERE
         res_code = #{ resCode }
-    </delete>
+    </update>
     <select id="findPartList" resultMap="part">
         SELECT
             *
@@ -292,7 +281,7 @@
         FROM
             tbl_repair_part a
         JOIN tbl_part b ON (a.part_code=b.part_code)
-        WHERE a.res_code = #{resCode}
+        WHERE a.res_code = #{resCode} AND b.part_able = 'Y'
     </select>
     <select id="selectWorker" resultMap="worker">
         SELECT DISTINCT
@@ -300,7 +289,7 @@
         FROM
             tbl_repair_workers a
         JOIN tbl_user b ON (a.user_code=b.user_code)
-        WHERE a.res_code = #{resCode}
+        WHERE a.res_code = #{resCode} AND b.user_able = 'Y'
     </select>
 
     <select id="modalClick" >
@@ -308,7 +297,7 @@
         FROM tbl_part b
         JOIN tbl_repair_part a
         ON a.part_code = b.part_code
-        WHERE a.res_code = #{resCode}
+        WHERE a.res_code = #{resCode} AND b.part_able = 'Y'
     </select>
 
     <select id="selectPartStock">
