@@ -113,5 +113,10 @@ public class MainController {
         return "member/regist";
     }
 
+    @GetMapping("/member/terms")
+    public String terms(){
+        return "member/terms";
+    }
+
 
 }

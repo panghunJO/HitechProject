@@ -95,4 +95,7 @@ public interface UserMapper {
     List<ContactDTO> myContact(int userCode);
 
     void cotactStatus(String contactCode);
+
+
+    List<ContactDTO> contactnoti();
 }

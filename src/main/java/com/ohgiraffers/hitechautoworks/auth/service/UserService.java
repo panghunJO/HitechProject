@@ -405,4 +405,8 @@ public class UserService  {
     public void contactStatus(String contactCode) {
       userMapper.cotactStatus(contactCode);
     }
+
+    public List<ContactDTO> contactnoti() {
+        return userMapper.contactnoti();
+    }
 }

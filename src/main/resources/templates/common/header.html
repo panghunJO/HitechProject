@@ -186,9 +186,44 @@
                     });
                 });
         };
+        // contactnoti 데이터를 가져와서 처리하는 함수
+        const fetchContactNoti = () => {
+            return fetch("/user/contactnoti")
+                .then(res => res.json())
+                .then(data => {
+                    totalNotifications += data.length;
+
+                    data.forEach(item => {
+                        const li = document.createElement("li");
+                        li.className = "notification-item";
+
+                        const icon = document.createElement("i");
+                        icon.className = "bi bi-exclamation-circle text-warning";
+
+                        const a = document.createElement("a");
+                        a.id = "contact" + item.code;
+                        a.href = '/user/contactdetail?contactCode=' + item.code;
+
+                        const hr = document.createElement("hr");
+                        hr.className = "dropdown-divider";
+
+                        const $title = document.createElement("h4");
+                        const $content = document.createElement("p");
+                        $title.textContent = item.title;
+                        $content.textContent = "문의가 들어왔습니다.";
+
+                        a.appendChild(icon);
+                        a.appendChild($title);
+                        a.appendChild($content);
+                        li.appendChild(a);
+                        $noti.appendChild(li);
+                        $noti.appendChild(hr);
+                    });
+                });
+        };
 
         // 데이터를 가져와서 DOM 업데이트
-        Promise.all([fetchRepairNoti(), fetchPartNoti()])
+        Promise.all([fetchRepairNoti(), fetchPartNoti(), fetchContactNoti()])
             .then(() => {
                 countnoti.textContent = totalNotifications;
             })

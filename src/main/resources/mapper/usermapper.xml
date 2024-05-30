@@ -342,5 +342,9 @@
         SET contact_status = "완료"
         WHERE contact_code = #{contactCode}
     </update>
+    <select id="contactnoti" resultMap="contact">
+        SELECT contact_code,contact_title,contact_status FROM tbl_contact
+        WHERE contact_status = "대기" OR contact_status = "진행중"
+    </select>
 </mapper>
 

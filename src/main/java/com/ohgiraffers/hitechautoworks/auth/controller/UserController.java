@@ -258,6 +258,13 @@ public class UserController {
         return partList;
     }
 
+    @GetMapping(value="/user/contactnoti",produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public List<ContactDTO> contactnoti( Model model){
+        List<ContactDTO> contactList = userService.contactnoti();
+        return contactList;
+    }
+
 
     @PostMapping("/user/imgUpload")
     @ResponseBody
