@@ -219,6 +219,12 @@
                                     <input type="datetime-local" id="date" th:value="${repairDTO.date}" name="date">
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label text-end">예상시간</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="repairTime" class="form-control" id="repairTime" th:value="${repairDTO.time}">
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col text-end">
 
@@ -251,6 +257,28 @@
                         </div>
                     </div>
         <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const inputField = document.getElementById('repairTime');
+
+                // 입력 이벤트로 숫자만 남기기
+                inputField.addEventListener('input', function(e) {
+                    const value = e.target.value;
+                    e.target.value = value.replace(/[^0-9]/g, ''); // 숫자가 아닌 문자를 제거
+                });
+
+                // 키다운 이벤트로 숫자 키만 허용하기
+                inputField.addEventListener('keydown', function(e) {
+                    // 허용할 키 코드: 숫자 키(0-9), 백스페이스, 딜리트, 방향키, 탭 등
+                    const allowedKeys = [
+                        'Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab',
+                        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+                    ];
+
+                    if (!allowedKeys.includes(e.key)) {
+                        e.preventDefault(); // 허용되지 않은 키 입력을 막음
+                    }
+                });
+            });
             function registerComment() {
                 var comment = document.getElementById('comment').value;
                 var resCode = document.getElementById('resCode').value;
@@ -879,7 +907,7 @@
                             var content = document.getElementById("content").value;
                             var date = document.getElementById("date").value;
                             var status = document.getElementById("status").value;
-                            console.log("worker"+worker+"part"+part+"content"+content+"date"+date+"status"+status+"resCode"+resCode)
+                            var time = document.getElementById("repairTime").value;
 
                             fetch("/user/repairModify", {
                                 method: "POST",
@@ -892,7 +920,8 @@
                                     part:part,
                                     content:content,
                                     date :date,
-                                    status:status
+                                    status:status,
+                                    time:time
                                 })
                             }) .then(response => response.json())
                                 .then(result => {

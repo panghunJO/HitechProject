@@ -51,15 +51,15 @@ public class RepairController {
     }
 
     @PostMapping("/user/repair/repairSearch")
-    public String repair2(@RequestParam String worker, @RequestParam String workerCode,
+    public String repair2(@RequestParam String worker, @RequestParam String resCode,
                         Model model) {
 
 
-        if (worker == "" && workerCode == "") {
+        if (worker == "" && resCode == "") {
             List<Map<String,Object>>   repairList = repairService.findAllRepair();
             model.addAttribute("repairList", repairList);
         } else if (worker == "") {
-            List<Map<String,Object>> repairList = repairService.SearchByworkerCode(Integer.parseInt(workerCode));
+            List<Map<String,Object>> repairList = repairService.SearchByresCode(Integer.parseInt(resCode));
             model.addAttribute("repairList", repairList);
         } else {
             List<Map<String,Object>> repairList = repairService.SearchByworkerName(worker);
@@ -72,12 +72,14 @@ public class RepairController {
     public void repairdetail(@RequestParam int resCode,
                              Model model) {
 
+
         RepairDTO repairDTO = repairService.selectRepair(resCode);
         List<RepairPartDTO> parts = repairService.selectRepairPart(resCode);
         List<WorkerDTO> workers = repairService.selectWorker(resCode);
         model.addAttribute("repairDTO", repairDTO);
         model.addAttribute("parts",parts);
         model.addAttribute("workers",workers);
+        System.out.println("repairDTO = " + repairDTO);
 
         List<Map<String,Object>> repairComments = repairService.searchAllRepairComments(resCode);
         model.addAttribute("repairComments",repairComments);
@@ -161,14 +163,11 @@ public class RepairController {
 
         List<String> workers = (List<String>) info.get("worker");
         List<String> parts = (List<String>) info.get("part");
-        String content = (String) info.get("content");
-        String date = (String) info.get("date");
-        String status = (String) info.get("status");
         String resCodeString = (String) info.get("resCode");
 
         int resCode = Integer.parseInt(resCodeString);
 
-        repairService.modifyRepair(resCode, content, status,date);
+        repairService.modifyRepair(info);
         repairService.modifyRepairWorker(workers, resCode);
         repairService.modifyRepairPart(parts, resCode);
 

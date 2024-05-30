@@ -19,13 +19,13 @@ import java.util.Map;
 public interface RepairMapper {
 
     List<Map<String,Object>> findAllRepair();
-    List<Map<String,Object>> SearchByworkerCode(int workerCode);
+    List<Map<String,Object>> SearchByresCode(int resCode);
 
     List<Map<String,Object>> SearchByworkerName(String worker);
 
     RepairDTO selectRepair(int resCode);
 
-    void modifyRepair(int resCode, String content, String status, String date);
+    void modifyRepair(Map<String,Object> info);
 
     List<Integer>  selectUserCodeByUserName(List<String> userName);
 
