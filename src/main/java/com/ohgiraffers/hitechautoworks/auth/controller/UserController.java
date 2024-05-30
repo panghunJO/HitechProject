@@ -233,6 +233,7 @@ public class UserController {
         int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
         info.put("userCode",userCode);
         userService.saveNote(info);
+        log.info("notePad = {}",info);
     }
 
     @GetMapping("/user/getNote")

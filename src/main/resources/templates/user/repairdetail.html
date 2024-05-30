@@ -283,6 +283,7 @@
                                                 <div class="g-mb-15">
                                                     <img class="d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15" th:src="@{${comment.userImg}}" alt="Image Description">
                                                     <h5 class="h5 g-color-gray-dark-v1 mb-0" th:text="${comment.userName}"></h5>
+                                                    <a th:href="@{/showprofile(customerUserCode=${comment.userCode} * 123456)}">정보 확인</a>
                                                     <span class="small-text ml-3" th:text="${comment.userRole}"></span> &nbsp;
                                                     <span class="g-color-gray-dark-v4 g-font-size-12" th:text="${comment.commentTime}"></span>
                                                 </div>

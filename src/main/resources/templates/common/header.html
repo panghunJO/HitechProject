@@ -16,17 +16,10 @@
 
     <div class="d-flex align-items-center justify-content-between" sec:authorize="hasAnyAuthority('손님')">
         <a href="/selectRes" class="logo d-flex align-items-center">
-            <!-- <img src="assets/img/logo.png" alt=""> -->
             <span class="d-none d-lg-block">HitechAutoworks</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
-    <!-- <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div>End Search Bar -->
+    </div>
 
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
@@ -42,7 +35,7 @@
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                     <i class="bi bi-bell"></i>
                     <span class="badge bg-primary badge-number" id="countnoti"></span>
-                </a><!-- End Notification Icon -->
+                </a>
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" >
                     <li>
@@ -53,17 +46,16 @@
                     </div>
 
 
-                </ul><!-- End Notification Dropdown Items -->
+                </ul>
 
-            </li><!-- End Notification Nav -->
+            </li>
 
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     <img th:src="@{${userDTO.userImg}}" alt="Profile" class="rounded-circle">
-                    <!-- 위에 사진 넣기 -->
                     <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${userDTO.userName}"></span>
-                </a><!-- End Profile Iamge Icon -->
+                </a>
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
@@ -101,19 +93,18 @@
                         </a>
                     </li>
 
-                </ul><!-- End Profile Dropdown Items -->
-            </li><!-- End Profile Nav -->
+                </ul>
+            </li>
 
         </ul>
-    </nav><!-- End Icons Navigation -->
+    </nav>
 
-</header><!-- End Header -->
+</header>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const countnoti = document.getElementById("countnoti");
         const $noti = document.getElementById('noti');
 
-        // 초기화 작업
         let totalNotifications = 0;
 
         // repairnoti 데이터를 가져와서 처리하는 함수
@@ -163,7 +154,7 @@
                         li.className = "notification-item";
 
                         const icon = document.createElement("i");
-                        icon.className = "bi bi-exclamation-circle text-warning";
+                        icon.className = "bi bi-exclamation-circle text-info";
 
                         const a = document.createElement("a");
                         a.id = "part" + item.partCode;

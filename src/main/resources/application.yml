@@ -22,6 +22,8 @@ mybatis:
 server:
   port: 1818
 
+
+
 coolsms:
   api:
     key: NCSYGLQNT7X2BOIH
