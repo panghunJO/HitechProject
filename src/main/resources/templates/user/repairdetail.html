@@ -996,13 +996,13 @@
 
                             for (var i = 0; i < workerCodeSelect.options.length; i++) {
                                 if (workerCodeSelect.options[i].selected) {
-                                    if (!optionExists(selectedWorkersSelect, workerCodeSelect.options[i].value)) {
+
                                         var option = document.createElement("option");
                                         option.text = workerCodeSelect.options[i].text;
                                         option.value = workerCodeSelect.options[i].value;
                                         option.selected = true;
                                         selectedWorkersSelect.appendChild(option);
-                                    }
+
                                     workerCodeSelect.remove(i);
                                     i--; // Adjust index due to removal
                                 }
@@ -1015,29 +1015,18 @@
 
                             for (var i = 0; i < selectedWorkersSelect.options.length; i++) {
                                 if (selectedWorkersSelect.options[i].selected) {
-                                    if (!optionExists(workerCodeSelect, selectedWorkersSelect.options[i].value)) {
+
                                         var option = document.createElement("option");
                                         option.text = selectedWorkersSelect.options[i].text;
                                         option.value = selectedWorkersSelect.options[i].value;
                                         option.selected = true;
                                         workerCodeSelect.appendChild(option);
-                                    }
+
                                     selectedWorkersSelect.remove(i);
                                     i--; // Adjust index due to removal
                                 }
                             }
                         }
-
-                        function optionExists(selectElement, value) {
-                            for (var i = 0; i < selectElement.options.length; i++) {
-                                if (selectElement.options[i].value === value) {
-                                    return true;
-                                }
-                            }
-                            return false;
-                        }
-
-
 
 
 
