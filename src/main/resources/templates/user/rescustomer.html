@@ -31,6 +31,12 @@
     <!-- Template Main CSS File -->
     <link href="/assets/css/style.css" rel="stylesheet">
 
+    <style>
+        tr:hover {
+            background-color: #f5f5f5;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div th:replace="~{common/header.html}"></div>
@@ -56,18 +62,14 @@
             <th scope="col">고객명</th>
             <th scope="col">수리내용</th>
             <th scope="col">날짜</th>
-            <th scope="col">상세보기</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="resList : ${resList}">
+        <tr th:each="resList : ${resList}" th:onclick="'resDetail(\'' + ${resList.code} + '\')'">
             <th scope="row" th:text="${resList.code}"></th>
             <td th:text="${resList.userDTO.userName}"></td>
             <td class="w-25 p-3" th:text="${resList.option}"></td>
             <td th:text="${#dates.format(resList.date, 'yyyy-MM-dd HH:mm')}"></td>
-            <td>
-                <button type="button" class="btn btn-outline-primary btn-sm" th:attr="onclick='resDetail(\'' + ${resList.code} + '\')'">상세보기</button>
-            </td>
         </tr>
         </tbody>
     </table>

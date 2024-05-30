@@ -281,7 +281,7 @@
         FROM
             tbl_repair_part a
         JOIN tbl_part b ON (a.part_code=b.part_code)
-        WHERE a.res_code = #{resCode} AND b.part_able = 'Y'
+        WHERE a.res_code = #{resCode}
     </select>
     <select id="selectWorker" resultMap="worker">
         SELECT DISTINCT
@@ -289,7 +289,7 @@
         FROM
             tbl_repair_workers a
         JOIN tbl_user b ON (a.user_code=b.user_code)
-        WHERE a.res_code = #{resCode} AND b.user_able = 'Y'
+        WHERE a.res_code = #{resCode}
     </select>
 
     <select id="modalClick" >
@@ -297,7 +297,7 @@
         FROM tbl_part b
         JOIN tbl_repair_part a
         ON a.part_code = b.part_code
-        WHERE a.res_code = #{resCode} AND b.part_able = 'Y'
+        WHERE a.res_code = #{resCode}
     </select>
 
     <select id="selectPartStock">

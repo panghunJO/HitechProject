@@ -39,6 +39,10 @@
         width: 80%;
     }
 
+     tr:hover {
+         background-color: #f5f5f5;
+         cursor: pointer;
+     }
 
 </style>
 </head>
@@ -355,24 +359,24 @@
 
                     for(let index in data){
                         const $option = document.createElement("option");
-                        fetch("/employee/repair/res")
-                            .then(res => res.json())
-                            .then(data =>{
-                                const $resCode = document.getElementById('resCode');
 
-                                for(let index in data){
-                                    const $option = document.createElement("option");
-                                    $option.value = data[index].code;
-                                    $option.textContent = data[index].code;
-                                    $resCode.appendChild($option);
-                                }
-                            })
                         $option.value = data[index].partName;
                         $option.textContent = data[index].partName;
                         $partName.appendChild($option);
                     }
                 })
+            fetch("/employee/repair/res")
+                .then(res => res.json())
+                .then(data =>{
+                    const $resCode = document.getElementById('resCode');
 
+                    for(let index in data){
+                        const $option = document.createElement("option");
+                        $option.value = data[index].code;
+                        $option.textContent = data[index].code;
+                        $resCode.appendChild($option);
+                    }
+                })
 
 
         </script>
@@ -389,16 +393,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="repair : ${repairList}">
+        <tr th:each="repair : ${repairList}" th:onclick="'repairDetail(' + ${repair['res_code']} + ')'">
             <td th:text="${repair['res_code']}"></td>
             <td th:text="${repair['repair_content']}"></td>
             <td th:text="${repair['repair_status']}"></td>
             <td th:text="${repair['repair_date']}"></td>
             <td th:text="${repair['repair_workers']}"></td>
             <td th:text="${repair['part_names']}"></td>
-            <td>
-                <button id="viewBtn" class="btn btn-light" th:onclick="'repairDetail(' + ${repair['res_code']} + ')'">상세보기</button>
-            </td>
         </tr>
         </tbody>
     </table>

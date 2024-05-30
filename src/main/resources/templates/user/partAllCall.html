@@ -30,6 +30,12 @@
 
     <!-- Template Main CSS File -->
     <link href="/assets/css/style.css" rel="stylesheet">
+    <style>
+        tr:hover {
+            background-color: #f5f5f5;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div th:replace="~{common/header.html}"></div>
@@ -70,19 +76,14 @@
             <th scope="col">부품이름</th>
             <th scope="col">부품수량</th>
             <th scope="col">부품가격</th>
-            <th scope="col">상세보기</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="partList : ${partList}">
+        <tr th:each="partList : ${partList}" th:onclick ="'partDetail(\'' + ${partList.partCode} + '\')'">
             <th scope="row" th:text="${partList.partCode}"></th>
             <td th:text="${partList.partName}"></td>
             <td th:text="${partList.partstock}"></td>
             <td th:text="${partList.partPrice}"></td>
-            <td>
-                <button type="button" class="btn btn-outline-primary btn-sm" th:attr="onclick='partDetail(\'' + ${partList.partCode} + '\')'">상세보기</button>
-            </td>
-
         </tr>
 
         </tbody>
