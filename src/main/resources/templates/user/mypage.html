@@ -130,7 +130,7 @@
                                     <div class="row mb-3">
                                         <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <img id="profileImg" th:src="@{${userDTO.userImg}}" alt="Profile" width="200" class="rounded-circle">
+                                            <img id="profileImg" src="https://github.com/panghunJO/HitechProject1/assets/157236060/47193bdf-e92b-47ad-af58-5a74ac4d170b" alt="Profile" width="200" class="rounded-circle">
                                             <div class="pt-2">
                                                 <input type="file" id="fileInput" style="display: none;" accept="image/*">
                                                 <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image" onclick="document.getElementById('fileInput').click();"><i class="bi bi-upload"></i></a>
@@ -139,6 +139,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <canvas id="canvas" style="display:none;"></canvas>
 <script>
 
     document.getElementById('fileInput').addEventListener('change', function(event) {
@@ -146,7 +147,31 @@
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                document.getElementById('profileImg').src = e.target.result;
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.getElementById('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const size = Math.min(img.width, img.height);
+
+                    canvas.width = size;
+                    canvas.height = size;
+
+                    ctx.drawImage(
+                        img,
+                        (img.width - size) / 2,
+                        (img.height - size) / 2,
+                        size,
+                        size,
+                        0,
+                        0,
+                        size,
+                        size
+                    );
+
+                    const dataURL = canvas.toDataURL('image/png');
+                    document.getElementById('profileImg').src = dataURL;
+                }
+                img.src = e.target.result;
             }
             reader.readAsDataURL(file);
         }
@@ -166,29 +191,30 @@
             return;
         }
 
-        const formData = new FormData();
-        formData.append('profileImage', file);
+        const canvas = document.getElementById('canvas');
+        canvas.toBlob(function(blob) {
+            const formData = new FormData();
+            formData.append('profileImage', blob, 'profile.png');
 
-        fetch('/user/imgUpload', {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data == 1) {
-                    alert('이미지가 성공적으로 업로드되었습니다.');
-                    location.reload();
-                } else {
-                    alert('이미지 업로드에 실패했습니다.');
-                }
+            fetch('/user/imgUpload', {
+                method: 'POST',
+                body: formData
             })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('이미지 업로드 중 오류가 발생했습니다.');
-            });
-
+                .then(response => response.json())
+                .then(data => {
+                    if (data == 1) {
+                        alert('이미지가 성공적으로 업로드되었습니다.');
+                        location.reload();
+                    } else {
+                        alert('이미지 업로드에 실패했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('이미지 용량이 너무 큽니다.');
+                });
+        }, 'image/png');
     }
-
 
 </script>
                                     <div class="row mb-3">
@@ -233,16 +259,11 @@
                                         function execDaumPostcode() {
                                             new daum.Postcode({
                                                 oncomplete: function(data) {
-                                                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                                                    var addr = '';
 
-                                                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                                                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                                                    var addr = ''; // 주소 변수
-
-                                                    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                                                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                                                    if (data.userSelectedType === 'R') {
                                                         addr = data.roadAddress;
-                                                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                                                    } else {
                                                         addr = data.jibunAddress;
                                                     }
                                                     document.getElementById("Address").value = addr;
