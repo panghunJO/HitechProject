@@ -380,7 +380,7 @@
     </insert>
 
     <select id="searchRepairReply">
-        select a.user_img as userImg, a.user_name as userName, a.user_role as userRole, a.user_code as userCode , b.repair_replyComment_time as replyDate, b.repair_replyComment_content as replyContent
+        select a.user_img as userImg, a.user_name as userName, a.user_role as userRole, a.user_code as userCode , b.repair_replyComment_time as replyDate, b.repair_replyComment_content as replyContent , b.res_code as resCode,b.repair_reply_code as replyCode, b.repair_replycomment_code as replycommentCode
         from tbl_repair_replycomment b
         join tbl_user a on b.user_code = a.user_code
         where b.repair_reply_code = #{ replyCode }
