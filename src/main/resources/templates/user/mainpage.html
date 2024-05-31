@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -133,7 +133,8 @@
 
                             <div class="card-body">
                                 <h5 class="card-title">Calendar <span>| Schedule this week </span></h5>
-                                <div id="calendar"></div>
+                                <div id="calendar" sec:authorize="hasAnyAuthority('직원')"></div>
+                                <div id="admincalendar" sec:authorize="hasAnyAuthority('관리자')"></div>
                             </div>
 
                         </div>
@@ -165,7 +166,52 @@
                                     document.addEventListener("DOMContentLoaded", () => {
                                         initializeCalendar();
                                         initializeChart();
+                                        initializeCalendarAdmin();
                                     });
+
+                                    function initializeCalendarAdmin() {
+                                        const calendarEl = document.getElementById('admincalendar');
+                                        if (calendarEl) {
+                                            fetch('/user/getAdminCalendar', {
+                                                method: 'POST',
+                                                headers: { 'Content-Type': 'application/json' },
+                                                body: JSON.stringify({
+
+                                                })
+                                            })
+                                                .then(response => response.json())
+                                                .then(events => {
+                                                    const calendar = new FullCalendar.Calendar(calendarEl, {
+                                                        initialView: 'timeGridWeek',
+                                                        slotMinTime: '09:00:00',
+                                                        slotMaxTime: '18:00:00',
+                                                        allDaySlot: false,
+                                                        buttonText: {
+                                                            today: "Today",
+                                                            month: "월별",
+                                                            week: "주별"
+                                                        },
+                                                        nowIndicator: true,
+                                                        headerToolbar: {
+                                                            left: 'prev,next today',
+                                                            center: '',
+                                                            right: 'dayGridMonth,timeGridWeek'
+                                                        },
+                                                        height: 545,
+                                                        aspectRatio: 1.35,
+                                                        locale: 'ko',
+                                                        timeZone: 'local',
+                                                        dayMaxEvents: true,
+                                                        weekends: false,
+                                                        events: events
+                                                    });
+                                                    calendar.render();
+                                                })
+                                                .catch(error => console.error('Error fetching events:', error));
+                                        } else {
+                                            console.error('Calendar element not found');
+                                        }
+                                    }
 
                                     function initializeCalendar() {
                                         const calendarEl = document.getElementById('calendar');

@@ -129,9 +129,18 @@ public class UserController {
     }
 
 
-    @PostMapping("/user/getCalendar")
+    @PostMapping("/user/getAdminCalendar")
     @ResponseBody
     public List<Map<String, Object>> getCalendar(Model model) {
+
+        List<Map<String, Object>> calendar = userService.getAdminCalendar();
+
+        return calendar;
+    }
+
+    @PostMapping("/user/getCalendar")
+    @ResponseBody
+    public List<Map<String, Object>> getAdminCalendar(Model model) {
 
         int userCode = ((UserDTO) model.getAttribute("userDTO")).getUserCode();
         List<Map<String, Object>> calendar = userService.getCalendar(userCode);

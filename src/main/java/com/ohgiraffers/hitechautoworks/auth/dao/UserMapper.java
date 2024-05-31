@@ -100,4 +100,6 @@ public interface UserMapper {
     List<ContactDTO> contactnoti();
 
     int emailCheck(String info);
+
+    List<Map<String, Object>> getAdminCalendar();
 }
