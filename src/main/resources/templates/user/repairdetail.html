@@ -197,7 +197,7 @@
                                     <!-- 추가 및 삭제 버튼 -->
                                     <input type="button" name="button" value="추가" onclick="addPart()">
                                     <input type="button" name="removeButton" value="삭제" onclick="removePart()"><br><br>
-                                    <!-- 선택된 작업자들을 보여주는 선택 박스 -->
+
                                     <select name="partName" id="selectedParts" style="width: 100%;" size="7" multiple>
                                         <option class="w-100" th:each="part : ${parts}" th:value="${part.partDTO.partName}" id="" th:text="${part.partDTO.partName}"  ></option>
                                     </select>
@@ -259,6 +259,20 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const inputField = document.getElementById('repairTime');
+                const workers = getAllSelectedWorkerValues();
+                const authUserCode = `[[${userDTO.userName}]]`;
+
+                const isUserInWorkers = workers.includes(authUserCode);
+
+                const modifyButton = document.getElementById('modifyButton');
+
+
+                if (isUserInWorkers) {
+                    modifyButton.disabled = false;
+                } else {
+                    modifyButton.disabled = true;
+                }
+
 
                 // 입력 이벤트로 숫자만 남기기
                 inputField.addEventListener('input', function(e) {

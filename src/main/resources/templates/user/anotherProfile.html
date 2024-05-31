@@ -273,9 +273,13 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="Job" class="col-md-4 col-lg-3 col-form-label">권한</label>
+                                        <label for="userRole" class="col-md-4 col-lg-3 col-form-label">권한</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="job" type="text" class="form-control" id="Job" th:value="${customerDTO.userRole}" readonly>
+                                            <select name="userRole" class="form-control" id="userRole" th:value="${customerDTO.userRole}" >
+                                                <option th:selected="${customerDTO.userRole} == 'CUSTOMER'" >CUSTOMER</option>
+                                                <option th:selected="${customerDTO.userRole} == 'EMPLOYEE'" >EMPLOYEE</option>
+                                                <option th:selected="${customerDTO.userRole} == 'ADMIN'" >ADMIN</option>
+                                            </select>
                                         </div>
                                     </div>
 

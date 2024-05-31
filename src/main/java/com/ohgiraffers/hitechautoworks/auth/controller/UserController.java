@@ -111,6 +111,7 @@ public class UserController {
         UserDTO userDTO = userService.findUserCode(customerCode);
         model.addAttribute("customerDTO",userDTO);
         session.setAttribute("customerUserCode",customerUserCode);
+        System.out.println("customerDTO = " + userDTO);
         return "user/anotherProfile";
     }
 
