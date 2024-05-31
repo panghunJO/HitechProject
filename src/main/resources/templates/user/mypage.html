@@ -142,7 +142,11 @@
                                     </div>
                                     <canvas id="canvas" style="display:none;"></canvas>
 <script>
-
+    const hypenTel = (target) => {
+        target.value = target.value
+            .replace(/[^0-9]/g, '')
+            .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+    }
     document.getElementById('fileInput').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
@@ -276,7 +280,7 @@
                                     <div class="row mb-3">
                                         <label for="Phone" class="col-md-4 col-lg-3 col-form-label">휴대폰 번호</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="phone" type="text" class="form-control" id="Phone" th:value="${userDTO.userPhone}">
+                                            <input name="phone" type="text" class="form-control" id="Phone" th:value="${userDTO.userPhone}" oninput="hypenTel(this)">
                                             <div id="phoneMessage" style="display: none; color: red">"-" 를 포함한 13자리수 이상 숫자만 입력하세요</div>
                                         </div>
                                     </div>
