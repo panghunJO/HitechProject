@@ -286,7 +286,8 @@
     </select>
     <select id="selectWorker" resultMap="worker">
         SELECT DISTINCT
-        b.user_name
+        b.user_name,
+        b.user_code
         FROM
             tbl_repair_workers a
         JOIN tbl_user b ON (a.user_code=b.user_code)

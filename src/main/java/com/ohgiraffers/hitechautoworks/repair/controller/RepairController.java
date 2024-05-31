@@ -75,13 +75,13 @@ public class RepairController {
                              Model model) {
 
 
+
         RepairDTO repairDTO = repairService.selectRepair(resCode);
         List<RepairPartDTO> parts = repairService.selectRepairPart(resCode);
         List<WorkerDTO> workers = repairService.selectWorker(resCode);
         model.addAttribute("repairDTO", repairDTO);
         model.addAttribute("parts",parts);
         model.addAttribute("workers",workers);
-        System.out.println("repairDTO = " + repairDTO);
 
         List<Map<String,Object>> repairComments = repairService.searchAllRepairComments(resCode);
         model.addAttribute("repairComments",repairComments);
