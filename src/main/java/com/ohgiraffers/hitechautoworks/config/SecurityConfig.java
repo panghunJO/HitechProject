@@ -50,13 +50,13 @@ public class SecurityConfig {
             auth.requestMatchers("/contact").hasAnyAuthority(UserRole.CUSTOMER.getRole(),UserRole.ADMIN.getRole(),UserRole.EMPLOYEE.getRole());
             auth.requestMatchers("/mypage").hasAnyAuthority(UserRole.CUSTOMER.getRole(),UserRole.ADMIN.getRole(),UserRole.EMPLOYEE.getRole());
             auth.requestMatchers("/showprofile").hasAnyAuthority(UserRole.ADMIN.getRole(),UserRole.EMPLOYEE.getRole(),UserRole.CUSTOMER.getRole());
-            auth.requestMatchers("/user/**").hasAnyAuthority(UserRole.EMPLOYEE.getRole(), UserRole.CUSTOMER.getRole(),UserRole.ADMIN.getRole());
             auth.requestMatchers("/user/mainpage").hasAnyAuthority(UserRole.EMPLOYEE.getRole(), UserRole.ADMIN.getRole());
             auth.requestMatchers("/user/partAllCall").hasAnyAuthority(UserRole.EMPLOYEE.getRole(), UserRole.ADMIN.getRole());
             auth.requestMatchers("/user/rescheck").hasAnyAuthority(UserRole.EMPLOYEE.getRole(), UserRole.ADMIN.getRole());
             auth.requestMatchers("/user/repair").hasAnyAuthority(UserRole.EMPLOYEE.getRole(), UserRole.ADMIN.getRole());
             auth.requestMatchers("/user/employeePage").hasAnyAuthority(UserRole.EMPLOYEE.getRole(), UserRole.ADMIN.getRole());
             auth.requestMatchers("/user/contactList").hasAnyAuthority(UserRole.EMPLOYEE.getRole(), UserRole.ADMIN.getRole());
+            auth.requestMatchers("/user/**").hasAnyAuthority(UserRole.EMPLOYEE.getRole(),UserRole.ADMIN.getRole(),UserRole.CUSTOMER.getRole());
             auth.requestMatchers("/certified/**").hasAnyAuthority(UserRole.CERTIFIED.getRole());
             auth.requestMatchers("/*").hasAnyAuthority(UserRole.ADMIN.getRole());
             auth.anyRequest().authenticated();
