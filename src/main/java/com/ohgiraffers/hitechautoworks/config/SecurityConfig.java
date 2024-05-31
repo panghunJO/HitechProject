@@ -41,7 +41,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( auth -> {
-            auth.requestMatchers("/main","/","/error/*","/auth/idCheck","/auth/searchForId","/auth/searchForPW","/member/login","/member/regist","/member/terms","/certified/loading","/certified/checkinfo").permitAll();
+            auth.requestMatchers("/main","/","/error/*","/auth/idCheck","/auth/emailCheck","/auth/searchForId","/auth/searchForPW","/member/login","/member/regist","/member/terms","/certified/loading","/certified/checkinfo").permitAll();
             auth.requestMatchers("/selectRes").hasAnyAuthority(UserRole.CUSTOMER.getRole(),UserRole.ADMIN.getRole(),UserRole.EMPLOYEE.getRole());
             auth.requestMatchers("/resCar").hasAnyAuthority(UserRole.CUSTOMER.getRole(),UserRole.ADMIN.getRole(),UserRole.EMPLOYEE.getRole());
             auth.requestMatchers("/carSubmit").hasAnyAuthority(UserRole.CUSTOMER.getRole(),UserRole.ADMIN.getRole(),UserRole.EMPLOYEE.getRole());

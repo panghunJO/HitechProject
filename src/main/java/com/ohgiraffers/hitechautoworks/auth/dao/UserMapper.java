@@ -98,4 +98,6 @@ public interface UserMapper {
 
 
     List<ContactDTO> contactnoti();
+
+    int emailCheck(String info);
 }

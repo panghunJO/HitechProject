@@ -65,4 +65,14 @@ public class AuthController {
 
         return stat;
     }
+
+    @PostMapping("/emailCheck")
+    @ResponseBody
+    public int emailCheck(@RequestBody String info){
+
+        System.out.println("info = " + info);
+        int result = userService.emailCheck(info);
+
+        return result;
+    }
 }

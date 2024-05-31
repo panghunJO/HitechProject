@@ -15,7 +15,8 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -59,6 +60,10 @@
 
                         <div class="card mb-3">
 
+
+
+
+
                             <div class="card-body">
 
                                 <div class="pt-4 pb-2">
@@ -72,14 +77,19 @@
                                         <label for="fname" class="form-label">아이디</label>
                                         <div class="input-group">
                                             <input type="text" name="userid" class="form-control" id="fname" required>
-                                            <button type="button" id="overlappedID" class="btn btn-info">중복확인</button>
+                                            <button type="button" id="overlappedID" class="btn btn-info" disabled>중복확인</button>
                                         </div>
+                                        <span style="color: red; display: none"
+                                              id="iderror">아이디는 6자 이상 20자 이내이어야 합니다.</span>
                                         <div class="invalid-feedback">아이디를 입력해주세요</div>
                                     </div>
 
                                     <div class="col-12">
                                         <label for="signup_password" class="form-label">비밀번호</label>
-                                        <input type="password" name="pass" class="form-control" id="signup_password" required>
+                                        <input type="password" name="pass" class="form-control" id="signup_password"
+                                               required>
+                                        <span style="color: red; display: none"
+                                              id="passerror">8글자 이상, 영문, 숫자, 특수문자 사용</span>
                                         <div class="invalid-feedback">비빌번호를 입력해주세요 !</div>
                                     </div>
 
@@ -99,23 +109,54 @@
 
                                     <div class="col-12">
                                         <label for="email" class="form-label">이메일</label>
+                                        <div class="input-group">
                                         <input type="email" name="email" class="form-control" id="email" required>
+                                            <button type="button" id="emailCheck" class="btn btn-info" disabled>중복확인</button>
+                                        </div>
+                                        <span style="color: red; display: none"
+                                              id="emailerror">유효하지 않은 이메일 주소입니다.</span>
                                         <div class="invalid-feedback">이메일 형식에 맞게 입력해주세요!</div>
                                     </div>
                                     <div class="col-12">
                                         <label for="phone" class="form-label">휴대폰번호</label>
                                         <div class="input-group has-validation">
-                                            <input type="text" name="phone" class="form-control" id="phone" oninput="hypenTel(this)" maxlength="13" required>
+                                            <input type="text" name="phone" class="form-control" id="phone"
+                                                   oninput="hypenTel(this)" maxlength="13" required>
                                             <div class="invalid-feedback">휴대폰 번호를 입력해주세요 !</div>
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100" id="signup_button" type="submit">회원가입하기</button>
+                                        <button class="btn btn-primary w-100" id="signup_button" type="submit">회원가입하기
+                                        </button>
                                     </div>
                                     <div class="col-12">
                                         <p class="small mb-0">이미 계정이 있으신가요??? <a href="/member/login">로그인하러가기</a></p>
                                     </div>
                                 </form>
+
+                                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                                    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                                        <div class="toast-header">
+                                            <strong class="me-auto">HitechAutoworks 알리미</strong>
+                                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                        </div>
+                                        <div class="toast-body">
+                                            이메일 인증에 성공하였습니다!
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                                    <div id="liveToast1" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                                        <div class="toast-header">
+                                            <strong class="me-auto">HitechAutoworks 알리미</strong>
+                                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                        </div>
+                                        <div class="toast-body">
+                                            아이디 인증에 성공하였습니다!
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <script>
                                     const hypenTel = (target) => {
@@ -123,25 +164,90 @@
                                             .replace(/[^0-9]/g, '')
                                             .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
                                     }
-                                </script>
-                                <script>
-                                    document.addEventListener("DOMContentLoaded", function() {
+
+                                    document.addEventListener("DOMContentLoaded", function () {
                                         const signbutton = document.getElementById("signup_button");
                                         let idinput = document.getElementById("fname");
+                                        let overlappedID = document.getElementById('overlappedID');
+                                        var passerror = document.getElementById('passerror');
+                                        var emailCheck12 = document.getElementById('emailCheck');
 
                                         signbutton.disabled = true;
+
 
                                         let set1 = 0;
                                         let set2 = 0;
                                         let set3 = 0;
+                                        let set4 = 0;
+                                        let set5 = 0;
+                                        let set6 = 0;
+                                        let set7 = 0;
 
                                         function updateButtonState() {
-                                            if (set1 === 1 && set2 === 1 && set3 === 1) {
+                                            if (set1 === 1 && set2 === 1 && set3 === 1 && set4 === 1 && set5 === 1 && set6 === 1 && set7 ===1) {
                                                 signbutton.disabled = false;
                                             } else {
                                                 signbutton.disabled = true;
                                             }
                                         }
+
+
+                                        document.getElementById('emailCheck').addEventListener('click', () => {
+                                            var email = document.getElementById('email');
+                                            fetch("/auth/emailCheck", {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                },
+                                                body: JSON.stringify(email.value)
+                                            })
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if(data == 0){
+                                                        set7 = 1;
+                                                        updateButtonState();
+                                                        email.readOnly = true;
+                                                        const toastLiveExample = document.getElementById('liveToast');
+                                                        const toast = new bootstrap.Toast(toastLiveExample);
+                                                        toast.show();
+                                                    }else{
+                                                        alert("중복된 이메일 입니다.");
+                                                    }
+
+                                                })
+                                        })
+
+                                        var emailCheck = document.getElementById('email');
+                                        var emailerror = document.getElementById('emailerror');
+                                        emailCheck.addEventListener('input', () => {
+                                            emailerror.style.display = 'block';
+                                            emailCheck12.disabled = true;
+                                            if(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i.test(emailCheck.value)){
+                                                emailCheck12.disabled = false;
+                                                set6 = 1;
+                                                emailerror.style.display = 'none';
+                                                updateButtonState()
+                                            } else {
+                                                set6 = 0;
+                                                emailerror.style.display = 'block';
+                                                updateButtonState()
+                                            }
+                                        })
+
+                                        var idvalue = document.getElementById('fname');
+                                        idvalue.addEventListener('input', () => {
+                                            document.getElementById('iderror').style.display = 'block';
+                                            if (idvalue.value.length >= 6 && idvalue.value.length <= 20) {
+                                                document.getElementById('iderror').style.display = 'none';
+                                                set4 = 1;
+                                                updateButtonState()
+                                                overlappedID.disabled = false;
+                                            } else {
+                                                overlappedID.disabled = true;
+                                                set4 = 0;
+                                                updateButtonState()
+                                            }
+                                        })
 
                                         document.getElementById("overlappedID").addEventListener("click", () => {
                                             const id = document.getElementById("fname").value;
@@ -151,7 +257,9 @@
                                                     if (data == 1) {
                                                         alert("이미 사용중인 ID 입니다.");
                                                     } else {
-                                                        alert("사용 가능한 ID 입니다.");
+                                                        const toastLiveExample = document.getElementById('liveToast1')
+                                                        const toast = new bootstrap.Toast(toastLiveExample)
+                                                        toast.show()
                                                         idinput.readOnly = true;
                                                         set1 = 1;
                                                         updateButtonState();
@@ -175,20 +283,35 @@
                                             updateButtonState();
                                         }
 
+                                        document.getElementById('signup_password').addEventListener('input', () => {
+                                            var signupPass = document.getElementById('signup_password').value;
+                                            passerror.style.display = 'block';
+                                            console.log(signupPass);
+                                            if (/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(signupPass)) {
+                                                passerror.style.display = 'none';
+                                                set5 = 1;
+                                                updateButtonState();
+                                            } else {
+                                                passerror.style.display = 'block';
+                                                set5 = 0;
+                                                updateButtonState();
+                                            }
+                                        });
+
+
+
+
                                         document.getElementById("cpass").addEventListener("input", checkPasswordMatch);
                                         document.getElementById("signup_password").addEventListener("input", checkPasswordMatch);
 
                                         function validatePhoneNumber() {
                                             const phoneInput = document.getElementById('phone');
-                                            const phoneMessage = document.getElementById('phoneMessage');
                                             const phoneValue = phoneInput.value;
 
                                             if (!/^\d{3}-\d{3,4}-\d{4}$/.test(phoneValue) || phoneValue.length < 13) {
-                                                phoneMessage.style.display = 'block';
                                                 phoneInput.classList.add('is-invalid');
                                                 set3 = 0;
                                             } else {
-                                                phoneMessage.style.display = 'none';
                                                 phoneInput.classList.remove('is-invalid');
                                                 phoneInput.classList.add('is-valid');
                                                 set3 = 1;
@@ -212,8 +335,21 @@
     </div>
 </main><!-- End #main -->
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
 
+
+<!-- Template Main JS File -->
+<script src="/assets/js/main.js"></script>
+<!-- Vendor JS Files -->
+<script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/chart.js/chart.umd.js"></script>
+<script src="/assets/vendor/echarts/echarts.min.js"></script>
+<script src="/assets/vendor/quill/quill.js"></script>
+<script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="/assets/vendor/tinymce/tinymce.min.js"></script>
+<script src="/assets/vendor/php-email-form/validate.js"></script>
 
 <!-- Template Main JS File -->
 <script src="/assets/js/main.js"></script>

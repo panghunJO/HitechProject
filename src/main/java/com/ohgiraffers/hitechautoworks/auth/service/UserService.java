@@ -409,4 +409,8 @@ public class UserService  {
     public List<ContactDTO> contactnoti() {
         return userMapper.contactnoti();
     }
+
+    public int emailCheck(String info) {
+        return userMapper.emailCheck(info);
+    }
 }
