@@ -350,7 +350,7 @@
     </update>
     <select id="contactnoti" resultMap="contact">
         SELECT contact_code,contact_title,contact_status FROM tbl_contact
-        WHERE contact_status = "대기" OR contact_status = "진행중"
+        WHERE contact_status = "대기" OR contact_status = "진행중" OR contact_status = "신규"
     </select>
 
     <resultMap id="authentic" type="com.ohgiraffers.hitechautoworks.auth.dto.AuthenticDTO">
