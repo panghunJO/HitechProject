@@ -1,5 +1,6 @@
 package com.ohgiraffers.hitechautoworks.auth.controller;
 
+import com.ohgiraffers.hitechautoworks.auth.dto.AuthenticDTO;
 import com.ohgiraffers.hitechautoworks.auth.dto.SMSUtil;
 import com.ohgiraffers.hitechautoworks.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,10 +69,9 @@ public class AuthController {
 
     @PostMapping("/emailCheck")
     @ResponseBody
-    public int emailCheck(@RequestBody String info){
-
-        System.out.println("info = " + info);
-        int result = userService.emailCheck(info);
+    public AuthenticDTO emailCheck(@RequestBody Map<String,String> email){
+        String info = email.get("info");
+        AuthenticDTO result = userService.emailCheck(info);
 
         return result;
     }

@@ -353,8 +353,11 @@
         WHERE contact_status = "대기" OR contact_status = "진행중"
     </select>
 
-    <select id="emailCheck">
-        SELECT count(*) user_email
+    <resultMap id="authentic" type="com.ohgiraffers.hitechautoworks.auth.dto.AuthenticDTO">
+        <id property="count" column="count"/>
+    </resultMap>
+    <select id="emailCheck" parameterType="string" resultMap="authentic">
+        SELECT count(user_email) as count
         FROM tbl_user
         WHERE user_email = #{ info }
     </select>
