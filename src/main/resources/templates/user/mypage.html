@@ -341,11 +341,11 @@
                                             headers: {
                                                 'Content-Type': 'application/json'
                                             },
-                                            body: JSON.stringify(email.value)
+                                            body: JSON.stringify({info:email.value})
                                         })
                                             .then(response => response.json())
                                             .then(data => {
-                                                if(data == 0){
+                                                if(data.count == 0){
                                                     email.readOnly = true;
                                                     document.getElementById('submitbtn').disabled = false;
                                                     const toastLiveExample = document.getElementById('liveToast33');

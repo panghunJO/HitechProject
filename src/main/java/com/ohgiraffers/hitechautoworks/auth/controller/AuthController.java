@@ -72,6 +72,8 @@ public class AuthController {
     public AuthenticDTO emailCheck(@RequestBody Map<String,String> email){
         String info = email.get("info");
         AuthenticDTO result = userService.emailCheck(info);
+        System.out.println("info = " + info);
+        System.out.println("result = " + result);
 
         return result;
     }

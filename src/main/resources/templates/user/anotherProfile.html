@@ -313,7 +313,7 @@
                                         <label for="Phone" class="col-md-4 col-lg-3 col-form-label">휴대폰 번호</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="phone" type="text" class="form-control" id="Phone" th:value="${customerDTO.userPhone}" oninput="hypenTel(this)">
-                                            <div id="phoneMessage" style="display: none; color: red">"-" 를 포함한 13자리수 이상 숫자만 입력하세요</div>
+                                            <div id="phoneMessage" style="display: none; color: red">11자리수 이상 숫자만 입력하세요</div>
                                         </div>
                                     </div>
 
@@ -375,7 +375,7 @@
                                         })
                                             .then(response => response.json())
                                             .then(data => {
-                                                if(data == 0){
+                                                if(data.count == 0){
                                                     email.readOnly = true;
                                                     document.getElementById('submitbtn').disabled = false;
                                                     const toastLiveExample = document.getElementById('liveToast33');
