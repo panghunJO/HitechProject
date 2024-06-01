@@ -57,11 +57,4 @@
     </update>
 
 
-    <delete id="deleteUser">
-        DELETE FROM
-        tbl_user
-        WHERE
-        user_code = #{ userCode }
-    </delete>
-
 </mapper>

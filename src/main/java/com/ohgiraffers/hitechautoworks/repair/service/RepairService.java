@@ -73,16 +73,12 @@ public class RepairService {
     }
 
     public void addRepairPart(List<String> partName, int resCode) {
-        System.out.println("partName = " + partName);
         List<Integer> newPartCode = repairMapper.selectPartCodeByPartName(partName);
-        System.out.println("newPartCode = " + newPartCode);
         repairMapper.addRepairPart(newPartCode,resCode);
     }
 
     public void addRepairWorker(List<String> userName, int resCode) {
-        System.out.println("userName = " + userName);
         List<Integer> newUserCode = repairMapper.selectUserCodeByUserName(userName);
-        System.out.println("newUserCode = " + newUserCode);
         repairMapper.addRepairWorker(newUserCode,resCode);
     }
 
@@ -110,7 +106,6 @@ public class RepairService {
         for (Map<String, Object> part : info) {
             Object partCode = part.get("part_code");
             int partCodeint = Integer.parseInt(partCode.toString());
-            System.out.println("partCodeint = " + partCodeint);
             Object originalStock = repairMapper.selectPartStock(partCodeint);
 
             Object stock = part.get("stock");
@@ -118,13 +113,9 @@ public class RepairService {
             int originalStockint = Integer.parseInt(originalStock.toString());
             int stockint = Integer.parseInt(stock.toString());
 
-            System.out.println("originalStockint = " + originalStockint);
-            System.out.println("stockint = " + stockint);
             int modifyStock = originalStockint - stockint;
-            System.out.println("modifyStock = " + modifyStock);
             repairMapper.modifyPartStock(partCodeint,modifyStock);
             Object resCode = part.get("resCode");
-            System.out.println("resCode = " + resCode);
             repairMapper.modifyStatus(resCode);
 
         }
@@ -137,7 +128,6 @@ public class RepairService {
             int count = repairMapper.repairChart(i);
             chart[i-1] = count;
         }
-        System.out.println(Arrays.toString(chart));
         return chart;
         
     }

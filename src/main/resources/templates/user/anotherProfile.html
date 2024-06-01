@@ -320,7 +320,12 @@
                                     <div class="row mb-3">
                                         <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                         <div class="col-md-8 col-lg-9">
+                                            <div class="input-group">
                                             <input name="email" type="email" class="form-control" id="Email" th:value="${customerDTO.userEmail}">
+                                            <button type="button" id="emailCheck" class="btn btn-info" disabled>중복확인</button>
+                                        </div>
+                                        <span style="color: red; display: none"
+                                              id="emailerror">유효하지 않은 이메일 주소입니다.</span>
                                         </div>
                                     </div>
 
@@ -329,7 +334,59 @@
                                     </div>
                                 </form><!-- End Profile Edit Form -->
 
+                                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                                    <div id="liveToast33" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                                        <div class="toast-header">
+                                            <strong class="me-auto">HitechAutoworks 알리미</strong>
+                                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                        </div>
+                                        <div class="toast-body">
+                                            이메일 인증에 성공하였습니다!
+                                        </div>
+                                    </div>
+                                </div>
                                 <script>
+                                    var emailCheck = document.getElementById('Email');
+                                    var emailerror = document.getElementById('emailerror');
+                                    var submitbtn = document.getElementById("submitbtn");
+                                    var emailCheckbtn = document.getElementById("emailCheck");
+                                    emailCheck.addEventListener('input', () => {
+                                        emailerror.style.display = 'block';
+                                        submitbtn.disabled = true;
+                                        if(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i.test(emailCheck.value)){
+
+                                            emailCheckbtn.disabled = false;
+                                            emailerror.style.display = 'none';
+                                            submitbtn.disabled = false;
+                                        } else {
+                                            emailerror.style.display = 'block';
+                                            submitbtn.disabled = true;
+                                        }
+                                    })
+
+                                    emailCheckbtn.addEventListener('click', () => {
+                                        var email = document.getElementById('Email');
+                                        fetch("/auth/emailCheck", {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({info:email.value})
+                                        })
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                if(data == 0){
+                                                    email.readOnly = true;
+                                                    document.getElementById('submitbtn').disabled = false;
+                                                    const toastLiveExample = document.getElementById('liveToast33');
+                                                    const toast = new bootstrap.Toast(toastLiveExample);
+                                                    toast.show();
+                                                }else{
+                                                    alert("중복된 이메일 입니다.");
+                                                }
+
+                                            })
+                                    })
                                     function validatePhoneNumber() {
                                         const phoneInput = document.getElementById('Phone');
                                         const phoneMessage = document.getElementById('phoneMessage');

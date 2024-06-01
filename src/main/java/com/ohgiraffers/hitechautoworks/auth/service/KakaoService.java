@@ -66,7 +66,7 @@ public class KakaoService {
         conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 
         int responseCode = conn.getResponseCode();
-        System.out.println("responseCode : " + responseCode);
+
 
         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -96,9 +96,6 @@ public class KakaoService {
         String profileImage = properties.get("profile_image").toString();
         String email = kakao_account.get("email").toString();
 
-        System.out.println("email = " + email);
-        System.out.println("nickname = " + nickname);
-        System.out.println("id = " + id);
 
         //userInfo에 넣기
         userInfo.put("id", id);
