@@ -58,7 +58,7 @@ public class MainController {
         String content =
                 "HitechAutoworks 인증링크 입니다." + 	//html 형식으로 작성 !
                         "<br><br>" +
-                        "<a href=\"http://115.95.149.11:1818/certified/checkinfo?checknumber=" + randomNumber + "&userId=" + registDTO.getUserid() + "\">인증하기</a>" +
+                        "<a href=\"http:/confoous.com/certified/checkinfo?checknumber=" + randomNumber + "&userId=" + registDTO.getUserid() + "\">인증하기</a>" +
                         "<br>";
         mailDTO.setMessage(content);
 

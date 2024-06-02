@@ -154,9 +154,12 @@
     </select>
 
     <select id="searchForId" resultType="map">
-        SELECT user_id
-        FROM tbl_user
-        WHERE user_email = #{ idForEmail }
+        SELECT
+        CONCAT(SUBSTRING(user_id, 1, 1), REPEAT('*', 2), SUBSTRING(user_id, 4)) AS user_id
+        FROM
+        tbl_user
+        WHERE
+        user_email = #{idForEmail}
     </select>
 
     <select id="findPW" resultType="int">
@@ -350,7 +353,7 @@
     </update>
     <select id="contactnoti" resultMap="contact">
         SELECT contact_code,contact_title,contact_status FROM tbl_contact
-        WHERE contact_status = "대기" OR contact_status = "진행중" OR contact_status = "신규"
+        WHERE contact_status = '신규'
     </select>
 
     <resultMap id="authentic" type="com.ohgiraffers.hitechautoworks.auth.dto.AuthenticDTO">
