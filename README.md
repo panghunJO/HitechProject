@@ -8,7 +8,7 @@
 
 **프로젝트 기간** : 2024.04.08 ~ 2023.06.03
 
-🔗 [HitechAutoworks 서비스 둘러보기](http://confoous.com:1818/) (데스크탑/모바일 환경에서 이용 가능)
+🔗 [HitechAutoworks 서비스 둘러보기](http://confoous.com) (데스크탑/모바일 환경에서 이용 가능)
 
 
 <br/>
