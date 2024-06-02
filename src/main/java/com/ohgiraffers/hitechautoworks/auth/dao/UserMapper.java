@@ -99,7 +99,7 @@ public interface UserMapper {
 
     List<ContactDTO> contactnoti();
 
-    int emailCheck(String info);
+    AuthenticDTO emailCheck(String info);
 
     List<Map<String, Object>> getAdminCalendar();
 }

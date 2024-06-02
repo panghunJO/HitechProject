@@ -153,7 +153,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                                         </div>
                                         <div class="toast-body">
-                                            아이디 인증에 성공하였습니다!
+                                            사용가능한 아이디 입니다.
                                         </div>
                                     </div>
                                 </div>
@@ -193,17 +193,18 @@
 
 
                                         document.getElementById('emailCheck').addEventListener('click', () => {
+                                            console.log("1111");
                                             var email = document.getElementById('email');
                                             fetch("/auth/emailCheck", {
                                                 method: 'POST',
                                                 headers: {
                                                     'Content-Type': 'application/json'
                                                 },
-                                                body: JSON.stringify(email.value)
+                                                body: JSON.stringify({info:email.value})
                                             })
                                                 .then(response => response.json())
                                                 .then(data => {
-                                                    if(data == 0){
+                                                    if(data.count == 0){
                                                         set7 = 1;
                                                         updateButtonState();
                                                         email.readOnly = true;

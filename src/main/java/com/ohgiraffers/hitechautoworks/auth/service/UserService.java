@@ -160,6 +160,7 @@ public class UserService  {
             int extraTimeCount = ((Number) extraTime).intValue();
 
             log.info("extraTimeCount {} ", extraTimeCount);
+
             for(int i = 0; i < extraTimeCount; i++) {
 
                 switch (time) {
@@ -248,7 +249,6 @@ public class UserService  {
 
         Map<String,Object> goPass = new HashMap<>();
         int result = userMapper.findPW(PWForId,PWForPhone);
-        System.out.println("result = " + result);
         if(result != 0){
             int newPw = (int) ((Math.random() * 900000) + 100000);
             String newPw1 = String.valueOf(newPw);
@@ -268,7 +268,6 @@ public class UserService  {
 
         info.put("registTime",formattedNow);
 
-        System.out.println("info = " + info);
         return userMapper.submitReply(info);
     }
 
@@ -408,7 +407,7 @@ public class UserService  {
         return userMapper.contactnoti();
     }
 
-    public int emailCheck(String info) {
+    public AuthenticDTO emailCheck(String info) {
         return userMapper.emailCheck(info);
     }
 

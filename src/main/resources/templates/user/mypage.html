@@ -316,35 +316,36 @@
 
 
                                 <script>
-                                    var emailCheck = document.getElementById('email');
+                                    var emailCheck = document.getElementById('Email');
                                     var emailerror = document.getElementById('emailerror');
+                                    var submitbtn = document.getElementById("submitbtn");
+                                    var emailCheckbtn = document.getElementById("emailCheck");
                                     emailCheck.addEventListener('input', () => {
                                         emailerror.style.display = 'block';
-                                        document.getElementById('submitbtn').disabled = false;
+                                        submitbtn.disabled = true;
                                         if(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i.test(emailCheck.value)){
-                                            emailCheck12.disabled = false;
-                                            set6 = 1;
+
+                                            emailCheckbtn.disabled = false;
                                             emailerror.style.display = 'none';
-                                            updateButtonState()
+                                            submitbtn.disabled = false;
                                         } else {
-                                            set6 = 0;
                                             emailerror.style.display = 'block';
-                                            updateButtonState()
+                                            submitbtn.disabled = true;
                                         }
                                     })
 
                                     document.getElementById('emailCheck').addEventListener('click', () => {
-                                        var email = document.getElementById('email');
+                                        var email = document.getElementById('Email');
                                         fetch("/auth/emailCheck", {
                                             method: 'POST',
                                             headers: {
                                                 'Content-Type': 'application/json'
                                             },
-                                            body: JSON.stringify(email.value)
+                                            body: JSON.stringify({info:email.value})
                                         })
                                             .then(response => response.json())
                                             .then(data => {
-                                                if(data == 0){
+                                                if(data.count == 0){
                                                     email.readOnly = true;
                                                     document.getElementById('submitbtn').disabled = false;
                                                     const toastLiveExample = document.getElementById('liveToast33');
@@ -401,6 +402,8 @@
                                         <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">변경할 비밀번호</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="newpassword" type="password" class="form-control" id="newPassword">
+                                            <span style="color: red; display: none"
+                                                  id="passerror">8글자 이상, 영문, 숫자, 특수문자 사용</span>
                                         </div>
                                     </div>
 
@@ -439,9 +442,22 @@
                                         var renewPasswordInput = document.getElementById('renewPassword');
                                         var passwordMismatchMessage = document.getElementById('passwordMismatch');
 
+
                                         function comparePasswords() {
                                             var newPassword = newPasswordInput.value;
                                             var renewPassword = renewPasswordInput.value;
+
+                                                var signupPass = document.getElementById('newPassword').value;
+                                                console.log(signupPass);
+                                                passerror.style.display = 'block';
+                                                changebutton.disabled = true;
+                                                if (/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(signupPass)) {
+                                                    passerror.style.display = 'none';
+                                                    changebutton.disabled = false;
+                                                } else {
+                                                    passerror.style.display = 'block';
+                                                    changebutton.disabled = true;
+                                                }
 
                                             if (newPassword !== renewPassword) {
                                                 passwordMismatchMessage.classList.remove('d-none');
