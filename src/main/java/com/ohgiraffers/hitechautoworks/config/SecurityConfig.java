@@ -66,7 +66,6 @@ public class SecurityConfig {
             login.passwordParameter("pass12");
             login.successHandler(new SuccessHandler());
             login.failureHandler(authFailHandler);
-//            login.defaultSuccessUrl("/user/dashboard",true);
         }).logout( logout -> {
             logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
             logout.deleteCookies("JSESSIONID");

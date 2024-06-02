@@ -7,6 +7,7 @@ import com.ohgiraffers.hitechautoworks.auth.dto.*;
 import com.ohgiraffers.hitechautoworks.part.dto.PartDTO;
 import com.ohgiraffers.hitechautoworks.repair.dto.RepairDTO;
 import com.ohgiraffers.hitechautoworks.res.dto.ResDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -26,6 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
+@Slf4j
 public class UserService  {
 
     @Autowired
@@ -143,7 +145,6 @@ public class UserService  {
         int AllemployeeCount = userMapper.getCustomerCount();
         List<Map<String,Object>> count = userMapper.getTimeCount(date1);
 
-        System.out.println("count = " + count);
         int checkNull = 0;
         String thisTime = "";
         List<String> disabledTimesList = new ArrayList<>();
@@ -158,9 +159,7 @@ public class UserService  {
             int employeeCount = ((Number) rawTimeCount).intValue();
             int extraTimeCount = ((Number) extraTime).intValue();
 
-            System.out.println("time = " + time);
-            System.out.println("employeeCount = " + employeeCount);
-            System.out.println("extraTimeCount = " + extraTimeCount);
+            log.info("extraTimeCount {} ", extraTimeCount);
             for(int i = 0; i < extraTimeCount; i++) {
 
                 switch (time) {
@@ -201,11 +200,10 @@ public class UserService  {
                         thisTime = "17:00:00"; time++;
                         break;
                     default:
-                        System.out.println("Default case");
+                        log.info("Default case");
                         break;
                 }
 
-                System.out.println("checkNull = " + checkNull);
                 if (checkNull <= 0) {
                     disabledTimesList.add(thisTime);
                 }
@@ -216,7 +214,7 @@ public class UserService  {
 
     public List<Map<String, Object>> getCalendar(int userCode) {
         List<Map<String, Object>> getCalendar = userMapper.getCalendar(userCode);
-        System.out.println("getCalendar = " + getCalendar);
+        log.info("getCalendar {} ", getCalendar);
         List<Map<String, Object>> updatedCalendar = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 

@@ -20,9 +20,7 @@ spring:
 mybatis:
   mapper-locations: mapper/**/*.xml
 server:
-  port: 1818
-
-
+  port: 80
 
 coolsms:
   api:
@@ -32,4 +30,4 @@ file:
   upload-dir: ${user.home}/app/images/profile
 logging:
   file:
-    name: ${user.dir}/log/test.log
+    name: ${user.dir}/log/notepad.log
