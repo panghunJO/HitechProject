@@ -210,7 +210,7 @@
                                 WHERE  a.user_role = 'EMPLOYEE' AND (SELECT
                                                                         res_date
                                                                     FROM tbl_res
-                                                                    WHERE res_code = #{code}) = c.repair_date);
+                                                                    WHERE res_code = #{code}) = c.repair_date;
     </select>
     <select id="findResList" resultMap="res">
         SELECT

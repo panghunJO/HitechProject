@@ -294,9 +294,9 @@
                         option.value = partSelect.options[i].value;
                         option.selected = partSelect.options[i].selected;
                         selectedPartSelect.appendChild(option);
-                        // Optionally, remove the added option from the workerCode select box
+
                         partSelect.remove(i);
-                        i--; // Adjust index due to removal
+                        i--;
                     }
                 }
             }

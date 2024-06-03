@@ -163,8 +163,10 @@
 </main><!-- End #main -->
 <script>
     var status = document.getElementById("contactStatus").value;
+    var submitbtn = document.getElementById("submitbtn");
     if(status == "완료"){
         document.getElementById("statusbutton").disabled =true;
+        submitbtn.disabled = true;
     }
 
 
