@@ -30,12 +30,6 @@
 <br/>
 <br/>
 
-## 🙌 팀원 소개
-
-<br/>
-<br/>
-<br/>
-
 ## 📅 프로젝트 일정
 <img src="https://github.com/panghunJO/HitechProject/assets/157236060/6037da66-e176-41b3-956b-dd9fd051d550" alt="일정1">
 <img src="https://github.com/panghunJO/HitechProject/assets/157236060/a464105e-0f04-4bc9-98bf-17291736bd4e" alt="일정2">
