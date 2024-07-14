@@ -2,13 +2,13 @@ spring:
   datasource:
     dirver-class-name: com.mysql.cj.jdbc.Driver
     url :  jdbc:mysql://115.95.149.11:3306/hitechautoworks
-    username: tech
-    password: tech
+    username: 
+    password: 
   mail:
     host: smtp.gmail.com
     port: 587
     username: realyoon77@gmail.com
-    password: qmrboharwfjphgzb
+    password: 
     properties:
       mail:
         smtp:
@@ -24,8 +24,8 @@ server:
 
 coolsms:
   api:
-    key: NCSYGLQNT7X2BOIH
-    secret: DRV8SYBLQYBAY7K0IFZ6VK6QQTAUXSKY
+    key: 
+    secret:
 file:
   upload-dir: ${user.home}/app/images/profile
 logging:
