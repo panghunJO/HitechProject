@@ -48,7 +48,7 @@
 | DB             | MySQL            |
 | IDE      | Intellij Ultimate, HeidiSQL, DBeaver    |
 | API, 라이브러리  | chart.js, fullcalender, Java Mail Sender, nurigo   |
-| 협업툴  | Notion, Github   |
+| 협업툴  | Notion, Github, Discord   |
 
 
 <br/>
