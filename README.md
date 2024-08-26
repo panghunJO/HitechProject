@@ -6,7 +6,7 @@
 <div align="center"><img src="https://github.com/panghunJO/HitechProject/assets/157236060/13534f0a-dcf9-4198-9a05-31b9faa7bd2b" alt="로고" width="700px"></div>
 <br/>
 
-**프로젝트 기간** : 2024.04.08 ~ 2023.06.03
+**프로젝트 기간** : 2024.04.08 ~ 2024.06.03
 
 🔗 [HitechAutoworks 서비스 둘러보기](http://confoous.com) (데스크탑/모바일 환경에서 이용 가능)
 
